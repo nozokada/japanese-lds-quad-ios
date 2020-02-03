@@ -13,7 +13,6 @@ import RealmSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     let defaultRealmFileURL = Realm.Configuration.defaultConfiguration.fileURL!
-    let newDefaultRealmFileName = "default_new.realm"
     let currentSchemaVersion: UInt64 = 2
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -39,44 +38,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func configureUserDefaults() {
         UIApplication.shared.isIdleTimerDisabled = true
-        UserDefaults.standard.register(defaults: [Constants.Configs.Font: false])
-        UserDefaults.standard.register(defaults: [Constants.Configs.Night: false])
-        UserDefaults.standard.register(defaults: [Constants.Configs.Dual: false])
-        UserDefaults.standard.register(defaults: [Constants.Configs.Side: false])
-        UserDefaults.standard.register(defaults: [Constants.Configs.Size: 1.0])
-        UserDefaults.standard.register(defaults: [Constants.Configs.Pass: false])
+        UserDefaults.standard.register(defaults: [Constants.Config.font: false])
+        UserDefaults.standard.register(defaults: [Constants.Config.night: false])
+        UserDefaults.standard.register(defaults: [Constants.Config.dual: false])
+        UserDefaults.standard.register(defaults: [Constants.Config.side: false])
+        UserDefaults.standard.register(defaults: [Constants.Config.size: 1.0])
+        UserDefaults.standard.register(defaults: [Constants.Config.pass: false])
     }
     
     func setUpRealm() {
-        let defaultParentRealmURL = defaultRealmFileURL.deletingLastPathComponent()
-        let defaultRealmConfig = getRealmConfiguration(realmFileURL: defaultRealmFileURL)
-        
         if FileManager.default.fileExists(atPath: defaultRealmFileURL.path) {
-            let realmToCopy = try! Realm(configuration: defaultRealmConfig)
-            configureBundledRealmFile(at: defaultParentRealmURL, from: realmToCopy)
+            let realmMigrationConfig = getRealmConfiguration(realmFileURL: defaultRealmFileURL)
+            let existingRealm = try! Realm(configuration: realmMigrationConfig)
+            createNewRealmFile(from: existingRealm)
         } else {
-            configureBundledRealmFile(at: defaultParentRealmURL, from: nil)
+            createNewRealmFile(from: nil)
         }
-        Realm.Configuration.defaultConfiguration = Realm.Configuration(fileURL: defaultRealmFileURL,
-                                                                       schemaVersion: currentSchemaVersion)
-    }
-    
-    func configureBundledRealmFile(at defaultParentRealmURL: URL, from realmToCopy: Realm?) {
-        let newRealmURL = defaultParentRealmURL.appendingPathComponent(newDefaultRealmFileName)
-        copyBundledRealmFile(to: newRealmURL)
-        if realmToCopy != nil {
-            copyUserDataToNewDefaultRealmFile(from: realmToCopy!, to: newRealmURL)
-            do {
-                try FileManager.default.removeItem(at: defaultRealmFileURL)
-            } catch {
-                debugPrint("Failed to remove old default Realm file")
-            }
-        }
-        do {
-            try FileManager.default.moveItem(at: newRealmURL, to: defaultRealmFileURL)
-        } catch {
-            debugPrint("Failed to rename new Realm file")
-        }
+        Realm.Configuration.defaultConfiguration.schemaVersion = currentSchemaVersion
+        _ = try! Realm()
     }
     
     func getRealmConfiguration(realmFileURL: URL) -> Realm.Configuration {
@@ -101,6 +80,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
     }
     
+    func createNewRealmFile(from realmToCopy: Realm?) {
+        let defaultRealmDirectoryURL = defaultRealmFileURL.deletingLastPathComponent()
+        let newRealmURL = defaultRealmDirectoryURL.appendingPathComponent(Constants.File.initialRealm)
+        copyBundledRealmFile(to: newRealmURL)
+        if let realm = realmToCopy {
+            copyUserDataToNewRealmFile(from: realm, to: newRealmURL)
+            do {
+                try FileManager.default.removeItem(at: defaultRealmFileURL)
+            } catch {
+                debugPrint("Failed to remove old default Realm file")
+            }
+        }
+        
+        do {
+            try FileManager.default.moveItem(at: newRealmURL, to: defaultRealmFileURL)
+        } catch {
+            debugPrint("Failed to rename new Realm file")
+        }
+    }
+    
     func copyBundledRealmFile(to newRealmURL: URL) {
         if let bundleURL = Bundle.main.url(forResource: "JLQ", withExtension: "realm") {
             do {
@@ -111,14 +110,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func copyUserDataToNewDefaultRealmFile(from realmToCopy: Realm, to newRealmURL: URL) {
+    func copyUserDataToNewRealmFile(from realmToCopy: Realm, to newRealmURL: URL) {
         let bookmarksToCopy = realmToCopy.objects(Bookmark.self).sorted(byKeyPath: "date")
         let highlightedScripturesToCopy = realmToCopy.objects(HighlightedScripture.self).sorted(byKeyPath: "date")
         let highlightedTextsToCopy = realmToCopy.objects(HighlightedText.self).sorted(byKeyPath: "date")
         
-        let newDefaultRealmConfig = Realm.Configuration(fileURL: newRealmURL, schemaVersion: currentSchemaVersion)
-        
-        let realm = try! Realm(configuration: newDefaultRealmConfig)
+        let newRealmConfig = Realm.Configuration(fileURL: newRealmURL, schemaVersion: currentSchemaVersion)
+        let realm = try! Realm(configuration: newRealmConfig)
         try! realm.write {
             copyUserBookmarks(to: realm, bookmarks: bookmarksToCopy)
             copyUserHighlightedScriptures(to: realm, highlightedScriptures: highlightedScripturesToCopy)

@@ -10,68 +10,73 @@ import UIKit
 
 struct Constants {
     
-    struct Configs {
-        static let Font = "alternativeFontEnabled"
-        static let Night = "nightModeEnabled"
-        static let Dual = "dualEnabled"
-        static let Side = "sideBySideEnabled"
-        static let Size = "fontSize"
-        static let Pass = "passPurchased"
+    struct File {
+        static let initialRealm = "init.realm"
     }
     
-    struct Keys {
-        static let AllFeaturesDebug = "2929riepon"
+    struct Config {
+        static let font = "alternativeFontEnabled"
+        static let night = "nightModeEnabled"
+        static let dual = "dualEnabled"
+        static let side = "sideBySideEnabled"
+        static let size = "fontSize"
+        static let pass = "passPurchased"
     }
     
-    struct LanguageCodes {
-        static let Primary = "ja"
-        static let Secondary = "en"
-        static let PrimarySpeech = "ja-JP"
-        static let SecondarySpeech = "en-US"
+    struct Key {
+        static let allFeaturesDebug = "2929riepon"
     }
     
-    struct Fonts {
-        static let Default = "HiraKakuProN-W3"
-        static let Alternative = "HiraMinProN-W3"
+    struct LanguageCode {
+        static let primary = "ja"
+        static let secondary = "en"
+        static let primarySpeech = "ja-JP"
+        static let secondarySpeech = "en-US"
     }
     
-    struct FontSizes {
-        static let Default = 20.0
+    struct Font {
+        static let kaku = "HiraKakuProN-W3"
+        static let min = "HiraMinProN-W3"
     }
     
-    struct FontColors {
-        static let Default = UIColor.black
-        static let Night = UIColor(red:0.73, green:0.73, blue:0.73, alpha:1.0)
+    struct FontSize {
+        static let regular = 20.0
     }
     
-    struct CellColors {
-        static let Default = UIColor.white
-        static let Night = UIColor(red:0.13, green:0.13, blue:0.15, alpha:1.0)
+    struct FontColor {
+        static let day = UIColor.black
+        static let night = UIColor(red:0.73, green:0.73, blue:0.73, alpha:1.0)
     }
     
-    struct NavigationBarColors {
-        static let Default = UIColor(red:0.26, green:0.28, blue:0.30, alpha:1.0)
+    struct CellColor {
+        static let day = UIColor.white
+        static let night = UIColor(red:0.13, green:0.13, blue:0.15, alpha:1.0)
     }
     
-    struct BackgroundColors {
-        static let Default = UIColor.white
-        static let Night = UIColor(red:0.13, green:0.13, blue:0.15, alpha:1.0)
-        static let DefaultSearchBar = UIColor(red:0.79, green:0.79, blue:0.81, alpha:1.0)
-        static let NightSearchBar = UIColor(red:0.20, green:0.20, blue:0.18, alpha:1.0)
+    struct NavigationBarColor {
+        static let day = UIColor(red:0.26, green:0.28, blue:0.30, alpha:1.0)
+        static let night = UIColor(red:0.26, green:0.28, blue:0.30, alpha:1.0)
     }
     
-    struct PaidContents {
-        static let Books = ["jst"]
+    struct BackgroundColor {
+        static let day = UIColor.white
+        static let night = UIColor(red:0.13, green:0.13, blue:0.15, alpha:1.0)
+        static let daySearchBar = UIColor(red:0.79, green:0.79, blue:0.81, alpha:1.0)
+        static let nightSearchBar = UIColor(red:0.20, green:0.20, blue:0.18, alpha:1.0)
     }
     
-    struct RegexPatterns {
-        static let Tags = "<((?!.?name|.?span).*?)ruby>|<(.*?)>"
-        static let Passage = "([123新](?!；)|ジ―)?((?<=[\\d章編>])；|[^\\x01-\\x7Eあ-を訳（［：；。，－]{1,5})(\\d{1,3}－\\d{1,3}|\\d{1,3})(?![^\\x01-\\x7E：；章編])：?(\\d{1,3}－\\d{1,3}|\\d{1,3})?(，\\d{1,3}－\\d{1,3}|，\\d{1,3})*"
-        static let Bar = "－.*"
+    struct PaidContent {
+        static let books = ["jst"]
     }
     
-    struct Dictionaries {
-        static let TitlesWithLink = ["1ニフ": "1_ne",
+    struct RegexPattern {
+        static let tags = "<((?!.?name|.?span).*?)ruby>|<(.*?)>"
+        static let passage = "([123新](?!；)|ジ―)?((?<=[\\d章編>])；|[^\\x01-\\x7Eあ-を訳（［：；。，－]{1,5})(\\d{1,3}－\\d{1,3}|\\d{1,3})(?![^\\x01-\\x7E：；章編])：?(\\d{1,3}－\\d{1,3}|\\d{1,3})?(，\\d{1,3}－\\d{1,3}|，\\d{1,3})*"
+        static let bar = "－.*"
+    }
+    
+    struct Dictionary {
+        static let titlesWithLink = ["1ニフ": "1_ne",
                                      "2ニフ": "2_ne",
                                      "ヤコ": "jacob",
                                      "エノ": "enos",
@@ -89,7 +94,7 @@ struct Constants {
                                      "教義": "dc",
                                      "モセ": "moses",
                                      "アブ": "abr"]
-        static let TitlesWithoutLink = ["ジ―歴史": "js_h",
+        static let titlesWithoutLink = ["ジ―歴史": "js_h",
                                         "ジ―マタ": "js_m",
                                         "マタイ": "matt",
                                         "マルコ": "mark",
