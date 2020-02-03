@@ -1,5 +1,5 @@
 //
-//  SecondViewController.swift
+//  SearchViewController.swift
 //  JapaneseLDSQuad
 //
 //  Created by Nozomi Okada on 2/2/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SecondViewController: UIViewController {
+class SearchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

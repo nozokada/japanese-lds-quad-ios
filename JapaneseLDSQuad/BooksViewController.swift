@@ -1,5 +1,5 @@
 //
-//  FirstViewController.swift
+//  BooksViewController.swift
 //  JapaneseLDSQuad
 //
 //  Created by Nozomi Okada on 2/2/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
+class BooksViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
