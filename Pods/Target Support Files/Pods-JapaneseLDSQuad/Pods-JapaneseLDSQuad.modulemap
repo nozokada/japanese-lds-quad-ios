@@ -1,0 +1,6 @@
+framework module Pods_JapaneseLDSQuad {
+  umbrella header "Pods-JapaneseLDSQuad-umbrella.h"
+
+  export *
+  module * { export * }
+}

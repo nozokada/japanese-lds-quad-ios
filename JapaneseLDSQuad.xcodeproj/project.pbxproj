@@ -1,0 +1,754 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		02BE677974D70AF963DBB597 /* Pods_JapaneseLDSQuadTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 834A4BDF9547AD8900D05100 /* Pods_JapaneseLDSQuadTests.framework */; };
+		2823B2C2E536200F4A8FEF0C /* Pods_JapaneseLDSQuad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ECEDEF8BAC9BC195B84BE19 /* Pods_JapaneseLDSQuad.framework */; };
+		5970B9E5A84ECB5D56E9BC60 /* Pods_JapaneseLDSQuad_JapaneseLDSQuadUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494B9A96C68C50ECB05714B4 /* Pods_JapaneseLDSQuad_JapaneseLDSQuadUITests.framework */; };
+		D4212A1D23E7BC02002CD60A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4212A1C23E7BC02002CD60A /* AppDelegate.swift */; };
+		D4212A1F23E7BC02002CD60A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4212A1E23E7BC02002CD60A /* SceneDelegate.swift */; };
+		D4212A2123E7BC02002CD60A /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4212A2023E7BC02002CD60A /* FirstViewController.swift */; };
+		D4212A2323E7BC02002CD60A /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4212A2223E7BC02002CD60A /* SecondViewController.swift */; };
+		D4212A2623E7BC02002CD60A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4212A2423E7BC02002CD60A /* Main.storyboard */; };
+		D4212A2823E7BC02002CD60A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4212A2723E7BC02002CD60A /* Assets.xcassets */; };
+		D4212A2B23E7BC02002CD60A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4212A2923E7BC02002CD60A /* LaunchScreen.storyboard */; };
+		D4212A3623E7BC03002CD60A /* JapaneseLDSQuadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4212A3523E7BC03002CD60A /* JapaneseLDSQuadTests.swift */; };
+		D4212A4123E7BC03002CD60A /* JapaneseLDSQuadUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4212A4023E7BC03002CD60A /* JapaneseLDSQuadUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D4212A3223E7BC03002CD60A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D4212A1123E7BC02002CD60A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D4212A1823E7BC02002CD60A;
+			remoteInfo = JapaneseLDSQuad;
+		};
+		D4212A3D23E7BC03002CD60A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D4212A1123E7BC02002CD60A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D4212A1823E7BC02002CD60A;
+			remoteInfo = JapaneseLDSQuad;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		36031AF5C5271D1558EF428B /* Pods-JapaneseLDSQuad.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JapaneseLDSQuad.release.xcconfig"; path = "Target Support Files/Pods-JapaneseLDSQuad/Pods-JapaneseLDSQuad.release.xcconfig"; sourceTree = "<group>"; };
+		494B9A96C68C50ECB05714B4 /* Pods_JapaneseLDSQuad_JapaneseLDSQuadUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JapaneseLDSQuad_JapaneseLDSQuadUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		834A4BDF9547AD8900D05100 /* Pods_JapaneseLDSQuadTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JapaneseLDSQuadTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8ECEDEF8BAC9BC195B84BE19 /* Pods_JapaneseLDSQuad.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JapaneseLDSQuad.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8EE3D764579AE2700B956417 /* Pods-JapaneseLDSQuadTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JapaneseLDSQuadTests.release.xcconfig"; path = "Target Support Files/Pods-JapaneseLDSQuadTests/Pods-JapaneseLDSQuadTests.release.xcconfig"; sourceTree = "<group>"; };
+		99AE6B2931AB2955F42F7CD5 /* Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests.release.xcconfig"; path = "Target Support Files/Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests/Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests.release.xcconfig"; sourceTree = "<group>"; };
+		B82BA37907BAA4E42C240009 /* Pods-JapaneseLDSQuadTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JapaneseLDSQuadTests.debug.xcconfig"; path = "Target Support Files/Pods-JapaneseLDSQuadTests/Pods-JapaneseLDSQuadTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B8D10CC9B7EA018F16C1F2A5 /* Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests.debug.xcconfig"; path = "Target Support Files/Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests/Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		D4212A1923E7BC02002CD60A /* JapaneseLDSQuad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JapaneseLDSQuad.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4212A1C23E7BC02002CD60A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D4212A1E23E7BC02002CD60A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		D4212A2023E7BC02002CD60A /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		D4212A2223E7BC02002CD60A /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		D4212A2523E7BC02002CD60A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D4212A2723E7BC02002CD60A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D4212A2A23E7BC02002CD60A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D4212A2C23E7BC02002CD60A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4212A3123E7BC03002CD60A /* JapaneseLDSQuadTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JapaneseLDSQuadTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4212A3523E7BC03002CD60A /* JapaneseLDSQuadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JapaneseLDSQuadTests.swift; sourceTree = "<group>"; };
+		D4212A3723E7BC03002CD60A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4212A3C23E7BC03002CD60A /* JapaneseLDSQuadUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JapaneseLDSQuadUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4212A4023E7BC03002CD60A /* JapaneseLDSQuadUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JapaneseLDSQuadUITests.swift; sourceTree = "<group>"; };
+		D4212A4223E7BC03002CD60A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F24AEA88112E18282C759158 /* Pods-JapaneseLDSQuad.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JapaneseLDSQuad.debug.xcconfig"; path = "Target Support Files/Pods-JapaneseLDSQuad/Pods-JapaneseLDSQuad.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D4212A1623E7BC02002CD60A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2823B2C2E536200F4A8FEF0C /* Pods_JapaneseLDSQuad.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4212A2E23E7BC03002CD60A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				02BE677974D70AF963DBB597 /* Pods_JapaneseLDSQuadTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4212A3923E7BC03002CD60A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5970B9E5A84ECB5D56E9BC60 /* Pods_JapaneseLDSQuad_JapaneseLDSQuadUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5DE32471041E486814CC6881 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F24AEA88112E18282C759158 /* Pods-JapaneseLDSQuad.debug.xcconfig */,
+				36031AF5C5271D1558EF428B /* Pods-JapaneseLDSQuad.release.xcconfig */,
+				B8D10CC9B7EA018F16C1F2A5 /* Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests.debug.xcconfig */,
+				99AE6B2931AB2955F42F7CD5 /* Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests.release.xcconfig */,
+				B82BA37907BAA4E42C240009 /* Pods-JapaneseLDSQuadTests.debug.xcconfig */,
+				8EE3D764579AE2700B956417 /* Pods-JapaneseLDSQuadTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		781C9334303284267A8509A5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8ECEDEF8BAC9BC195B84BE19 /* Pods_JapaneseLDSQuad.framework */,
+				494B9A96C68C50ECB05714B4 /* Pods_JapaneseLDSQuad_JapaneseLDSQuadUITests.framework */,
+				834A4BDF9547AD8900D05100 /* Pods_JapaneseLDSQuadTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D4212A1023E7BC02002CD60A = {
+			isa = PBXGroup;
+			children = (
+				D4212A1B23E7BC02002CD60A /* JapaneseLDSQuad */,
+				D4212A3423E7BC03002CD60A /* JapaneseLDSQuadTests */,
+				D4212A3F23E7BC03002CD60A /* JapaneseLDSQuadUITests */,
+				D4212A1A23E7BC02002CD60A /* Products */,
+				5DE32471041E486814CC6881 /* Pods */,
+				781C9334303284267A8509A5 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D4212A1A23E7BC02002CD60A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D4212A1923E7BC02002CD60A /* JapaneseLDSQuad.app */,
+				D4212A3123E7BC03002CD60A /* JapaneseLDSQuadTests.xctest */,
+				D4212A3C23E7BC03002CD60A /* JapaneseLDSQuadUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D4212A1B23E7BC02002CD60A /* JapaneseLDSQuad */ = {
+			isa = PBXGroup;
+			children = (
+				D4212A1C23E7BC02002CD60A /* AppDelegate.swift */,
+				D4212A1E23E7BC02002CD60A /* SceneDelegate.swift */,
+				D4212A2023E7BC02002CD60A /* FirstViewController.swift */,
+				D4212A2223E7BC02002CD60A /* SecondViewController.swift */,
+				D4212A2423E7BC02002CD60A /* Main.storyboard */,
+				D4212A2723E7BC02002CD60A /* Assets.xcassets */,
+				D4212A2923E7BC02002CD60A /* LaunchScreen.storyboard */,
+				D4212A2C23E7BC02002CD60A /* Info.plist */,
+			);
+			path = JapaneseLDSQuad;
+			sourceTree = "<group>";
+		};
+		D4212A3423E7BC03002CD60A /* JapaneseLDSQuadTests */ = {
+			isa = PBXGroup;
+			children = (
+				D4212A3523E7BC03002CD60A /* JapaneseLDSQuadTests.swift */,
+				D4212A3723E7BC03002CD60A /* Info.plist */,
+			);
+			path = JapaneseLDSQuadTests;
+			sourceTree = "<group>";
+		};
+		D4212A3F23E7BC03002CD60A /* JapaneseLDSQuadUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D4212A4023E7BC03002CD60A /* JapaneseLDSQuadUITests.swift */,
+				D4212A4223E7BC03002CD60A /* Info.plist */,
+			);
+			path = JapaneseLDSQuadUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D4212A1823E7BC02002CD60A /* JapaneseLDSQuad */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4212A4523E7BC03002CD60A /* Build configuration list for PBXNativeTarget "JapaneseLDSQuad" */;
+			buildPhases = (
+				B0CB76932E29F412F6C9A416 /* [CP] Check Pods Manifest.lock */,
+				D4212A1523E7BC02002CD60A /* Sources */,
+				D4212A1623E7BC02002CD60A /* Frameworks */,
+				D4212A1723E7BC02002CD60A /* Resources */,
+				01A05132AF9F04C278139E7F /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JapaneseLDSQuad;
+			productName = JapaneseLDSQuad;
+			productReference = D4212A1923E7BC02002CD60A /* JapaneseLDSQuad.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D4212A3023E7BC03002CD60A /* JapaneseLDSQuadTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4212A4823E7BC03002CD60A /* Build configuration list for PBXNativeTarget "JapaneseLDSQuadTests" */;
+			buildPhases = (
+				287E1BF6F01F10341BDEDDDE /* [CP] Check Pods Manifest.lock */,
+				D4212A2D23E7BC03002CD60A /* Sources */,
+				D4212A2E23E7BC03002CD60A /* Frameworks */,
+				D4212A2F23E7BC03002CD60A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D4212A3323E7BC03002CD60A /* PBXTargetDependency */,
+			);
+			name = JapaneseLDSQuadTests;
+			productName = JapaneseLDSQuadTests;
+			productReference = D4212A3123E7BC03002CD60A /* JapaneseLDSQuadTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D4212A3B23E7BC03002CD60A /* JapaneseLDSQuadUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4212A4B23E7BC03002CD60A /* Build configuration list for PBXNativeTarget "JapaneseLDSQuadUITests" */;
+			buildPhases = (
+				D02E54E3300F0C9F982851E5 /* [CP] Check Pods Manifest.lock */,
+				D4212A3823E7BC03002CD60A /* Sources */,
+				D4212A3923E7BC03002CD60A /* Frameworks */,
+				D4212A3A23E7BC03002CD60A /* Resources */,
+				1E36972B0998891E65F19C4A /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D4212A3E23E7BC03002CD60A /* PBXTargetDependency */,
+			);
+			name = JapaneseLDSQuadUITests;
+			productName = JapaneseLDSQuadUITests;
+			productReference = D4212A3C23E7BC03002CD60A /* JapaneseLDSQuadUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D4212A1123E7BC02002CD60A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = nozokada;
+				TargetAttributes = {
+					D4212A1823E7BC02002CD60A = {
+						CreatedOnToolsVersion = 11.3;
+					};
+					D4212A3023E7BC03002CD60A = {
+						CreatedOnToolsVersion = 11.3;
+						TestTargetID = D4212A1823E7BC02002CD60A;
+					};
+					D4212A3B23E7BC03002CD60A = {
+						CreatedOnToolsVersion = 11.3;
+						TestTargetID = D4212A1823E7BC02002CD60A;
+					};
+				};
+			};
+			buildConfigurationList = D4212A1423E7BC02002CD60A /* Build configuration list for PBXProject "JapaneseLDSQuad" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D4212A1023E7BC02002CD60A;
+			productRefGroup = D4212A1A23E7BC02002CD60A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D4212A1823E7BC02002CD60A /* JapaneseLDSQuad */,
+				D4212A3023E7BC03002CD60A /* JapaneseLDSQuadTests */,
+				D4212A3B23E7BC03002CD60A /* JapaneseLDSQuadUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D4212A1723E7BC02002CD60A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4212A2B23E7BC02002CD60A /* LaunchScreen.storyboard in Resources */,
+				D4212A2823E7BC02002CD60A /* Assets.xcassets in Resources */,
+				D4212A2623E7BC02002CD60A /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4212A2F23E7BC03002CD60A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4212A3A23E7BC03002CD60A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		01A05132AF9F04C278139E7F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-JapaneseLDSQuad/Pods-JapaneseLDSQuad-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-JapaneseLDSQuad/Pods-JapaneseLDSQuad-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JapaneseLDSQuad/Pods-JapaneseLDSQuad-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1E36972B0998891E65F19C4A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests/Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests/Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests/Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		287E1BF6F01F10341BDEDDDE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-JapaneseLDSQuadTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B0CB76932E29F412F6C9A416 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-JapaneseLDSQuad-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D02E54E3300F0C9F982851E5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D4212A1523E7BC02002CD60A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4212A2323E7BC02002CD60A /* SecondViewController.swift in Sources */,
+				D4212A2123E7BC02002CD60A /* FirstViewController.swift in Sources */,
+				D4212A1D23E7BC02002CD60A /* AppDelegate.swift in Sources */,
+				D4212A1F23E7BC02002CD60A /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4212A2D23E7BC03002CD60A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4212A3623E7BC03002CD60A /* JapaneseLDSQuadTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4212A3823E7BC03002CD60A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4212A4123E7BC03002CD60A /* JapaneseLDSQuadUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D4212A3323E7BC03002CD60A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D4212A1823E7BC02002CD60A /* JapaneseLDSQuad */;
+			targetProxy = D4212A3223E7BC03002CD60A /* PBXContainerItemProxy */;
+		};
+		D4212A3E23E7BC03002CD60A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D4212A1823E7BC02002CD60A /* JapaneseLDSQuad */;
+			targetProxy = D4212A3D23E7BC03002CD60A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D4212A2423E7BC02002CD60A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4212A2523E7BC02002CD60A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D4212A2923E7BC02002CD60A /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4212A2A23E7BC02002CD60A /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D4212A4323E7BC03002CD60A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D4212A4423E7BC03002CD60A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D4212A4623E7BC03002CD60A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F24AEA88112E18282C759158 /* Pods-JapaneseLDSQuad.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = EPF2DMU2WE;
+				INFOPLIST_FILE = JapaneseLDSQuad/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nozokada.JapaneseLDSQuad;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D4212A4723E7BC03002CD60A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 36031AF5C5271D1558EF428B /* Pods-JapaneseLDSQuad.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = EPF2DMU2WE;
+				INFOPLIST_FILE = JapaneseLDSQuad/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nozokada.JapaneseLDSQuad;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D4212A4923E7BC03002CD60A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B82BA37907BAA4E42C240009 /* Pods-JapaneseLDSQuadTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = EPF2DMU2WE;
+				INFOPLIST_FILE = JapaneseLDSQuadTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nozokada.JapaneseLDSQuadTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JapaneseLDSQuad.app/JapaneseLDSQuad";
+			};
+			name = Debug;
+		};
+		D4212A4A23E7BC03002CD60A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8EE3D764579AE2700B956417 /* Pods-JapaneseLDSQuadTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = EPF2DMU2WE;
+				INFOPLIST_FILE = JapaneseLDSQuadTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nozokada.JapaneseLDSQuadTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JapaneseLDSQuad.app/JapaneseLDSQuad";
+			};
+			name = Release;
+		};
+		D4212A4C23E7BC03002CD60A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B8D10CC9B7EA018F16C1F2A5 /* Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = EPF2DMU2WE;
+				INFOPLIST_FILE = JapaneseLDSQuadUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nozokada.JapaneseLDSQuadUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = JapaneseLDSQuad;
+			};
+			name = Debug;
+		};
+		D4212A4D23E7BC03002CD60A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 99AE6B2931AB2955F42F7CD5 /* Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = EPF2DMU2WE;
+				INFOPLIST_FILE = JapaneseLDSQuadUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nozokada.JapaneseLDSQuadUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = JapaneseLDSQuad;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D4212A1423E7BC02002CD60A /* Build configuration list for PBXProject "JapaneseLDSQuad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4212A4323E7BC03002CD60A /* Debug */,
+				D4212A4423E7BC03002CD60A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D4212A4523E7BC03002CD60A /* Build configuration list for PBXNativeTarget "JapaneseLDSQuad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4212A4623E7BC03002CD60A /* Debug */,
+				D4212A4723E7BC03002CD60A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D4212A4823E7BC03002CD60A /* Build configuration list for PBXNativeTarget "JapaneseLDSQuadTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4212A4923E7BC03002CD60A /* Debug */,
+				D4212A4A23E7BC03002CD60A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D4212A4B23E7BC03002CD60A /* Build configuration list for PBXNativeTarget "JapaneseLDSQuadUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4212A4C23E7BC03002CD60A /* Debug */,
+				D4212A4D23E7BC03002CD60A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D4212A1123E7BC02002CD60A /* Project object */;
+}
