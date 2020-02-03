@@ -48,17 +48,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func setUpRealm() {
         if FileManager.default.fileExists(atPath: defaultRealmFileURL.path) {
-            let realmMigrationConfig = getRealmConfiguration(realmFileURL: defaultRealmFileURL)
-            let existingRealm = try! Realm(configuration: realmMigrationConfig)
-            createNewRealmFile(from: existingRealm)
+            let migrationConfig = getRealmMigrationConfig(realmFileURL: defaultRealmFileURL)
+            let realm = try! Realm(configuration: migrationConfig)
+            createNewRealmFile(existingRealm: realm)
         } else {
-            createNewRealmFile(from: nil)
+            createNewRealmFile(existingRealm: nil)
         }
         Realm.Configuration.defaultConfiguration.schemaVersion = currentSchemaVersion
         _ = try! Realm()
     }
     
-    func getRealmConfiguration(realmFileURL: URL) -> Realm.Configuration {
+    func getRealmMigrationConfig(realmFileURL: URL) -> Realm.Configuration {
         return Realm.Configuration(
             fileURL: realmFileURL,
             schemaVersion: currentSchemaVersion,
@@ -80,11 +80,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
     }
     
-    func createNewRealmFile(from realmToCopy: Realm?) {
+    func createNewRealmFile(existingRealm: Realm?) {
         let defaultRealmDirectoryURL = defaultRealmFileURL.deletingLastPathComponent()
         let newRealmURL = defaultRealmDirectoryURL.appendingPathComponent(Constants.File.initialRealm)
         copyBundledRealmFile(to: newRealmURL)
-        if let realm = realmToCopy {
+        if let realm = existingRealm {
             copyUserDataToNewRealmFile(from: realm, to: newRealmURL)
             do {
                 try FileManager.default.removeItem(at: defaultRealmFileURL)
