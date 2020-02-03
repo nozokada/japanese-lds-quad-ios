@@ -1,0 +1,54 @@
+/* 
+  Localizable.strings
+  JapaneseLDSQuad
+
+  Created by Nozomi Okada on 2/3/20.
+  Copyright © 2020 nozokada. All rights reserved.
+*/
+
+"rootViewTitle" = "TOP";
+
+"standardWorksGroupedTableViewLabel" = "Standard Works";
+
+"resourcesGroupedTableViewLabel" = "Resources";
+
+"bookmarksViewTitle" = "Bookmarks";
+
+"highlightsViewTitle" = "Highlights";
+
+"searchViewTitle" = "Search";
+
+"PassageLookupViewTitle" = "Passage Lookup";
+"PassageLookupChapterTextFieldPlaceholder" = "Chapter";
+"PassageLookupVerseTextFieldPlaceholder" = "Verse";
+
+"rootButtonLabel" = "TOP";
+
+"noBookmarksLabel" = "There are no bookmarks\n\nTap a verse number to add\nSwipe left on cell to remove";
+
+"noHighlightsLabel" = "There are no highlights\n\nHold down on a text you want to highlight";
+"editButtonLabel" = "Edit";
+
+"noResultsLabel" = "No results found";
+"noSearchResultsLabel" = "No results found\n\nOnly phrase match is supported\nRuby text cannot be searched";
+
+"settingsGroupedTableViewLabel" = "Settings";
+"settingMinchoFontLabel" = "Mincho Font";
+"settingNightModeLabel" = "Night Mode";
+"settingDualSwitchLabel" = "English Enabled";
+"settingSideBySideSwitchLabel" = "Side by Side";
+"settingfontSizeStepperLabel" = "Text Size";
+
+"copyTextMenuItemLabel" = "Copy";
+"copyVerseMenuItemLabel" = "Copy Verse (no ruby)";
+"highlightMenuItemLabel" = "Highlight";
+"noteEditMenuItemLabel" = "Note";
+"unhighlightMenuItemLabel" = "Unhighlight";
+"InvalidActionAlertTitle" = "Sorry!";
+"InvalidSelectedRangeAlertMessage" = "That operation is not supported where you selected";
+
+"purchaseViewTitleLabel" = "All Features Pass";
+"purchaseViewDescriptionLabel" = "Purchasing All Features Pass will give you unlimited access to all features\n\nThe following features will be added:\nJapanese/English Side by Side\nPassage Lookup\nHighlights\nText to Speech\nLinks to Bible verses in Bible Dictionary\nJoseph Smith Translation in Study Helps";
+"purchaseViewPurchaseButtonLabel" = "Purchase Pass";
+"purchaseViewRestoreButtonLabel" = "Restore Purchase";
+"purchaseViewCloseButtonLabel" = "Close";

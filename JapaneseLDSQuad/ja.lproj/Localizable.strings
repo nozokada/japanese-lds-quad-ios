@@ -1,0 +1,54 @@
+/* 
+  Localizable.strings
+  JapaneseLDSQuad
+
+  Created by Nozomi Okada on 2/3/20.
+  Copyright © 2020 nozokada. All rights reserved.
+*/
+
+"rootViewTitle" = "一覧";
+
+"standardWorksGroupedTableViewLabel" = "標準聖典";
+
+"resourcesGroupedTableViewLabel" = "その他";
+
+"bookmarksViewTitle" = "ブックマーク";
+
+"highlightsViewTitle" = "ハイライト";
+
+"searchViewTitle" = "検索";
+
+"PassageLookupViewTitle" = "章と節で探す";
+"PassageLookupChapterTextFieldPlaceholder" = "章";
+"PassageLookupVerseTextFieldPlaceholder" = "節";
+
+"rootButtonLabel" = "一覧";
+
+"noBookmarksLabel" = "ブックマークはありません\n\n節の数字をタップして追加してください\nセルを左にスワイプすると削除できます";
+
+"noHighlightsLabel" = "ハイライトはありません\n\nハイライトしたい語句を選択して追加してください";
+"editButtonLabel" = "編集";
+
+"noResultsLabel" = "検索結果はありません";
+"noSearchResultsLabel" = "検索結果はありません\n\nフレーズ一致のみ対応しています\nルビの検索はできません";
+
+"settingsGroupedTableViewLabel" = "設定";
+"settingMinchoFontLabel" = "明朝体を使用";
+"settingNightModeLabel" = "ナイトモード";
+"settingDualSwitchLabel" = "英訳を表示";
+"settingSideBySideSwitchLabel" = "日英横並び";
+"settingfontSizeStepperLabel" = "文字の大きさ";
+
+"copyTextMenuItemLabel" = "コピー";
+"copyVerseMenuItemLabel" = "節をコピー (ルビなし)";
+"highlightMenuItemLabel" = "ハイライトを付ける";
+"noteEditMenuItemLabel" = "メモ";
+"unhighlightMenuItemLabel" = "ハイライトを消す";
+"InvalidActionAlertTitle" = "申し訳ありません";
+"InvalidSelectedRangeAlertMessage" = "選択された範囲ではその操作はサポートされていません";
+
+"purchaseViewTitleLabel" = "オール機能パスの購入";
+"purchaseViewDescriptionLabel" = "オール機能パスを購入することで、全ての機能を使用できるようになります\n\n現在の有料機能は以下の通りです\n日英横並び表示\n章と節で探す\nハイライト\n機械音声読み上げ\n聖句ガイドの聖書へのリンク\n聖句ガイドの聖書のジョセフ・スミス訳";
+"purchaseViewPurchaseButtonLabel" = "パスを購入";
+"purchaseViewRestoreButtonLabel" = "購入を復元する";
+"purchaseViewCloseButtonLabel" = "閉じる";
