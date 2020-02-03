@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.isIdleTimerDisabled = true
         UserDefaults.standard.register(defaults: [Constants.Config.font: false])
         UserDefaults.standard.register(defaults: [Constants.Config.night: false])
-        UserDefaults.standard.register(defaults: [Constants.Config.dual: false])
+        UserDefaults.standard.register(defaults: [Constants.Config.dual: true])
         UserDefaults.standard.register(defaults: [Constants.Config.side: false])
         UserDefaults.standard.register(defaults: [Constants.Config.size: 1.0])
         UserDefaults.standard.register(defaults: [Constants.Config.pass: false])

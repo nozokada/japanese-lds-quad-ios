@@ -14,10 +14,29 @@
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eXG-Dw-PQw">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="9pv-A4-QxB" id="aWI-Ev-i8U"/>
+                                    <outlet property="delegate" destination="9pv-A4-QxB" id="MIM-5q-FgO"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="eXG-Dw-PQw" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" id="5i4-z9-hWF"/>
+                            <constraint firstItem="eXG-Dw-PQw" firstAttribute="trailing" secondItem="PQr-Ze-W5v" secondAttribute="trailing" id="W7W-5y-IJI"/>
+                            <constraint firstItem="eXG-Dw-PQw" firstAttribute="bottom" secondItem="PQr-Ze-W5v" secondAttribute="bottom" id="YMW-mu-g3t"/>
+                            <constraint firstItem="eXG-Dw-PQw" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="xgI-C9-Wg8"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
                     <navigationItem key="navigationItem" id="cab-7o-Myz"/>
+                    <connections>
+                        <outlet property="tableView" destination="eXG-Dw-PQw" id="psk-Ml-xWw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
