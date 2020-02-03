@@ -11,6 +11,13 @@
 		2823B2C2E536200F4A8FEF0C /* Pods_JapaneseLDSQuad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ECEDEF8BAC9BC195B84BE19 /* Pods_JapaneseLDSQuad.framework */; };
 		5970B9E5A84ECB5D56E9BC60 /* Pods_JapaneseLDSQuad_JapaneseLDSQuadUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494B9A96C68C50ECB05714B4 /* Pods_JapaneseLDSQuad_JapaneseLDSQuadUITests.framework */; };
 		D40B3E6C23E7F89500276662 /* BookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40B3E6B23E7F89500276662 /* BookmarksViewController.swift */; };
+		D40B3E7023E892F900276662 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40B3E6F23E892F900276662 /* Book.swift */; };
+		D40B3E7223E8932900276662 /* Scripture.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40B3E7123E8932900276662 /* Scripture.swift */; };
+		D40B3E7423E8935F00276662 /* HighlightedScripture.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40B3E7323E8935F00276662 /* HighlightedScripture.swift */; };
+		D40B3E7623E8938A00276662 /* HighlightedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40B3E7523E8938A00276662 /* HighlightedText.swift */; };
+		D40B3E7823E893BD00276662 /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40B3E7723E893BD00276662 /* Bookmark.swift */; };
+		D40B3E7A23E8943200276662 /* JLQ.realm in Resources */ = {isa = PBXBuildFile; fileRef = D40B3E7923E8943200276662 /* JLQ.realm */; };
+		D40B3E7C23E896BA00276662 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40B3E7B23E896BA00276662 /* Constants.swift */; };
 		D4212A1D23E7BC02002CD60A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4212A1C23E7BC02002CD60A /* AppDelegate.swift */; };
 		D4212A1F23E7BC02002CD60A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4212A1E23E7BC02002CD60A /* SceneDelegate.swift */; };
 		D4212A2123E7BC02002CD60A /* BooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4212A2023E7BC02002CD60A /* BooksViewController.swift */; };
@@ -49,6 +56,13 @@
 		B82BA37907BAA4E42C240009 /* Pods-JapaneseLDSQuadTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JapaneseLDSQuadTests.debug.xcconfig"; path = "Target Support Files/Pods-JapaneseLDSQuadTests/Pods-JapaneseLDSQuadTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B8D10CC9B7EA018F16C1F2A5 /* Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests.debug.xcconfig"; path = "Target Support Files/Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests/Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D40B3E6B23E7F89500276662 /* BookmarksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewController.swift; sourceTree = "<group>"; };
+		D40B3E6F23E892F900276662 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		D40B3E7123E8932900276662 /* Scripture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scripture.swift; sourceTree = "<group>"; };
+		D40B3E7323E8935F00276662 /* HighlightedScripture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightedScripture.swift; sourceTree = "<group>"; };
+		D40B3E7523E8938A00276662 /* HighlightedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightedText.swift; sourceTree = "<group>"; };
+		D40B3E7723E893BD00276662 /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
+		D40B3E7923E8943200276662 /* JLQ.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = JLQ.realm; sourceTree = "<group>"; };
+		D40B3E7B23E896BA00276662 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D4212A1923E7BC02002CD60A /* JapaneseLDSQuad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JapaneseLDSQuad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4212A1C23E7BC02002CD60A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4212A1E23E7BC02002CD60A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -118,6 +132,28 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D40B3E6D23E892B600276662 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D40B3E6F23E892F900276662 /* Book.swift */,
+				D40B3E7123E8932900276662 /* Scripture.swift */,
+				D40B3E7323E8935F00276662 /* HighlightedScripture.swift */,
+				D40B3E7523E8938A00276662 /* HighlightedText.swift */,
+				D40B3E7723E893BD00276662 /* Bookmark.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D40B3E6E23E892C600276662 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				D4212A2023E7BC02002CD60A /* BooksViewController.swift */,
+				D4212A2223E7BC02002CD60A /* SearchViewController.swift */,
+				D40B3E6B23E7F89500276662 /* BookmarksViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		D4212A1023E7BC02002CD60A = {
 			isa = PBXGroup;
 			children = (
@@ -143,11 +179,12 @@
 		D4212A1B23E7BC02002CD60A /* JapaneseLDSQuad */ = {
 			isa = PBXGroup;
 			children = (
+				D40B3E7923E8943200276662 /* JLQ.realm */,
 				D4212A1C23E7BC02002CD60A /* AppDelegate.swift */,
 				D4212A1E23E7BC02002CD60A /* SceneDelegate.swift */,
-				D4212A2023E7BC02002CD60A /* BooksViewController.swift */,
-				D4212A2223E7BC02002CD60A /* SearchViewController.swift */,
-				D40B3E6B23E7F89500276662 /* BookmarksViewController.swift */,
+				D40B3E7B23E896BA00276662 /* Constants.swift */,
+				D40B3E6E23E892C600276662 /* Controller */,
+				D40B3E6D23E892B600276662 /* Model */,
 				D4212A2423E7BC02002CD60A /* Main.storyboard */,
 				D4212A2723E7BC02002CD60A /* Assets.xcassets */,
 				D4212A2923E7BC02002CD60A /* LaunchScreen.storyboard */,
@@ -286,6 +323,7 @@
 				D4212A2B23E7BC02002CD60A /* LaunchScreen.storyboard in Resources */,
 				D4212A2823E7BC02002CD60A /* Assets.xcassets in Resources */,
 				D4212A2623E7BC02002CD60A /* Main.storyboard in Resources */,
+				D40B3E7A23E8943200276662 /* JLQ.realm in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,9 +452,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				D40B3E6C23E7F89500276662 /* BookmarksViewController.swift in Sources */,
+				D40B3E7C23E896BA00276662 /* Constants.swift in Sources */,
 				D4212A2323E7BC02002CD60A /* SearchViewController.swift in Sources */,
+				D40B3E7023E892F900276662 /* Book.swift in Sources */,
+				D40B3E7223E8932900276662 /* Scripture.swift in Sources */,
 				D4212A2123E7BC02002CD60A /* BooksViewController.swift in Sources */,
+				D40B3E7823E893BD00276662 /* Bookmark.swift in Sources */,
 				D4212A1D23E7BC02002CD60A /* AppDelegate.swift in Sources */,
+				D40B3E7423E8935F00276662 /* HighlightedScripture.swift in Sources */,
+				D40B3E7623E8938A00276662 /* HighlightedText.swift in Sources */,
 				D4212A1F23E7BC02002CD60A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
