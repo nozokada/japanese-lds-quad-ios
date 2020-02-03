@@ -83,7 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func createNewRealmFile(existingRealm: Realm?) {
         let defaultRealmDirectoryURL = defaultRealmFileURL.deletingLastPathComponent()
         let newRealmURL = defaultRealmDirectoryURL.appendingPathComponent(Constants.File.initialRealm)
-        copyBundledRealmFile(to: newRealmURL)
+        copyBundleRealmFile(to: newRealmURL)
         if let realm = existingRealm {
             copyUserDataToNewRealmFile(from: realm, to: newRealmURL)
             do {
@@ -100,7 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func copyBundledRealmFile(to newRealmURL: URL) {
+    func copyBundleRealmFile(to newRealmURL: URL) {
         if let bundleURL = Bundle.main.url(forResource: "JLQ", withExtension: "realm") {
             do {
                 try FileManager.default.copyItem(at: bundleURL, to: newRealmURL)
