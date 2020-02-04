@@ -131,12 +131,12 @@ extension ChaptersViewController: UITableViewDataSource {
 extension ChaptersViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if let viewController = storyboard?.instantiateViewController(withIdentifier: "content") as? ContentViewController {
-//            viewController.targetBookName = targetBookName
-//            viewController.targetBook = targetBook
-//            viewController.targetChapterId = AppUtility.getChapterId(bookId: targetBook.id, chapter: indexPath.row + 1)
-//            self.navigationController?.pushViewController(viewController, animated: true)
-//        }
+        if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
+            viewController.targetBookName = targetBookName
+            viewController.targetBook = targetBook
+            viewController.targetChapterId = DataService.shared.getChapterId(bookId: targetBook.id, chapter: indexPath.row + 1)
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

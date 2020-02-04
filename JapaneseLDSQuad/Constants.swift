@@ -17,8 +17,8 @@ struct Constants {
     struct StoryBoardID {
         static let books = "books"
         static let chapters = "chapters"
+        static let pages = "pages"
         static let content = "content"
-        static let pageContent = "pageContent"
     }
     
     struct Count {

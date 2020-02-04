@@ -23,11 +23,6 @@ class BooksViewController: UIViewController {
 //    @IBOutlet weak var passageLookUpViewButton: UIBarButtonItem!
 //    @IBOutlet weak var highlightsViewButton: UIBarButtonItem!
     
-    let numberOfSectionsForTopView = 2
-    let numberOfSectionsForDefault = 1
-    let numberOfRowsForStandardWorks = 5
-    let numberOfRowsForResources = 2
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         realm = try! Realm()
@@ -158,14 +153,14 @@ extension BooksViewController: UITableViewDelegate {
                 self.navigationController?.pushViewController(viewController, animated: true)
             }
         }
-//        else if nextBook.child_scriptures.sorted(byKeyPath: "id").last?.chapter == 1 {
-//            if let viewController = storyboard?.instantiateViewController(withIdentifier: "content") as? ContentViewController {
-//                viewController.targetBookName = nextBook.name_primary
-//                viewController.targetBook = nextBook
-//                viewController.targetChapterId = AppUtility.getChapterId(bookId: nextBook.id, chapter: 1)
-//                self.navigationController?.pushViewController(viewController, animated: true)
-//            }
-//        }
+        else if nextBook.child_scriptures.sorted(byKeyPath: "id").last?.chapter == 1 {
+            if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
+                viewController.targetBookName = nextBook.name_primary
+                viewController.targetBook = nextBook
+                viewController.targetChapterId = DataService.shared.getChapterId(bookId: nextBook.id, chapter: 1)
+                self.navigationController?.pushViewController(viewController, animated: true)
+            }
+        }
         else {
             if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.chapters) as? ChaptersViewController {
                 viewController.targetBookName = nextBook.name_primary

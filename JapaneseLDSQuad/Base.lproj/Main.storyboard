@@ -82,13 +82,13 @@
         <!--Content View Controller-->
         <scene sceneID="u1b-95-g0q">
             <objects>
-                <viewController id="mdv-gy-QQ8" customClass="ContentViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="content" id="mdv-gy-QQ8" customClass="ContentViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uGf-u3-3MS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RtK-t0-pAz">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -106,6 +106,9 @@
                         <viewLayoutGuide key="safeArea" id="eR1-yc-wjc"/>
                     </view>
                     <navigationItem key="navigationItem" id="CiV-WK-e0m"/>
+                    <connections>
+                        <outlet property="webView" destination="RtK-t0-pAz" id="Mvh-0e-Bkw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VQq-NA-N6H" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -114,11 +117,8 @@
         <!--Pages View Controller-->
         <scene sceneID="har-bz-2Np">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="acR-fE-ukr" customClass="PagesViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
+                <pageViewController storyboardIdentifier="pages" autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="acR-fE-ukr" customClass="PagesViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="9s0-JY-jpI"/>
-                    <connections>
-                        <segue destination="mdv-gy-QQ8" kind="show" id="ZLi-Sx-4fd"/>
-                    </connections>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7w2-Ay-mlZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

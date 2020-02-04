@@ -37,6 +37,14 @@
 		D475CCE923E92F9800678A85 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCE823E92F9800678A85 /* MainTabBarController.swift */; };
 		D475CCEB23E934F200678A85 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCEA23E934F200678A85 /* ContentViewController.swift */; };
 		D475CCED23E935F400678A85 /* PagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCEC23E935F400678A85 /* PagesViewController.swift */; };
+		D475CCEF23E9449600678A85 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCEE23E9449600678A85 /* DataService.swift */; };
+		D475CCF123E94B9000678A85 /* ContentBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCF023E94B9000678A85 /* ContentBuilder.swift */; };
+		D475CCF323E94C5E00678A85 /* ContentWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCF223E94C5E00678A85 /* ContentWebView.swift */; };
+		D475CCF523E94EF700678A85 /* JavaScriptFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCF423E94EF700678A85 /* JavaScriptFunctions.swift */; };
+		D475CCF723E9521200678A85 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCF623E9521200678A85 /* PurchaseManager.swift */; };
+		D475CCF923E9534800678A85 /* AnnotationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCF823E9534800678A85 /* AnnotationManager.swift */; };
+		D475CCFB23E9538300678A85 /* BookmarkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCFA23E9538300678A85 /* BookmarkManager.swift */; };
+		D475CCFD23E953F200678A85 /* HighlightManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCFC23E953F200678A85 /* HighlightManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +110,14 @@
 		D475CCE823E92F9800678A85 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		D475CCEA23E934F200678A85 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		D475CCEC23E935F400678A85 /* PagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagesViewController.swift; sourceTree = "<group>"; };
+		D475CCEE23E9449600678A85 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		D475CCF023E94B9000678A85 /* ContentBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentBuilder.swift; sourceTree = "<group>"; };
+		D475CCF223E94C5E00678A85 /* ContentWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentWebView.swift; sourceTree = "<group>"; };
+		D475CCF423E94EF700678A85 /* JavaScriptFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaScriptFunctions.swift; sourceTree = "<group>"; };
+		D475CCF623E9521200678A85 /* PurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseManager.swift; sourceTree = "<group>"; };
+		D475CCF823E9534800678A85 /* AnnotationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationManager.swift; sourceTree = "<group>"; };
+		D475CCFA23E9538300678A85 /* BookmarkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkManager.swift; sourceTree = "<group>"; };
+		D475CCFC23E953F200678A85 /* HighlightManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightManager.swift; sourceTree = "<group>"; };
 		F24AEA88112E18282C759158 /* Pods-JapaneseLDSQuad.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JapaneseLDSQuad.debug.xcconfig"; path = "Target Support Files/Pods-JapaneseLDSQuad/Pods-JapaneseLDSQuad.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -212,7 +228,14 @@
 				D4212A1C23E7BC02002CD60A /* AppDelegate.swift */,
 				D4212A1E23E7BC02002CD60A /* SceneDelegate.swift */,
 				D40B3E7B23E896BA00276662 /* Constants.swift */,
+				D475CCEE23E9449600678A85 /* DataService.swift */,
 				D40B3E9E23E8E6DD00276662 /* StringExtension.swift */,
+				D475CCF023E94B9000678A85 /* ContentBuilder.swift */,
+				D475CCF423E94EF700678A85 /* JavaScriptFunctions.swift */,
+				D475CCF823E9534800678A85 /* AnnotationManager.swift */,
+				D475CCFA23E9538300678A85 /* BookmarkManager.swift */,
+				D475CCFC23E953F200678A85 /* HighlightManager.swift */,
+				D475CCF623E9521200678A85 /* PurchaseManager.swift */,
 				D40B3E6E23E892C600276662 /* Controller */,
 				D40B3E6D23E892B600276662 /* Model */,
 				D475CCE323E92D2600678A85 /* View */,
@@ -249,6 +272,7 @@
 			children = (
 				D475CCE623E92E5000678A85 /* MainTabBar.swift */,
 				D475CCE423E92D5200678A85 /* MainNavigationBar.swift */,
+				D475CCF223E94C5E00678A85 /* ContentWebView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -502,12 +526,18 @@
 				D40B3E7023E892F900276662 /* Book.swift in Sources */,
 				D475CCEB23E934F200678A85 /* ContentViewController.swift in Sources */,
 				D475CCE223E9293700678A85 /* MainNavigationController.swift in Sources */,
+				D475CCF923E9534800678A85 /* AnnotationManager.swift in Sources */,
 				D475CCE523E92D5200678A85 /* MainNavigationBar.swift in Sources */,
 				D40B3E7223E8932900276662 /* Scripture.swift in Sources */,
 				D475CCE023E8F2F300678A85 /* ChaptersViewController.swift in Sources */,
 				D4212A2123E7BC02002CD60A /* BooksViewController.swift in Sources */,
+				D475CCFB23E9538300678A85 /* BookmarkManager.swift in Sources */,
+				D475CCF523E94EF700678A85 /* JavaScriptFunctions.swift in Sources */,
+				D475CCFD23E953F200678A85 /* HighlightManager.swift in Sources */,
 				D40B3E7823E893BD00276662 /* Bookmark.swift in Sources */,
+				D475CCF123E94B9000678A85 /* ContentBuilder.swift in Sources */,
 				D4212A1D23E7BC02002CD60A /* AppDelegate.swift in Sources */,
+				D475CCF323E94C5E00678A85 /* ContentWebView.swift in Sources */,
 				D475CCED23E935F400678A85 /* PagesViewController.swift in Sources */,
 				D40B3E9F23E8E6DD00276662 /* StringExtension.swift in Sources */,
 				D475CCE723E92E5000678A85 /* MainTabBar.swift in Sources */,
@@ -515,6 +545,8 @@
 				D40B3E7623E8938A00276662 /* HighlightedText.swift in Sources */,
 				D4212A1F23E7BC02002CD60A /* SceneDelegate.swift in Sources */,
 				D475CCE923E92F9800678A85 /* MainTabBarController.swift in Sources */,
+				D475CCF723E9521200678A85 /* PurchaseManager.swift in Sources */,
+				D475CCEF23E9449600678A85 /* DataService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
