@@ -10,7 +10,7 @@
         <!--Books View Controller-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController id="9pv-A4-QxB" customClass="BooksViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="books" id="9pv-A4-QxB" customClass="BooksViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -36,11 +36,47 @@
                     <navigationItem key="navigationItem" id="cab-7o-Myz"/>
                     <connections>
                         <outlet property="tableView" destination="eXG-Dw-PQw" id="psk-Ml-xWw"/>
+                        <segue destination="yps-RQ-tWx" kind="show" id="MUl-fd-Z0j"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1659.4202898550725" y="-320.08928571428572"/>
+            <point key="canvasLocation" x="1559" y="-320"/>
+        </scene>
+        <!--Chapters View Controller-->
+        <scene sceneID="qCh-Wy-OXG">
+            <objects>
+                <viewController storyboardIdentifier="chapters" id="yps-RQ-tWx" customClass="ChaptersViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gfK-aK-dyy">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="253-eM-tzI">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="yps-RQ-tWx" id="8Yq-Oh-OnW"/>
+                                    <outlet property="delegate" destination="yps-RQ-tWx" id="2eR-zf-nES"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="253-eM-tzI" firstAttribute="bottom" secondItem="pY1-Jn-jXW" secondAttribute="bottom" id="Ecq-9o-xwY"/>
+                            <constraint firstItem="253-eM-tzI" firstAttribute="leading" secondItem="pY1-Jn-jXW" secondAttribute="leading" id="OkV-tJ-Ffd"/>
+                            <constraint firstItem="253-eM-tzI" firstAttribute="trailing" secondItem="pY1-Jn-jXW" secondAttribute="trailing" id="mfd-7n-Aa9"/>
+                            <constraint firstItem="253-eM-tzI" firstAttribute="top" secondItem="pY1-Jn-jXW" secondAttribute="top" id="qgc-Iz-Skr"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="pY1-Jn-jXW"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="bSy-EK-3Jc"/>
+                    <connections>
+                        <outlet property="tableView" destination="253-eM-tzI" id="cjg-hZ-C3u"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uan-UK-UKb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2376.811594202899" y="-320.08928571428572"/>
         </scene>
         <!--Bookmarks-->
         <scene sceneID="BSq-hG-oBT">

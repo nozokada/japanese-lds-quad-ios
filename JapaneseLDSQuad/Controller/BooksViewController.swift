@@ -142,7 +142,7 @@ extension BooksViewController: UITableViewDataSource {
     }
     
     func groupedCellsOffset(section: Int) -> Int {
-        return isRoot && section == 0 ? 0 : Constants.Count.rowsForStandardWorks
+        return isRoot && section > 1 ? Constants.Count.rowsForStandardWorks : 0
     }
 }
 
@@ -152,7 +152,7 @@ extension BooksViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let nextBook = booksList[indexPath.row + groupedCellsOffset(section: indexPath.section)]
         if nextBook.child_books.count > 0 {
-            if let viewController = storyboard?.instantiateViewController(withIdentifier: "books") as? BooksViewController {
+            if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.books) as? BooksViewController {
                 viewController.targetBookName = nextBook.name_primary
                 viewController.targetBook = nextBook
                 self.navigationController?.pushViewController(viewController, animated: true)
@@ -166,14 +166,13 @@ extension BooksViewController: UITableViewDelegate {
 //                self.navigationController?.pushViewController(viewController, animated: true)
 //            }
 //        }
-//        else {
-//            if let viewController = storyboard?.instantiateViewController(withIdentifier: "chapters") as? ChaptersViewController {
-//                viewController.targetBookName = nextBook.name_primary
-//                viewController.targetBook = nextBook
-//                self.navigationController?.pushViewController(viewController, animated: true)
-//            }
-//        }
+        else {
+            if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.chapters) as? ChaptersViewController {
+                viewController.targetBookName = nextBook.name_primary
+                viewController.targetBook = nextBook
+                self.navigationController?.pushViewController(viewController, animated: true)
+            }
+        }
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
-

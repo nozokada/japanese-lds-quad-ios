@@ -14,6 +14,13 @@ struct Constants {
         static let initialRealm = "init.realm"
     }
     
+    struct StoryBoardID {
+        static let books = "books"
+        static let chapters = "chapters"
+        static let content = "content"
+        static let pageContent = "pageContent"
+    }
+    
     struct Count {
         static let sectionsInBooksView = 1
         static let sectionsInTopBooksView = 2
