@@ -20,6 +20,7 @@
 		D40B3E7C23E896BA00276662 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40B3E7B23E896BA00276662 /* Constants.swift */; };
 		D40B3E9323E8E1B400276662 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D40B3E9523E8E1B400276662 /* Localizable.strings */; };
 		D40B3E9A23E8E23700276662 /* infoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D40B3E9C23E8E23700276662 /* infoPlist.strings */; };
+		D40B3E9F23E8E6DD00276662 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40B3E9E23E8E6DD00276662 /* StringExtension.swift */; };
 		D4212A1D23E7BC02002CD60A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4212A1C23E7BC02002CD60A /* AppDelegate.swift */; };
 		D4212A1F23E7BC02002CD60A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4212A1E23E7BC02002CD60A /* SceneDelegate.swift */; };
 		D4212A2123E7BC02002CD60A /* BooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4212A2023E7BC02002CD60A /* BooksViewController.swift */; };
@@ -71,6 +72,7 @@
 		D40B3E9723E8E1E700276662 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D40B3E9B23E8E23700276662 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/infoPlist.strings; sourceTree = "<group>"; };
 		D40B3E9D23E8E23C00276662 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/infoPlist.strings; sourceTree = "<group>"; };
+		D40B3E9E23E8E6DD00276662 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		D4212A1923E7BC02002CD60A /* JapaneseLDSQuad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JapaneseLDSQuad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4212A1C23E7BC02002CD60A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4212A1E23E7BC02002CD60A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				D4212A1C23E7BC02002CD60A /* AppDelegate.swift */,
 				D4212A1E23E7BC02002CD60A /* SceneDelegate.swift */,
 				D40B3E7B23E896BA00276662 /* Constants.swift */,
+				D40B3E9E23E8E6DD00276662 /* StringExtension.swift */,
 				D40B3E6E23E892C600276662 /* Controller */,
 				D40B3E6D23E892B600276662 /* Model */,
 				D4212A2423E7BC02002CD60A /* Main.storyboard */,
@@ -472,6 +475,7 @@
 				D4212A2123E7BC02002CD60A /* BooksViewController.swift in Sources */,
 				D40B3E7823E893BD00276662 /* Bookmark.swift in Sources */,
 				D4212A1D23E7BC02002CD60A /* AppDelegate.swift in Sources */,
+				D40B3E9F23E8E6DD00276662 /* StringExtension.swift in Sources */,
 				D40B3E7423E8935F00276662 /* HighlightedScripture.swift in Sources */,
 				D40B3E7623E8938A00276662 /* HighlightedText.swift in Sources */,
 				D4212A1F23E7BC02002CD60A /* SceneDelegate.swift in Sources */,

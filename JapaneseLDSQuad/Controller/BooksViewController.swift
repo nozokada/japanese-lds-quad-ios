@@ -14,8 +14,9 @@ class BooksViewController: UIViewController {
     var realm: Realm!
     var booksList: Results<Book>!
     
-    var targetBookName = NSLocalizedString("rootViewTitle", comment: "Title shown in root view")
+    var targetBookName: String!
     var targetBook: Book!
+    var isRoot = false
     
     @IBOutlet weak var tableView: UITableView!
 //    @IBOutlet weak var dualSwitch: UIBarButtonItem!
@@ -26,19 +27,14 @@ class BooksViewController: UIViewController {
     let numberOfSectionsForDefault = 1
     let numberOfRowsForStandardWorks = 5
     let numberOfRowsForResources = 2
-    let sectionNumberOfStandardWorks = 0
-    let sectionNumberOfResources = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
         realm = try! Realm()
-        self.title = targetBookName
+        self.title = "rootViewTitle".localized
         targetBook = targetBook ?? realm.objects(Book.self).filter("id = '0'").first
+        isRoot = targetBook.parent_book == nil
         booksList = targetBook.child_books.sorted(byKeyPath: "id")
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -95,29 +91,22 @@ class BooksViewController: UIViewController {
 extension BooksViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if targetBook.parent_book == nil {
-            return numberOfSectionsForTopView
-        }
-        return numberOfSectionsForDefault
+        if isRoot { return Constants.Count.sectionsInTopBooksView }
+        return Constants.Count.sectionsInBooksView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if targetBook.parent_book == nil {
-            return section == sectionNumberOfStandardWorks ?
-                numberOfRowsForStandardWorks : numberOfRowsForResources
+        if isRoot {
+            return section == 0 ? Constants.Count.rowsForStandardWorks : Constants.Count.rowsForResources
         }
         return booksList.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if targetBook.parent_book == nil {
-            return section == sectionNumberOfStandardWorks ?
-                NSLocalizedString("standardWorksGroupedTableViewLabel", comment: "Label for Standard Works") :
-                NSLocalizedString("resourcesGroupedTableViewLabel", comment: "Label for Resources")
+        if isRoot {
+            return section == 0 ? "standardWorksGroupedTableViewLabel".localized : "resourcesGroupedTableViewLabel".localized
         }
-        
-        return Locale.current.languageCode == Constants.LanguageCode.primary ?
-            targetBook.name_primary : targetBook.name_secondary
+        return Locale.current.languageCode == Constants.LanguageCode.primary ? targetBook.name_primary : targetBook.name_secondary
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -128,11 +117,7 @@ extension BooksViewController: UITableViewDataSource {
         let font = UserDefaults.standard.bool(forKey: Constants.Config.font) ?
             Constants.Font.min : Constants.Font.kaku
         let fontSize = Constants.FontSize.regular * UserDefaults.standard.double(forKey: Constants.Config.size)
-        
-        let groupedTableCellOffset = targetBook.parent_book == nil && indexPath.section == sectionNumberOfResources ?
-            numberOfRowsForStandardWorks : 0
-        
-        let book = booksList[indexPath.row + groupedTableCellOffset]
+        let book = booksList[indexPath.row + groupedCellsOffset(section: indexPath.section)]
         
 //        if Constants.PaidContents.Books.contains(book.link) {
 //            cell.isUserInteractionEnabled = PurchaseManager.shared.isPurchased
@@ -155,16 +140,17 @@ extension BooksViewController: UITableViewDataSource {
         }
         return cell
     }
+    
+    func groupedCellsOffset(section: Int) -> Int {
+        return isRoot && section == 0 ? 0 : Constants.Count.rowsForStandardWorks
+    }
 }
 
 
 extension BooksViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let groupedTableCellOffset = targetBook.parent_book == nil && indexPath.section == sectionNumberOfResources ?
-            numberOfRowsForStandardWorks : 0
-        
-        let nextBook = booksList[indexPath.row + groupedTableCellOffset]
+        let nextBook = booksList[indexPath.row + groupedCellsOffset(section: indexPath.section)]
         if nextBook.child_books.count > 0 {
             if let viewController = storyboard?.instantiateViewController(withIdentifier: "books") as? BooksViewController {
                 viewController.targetBookName = nextBook.name_primary

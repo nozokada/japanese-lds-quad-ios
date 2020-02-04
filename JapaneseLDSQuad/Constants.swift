@@ -14,6 +14,13 @@ struct Constants {
         static let initialRealm = "init.realm"
     }
     
+    struct Count {
+        static let sectionsInBooksView = 1
+        static let sectionsInTopBooksView = 2
+        static let rowsForStandardWorks = 5
+        static let rowsForResources = 2
+    }
+    
     struct Config {
         static let font = "alternativeFontEnabled"
         static let night = "nightModeEnabled"
