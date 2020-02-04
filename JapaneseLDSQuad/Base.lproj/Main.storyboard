@@ -41,7 +41,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1559" y="-320"/>
+            <point key="canvasLocation" x="1486" y="-320"/>
         </scene>
         <!--Chapters View Controller-->
         <scene sceneID="qCh-Wy-OXG">
@@ -72,11 +72,57 @@
                     <navigationItem key="navigationItem" id="bSy-EK-3Jc"/>
                     <connections>
                         <outlet property="tableView" destination="253-eM-tzI" id="cjg-hZ-C3u"/>
+                        <segue destination="acR-fE-ukr" kind="show" id="Lch-vz-hrS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uan-UK-UKb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2376.811594202899" y="-320.08928571428572"/>
+            <point key="canvasLocation" x="2249" y="-320"/>
+        </scene>
+        <!--Content View Controller-->
+        <scene sceneID="u1b-95-g0q">
+            <objects>
+                <viewController id="mdv-gy-QQ8" customClass="ContentViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uGf-u3-3MS">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RtK-t0-pAz">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="RtK-t0-pAz" firstAttribute="top" secondItem="eR1-yc-wjc" secondAttribute="top" id="GL2-ER-Pdm"/>
+                            <constraint firstItem="RtK-t0-pAz" firstAttribute="trailing" secondItem="eR1-yc-wjc" secondAttribute="trailing" id="XjK-UR-QL3"/>
+                            <constraint firstItem="RtK-t0-pAz" firstAttribute="bottom" secondItem="eR1-yc-wjc" secondAttribute="bottom" id="nrq-iE-mPf"/>
+                            <constraint firstItem="RtK-t0-pAz" firstAttribute="leading" secondItem="eR1-yc-wjc" secondAttribute="leading" id="tMV-Rc-60d"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="eR1-yc-wjc"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="CiV-WK-e0m"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VQq-NA-N6H" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3769.5652173913045" y="-320.08928571428572"/>
+        </scene>
+        <!--Pages View Controller-->
+        <scene sceneID="har-bz-2Np">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="acR-fE-ukr" customClass="PagesViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="9s0-JY-jpI"/>
+                    <connections>
+                        <segue destination="mdv-gy-QQ8" kind="show" id="ZLi-Sx-4fd"/>
+                    </connections>
+                </pageViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7w2-Ay-mlZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3012" y="-320"/>
         </scene>
         <!--Bookmarks-->
         <scene sceneID="BSq-hG-oBT">
