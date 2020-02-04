@@ -31,6 +31,10 @@
 		D4212A3623E7BC03002CD60A /* JapaneseLDSQuadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4212A3523E7BC03002CD60A /* JapaneseLDSQuadTests.swift */; };
 		D4212A4123E7BC03002CD60A /* JapaneseLDSQuadUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4212A4023E7BC03002CD60A /* JapaneseLDSQuadUITests.swift */; };
 		D475CCE023E8F2F300678A85 /* ChaptersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCDF23E8F2F300678A85 /* ChaptersViewController.swift */; };
+		D475CCE223E9293700678A85 /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCE123E9293700678A85 /* MainNavigationController.swift */; };
+		D475CCE523E92D5200678A85 /* MainNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCE423E92D5200678A85 /* MainNavigationBar.swift */; };
+		D475CCE723E92E5000678A85 /* MainTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCE623E92E5000678A85 /* MainTabBar.swift */; };
+		D475CCE923E92F9800678A85 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCE823E92F9800678A85 /* MainTabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +94,10 @@
 		D4212A4023E7BC03002CD60A /* JapaneseLDSQuadUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JapaneseLDSQuadUITests.swift; sourceTree = "<group>"; };
 		D4212A4223E7BC03002CD60A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D475CCDF23E8F2F300678A85 /* ChaptersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaptersViewController.swift; sourceTree = "<group>"; };
+		D475CCE123E9293700678A85 /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
+		D475CCE423E92D5200678A85 /* MainNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationBar.swift; sourceTree = "<group>"; };
+		D475CCE623E92E5000678A85 /* MainTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBar.swift; sourceTree = "<group>"; };
+		D475CCE823E92F9800678A85 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		F24AEA88112E18282C759158 /* Pods-JapaneseLDSQuad.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JapaneseLDSQuad.debug.xcconfig"; path = "Target Support Files/Pods-JapaneseLDSQuad/Pods-JapaneseLDSQuad.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -159,6 +167,8 @@
 		D40B3E6E23E892C600276662 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				D475CCE823E92F9800678A85 /* MainTabBarController.swift */,
+				D475CCE123E9293700678A85 /* MainNavigationController.swift */,
 				D4212A2023E7BC02002CD60A /* BooksViewController.swift */,
 				D475CCDF23E8F2F300678A85 /* ChaptersViewController.swift */,
 				D4212A2223E7BC02002CD60A /* SearchViewController.swift */,
@@ -199,6 +209,7 @@
 				D40B3E9E23E8E6DD00276662 /* StringExtension.swift */,
 				D40B3E6E23E892C600276662 /* Controller */,
 				D40B3E6D23E892B600276662 /* Model */,
+				D475CCE323E92D2600678A85 /* View */,
 				D4212A2423E7BC02002CD60A /* Main.storyboard */,
 				D4212A2923E7BC02002CD60A /* LaunchScreen.storyboard */,
 				D4212A2C23E7BC02002CD60A /* Info.plist */,
@@ -225,6 +236,15 @@
 				D4212A4223E7BC03002CD60A /* Info.plist */,
 			);
 			path = JapaneseLDSQuadUITests;
+			sourceTree = "<group>";
+		};
+		D475CCE323E92D2600678A85 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D475CCE623E92E5000678A85 /* MainTabBar.swift */,
+				D475CCE423E92D5200678A85 /* MainNavigationBar.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -474,15 +494,19 @@
 				D40B3E7C23E896BA00276662 /* Constants.swift in Sources */,
 				D4212A2323E7BC02002CD60A /* SearchViewController.swift in Sources */,
 				D40B3E7023E892F900276662 /* Book.swift in Sources */,
+				D475CCE223E9293700678A85 /* MainNavigationController.swift in Sources */,
+				D475CCE523E92D5200678A85 /* MainNavigationBar.swift in Sources */,
 				D40B3E7223E8932900276662 /* Scripture.swift in Sources */,
 				D475CCE023E8F2F300678A85 /* ChaptersViewController.swift in Sources */,
 				D4212A2123E7BC02002CD60A /* BooksViewController.swift in Sources */,
 				D40B3E7823E893BD00276662 /* Bookmark.swift in Sources */,
 				D4212A1D23E7BC02002CD60A /* AppDelegate.swift in Sources */,
 				D40B3E9F23E8E6DD00276662 /* StringExtension.swift in Sources */,
+				D475CCE723E92E5000678A85 /* MainTabBar.swift in Sources */,
 				D40B3E7423E8935F00276662 /* HighlightedScripture.swift in Sources */,
 				D40B3E7623E8938A00276662 /* HighlightedText.swift in Sources */,
 				D4212A1F23E7BC02002CD60A /* SceneDelegate.swift in Sources */,
+				D475CCE923E92F9800678A85 /* MainTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
