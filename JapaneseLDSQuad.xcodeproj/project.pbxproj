@@ -30,6 +30,7 @@
 		D4212A2B23E7BC02002CD60A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4212A2923E7BC02002CD60A /* LaunchScreen.storyboard */; };
 		D4212A3623E7BC03002CD60A /* JapaneseLDSQuadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4212A3523E7BC03002CD60A /* JapaneseLDSQuadTests.swift */; };
 		D4212A4123E7BC03002CD60A /* JapaneseLDSQuadUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4212A4023E7BC03002CD60A /* JapaneseLDSQuadUITests.swift */; };
+		D44FF28623EA91990014B30F /* MainIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44FF28523EA91990014B30F /* MainIndicatorView.swift */; };
 		D475CCE023E8F2F300678A85 /* ChaptersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCDF23E8F2F300678A85 /* ChaptersViewController.swift */; };
 		D475CCE223E9293700678A85 /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCE123E9293700678A85 /* MainNavigationController.swift */; };
 		D475CCE523E92D5200678A85 /* MainNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCE423E92D5200678A85 /* MainNavigationBar.swift */; };
@@ -103,6 +104,7 @@
 		D4212A3C23E7BC03002CD60A /* JapaneseLDSQuadUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JapaneseLDSQuadUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4212A4023E7BC03002CD60A /* JapaneseLDSQuadUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JapaneseLDSQuadUITests.swift; sourceTree = "<group>"; };
 		D4212A4223E7BC03002CD60A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D44FF28523EA91990014B30F /* MainIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainIndicatorView.swift; sourceTree = "<group>"; };
 		D475CCDF23E8F2F300678A85 /* ChaptersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaptersViewController.swift; sourceTree = "<group>"; };
 		D475CCE123E9293700678A85 /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		D475CCE423E92D5200678A85 /* MainNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationBar.swift; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 				D475CCE623E92E5000678A85 /* MainTabBar.swift */,
 				D475CCE423E92D5200678A85 /* MainNavigationBar.swift */,
 				D475CCF223E94C5E00678A85 /* ContentWebView.swift */,
+				D44FF28523EA91990014B30F /* MainIndicatorView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -531,6 +534,7 @@
 				D40B3E7223E8932900276662 /* Scripture.swift in Sources */,
 				D475CCE023E8F2F300678A85 /* ChaptersViewController.swift in Sources */,
 				D4212A2123E7BC02002CD60A /* BooksViewController.swift in Sources */,
+				D44FF28623EA91990014B30F /* MainIndicatorView.swift in Sources */,
 				D475CCFB23E9538300678A85 /* BookmarkManager.swift in Sources */,
 				D475CCF523E94EF700678A85 /* JavaScriptSnippets.swift in Sources */,
 				D475CCFD23E953F200678A85 /* HighlightManager.swift in Sources */,

@@ -248,7 +248,7 @@ extension PagesViewController: UIPageViewControllerDataSource {
         
         let contentViewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.content) as! ContentViewController
         contentViewController.pageIndex = index
-        contentViewController.pageContents = contentBuilder.build(type: contentType)
+        contentViewController.htmlContent = contentBuilder.build(type: contentType)
         contentViewController.targetBook = targetBook
         contentViewController.targetChapterId = targetChapterId
         

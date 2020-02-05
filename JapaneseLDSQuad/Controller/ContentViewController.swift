@@ -22,11 +22,11 @@ class ContentViewController: UIViewController {
     var pageIndex = 0
     var relativeOffset: CGFloat = 0
     
-    var pageContents = ""
+    var htmlContent = ""
     
     @IBOutlet weak var webView: WKWebView!
     
-    var spinner: UIActivityIndicatorView!
+    var spinner: MainIndicatorView!
     
     var lastTapPoint = CGPoint(x: 0, y: 0)
     var selectedHighlightedTextId = ""
@@ -38,23 +38,19 @@ class ContentViewController: UIViewController {
         super.viewDidLoad()
         realm = try! Realm()
         webView.navigationDelegate = self
-        webView.loadHTMLString(pageContents, baseURL: Bundle.main.bundleURL)
+        webView.loadHTMLString(htmlContent, baseURL: Bundle.main.bundleURL)
         addGestureRecognizerToWebView()
-        
-        spinner = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height))
-        showActivityIndicator()
+        addActivityIndicator()
         setDefaultMenuItems()
     }
     
-    func showActivityIndicator() {
-        spinner.center = self.view.center
-        spinner.style = .medium
-        
-        if UserDefaults.standard.bool(forKey: Constants.Config.night) {
-            spinner.backgroundColor = UIColor(red:0.13, green:0.13, blue:0.15, alpha:1.0)
-        }
+    func addActivityIndicator() {
+        spinner = MainIndicatorView(parentView: view)
         spinner.startAnimating()
-        self.view.addSubview(spinner)
+    }
+    
+    func hideActivityIndicator() {
+        spinner.stopAnimating()
     }
 }
 
@@ -79,39 +75,30 @@ extension ContentViewController: WKNavigationDelegate {
 //        }
 //    }
     
-//    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        hideActivityIndicator()
 //        if targetScriptureId != "" {
 //            spotlightFoundVerse(verseId: targetScriptureId)
 //        }
-//        
+//
 //        webView.evaluateJavaScript("document.documentElement.scrollHeight;") { result, error in
-//            guard let h = NumberFormatter().number(from: result as! String) else { return }
+//            guard let h = NumberFormatter().number(from: String(describing: result)) else { return }
 //            let height = CGFloat(truncating: h)
 //            let visibleHeight = webView.scrollView.bounds.size.height
 //            var offset: CGFloat = 0
-//            
+//
 //            webView.evaluateJavaScript(JavaScriptSnippets.getAnchorOffsetScript()) { result, error in
-//                guard let o = NumberFormatter().number(from: result as! String) else { return }
+//                guard let o = NumberFormatter().number(from: String(describing: result)) else { return }
 //                let anchorOffset = CGFloat(truncating: o)
 //                offset = self.targetVerse.isEmpty ? self.relativeOffset * height : anchorOffset
 //                if offset >= (height - visibleHeight) {
 //                    offset = height - visibleHeight
 //                }
-//                
+//
 //                webView.scrollView.setContentOffset(CGPoint(x: 0, y: offset), animated: false)
 //                self.hideActivityIndicator()
 //            }
 //        }
-//    }
-    
-    func setDefaultMenuItems() {
-        if PurchaseManager.shared.isPurchased {
-            let copyVerseTitle = "copyVerseMenuItemLabel".localized
-            let copyVerseMenuItem = UIMenuItem(title: copyVerseTitle, action: #selector(self.copyVerseText))
-            let highlightTitle = "highlightMenuItemLabel".localized
-            let highlightMenuItem = UIMenuItem(title: highlightTitle, action: #selector(self.highlightText))
-            UIMenuController.shared.menuItems = [copyVerseMenuItem, highlightMenuItem]
-        }
     }
     
     func showHighlightMenuItems(highlightedTextId: String) {
@@ -126,6 +113,16 @@ extension ContentViewController: WKNavigationDelegate {
         menuController.setMenuVisible(true, animated: true)
         setDefaultMenuItems()
         selectedHighlightedTextId = highlightedTextId
+    }
+    
+    func setDefaultMenuItems() {
+        if PurchaseManager.shared.isPurchased {
+            let copyVerseTitle = "copyVerseMenuItemLabel".localized
+            let copyVerseMenuItem = UIMenuItem(title: copyVerseTitle, action: #selector(self.copyVerseText))
+            let highlightTitle = "highlightMenuItemLabel".localized
+            let highlightMenuItem = UIMenuItem(title: highlightTitle, action: #selector(self.highlightText))
+            UIMenuController.shared.menuItems = [copyVerseMenuItem, highlightMenuItem]
+        }
     }
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
@@ -225,10 +222,6 @@ extension ContentViewController: WKNavigationDelegate {
     func toggleBookmark(verseId: String) {
         bookmarkManager.addOrRemoveBookmark(id: verseId)
         webView.evaluateJavaScript(JavaScriptSnippets.getBookmarkUpdateScript(verseId: verseId), completionHandler: nil)
-    }
-    
-    func hideActivityIndicator() {
-        spinner.stopAnimating()
     }
     
     func jumpToAnotherContent(path: [String]!) {
