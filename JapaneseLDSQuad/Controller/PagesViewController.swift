@@ -246,7 +246,7 @@ extension PagesViewController: UIPageViewControllerDataSource {
         let scriptures = scripturesList.filter("id BEGINSWITH '\(chapterId)'").sorted(byKeyPath: "id")
         let contentBuilder = ContentBuilder(scriptures: scriptures, targetVerse: targetVerse)
         
-        let contentViewController = storyboard?.instantiateViewController(withIdentifier: "pageContent") as! ContentViewController
+        let contentViewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.content) as! ContentViewController
         contentViewController.pageIndex = index
         contentViewController.pageContents = contentBuilder.build(type: contentType)
         contentViewController.targetBook = targetBook

@@ -37,7 +37,7 @@ class ContentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         realm = try! Realm()
-        webView.delegate = self
+        webView.navigationDelegate = self
         webView.loadHTMLString(pageContents, baseURL: Bundle.main.bundleURL)
         addGestureRecognizerToWebView()
         
@@ -58,7 +58,51 @@ class ContentViewController: UIViewController {
     }
 }
 
-extension ContentViewController: UIWebViewDelegate {
+extension ContentViewController: WKNavigationDelegate {
+    
+//    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+//        let request = navigationAction.request
+//        let eventId = request.url?.lastPathComponent
+//        var path = (request.url?.pathComponents)!
+//        
+//        let rangeToRemove = path.startIndex..<path.firstIndex(of: "Japanese LDS Quad.app")!
+//        path.removeSubrange(rangeToRemove)
+//        
+//        if eventId == "bookmark" {
+//            toggleBookmark(verseId: path[1])
+//        } else if eventId == "highlight" {
+//            showHighlightMenuItems(highlightedTextId: path[1])
+//        } else {
+//            if path.count >= 2 {
+//                jumpToAnotherContent(path: path)
+//            }
+//        }
+//    }
+    
+//    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+//        if targetScriptureId != "" {
+//            spotlightFoundVerse(verseId: targetScriptureId)
+//        }
+//        
+//        webView.evaluateJavaScript("document.documentElement.scrollHeight;") { result, error in
+//            guard let h = NumberFormatter().number(from: result as! String) else { return }
+//            let height = CGFloat(truncating: h)
+//            let visibleHeight = webView.scrollView.bounds.size.height
+//            var offset: CGFloat = 0
+//            
+//            webView.evaluateJavaScript(JavaScriptSnippets.getAnchorOffsetScript()) { result, error in
+//                guard let o = NumberFormatter().number(from: result as! String) else { return }
+//                let anchorOffset = CGFloat(truncating: o)
+//                offset = self.targetVerse.isEmpty ? self.relativeOffset * height : anchorOffset
+//                if offset >= (height - visibleHeight) {
+//                    offset = height - visibleHeight
+//                }
+//                
+//                webView.scrollView.setContentOffset(CGPoint(x: 0, y: offset), animated: false)
+//                self.hideActivityIndicator()
+//            }
+//        }
+//    }
     
     func setDefaultMenuItems() {
         if PurchaseManager.shared.isPurchased {
@@ -99,12 +143,19 @@ extension ContentViewController: UIWebViewDelegate {
     }
     
     @objc func copyVerseText() {
-        let scriptureId = webView.stringByEvaluatingJavaScript(from: JavaScriptFunctions.getScriptureIdScript())
-        if scriptureId.isEmpty { showInvalidSelectedRangeAlert(); return }
-        let scriptureLanguage = webView.stringByEvaluatingJavaScript(from: JavaScriptFunctions.getScriptureLanguageScript())
+        var scriptureId: String?
+        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureIdScript()) { result, error in
+            if let id = result as? String { scriptureId = id } else { return }
+            if scriptureId!.isEmpty { self.showInvalidSelectedRangeAlert(); return }
+        }
+        
+        var scriptureLanguage: String?
+        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguageScript()) { result, error in
+            if let language = result as? String { scriptureLanguage = language } else { return }
+        }
         
         if let scripture = realm.objects(Scripture.self).filter("id = '\(scriptureId)'").first {
-            UIPasteboard.general.string = scriptureLanguage == Constants.LanguageCodes.Primary ?
+            UIPasteboard.general.string = scriptureLanguage == Constants.LanguageCode.primary ?
                 scripture.scripture_primary_raw : scripture.scripture_secondary_raw
         }
     }
@@ -112,37 +163,54 @@ extension ContentViewController: UIWebViewDelegate {
     @objc func highlightText() {
         let highlightedTextId = "highlight_" + NSUUID().uuidString
         
-        let scriptureId = webView.stringByEvaluatingJavaScript(from: JavaScriptFunctions.getScriptureIdScript())
-        if scriptureId.isEmpty { showInvalidSelectedRangeAlert(); return }
-        let highlightedText = webView.stringByEvaluatingJavaScript(from: JavaScriptFunctions.getHighlightedTextScript(textId: highlightedTextId))
-        if highlightedText.isEmpty { showInvalidSelectedRangeAlert(); return }
-
-        let scriptureContent = webView.stringByEvaluatingJavaScript(from: JavaScriptFunctions.getScriptureContentScript())
-        let scriptureLanguage = webView.stringByEvaluatingJavaScript(from: JavaScriptFunctions.getScriptureLanguageScript())
-        
-        highlightManager.addHighlight(textId: highlightedTextId, textContent: highlightedText,
-                                       scriptureId: scriptureId, scriptureContent: scriptureContent,
-                                       language: scriptureLanguage)
-    }
-    
-    @objc func editNote() {
-        if let viewController = storyboard?.instantiateViewController(withIdentifier: "notes") as? NotesViewController {
-            viewController.selectedHighlightedTextId = selectedHighlightedTextId
-            let notesNavigationController = MainNavigationController(rootViewController: viewController)
-            notesNavigationController.previousNavigationController = self.navigationController
-            self.present(notesNavigationController, animated: true, completion: nil)
+        var scriptureId: String?
+        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureIdScript()) { result, error in
+            if let id = result as? String { scriptureId = id } else { return }
+            if scriptureId!.isEmpty { self.showInvalidSelectedRangeAlert(); return }
         }
+        
+        var highlightedText: String?
+        webView.evaluateJavaScript(JavaScriptSnippets.getHighlightedTextScript(textId: highlightedTextId)) { result, error in
+            if let text = result as? String { highlightedText = text } else { return }
+            if highlightedText!.isEmpty { self.showInvalidSelectedRangeAlert(); return }
+        }
+        
+        var scriptureContent: String?
+        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureContentScript()) { result, error in
+            if let content = result as? String { scriptureContent = content } else { return }
+        }
+        
+        var scriptureLanguage: String?
+        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguageScript()) { result, error in
+            if let language = result as? String { scriptureLanguage = language } else { return }
+        }
+        
+//        highlightManager.addHighlight(textId: highlightedTextId, textContent: highlightedText,
+//                                       scriptureId: scriptureId, scriptureContent: scriptureContent,
+//                                       language: scriptureLanguage)
     }
     
     @objc func unhighlightText() {
-        let scriptureContentLanguage = webView.stringByEvaluatingJavaScript(
-            from: JavaScriptFunctions.getScriptureContentLanguageScript(textId: selectedHighlightedTextId))
-        let scriptureContent = webView.stringByEvaluatingJavaScript(
-            from: JavaScriptFunctions.getScriptureContentScript(textId: selectedHighlightedTextId))
+        var scriptureContentLanguage: String?
+        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureContentLanguageScript(textId: selectedHighlightedTextId)) { result, error in
+            if let language = result as? String { scriptureContentLanguage = language } else { return }
+        }
+        
+        var scriptureContent: String?
+        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureContentScript(textId: selectedHighlightedTextId)) { result, error in
+            if let content = result as? String { scriptureContent = content } else { return }
+        }
 
-        highlightManager.removeHighlight(id: selectedHighlightedTextId,
-                                          content: scriptureContent,
-                                          contentLanguage: scriptureContentLanguage)
+//        highlightManager.removeHighlight(id: selectedHighlightedTextId, content: scriptureContent, contentLanguage: scriptureContentLanguage)
+    }
+    
+    @objc func editNote() {
+//        if let viewController = storyboard?.instantiateViewController(withIdentifier: "notes") as? NotesViewController {
+//            viewController.selectedHighlightedTextId = selectedHighlightedTextId
+//            let notesNavigationController = MainNavigationController(rootViewController: viewController)
+//            notesNavigationController.previousNavigationController = self.navigationController
+//            self.present(notesNavigationController, animated: true, completion: nil)
+//        }
     }
     
     func showInvalidSelectedRangeAlert() {
@@ -156,46 +224,7 @@ extension ContentViewController: UIWebViewDelegate {
     
     func toggleBookmark(verseId: String) {
         bookmarkManager.addOrRemoveBookmark(id: verseId)
-        webView.stringByEvaluatingJavaScript(from: JavaScriptFunctions.getBookmarkUpdateScript(verseId: verseId))
-    }
-    
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
-        let eventId = request.url?.lastPathComponent
-        var path = (request.url?.pathComponents)!
-        
-        let rangeToRemove = path.startIndex..<path.firstIndex(of: "Japanese LDS Quad.app")!
-        path.removeSubrange(rangeToRemove)
-        
-        if eventId == "bookmark" {
-            toggleBookmark(verseId: path[1])
-        }
-        else if eventId == "highlight" {
-            showHighlightMenuItems(highlightedTextId: path[1])
-        }
-        else {
-            if path.count >= 2 {
-                jumpToAnotherContent(path: path)
-            }
-        }
-        return true
-    }
-    
-    func webViewDidFinishLoad(_ webView: UIWebView) {
-        if targetScriptureId != "" {
-            spotlightFoundVerse(verseId: targetScriptureId)
-        }
-        
-        let height = CGFloat(Float(webView.stringByEvaluatingJavaScript(from: "document.documentElement.scrollHeight;")!)!)
-        let visibleHeight = webView.scrollView.bounds.size.height
-        var offset: CGFloat = 0
-        
-        offset = targetVerse.isEmpty ? relativeOffset * height : getAnchorOffset()
-        if offset >= (height - visibleHeight) {
-            offset = height - visibleHeight
-        }
-        
-        webView.scrollView.setContentOffset(CGPoint(x: 0, y: offset), animated: false)
-        hideActivityIndicator()
+        webView.evaluateJavaScript(JavaScriptSnippets.getBookmarkUpdateScript(verseId: verseId), completionHandler: nil)
     }
     
     func hideActivityIndicator() {
@@ -248,12 +277,8 @@ extension ContentViewController: UIWebViewDelegate {
         }
     }
     
-    func getAnchorOffset() -> CGFloat {
-        return CGFloat(Float(webView.stringByEvaluatingJavaScript(from: JavaScriptFunctions.getAnchorOffsetScript()))!)
-    }
-    
     func spotlightFoundVerse(verseId: String) {
-        webView.stringByEvaluatingJavaScript(from: JavascriptFunctions.getVerseSpotlightScript(verseId: verseId))
+        webView.evaluateJavaScript(JavaScriptSnippets.getVerseSpotlightScript(verseId: verseId), completionHandler: nil)
     }
 }
 

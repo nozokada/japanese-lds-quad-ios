@@ -40,7 +40,7 @@
 		D475CCEF23E9449600678A85 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCEE23E9449600678A85 /* DataService.swift */; };
 		D475CCF123E94B9000678A85 /* ContentBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCF023E94B9000678A85 /* ContentBuilder.swift */; };
 		D475CCF323E94C5E00678A85 /* ContentWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCF223E94C5E00678A85 /* ContentWebView.swift */; };
-		D475CCF523E94EF700678A85 /* JavaScriptFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCF423E94EF700678A85 /* JavaScriptFunctions.swift */; };
+		D475CCF523E94EF700678A85 /* JavaScriptSnippets.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCF423E94EF700678A85 /* JavaScriptSnippets.swift */; };
 		D475CCF723E9521200678A85 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCF623E9521200678A85 /* PurchaseManager.swift */; };
 		D475CCF923E9534800678A85 /* AnnotationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCF823E9534800678A85 /* AnnotationManager.swift */; };
 		D475CCFB23E9538300678A85 /* BookmarkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCFA23E9538300678A85 /* BookmarkManager.swift */; };
@@ -113,7 +113,7 @@
 		D475CCEE23E9449600678A85 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		D475CCF023E94B9000678A85 /* ContentBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentBuilder.swift; sourceTree = "<group>"; };
 		D475CCF223E94C5E00678A85 /* ContentWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentWebView.swift; sourceTree = "<group>"; };
-		D475CCF423E94EF700678A85 /* JavaScriptFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaScriptFunctions.swift; sourceTree = "<group>"; };
+		D475CCF423E94EF700678A85 /* JavaScriptSnippets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaScriptSnippets.swift; sourceTree = "<group>"; };
 		D475CCF623E9521200678A85 /* PurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseManager.swift; sourceTree = "<group>"; };
 		D475CCF823E9534800678A85 /* AnnotationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationManager.swift; sourceTree = "<group>"; };
 		D475CCFA23E9538300678A85 /* BookmarkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkManager.swift; sourceTree = "<group>"; };
@@ -231,7 +231,7 @@
 				D475CCEE23E9449600678A85 /* DataService.swift */,
 				D40B3E9E23E8E6DD00276662 /* StringExtension.swift */,
 				D475CCF023E94B9000678A85 /* ContentBuilder.swift */,
-				D475CCF423E94EF700678A85 /* JavaScriptFunctions.swift */,
+				D475CCF423E94EF700678A85 /* JavaScriptSnippets.swift */,
 				D475CCF823E9534800678A85 /* AnnotationManager.swift */,
 				D475CCFA23E9538300678A85 /* BookmarkManager.swift */,
 				D475CCFC23E953F200678A85 /* HighlightManager.swift */,
@@ -532,7 +532,7 @@
 				D475CCE023E8F2F300678A85 /* ChaptersViewController.swift in Sources */,
 				D4212A2123E7BC02002CD60A /* BooksViewController.swift in Sources */,
 				D475CCFB23E9538300678A85 /* BookmarkManager.swift in Sources */,
-				D475CCF523E94EF700678A85 /* JavaScriptFunctions.swift in Sources */,
+				D475CCF523E94EF700678A85 /* JavaScriptSnippets.swift in Sources */,
 				D475CCFD23E953F200678A85 /* HighlightManager.swift in Sources */,
 				D40B3E7823E893BD00276662 /* Bookmark.swift in Sources */,
 				D475CCF123E94B9000678A85 /* ContentBuilder.swift in Sources */,
