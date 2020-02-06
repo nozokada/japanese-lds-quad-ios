@@ -247,11 +247,21 @@ extension PagesViewController: UIPageViewControllerDataSource {
         let chapter = index + 1
         let chapterId = DataService.shared.getChapterId(bookId: targetBook.id, chapter: chapter)
         let scriptures = scripturesList.filter("id BEGINSWITH '\(chapterId)'").sorted(byKeyPath: "id")
-        let contentBuilder = HtmlContentBuilder(scriptures: scriptures, targetVerse: targetVerse, type: contentType)
+        
+        var contentBuilder: ContentBuilder
+        if contentType.scripture {
+            contentBuilder = ScriptureBuilder(scriptures: scriptures, targetVerse: targetVerse, showVerseNumber: true)
+        } else if contentType.hymn {
+            contentBuilder = HymnBuilder(scriptures: scriptures, targetVerse: targetVerse)
+        } else if contentType.gs {
+            contentBuilder = BibleDictionaryBuilder(scriptures: scriptures, targetVerse: targetVerse)
+        } else {
+            contentBuilder = ScriptureBuilder(scriptures: scriptures, targetVerse: targetVerse, showVerseNumber: false)
+        }
         
         let contentViewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.content) as! ContentViewController
         contentViewController.pageIndex = index
-        contentViewController.htmlContent = contentBuilder.build()
+        contentViewController.htmlContent = contentBuilder.getCSS() + contentBuilder.buildTitle() + contentBuilder.buildPrefaces() + contentBuilder.buildBody()
         contentViewController.targetBook = targetBook
         contentViewController.targetChapterId = targetChapterId
         
