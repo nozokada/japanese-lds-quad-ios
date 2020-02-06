@@ -17,6 +17,7 @@ class ContentBuilder: NSObject {
     var targetChapter = 1
     var targetVerse = ""
     var type = (gs: false, hymn: false, scripture: true)
+    let dualEnabled = UserDefaults.standard.bool(forKey: Constants.Config.dual)
     
     init(scriptures: Results<Scripture>, targetVerse: String, type: (gs: Bool, hymn: Bool, scripture: Bool)) {
         self.scriptures = scriptures
@@ -26,8 +27,12 @@ class ContentBuilder: NSObject {
     }
     
     func build() -> String {
-        let dualEnabled = UserDefaults.standard.bool(forKey: Constants.Config.dual)
-        
+        contents = getCSS() + buildTitle() + buildPrefaces() + buildBody()
+        return contents
+    }
+    
+    func buildTitle() -> String {
+        var contents = ""
         if let title = scriptures.filter("verse = 'title'").first {
             contents += "<div class='title'>\(title.scripture_primary)</div>"
             if dualEnabled {
@@ -42,7 +47,11 @@ class ContentBuilder: NSObject {
                 contents += dualEnabled ? "<div class='subtitle'>\(counter.scripture_secondary)</div>" : ""
             }
         }
-        
+        return contents
+    }
+    
+    func buildPrefaces() -> String {
+        var contents = ""
         if let preface = scriptures.filter("verse = 'preface'").first {
             if dualEnabled { contents += "<hr>" }
             contents += "<div class='paragraph'>\(preface.scripture_primary)</div>"
@@ -60,7 +69,11 @@ class ContentBuilder: NSObject {
             contents += summary.scripture_primary.isEmpty ? "" : "<div class='paragraph'><i>\(summary.scripture_primary)</i></div>"
             contents += dualEnabled ? "<div class='paragraph'><i>\(summary.scripture_secondary)</i></div>" : ""
         }
-        
+        return contents
+    }
+    
+    func buildBody() -> String {
+        var contents = ""
         for scripture in scriptures {
             let verse = type.scripture ? scripture.verse : ""
             
@@ -100,7 +113,7 @@ class ContentBuilder: NSObject {
                 contents += "</div>"
             }
         }
-        return getCSS() + contents
+        return contents
     }
     
     func getGSWithBibleLinks(gsString: String) -> String {
