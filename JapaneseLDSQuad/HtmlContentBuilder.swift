@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class ContentBuilder: NSObject {
+class HtmlContentBuilder: NSObject {
     
     var realm: Realm!
     var scriptures: Results<Scripture>
@@ -32,88 +32,88 @@ class ContentBuilder: NSObject {
     }
     
     func buildTitle() -> String {
-        var contents = ""
+        var html = ""
         if let title = scriptures.filter("verse = 'title'").first {
-            contents += "<div class='title'>\(title.scripture_primary)</div>"
+            html += "<div class='title'>\(title.scripture_primary)</div>"
             if dualEnabled {
-                contents += type.hymn ?
+                html += type.hymn ?
                     "<div class='hymn-title'>\(title.scripture_secondary)</div>" : "<div class='title'>\(title.scripture_secondary)</div>"
             }
         }
         
         if !type.hymn {
             if let counter = scriptures.filter("verse = 'counter'").first {
-                contents += "<div class='subtitle'>\(counter.scripture_primary)</div>"
-                contents += dualEnabled ? "<div class='subtitle'>\(counter.scripture_secondary)</div>" : ""
+                html += "<div class='subtitle'>\(counter.scripture_primary)</div>"
+                html += dualEnabled ? "<div class='subtitle'>\(counter.scripture_secondary)</div>" : ""
             }
         }
-        return contents
+        return html
     }
     
     func buildPrefaces() -> String {
-        var contents = ""
+        var html = ""
         if let preface = scriptures.filter("verse = 'preface'").first {
-            if dualEnabled { contents += "<hr>" }
-            contents += "<div class='paragraph'>\(preface.scripture_primary)</div>"
-            contents += dualEnabled ? "<div class='paragraph'>\(preface.scripture_secondary)</div>" : ""
+            if dualEnabled { html += "<hr>" }
+            html += "<div class='paragraph'>\(preface.scripture_primary)</div>"
+            html += dualEnabled ? "<div class='paragraph'>\(preface.scripture_secondary)</div>" : ""
         }
         
         if let intro = scriptures.filter("verse = 'intro'").first {
-            contents += dualEnabled ? "<hr>" : ""
-            contents += "<div class='paragraph'>\(intro.scripture_primary)</div>"
-            contents += dualEnabled ? "<div class='paragraph'>\(intro.scripture_secondary)</div>" : ""
+            html += dualEnabled ? "<hr>" : ""
+            html += "<div class='paragraph'>\(intro.scripture_primary)</div>"
+            html += dualEnabled ? "<div class='paragraph'>\(intro.scripture_secondary)</div>" : ""
         }
         
         if let summary = scriptures.filter("verse = 'summary'").first {
-            contents += dualEnabled ? "<hr>" : ""
-            contents += summary.scripture_primary.isEmpty ? "" : "<div class='paragraph'><i>\(summary.scripture_primary)</i></div>"
-            contents += dualEnabled ? "<div class='paragraph'><i>\(summary.scripture_secondary)</i></div>" : ""
+            html += dualEnabled ? "<hr>" : ""
+            html += summary.scripture_primary.isEmpty ? "" : "<div class='paragraph'><i>\(summary.scripture_primary)</i></div>"
+            html += dualEnabled ? "<div class='paragraph'><i>\(summary.scripture_secondary)</i></div>" : ""
         }
-        return contents
+        return html
     }
     
     func buildBody() -> String {
-        var contents = ""
+        var html = ""
         for scripture in scriptures {
             let verse = type.scripture ? scripture.verse : ""
             
             if scripture.id.count == 6 {
                 if scripture.verse == targetVerse {
-                    contents += "<a id='anchor'></a>"
+                    html += "<a id='anchor'></a>"
                 }
                 
                 let bookmarked = realm.objects(Bookmark.self).filter("id = '\(scripture.id)'").first != nil ? true : false
                 
                 if dualEnabled && !scripture.scripture_secondary.isEmpty {
-                    contents += "<hr>"
-                    contents += "<div id='\(scripture.id)'"
-                    contents += bookmarked ? " class='bookmarked'>" : ">"
+                    html += "<hr>"
+                    html += "<div id='\(scripture.id)'"
+                    html += bookmarked ? " class='bookmarked'>" : ">"
                     
                     if type.hymn {
-                        contents += "<div class='hymn-verse'><ol><span lang='\(Constants.LanguageCode.primary)'>\(scripture.scripture_primary)</span></ol></div>"
-                        contents += "<div class='hymn-verse'><ol><span lang='\(Constants.LanguageCode.secondary)'>\(scripture.scripture_secondary)</span></ol></div>"
+                        html += "<div class='hymn-verse'><ol><span lang='\(Constants.LanguageCode.primary)'>\(scripture.scripture_primary)</span></ol></div>"
+                        html += "<div class='hymn-verse'><ol><span lang='\(Constants.LanguageCode.secondary)'>\(scripture.scripture_secondary)</span></ol></div>"
                     }
                     else {
-                        contents += "<div class='verse'><a class='verse-number' href='\(scripture.id)/bookmark'>\(verse)</a> <span lang='\(Constants.LanguageCode.primary)'>\(scripture.scripture_primary)</span></div>"
-                        contents += "<div class='verse'><a class='verse-number' href='\(scripture.id)/bookmark'>\(verse)</a> <span lang='\(Constants.LanguageCode.secondary)'>\(scripture.scripture_secondary)</span></div>"
+                        html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/bookmark'>\(verse)</a> <span lang='\(Constants.LanguageCode.primary)'>\(scripture.scripture_primary)</span></div>"
+                        html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/bookmark'>\(verse)</a> <span lang='\(Constants.LanguageCode.secondary)'>\(scripture.scripture_secondary)</span></div>"
                     }
                 }
                 else {
-                    contents += "<div id='\(scripture.id)'"
-                    contents += bookmarked ? " class='bookmarked'>" : ">"
+                    html += "<div id='\(scripture.id)'"
+                    html += bookmarked ? " class='bookmarked'>" : ">"
                     
                     let primaryScripture = type.gs && PurchaseManager.shared.isPurchased ?
                         getGSWithBibleLinks(gsString: scripture.scripture_primary) : scripture.scripture_primary
 
-                    contents += type.hymn ?
+                    html += type.hymn ?
                         "<div class='hymn-verse'><ol><span lang='\(Constants.LanguageCode.primary)'>\(primaryScripture)</span></ol></div>" :
                         "<div class='verse'><a class='verse-number' href='\(scripture.id)/bookmark'>\(verse)</a> <span lang='\(Constants.LanguageCode.primary)'>\(primaryScripture)</span></div>"
 
                 }
-                contents += "</div>"
+                html += "</div>"
             }
         }
-        return contents
+        return html
     }
     
     func getGSWithBibleLinks(gsString: String) -> String {
