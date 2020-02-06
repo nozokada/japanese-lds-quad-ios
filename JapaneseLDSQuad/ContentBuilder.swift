@@ -16,14 +16,16 @@ class ContentBuilder: NSObject {
     var contents = ""
     var targetChapter = 1
     var targetVerse = ""
+    var type = (gs: false, hymn: false, scripture: true)
     
-    init(scriptures: Results<Scripture>, targetVerse: String) {
+    init(scriptures: Results<Scripture>, targetVerse: String, type: (gs: Bool, hymn: Bool, scripture: Bool)) {
         self.scriptures = scriptures
         self.targetVerse = targetVerse
+        self.type = type
         realm = try! Realm()
     }
     
-    func build(type: (gs: Bool, hymn: Bool, scripture: Bool)) -> String {
+    func build() -> String {
         let dualEnabled = UserDefaults.standard.bool(forKey: Constants.Config.dual)
         
         if let title = scriptures.filter("verse = 'title'").first {

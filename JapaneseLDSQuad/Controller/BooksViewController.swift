@@ -16,7 +16,7 @@ class BooksViewController: UIViewController {
     
     var targetBookName: String!
     var targetBook: Book!
-    var isRoot = false
+    var isTopMenu = false
     
     @IBOutlet weak var tableView: UITableView!
 //    @IBOutlet weak var dualSwitch: UIBarButtonItem!
@@ -26,9 +26,10 @@ class BooksViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         realm = try! Realm()
-        self.title = "rootViewTitle".localized
+        targetBookName = targetBookName ?? "rootViewTitle".localized
         targetBook = targetBook ?? realm.objects(Book.self).filter("id = '0'").first
-        isRoot = targetBook.parent_book == nil
+        isTopMenu = targetBook.parent_book == nil
+        self.title = targetBookName
         booksList = targetBook.child_books.sorted(byKeyPath: "id")
     }
     
@@ -86,19 +87,19 @@ class BooksViewController: UIViewController {
 extension BooksViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if isRoot { return Constants.Count.sectionsInTopBooksView }
+        if isTopMenu { return Constants.Count.sectionsInTopBooksView }
         return Constants.Count.sectionsInBooksView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isRoot {
+        if isTopMenu {
             return section == 0 ? Constants.Count.rowsForStandardWorks : Constants.Count.rowsForResources
         }
         return booksList.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if isRoot {
+        if isTopMenu {
             return section == 0 ? "standardWorksGroupedTableViewLabel".localized : "resourcesGroupedTableViewLabel".localized
         }
         return Locale.current.languageCode == Constants.LanguageCode.primary ? targetBook.name_primary : targetBook.name_secondary
@@ -114,11 +115,11 @@ extension BooksViewController: UITableViewDataSource {
         let fontSize = Constants.FontSize.regular * UserDefaults.standard.double(forKey: Constants.Config.size)
         let book = booksList[indexPath.row + groupedCellsOffset(section: indexPath.section)]
         
-//        if Constants.PaidContents.Books.contains(book.link) {
-//            cell.isUserInteractionEnabled = PurchaseManager.shared.isPurchased
-//            cell.textLabel?.isEnabled = PurchaseManager.shared.isPurchased
-//            cell.detailTextLabel?.isEnabled = PurchaseManager.shared.isPurchased
-//        }
+        if Constants.PaidContent.books.contains(book.link) {
+            cell.isUserInteractionEnabled = PurchaseManager.shared.isPurchased
+            cell.textLabel?.isEnabled = PurchaseManager.shared.isPurchased
+            cell.detailTextLabel?.isEnabled = PurchaseManager.shared.isPurchased
+        }
 
         tableView.backgroundColor = cellColor
         cell.backgroundColor = cellColor
@@ -137,7 +138,7 @@ extension BooksViewController: UITableViewDataSource {
     }
     
     func groupedCellsOffset(section: Int) -> Int {
-        return isRoot && section > 1 ? Constants.Count.rowsForStandardWorks : 0
+        return isTopMenu && section > 0 ? Constants.Count.rowsForStandardWorks : 0
     }
 }
 

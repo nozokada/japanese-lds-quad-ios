@@ -21,7 +21,6 @@ class ContentViewController: UIViewController {
     
     var pageIndex = 0
     var relativeOffset: CGFloat = 0
-    
     var htmlContent = ""
     
     @IBOutlet weak var webView: WKWebView!

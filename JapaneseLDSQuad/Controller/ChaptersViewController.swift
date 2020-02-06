@@ -25,7 +25,6 @@ class ChaptersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = targetBookName
-        
         chaptersList = targetBook?.child_scriptures.filter("verse = 'counter'")
         if targetBook.link.hasPrefix("gs") || targetBook.link.hasPrefix("jst") || targetBook.link.hasPrefix("hymns") {
             titlesList = targetBook.child_scriptures.filter("verse = 'title'")

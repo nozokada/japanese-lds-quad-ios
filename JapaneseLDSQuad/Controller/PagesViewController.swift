@@ -244,11 +244,11 @@ extension PagesViewController: UIPageViewControllerDataSource {
         let chapter = index + 1
         let chapterId = DataService.shared.getChapterId(bookId: targetBook.id, chapter: chapter)
         let scriptures = scripturesList.filter("id BEGINSWITH '\(chapterId)'").sorted(byKeyPath: "id")
-        let contentBuilder = ContentBuilder(scriptures: scriptures, targetVerse: targetVerse)
+        let contentBuilder = ContentBuilder(scriptures: scriptures, targetVerse: targetVerse, type: contentType)
         
         let contentViewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.content) as! ContentViewController
         contentViewController.pageIndex = index
-        contentViewController.htmlContent = contentBuilder.build(type: contentType)
+        contentViewController.htmlContent = contentBuilder.build()
         contentViewController.targetBook = targetBook
         contentViewController.targetChapterId = targetChapterId
         
@@ -269,8 +269,7 @@ extension PagesViewController: UIPageViewControllerDelegate {
             
             if contentType.gs {
                 self.title = scripturesList.filter("verse = 'title' AND id BEGINSWITH '\(targetChapterId)'").first?.scripture_primary.replacingOccurrences(of: Constants.RegexPattern.tags, with: "", options: .regularExpression)
-            }
-            else {
+            } else {
                 let counter = scripturesList.filter("verse = 'counter' AND id BEGINSWITH '\(targetChapterId)'").first?.scripture_primary
                 self.title = targetBookName + " " + counter!
             }
