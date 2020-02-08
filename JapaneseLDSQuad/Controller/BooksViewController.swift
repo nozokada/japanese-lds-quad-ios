@@ -158,7 +158,7 @@ extension BooksViewController: UITableViewDelegate {
             if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
                 viewController.targetBookName = nextBook.name_primary
                 viewController.targetBook = nextBook
-                viewController.targetChapterId = DataService.shared.getChapterId(bookId: nextBook.id, chapter: 1)
+                viewController.targetChapterId = AppUtility.shared.getChapterId(bookId: nextBook.id, chapter: 1)
                 self.navigationController?.pushViewController(viewController, animated: true)
             }
         }

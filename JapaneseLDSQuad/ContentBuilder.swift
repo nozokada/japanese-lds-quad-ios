@@ -9,22 +9,41 @@
 import Foundation
 import RealmSwift
 
-protocol ContentBuilder {
-    var realm: Realm { get set }
-    var dualEnabled: Bool { get }
-    var scriptures: Results<Scripture> { get set }
-    var targetVerse: String { get set }
+class ContentBuilder {
     
-    func buildTitle() -> String
-    func buildPrefaces() -> String
-    func buildBody() -> String
-}
-
-extension ContentBuilder {
-    var dualEnabled: Bool {
-        return UserDefaults.standard.bool(forKey: Constants.Config.dual)
+    var realm: Realm
+    var dualEnabled: Bool
+    var scriptures: Results<Scripture>
+    var targetVerse: String
+    var showVerseNumber = true
+    
+    init(scriptures: Results<Scripture>, targetVerse: String, showVerseNumber: Bool) {
+        realm = try! Realm()
+        self.scriptures = scriptures
+        self.targetVerse = targetVerse
+        self.showVerseNumber =  showVerseNumber
+        dualEnabled = UserDefaults.standard.bool(forKey: Constants.Config.dual)
     }
-
+    
+    func build() -> String {
+        return buildCSS() + buildTitle() + buildPrefaces() + buildBody()
+    }
+    
+    func buildTitle() -> String {
+        var html = ""
+        if let title = scriptures.filter("verse = 'title'").first {
+            html += "<div class='title'>\(title.scripture_primary)</div>"
+            if dualEnabled {
+                html += "<div class='title'>\(title.scripture_secondary)</div>"
+            }
+        }
+        if let counter = scriptures.filter("verse = 'counter'").first {
+            html += "<div class='subtitle'>\(counter.scripture_primary)</div>"
+            html += dualEnabled ? "<div class='subtitle'>\(counter.scripture_secondary)</div>" : ""
+        }
+        return html
+    }
+    
     func buildPrefaces() -> String {
         var html = ""
         if let preface = scriptures.filter("verse = 'preface'").first {
@@ -47,7 +66,32 @@ extension ContentBuilder {
         return html
     }
     
-    func getCSS() -> String {
+    func buildBody() -> String {
+        var html = ""
+        for scripture in scriptures {
+            let verse = showVerseNumber ? scripture.verse : ""
+            if scripture.id.count == 6 {
+                if scripture.verse == targetVerse { html += "<a id='anchor'></a>" }
+                let bookmarked = realm.objects(Bookmark.self).filter("id = '\(scripture.id)'").first != nil ? true : false
+                if dualEnabled && !scripture.scripture_secondary.isEmpty {
+                    html += "<hr>"
+                    html += "<div id='\(scripture.id)'"
+                    html += bookmarked ? " class='bookmarked'>" : ">"
+                    html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/bookmark'>\(verse)</a> <span lang='\(Constants.LanguageCode.primary)'>\(scripture.scripture_primary)</span></div>"
+                    html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/bookmark'>\(verse)</a> <span lang='\(Constants.LanguageCode.secondary)'>\(scripture.scripture_secondary)</span></div>"
+                } else {
+                    html += "<div id='\(scripture.id)'"
+                    html += bookmarked ? " class='bookmarked'>" : ">"
+                    let primaryScripture = scripture.scripture_primary
+                    html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/bookmark'>\(verse)</a> <span lang='\(Constants.LanguageCode.primary)'>\(primaryScripture)</span></div>"
+                }
+                html += "</div>"
+            }
+        }
+        return html
+    }
+    
+    func buildCSS() -> String {
         let font = UserDefaults.standard.bool(forKey: Constants.Config.font) ?
             Constants.Font.min : Constants.Font.kaku
         let fontSize = UserDefaults.standard.double(forKey: Constants.Config.size)

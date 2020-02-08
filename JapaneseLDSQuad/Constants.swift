@@ -79,6 +79,13 @@ struct Constants {
         static let nightSearchBar = UIColor(red:0.20, green:0.20, blue:0.18, alpha:1.0)
     }
     
+    struct ContentType {
+        static let hymn = "hymn"
+        static let gs = "gs"
+        static let aux = "aux"
+        static let main = "main"
+    }
+    
     struct PaidContent {
         static let books = ["jst"]
     }

@@ -229,7 +229,7 @@ extension ContentViewController: WKNavigationDelegate {
                 if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
                     viewController.targetBookName = nextBook.name_primary
                     viewController.targetBook = nextBook
-                    viewController.targetChapterId = DataService.shared.getChapterId(bookId: nextBook.id, chapter: 1)
+                    viewController.targetChapterId = AppUtility.shared.getChapterId(bookId: nextBook.id, chapter: 1)
                     self.navigationController?.pushViewController(viewController, animated: true)
                 }
             }
@@ -251,7 +251,7 @@ extension ContentViewController: WKNavigationDelegate {
                 if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
                     viewController.targetBookName = nextBook.name_primary
                     viewController.targetBook = nextBook
-                    viewController.targetChapterId = DataService.shared.getChapterId(bookId: nextBook.id, chapter: Int(chapter)!)
+                    viewController.targetChapterId = AppUtility.shared.getChapterId(bookId: nextBook.id, chapter: Int(chapter)!)
                     viewController.targetVerse = verse
                     
                     let navigationController = self.navigationController!

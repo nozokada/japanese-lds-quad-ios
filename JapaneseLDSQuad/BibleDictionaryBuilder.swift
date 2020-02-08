@@ -10,17 +10,12 @@ import Foundation
 import RealmSwift
 
 class BibleDictionaryBuilder: ContentBuilder {
-    var realm: Realm
-    var scriptures: Results<Scripture>
-    var targetVerse = ""
-
+    
     init(scriptures: Results<Scripture>, targetVerse: String) {
-        realm = try! Realm()
-        self.scriptures = scriptures
-        self.targetVerse = targetVerse
+        super.init(scriptures: scriptures, targetVerse: targetVerse, showVerseNumber: false)
     }
     
-    func buildTitle() -> String {
+    override func buildTitle() -> String {
         var html = ""
         if let title = scriptures.filter("verse = 'title'").first {
             html += "<div class='title'>\(title.scripture_primary)</div>"
@@ -28,14 +23,12 @@ class BibleDictionaryBuilder: ContentBuilder {
         return html
     }
 
-    func buildBody() -> String {
+    override func buildBody() -> String {
         var html = ""
         let verse = ""
         for scripture in scriptures {
             if scripture.id.count == 6 {
-                if scripture.verse == targetVerse {
-                    html += "<a id='anchor'></a>"
-                }
+                if scripture.verse == targetVerse { html += "<a id='anchor'></a>" }
                 let bookmarked = realm.objects(Bookmark.self).filter("id = '\(scripture.id)'").first != nil ? true : false
                 html += "<div id='\(scripture.id)'"
                 html += bookmarked ? " class='bookmarked'>" : ">"
@@ -68,8 +61,7 @@ class BibleDictionaryBuilder: ContentBuilder {
                     if title == "；" {
                         uri = uri.replacingOccurrences(of: title, with: prevLinkTitle)
                         link = "；<a href=\"\(uri)\">\(match.replacingOccurrences(of: title, with: ""))</a>"
-                    }
-                    else {
+                    } else {
                         prevLinkTitle = linkTitle
                     }
                     target = target.replacingOccurrences(of: match, with: link, range: range) as NSString

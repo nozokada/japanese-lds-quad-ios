@@ -9,6 +9,7 @@
 import Foundation
 
 struct JavaScriptSnippets {
+    
     static func getHighlightedTextScript(textId: String) -> String {
         return """
             var selection = window.getSelection();

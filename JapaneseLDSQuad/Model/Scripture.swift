@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 
 class Scripture: Object {
+    
     @objc dynamic var id = ""
     @objc dynamic var chapter = 0
     @objc dynamic var verse = ""

@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 
 class HighlightedScripture: Object {
+    
     @objc dynamic var id = ""
     @objc dynamic var scripture_primary = ""
     @objc dynamic var scripture_secondary = ""

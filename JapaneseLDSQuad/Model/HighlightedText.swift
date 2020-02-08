@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 
 class HighlightedText: Object {
+    
     @objc dynamic var id = ""
     @objc dynamic var name_primary = ""
     @objc dynamic var name_secondary = ""

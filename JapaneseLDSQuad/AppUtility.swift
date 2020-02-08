@@ -1,5 +1,5 @@
 //
-//  DataService.swift
+//  AppUtility.swift
 //  JapaneseLDSQuad
 //
 //  Created by Nozomi Okada on 2/3/20.
@@ -8,8 +8,9 @@
 
 import Foundation
 
-class DataService {
-    static let shared = DataService()
+class AppUtility {
+    
+    static let shared = AppUtility()
     
     func getChapterId(bookId: String, chapter: Int) -> String {
         return "\(bookId)\(String(chapter / 10, radix: 21).uppercased())\(String(chapter % 10))"
