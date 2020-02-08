@@ -101,7 +101,7 @@ class PagesViewController: UIPageViewController {
     }
     
     func updatePageContentView() {
-        setViewControllers([getViewControllerAtIndex(index: currentChapterIndex)] as [UIViewController], direction: UIPageViewController.NavigationDirection.forward, animated: false, completion: nil)
+        setViewControllers([getViewControllerAtIndex(index: currentChapterIndex)] as [UIViewController], direction: .forward, animated: false, completion: nil)
         currentContentViewController = viewControllers?.last as! ContentViewController?
         currentContentViewController.relativeOffset = webViewRelativeOffset
     }
