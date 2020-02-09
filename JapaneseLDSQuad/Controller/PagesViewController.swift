@@ -11,14 +11,13 @@ import RealmSwift
 
 class PagesViewController: UIPageViewController {
 
-    var scripturesList: Results<Scripture>!
-        
-    var targetBookName = ""
     var targetBook: Book!
+    var targetBookName: String!
+    var scripturesList: Results<Scripture>!
+    var contentType = Constants.ContentType.main
     var targetVerse = ""
     var targetChapterId = ""
     var targetScriptureId = ""
-    var contentType = ""
     
     var currentContentViewController: ContentViewController!
     var currentChapterIndex: Int!
@@ -68,6 +67,13 @@ class PagesViewController: UIPageViewController {
 //        stopSpeaking()
     }
     
+    func initTargetBookAndChapter(targetBook: Book, targetChapter: Int, targetVerse: String?) {
+        self.targetBook = targetBook
+        self.targetVerse = targetVerse ?? ""
+        targetBookName = targetBook.name_primary
+        targetChapterId = AppUtility.shared.getChapterId(bookId: targetBook.id, chapter: targetChapter)
+    }
+    
     func setContentType() {
         if targetBook.link.hasSuffix("_cont") {
             contentType = Constants.ContentType.aux
@@ -87,8 +93,9 @@ class PagesViewController: UIPageViewController {
         case  Constants.ContentType.gs:
             title = scripturesList.filter("verse = 'title' AND id BEGINSWITH '\(targetChapterId)'").first?.scripture_primary.tagsRemoved
         default:
+            guard let bookName = targetBookName else { return }
             let counter = scripturesList.filter("verse = 'counter' AND id BEGINSWITH '\(targetChapterId)'").first?.scripture_primary ?? ""
-            title = "\(targetBookName) \(counter)"
+            title = "\(bookName) \(counter)"
         }
     }
     
