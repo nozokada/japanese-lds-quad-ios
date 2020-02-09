@@ -42,14 +42,12 @@ class PagesViewController: UIPageViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         delegate = self
         dataSource = self
-        
+        setContentType()
         scripturesList = targetBook.child_scriptures.sorted(byKeyPath: "id")
         currentChapterIndex = AppUtility.shared.getChapterNumber(id: targetChapterId) - 1
         currentContentViewController = getViewControllerAtIndex(index: currentChapterIndex)
-        setContentType()
         setTitle()
 //        speechSynthesizer.delegate = self
 //        initializeSpeechButtons()
@@ -87,7 +85,7 @@ class PagesViewController: UIPageViewController {
         case Constants.ContentType.aux:
             title = scripturesList.first?.parent_book.name_primary
         case  Constants.ContentType.gs:
-            title = scripturesList.filter("verse = 'title' AND id BEGINSWITH '\(targetChapterId)'").first?.scripture_primary.replacingOccurrences(of: Constants.RegexPattern.tags, with: "", options: .regularExpression)
+            title = scripturesList.filter("verse = 'title' AND id BEGINSWITH '\(targetChapterId)'").first?.scripture_primary.tagsRemoved
         default:
             let counter = scripturesList.filter("verse = 'counter' AND id BEGINSWITH '\(targetChapterId)'").first?.scripture_primary ?? ""
             title = "\(targetBookName) \(counter)"

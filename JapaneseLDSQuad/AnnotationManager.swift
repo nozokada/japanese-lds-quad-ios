@@ -22,7 +22,7 @@ class AnnotationManager {
     func generateTitlePrimary(scripture: Scripture) -> String {
         if scripture.parent_book.link.hasPrefix("gs") || scripture.parent_book.link.hasPrefix("jst") {
             if let title = getScripture(verseId: "\(scripture.id.prefix(4))title") {
-                return "\(title.scripture_primary.replacingOccurrences(of: Constants.RegexPattern.tags, with: "", options: .regularExpression).replacingOccurrences(of: "：.*", with: "", options: .regularExpression)) : \(scripture.verse)"
+                return "\(title.scripture_primary.tagsRemoved.replacingOccurrences(of: "：.*", with: "", options: .regularExpression)) : \(scripture.verse)"
             }
         }
         return "\(scripture.parent_book.name_primary) \(scripture.chapter) : \(scripture.verse)"
@@ -32,7 +32,7 @@ class AnnotationManager {
         if scripture.parent_book.link.hasPrefix("gs") || scripture.parent_book.link.hasPrefix("jst") {
             if let title = getScripture(verseId: "\(scripture.id.prefix(4))title") {
                 let titleSecondary = title.scripture_secondary.isEmpty ? title.scripture_primary : title.scripture_secondary
-                return "\(titleSecondary.replacingOccurrences(of: Constants.RegexPattern.tags, with: "", options: .regularExpression).replacingOccurrences(of: ":.*", with: "", options: .regularExpression)) : \(scripture.verse)"
+                return "\(titleSecondary.tagsRemoved.replacingOccurrences(of: ":.*", with: "", options: .regularExpression)) : \(scripture.verse)"
             }
         }
         return "\(scripture.parent_book.name_secondary) \(scripture.chapter) : \(scripture.verse)"

@@ -12,10 +12,9 @@ import RealmSwift
 class BooksViewController: UIViewController {
     
     var realm: Realm!
-    var booksList: Results<Book>!
-    
-    var targetBookName: String!
     var targetBook: Book!
+    var targetBookName: String!
+    var booksList: Results<Book>!
     var isTopMenu = false
     
     @IBOutlet weak var tableView: UITableView!
@@ -26,10 +25,10 @@ class BooksViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         realm = try! Realm()
-        targetBookName = targetBookName ?? "rootViewTitle".localized
         targetBook = targetBook ?? realm.objects(Book.self).filter("id = '0'").first
+        targetBookName = targetBookName ?? "rootViewTitle".localized
+        title = targetBookName
         isTopMenu = targetBook.parent_book == nil
-        self.title = targetBookName
         booksList = targetBook.child_books.sorted(byKeyPath: "id")
     }
     
@@ -38,6 +37,11 @@ class BooksViewController: UIViewController {
         tableView.estimatedRowHeight = CGFloat(Constants.FontSize.regular)
         tableView.rowHeight = UITableView.automaticDimension
 //        reload()
+    }
+    
+    func initTargetBook(targetBook: Book) {
+        self.targetBook = targetBook
+        targetBookName = targetBook.name_primary
     }
     
 //    @IBAction func rootButtonTapped(_ sender: Any) {
@@ -146,26 +150,24 @@ extension BooksViewController: UITableViewDataSource {
 extension BooksViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let nextBook = booksList[indexPath.row + groupedCellsOffset(section: indexPath.section)]
-        if nextBook.child_books.count > 0 {
+        let selectedBook = booksList[indexPath.row + groupedCellsOffset(section: indexPath.section)]
+        if selectedBook.child_books.count > 0 {
             if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.books) as? BooksViewController {
-                viewController.targetBookName = nextBook.name_primary
-                viewController.targetBook = nextBook
+                viewController.initTargetBook(targetBook: selectedBook)
                 self.navigationController?.pushViewController(viewController, animated: true)
             }
         }
-        else if nextBook.child_scriptures.sorted(byKeyPath: "id").last?.chapter == 1 {
+        else if selectedBook.child_scriptures.sorted(byKeyPath: "id").last?.chapter == 1 {
             if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
-                viewController.targetBookName = nextBook.name_primary
-                viewController.targetBook = nextBook
-                viewController.targetChapterId = AppUtility.shared.getChapterId(bookId: nextBook.id, chapter: 1)
+                viewController.targetBookName = selectedBook.name_primary
+                viewController.targetBook = selectedBook
+                viewController.targetChapterId = AppUtility.shared.getChapterId(bookId: selectedBook.id, chapter: 1)
                 self.navigationController?.pushViewController(viewController, animated: true)
             }
         }
         else {
             if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.chapters) as? ChaptersViewController {
-                viewController.targetBookName = nextBook.name_primary
-                viewController.targetBook = nextBook
+                viewController.initTargetBook(targetBook: selectedBook)
                 self.navigationController?.pushViewController(viewController, animated: true)
             }
         }

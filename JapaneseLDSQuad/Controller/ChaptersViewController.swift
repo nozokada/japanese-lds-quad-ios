@@ -11,11 +11,11 @@ import RealmSwift
 
 class ChaptersViewController: UIViewController {
     
+    var targetBook: Book!
+    var targetBookName: String!
     var chaptersList: Results<Scripture>!
     var titlesList: Results<Scripture>!
-    
-    var targetBookName: String!
-    var targetBook: Book!
+    var chapterType = Constants.ChapterType.number
     
     @IBOutlet weak var tableView: UITableView!
 //    @IBOutlet weak var dualSwitch: UIBarButtonItem!
@@ -24,9 +24,10 @@ class ChaptersViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = targetBookName
-        chaptersList = targetBook?.child_scriptures.filter("verse = 'counter'")
-        if targetBook.link.hasPrefix("gs") || targetBook.link.hasPrefix("jst") || targetBook.link.hasPrefix("hymns") {
+        title = targetBookName
+        setChapterType()
+        chaptersList = targetBook.child_scriptures.filter("verse = 'counter'")
+        if chapterType == Constants.ChapterType.title {
             titlesList = targetBook.child_scriptures.filter("verse = 'title'")
         }
     }
@@ -37,6 +38,19 @@ class ChaptersViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = tableView.tableFooterView ?? UIView(frame: CGRect.zero)
 //        reload()
+    }
+    
+    func initTargetBook(targetBook: Book) {
+        self.targetBook = targetBook
+        targetBookName = targetBook.name_primary
+    }
+    
+    func setChapterType() {
+        if targetBook.link.hasPrefix("gs") || targetBook.link.hasPrefix("jst") || targetBook.link.hasPrefix("hymns") {
+            chapterType = Constants.ChapterType.title
+        } else {
+            chapterType = Constants.ChapterType.number
+        }
     }
     
 //    @IBAction func rootButtonTapped(_ sender: Any) {
@@ -91,16 +105,14 @@ extension ChaptersViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
-        let cellColor = UserDefaults.standard.bool(forKey: Constants.Config.night) ?
-            Constants.CellColor.night : Constants.CellColor.day
+        let cellColor = UserDefaults.standard.bool(forKey: Constants.Config.night) ? Constants.CellColor.night : Constants.CellColor.day
         
         var cellTextLabel = chaptersList[indexPath.row].scripture_primary
         if let titles = titlesList {
-            cellTextLabel += " \(titles[indexPath.row].scripture_primary.replacingOccurrences(of: Constants.RegexPattern.tags, with: "", options: .regularExpression))"
+            cellTextLabel += " \(titles[indexPath.row].scripture_primary.tagsRemoved)"
         }
         
-        let font = UserDefaults.standard.bool(forKey: Constants.Config.font) ?
-            Constants.Font.min : Constants.Font.kaku
+        let font = UserDefaults.standard.bool(forKey: Constants.Config.font) ? Constants.Font.min : Constants.Font.kaku
         let fontSize = Constants.FontSize.regular * UserDefaults.standard.double(forKey: Constants.Config.size)
         
         tableView.backgroundColor = cellColor
@@ -108,15 +120,14 @@ extension ChaptersViewController: UITableViewDataSource {
         
         cell.textLabel?.text = cellTextLabel
         cell.textLabel?.font = UIFont(name: font, size: CGFloat(fontSize))
-        cell.textLabel?.textColor = UserDefaults.standard.bool(forKey: Constants.Config.night) ?
-            Constants.FontColor.night : Constants.FontColor.day
+        cell.textLabel?.textColor = UserDefaults.standard.bool(forKey: Constants.Config.night) ? Constants.FontColor.night : Constants.FontColor.day
         
         if targetBook.link.hasPrefix("gs") { return cell }
         
         if UserDefaults.standard.bool(forKey: Constants.Config.dual) {
             var cellDetailTextLabel = chaptersList[indexPath.row].scripture_secondary
             if let titles = titlesList {
-                cellDetailTextLabel += " \(titles[indexPath.row].scripture_secondary.replacingOccurrences(of: Constants.RegexPattern.tags, with: "", options: .regularExpression))"
+                cellDetailTextLabel += " \(titles[indexPath.row].scripture_secondary.tagsRemoved)"
             }
             cell.detailTextLabel?.text = cellDetailTextLabel
             cell.detailTextLabel?.font = UIFont(name: font, size: CGFloat(fontSize) / 2)

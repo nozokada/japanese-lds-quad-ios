@@ -13,4 +13,8 @@ extension String {
     var localized: String {
         return NSLocalizedString(self, comment: "")
     }
+    
+    var tagsRemoved: String{
+        return self.replacingOccurrences(of: Constants.RegexPattern.tags, with: "", options: .regularExpression)
+    }
 }
