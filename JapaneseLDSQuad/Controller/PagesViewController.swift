@@ -15,9 +15,8 @@ class PagesViewController: UIPageViewController {
     var targetBookName: String!
     var scripturesList: Results<Scripture>!
     var contentType = Constants.ContentType.main
-    var targetVerse = ""
-    var targetChapterId = ""
-    var targetScriptureId = ""
+    var targetVerse: String?
+    var targetChapterId: String!
     
     var currentContentViewController: ContentViewController!
     var currentChapterIndex: Int!
@@ -46,7 +45,7 @@ class PagesViewController: UIPageViewController {
         setContentType()
         scripturesList = targetBook.child_scriptures.sorted(byKeyPath: "id")
         currentChapterIndex = AppUtility.shared.getChapterNumber(id: targetChapterId) - 1
-        currentContentViewController = getViewControllerAtIndex(index: currentChapterIndex)
+        currentContentViewController = getViewControllerAt(index: currentChapterIndex)
         setTitle()
 //        speechSynthesizer.delegate = self
 //        initializeSpeechButtons()
@@ -62,16 +61,51 @@ class PagesViewController: UIPageViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        clearTargetScripture()
+        targetVerse = nil
         saveCurrentRelativeOffset()
 //        stopSpeaking()
     }
     
     func initTargetBookAndChapter(targetBook: Book, targetChapter: Int, targetVerse: String?) {
         self.targetBook = targetBook
-        self.targetVerse = targetVerse ?? ""
+        self.targetVerse = targetVerse
         targetBookName = targetBook.name_primary
         targetChapterId = AppUtility.shared.getChapterId(bookId: targetBook.id, chapter: targetChapter)
+    }
+    
+    func updatePageContentView() {
+        guard let contentViewControllers = [getViewControllerAt(index: currentChapterIndex)] as? [UIViewController] else { return }
+        setViewControllers(contentViewControllers, direction: .forward, animated: false, completion: nil)
+        currentContentViewController = viewControllers?.last as? ContentViewController
+        currentContentViewController.relativeOffset = webViewRelativeOffset
+    }
+    
+    func getViewControllerAt(index: Int) -> ContentViewController? {
+        let chapterId = AppUtility.shared.getChapterId(bookId: targetBook.id, chapter: index + 1)
+        let scriptures = scripturesList.filter("id BEGINSWITH '\(chapterId)'").sorted(byKeyPath: "id")
+        let contentBuilder = createContentBuilder(scriptures: scriptures)
+        
+        if let contentViewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.content) as? ContentViewController {
+            contentViewController.initData(index: index,
+                                           builder: contentBuilder,
+                                           targetChapterId: targetChapterId,
+                                           targetVerse: targetVerse)
+            return contentViewController
+        }
+        return nil
+    }
+    
+    func createContentBuilder(scriptures: Results<Scripture>) -> ContentBuilder {
+        switch contentType {
+        case Constants.ContentType.aux:
+            return ContentBuilder(scriptures: scriptures, targetVerse: targetVerse, showVerseNumber: false)
+        case Constants.ContentType.gs:
+            return BibleDictionaryBuilder(scriptures: scriptures, targetVerse: targetVerse)
+        case Constants.ContentType.hymn:
+            return HymnBuilder(scriptures: scriptures, targetVerse: targetVerse)
+        default:
+            return ContentBuilder(scriptures: scriptures, targetVerse: targetVerse, showVerseNumber: true)
+        }
     }
     
     func setContentType() {
@@ -87,14 +121,15 @@ class PagesViewController: UIPageViewController {
     }
     
     func setTitle() {
+        guard let chapterId = targetChapterId else { return }
         switch contentType {
         case Constants.ContentType.aux:
             title = scripturesList.first?.parent_book.name_primary
         case  Constants.ContentType.gs:
-            title = scripturesList.filter("verse = 'title' AND id BEGINSWITH '\(targetChapterId)'").first?.scripture_primary.tagsRemoved
+            title = scripturesList.filter("verse = 'title' AND id BEGINSWITH '\(chapterId)'").first?.scripture_primary.tagsRemoved
         default:
             guard let bookName = targetBookName else { return }
-            let counter = scripturesList.filter("verse = 'counter' AND id BEGINSWITH '\(targetChapterId)'").first?.scripture_primary ?? ""
+            let counter = scripturesList.filter("verse = 'counter' AND id BEGINSWITH '\(chapterId)'").first?.scripture_primary ?? ""
             title = "\(bookName) \(counter)"
         }
     }
@@ -103,17 +138,6 @@ class PagesViewController: UIPageViewController {
         let offset = currentContentViewController.webView.scrollView.contentOffset.y
         let height = currentContentViewController.webView.scrollView.contentSize.height
         webViewRelativeOffset = offset / height
-    }
-    
-    func updatePageContentView() {
-        setViewControllers([getViewControllerAtIndex(index: currentChapterIndex)] as [UIViewController], direction: .forward, animated: false, completion: nil)
-        currentContentViewController = viewControllers?.last as! ContentViewController?
-        currentContentViewController.relativeOffset = webViewRelativeOffset
-    }
-    
-    func clearTargetScripture() {
-        targetVerse = ""
-        targetScriptureId = ""
     }
     
 //    @IBAction func rootButtonTapped(_ sender: Any) {
@@ -240,7 +264,7 @@ extension PagesViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         if let currentViewController = viewController as? ContentViewController {
             let currentIndex = currentViewController.pageIndex
-            return currentIndex > 0 ? getViewControllerAtIndex(index: currentIndex - 1) : nil
+            return currentIndex > 0 ? getViewControllerAt(index: currentIndex - 1) : nil
         }
         return nil
     }
@@ -249,40 +273,9 @@ extension PagesViewController: UIPageViewControllerDataSource {
         if let currentViewController = viewController as? ContentViewController {
             let currentIndex = currentViewController.pageIndex
             let lastChapter = AppUtility.shared.getChapterNumber(id: (scripturesList.last?.id)!)
-            return currentIndex < lastChapter - 1 ? getViewControllerAtIndex(index: currentIndex + 1) : nil
+            return currentIndex < lastChapter - 1 ? getViewControllerAt(index: currentIndex + 1) : nil
         }
         return nil
-    }
-    
-    func getViewControllerAtIndex(index: Int) -> ContentViewController {
-        let chapter = index + 1
-        let chapterId = AppUtility.shared.getChapterId(bookId: targetBook.id, chapter: chapter)
-        let scriptures = scripturesList.filter("id BEGINSWITH '\(chapterId)'").sorted(byKeyPath: "id")
-        let contentBuilder = createContentBuilder(scriptures: scriptures)
-        
-        let contentViewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.content) as! ContentViewController
-        contentViewController.pageIndex = index
-        contentViewController.htmlContent = contentBuilder.build()
-        contentViewController.targetBook = targetBook
-        contentViewController.targetChapterId = targetChapterId
-        
-        if chapterId == targetChapterId { contentViewController.targetVerse = targetVerse }
-        contentViewController.targetScriptureId = targetScriptureId
-        
-        return contentViewController
-    }
-    
-    func createContentBuilder(scriptures: Results<Scripture>) -> ContentBuilder {
-        switch contentType {
-        case Constants.ContentType.aux:
-            return ContentBuilder(scriptures: scriptures, targetVerse: targetVerse, showVerseNumber: false)
-        case Constants.ContentType.gs:
-            return BibleDictionaryBuilder(scriptures: scriptures, targetVerse: targetVerse)
-        case Constants.ContentType.hymn:
-            return HymnBuilder(scriptures: scriptures, targetVerse: targetVerse)
-        default:
-            return ContentBuilder(scriptures: scriptures, targetVerse: targetVerse, showVerseNumber: true)
-        }
     }
 }
 
@@ -295,7 +288,7 @@ extension PagesViewController: UIPageViewControllerDelegate {
             targetChapterId = AppUtility.shared.getChapterId(bookId: targetBook.id, chapter: currentChapterIndex + 1)
             setTitle()
         }
-        clearTargetScripture()
+        targetVerse = nil
 //        loadSpeechVerses()
 //        stopSpeaking()
     }

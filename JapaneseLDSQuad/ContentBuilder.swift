@@ -14,10 +14,10 @@ class ContentBuilder {
     var realm: Realm
     var dualEnabled: Bool
     var scriptures: Results<Scripture>
-    var targetVerse: String
+    var targetVerse: String?
     var showVerseNumber = true
     
-    init(scriptures: Results<Scripture>, targetVerse: String, showVerseNumber: Bool) {
+    init(scriptures: Results<Scripture>, targetVerse: String?, showVerseNumber: Bool) {
         realm = try! Realm()
         self.scriptures = scriptures
         self.targetVerse = targetVerse

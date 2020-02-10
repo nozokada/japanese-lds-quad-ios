@@ -13,20 +13,16 @@ import WebKit
 class ContentViewController: UIViewController {
 
     var realm: Realm!
-    
-    var targetBook: Book!
-    var targetVerse = ""
-    var targetChapterId = ""
-    var targetScriptureId = ""
-    
-    var pageIndex = 0
-    var relativeOffset: CGFloat = 0
-    var htmlContent = ""
+    var targetChapterId: String!
+    var targetScriptureId: String!
+    var targetVerse: String?
+    var htmlContent: String!
+    var pageIndex: Int = 0
     
     @IBOutlet weak var webView: WKWebView!
-    
     var spinner: MainIndicatorView!
     
+    var relativeOffset: CGFloat = 0
     var lastTapPoint = CGPoint(x: 0, y: 0)
     var selectedHighlightedTextId = ""
     
@@ -41,6 +37,13 @@ class ContentViewController: UIViewController {
         addGestureRecognizerToWebView()
         addActivityIndicator()
         setDefaultMenuItems()
+    }
+    
+    func initData(index: Int, builder: ContentBuilder, targetChapterId: String, targetVerse: String?) {
+        self.targetChapterId = targetChapterId
+        self.targetVerse = targetVerse
+        pageIndex = index
+        htmlContent = builder.build()
     }
     
     func addActivityIndicator() {

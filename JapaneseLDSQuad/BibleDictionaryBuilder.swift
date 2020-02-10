@@ -11,7 +11,7 @@ import RealmSwift
 
 class BibleDictionaryBuilder: ContentBuilder {
     
-    init(scriptures: Results<Scripture>, targetVerse: String) {
+    init(scriptures: Results<Scripture>, targetVerse: String?) {
         super.init(scriptures: scriptures, targetVerse: targetVerse, showVerseNumber: false)
     }
     
