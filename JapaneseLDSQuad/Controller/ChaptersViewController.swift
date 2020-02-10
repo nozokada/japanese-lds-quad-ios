@@ -142,7 +142,7 @@ extension ChaptersViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
-            viewController.initTargetBookAndChapter(targetBook: targetBook, targetChapter: indexPath.row + 1, targetVerse: nil)
+            viewController.initData(targetBook: targetBook, targetChapter: indexPath.row + 1, targetVerse: nil)
             self.navigationController?.pushViewController(viewController, animated: true)
         }
         tableView.deselectRow(at: indexPath, animated: true)

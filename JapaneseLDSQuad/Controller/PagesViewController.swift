@@ -61,12 +61,12 @@ class PagesViewController: UIPageViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        targetVerse = nil
-        saveCurrentRelativeOffset()
+//        targetVerse = nil
+//        saveCurrentRelativeOffset()
 //        stopSpeaking()
     }
     
-    func initTargetBookAndChapter(targetBook: Book, targetChapter: Int, targetVerse: String?) {
+    func initData(targetBook: Book, targetChapter: Int, targetVerse: String?) {
         self.targetBook = targetBook
         self.targetVerse = targetVerse
         targetBookName = targetBook.name_primary
@@ -77,7 +77,7 @@ class PagesViewController: UIPageViewController {
         guard let contentViewControllers = [getViewControllerAt(index: currentChapterIndex)] as? [UIViewController] else { return }
         setViewControllers(contentViewControllers, direction: .forward, animated: false, completion: nil)
         currentContentViewController = viewControllers?.last as? ContentViewController
-        currentContentViewController.relativeOffset = webViewRelativeOffset
+//        currentContentViewController.relativeOffset = webViewRelativeOffset
     }
     
     func getViewControllerAt(index: Int) -> ContentViewController? {
@@ -89,7 +89,7 @@ class PagesViewController: UIPageViewController {
             contentViewController.initData(index: index,
                                            builder: contentBuilder,
                                            targetChapterId: targetChapterId,
-                                           targetVerse: targetVerse)
+                                           targetVerse: chapterId == targetChapterId ? targetVerse: nil)
             return contentViewController
         }
         return nil

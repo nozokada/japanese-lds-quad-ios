@@ -10,7 +10,7 @@ import Foundation
 
 struct JavaScriptSnippets {
     
-    static func getHighlightedTextScript(textId: String) -> String {
+    static func getHighlightedText(textId: String) -> String {
         return """
             var selection = window.getSelection();
             var highlightedText = '';
@@ -43,7 +43,7 @@ struct JavaScriptSnippets {
             """
     }
     
-    static func getScriptureIdScript() -> String {
+    static func getScriptureId() -> String {
         return """
             var selection = window.getSelection();
             var scriptureId = '';
@@ -57,7 +57,7 @@ struct JavaScriptSnippets {
             """
     }
     
-    static func getScriptureContentScript() -> String {
+    static func getScriptureContent() -> String {
         return """
             var selection = window.getSelection();
             var scriptureContent = '';
@@ -71,7 +71,7 @@ struct JavaScriptSnippets {
             """
     }
     
-    static func getScriptureLanguageScript() -> String {
+    static func getScriptureLanguage() -> String {
         return """
             var selection = window.getSelection();
             var scriptureContentLanguage = '';
@@ -85,7 +85,7 @@ struct JavaScriptSnippets {
             """
     }
     
-    static func getScriptureContentLanguageScript(textId: String) -> String {
+    static func getScriptureContentLanguage(textId: String) -> String {
         return """
             var highlightedText = document.getElementById('\(textId)');
             var scriptureContentLanguage = getScriptureContentLanguage(highlightedText);
@@ -93,7 +93,7 @@ struct JavaScriptSnippets {
             """
     }
     
-    static func getScriptureContentScript(textId: String) -> String {
+    static func getScriptureContent(textId: String) -> String {
         return """
             var highlightedText = document.getElementById('\(textId)');
             var parent = highlightedText.parentNode;
@@ -105,7 +105,7 @@ struct JavaScriptSnippets {
             """
     }
     
-    static func getBookmarkUpdateScript(verseId: String) -> String {
+    static func getBookmarkUpdate(verseId: String) -> String {
         return """
             var verse = document.getElementById('\(verseId)');
             if (verse.classList.contains('bookmarked')) {
@@ -117,7 +117,7 @@ struct JavaScriptSnippets {
             """
     }
     
-    static func getAnchorOffsetScript() -> String {
+    static func getAnchorOffset() -> String {
         return """
             getAnchorOffset();
             function getAnchorOffset() {
@@ -132,7 +132,7 @@ struct JavaScriptSnippets {
             """
     }
     
-    static func getVerseSpotlightScript(verseId: String) -> String {
+    static func getVerseSpotlight(verseId: String) -> String {
         return """
             var verse = document.getElementById('\(verseId)');
             verse.style.backgroundColor = '#ffff66';

@@ -78,29 +78,23 @@ extension ContentViewController: WKNavigationDelegate {
 //    }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        hideActivityIndicator()
 //        if targetScriptureId != "" {
 //            spotlightFoundVerse(verseId: targetScriptureId)
 //        }
-//
-//        webView.evaluateJavaScript("document.documentElement.scrollHeight;") { result, error in
-//            guard let h = NumberFormatter().number(from: String(describing: result)) else { return }
-//            let height = CGFloat(truncating: h)
-//            let visibleHeight = webView.scrollView.bounds.size.height
-//            var offset: CGFloat = 0
-//
-//            webView.evaluateJavaScript(JavaScriptSnippets.getAnchorOffsetScript()) { result, error in
-//                guard let o = NumberFormatter().number(from: String(describing: result)) else { return }
-//                let anchorOffset = CGFloat(truncating: o)
-//                offset = self.targetVerse.isEmpty ? self.relativeOffset * height : anchorOffset
-//                if offset >= (height - visibleHeight) {
-//                    offset = height - visibleHeight
-//                }
-//
-//                webView.scrollView.setContentOffset(CGPoint(x: 0, y: offset), animated: false)
-//                self.hideActivityIndicator()
-//            }
-//        }
+        webView.evaluateJavaScript("document.documentElement.scrollHeight;") { result, error in
+            guard let height = result as? CGFloat else { return }
+            let visibleHeight = webView.scrollView.bounds.size.height
+            
+            webView.evaluateJavaScript(JavaScriptSnippets.getAnchorOffset()) { result, error in
+                guard let anchorOffset = result as? CGFloat else { return }
+                var offset = self.targetVerse == nil ? self.relativeOffset * height : anchorOffset
+                if offset >= (height - visibleHeight) {
+                    offset = height - visibleHeight
+                }
+                webView.evaluateJavaScript("window.scrollTo(0,\(offset))", completionHandler: nil)
+                self.hideActivityIndicator()
+            }
+        }
     }
     
     func showHighlightMenuItems(highlightedTextId: String) {
@@ -143,13 +137,13 @@ extension ContentViewController: WKNavigationDelegate {
     
     @objc func copyVerseText() {
         var scriptureId: String?
-        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureIdScript()) { result, error in
+        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureId()) { result, error in
             if let id = result as? String { scriptureId = id } else { return }
             if scriptureId!.isEmpty { self.showInvalidSelectedRangeAlert(); return }
         }
         
         var scriptureLanguage: String?
-        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguageScript()) { result, error in
+        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguage()) { result, error in
             if let language = result as? String { scriptureLanguage = language } else { return }
         }
         
@@ -163,24 +157,24 @@ extension ContentViewController: WKNavigationDelegate {
         let highlightedTextId = "highlight_" + NSUUID().uuidString
         
         var scriptureId: String?
-        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureIdScript()) { result, error in
+        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureId()) { result, error in
             if let id = result as? String { scriptureId = id } else { return }
             if scriptureId!.isEmpty { self.showInvalidSelectedRangeAlert(); return }
         }
         
         var highlightedText: String?
-        webView.evaluateJavaScript(JavaScriptSnippets.getHighlightedTextScript(textId: highlightedTextId)) { result, error in
+        webView.evaluateJavaScript(JavaScriptSnippets.getHighlightedText(textId: highlightedTextId)) { result, error in
             if let text = result as? String { highlightedText = text } else { return }
             if highlightedText!.isEmpty { self.showInvalidSelectedRangeAlert(); return }
         }
         
         var scriptureContent: String?
-        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureContentScript()) { result, error in
+        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureContent()) { result, error in
             if let content = result as? String { scriptureContent = content } else { return }
         }
         
         var scriptureLanguage: String?
-        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguageScript()) { result, error in
+        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguage()) { result, error in
             if let language = result as? String { scriptureLanguage = language } else { return }
         }
         
@@ -191,12 +185,12 @@ extension ContentViewController: WKNavigationDelegate {
     
     @objc func unhighlightText() {
         var scriptureContentLanguage: String?
-        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureContentLanguageScript(textId: selectedHighlightedTextId)) { result, error in
+        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureContentLanguage(textId: selectedHighlightedTextId)) { result, error in
             if let language = result as? String { scriptureContentLanguage = language } else { return }
         }
         
         var scriptureContent: String?
-        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureContentScript(textId: selectedHighlightedTextId)) { result, error in
+        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureContent(textId: selectedHighlightedTextId)) { result, error in
             if let content = result as? String { scriptureContent = content } else { return }
         }
 
@@ -223,7 +217,7 @@ extension ContentViewController: WKNavigationDelegate {
     
     func toggleBookmark(verseId: String) {
         bookmarkManager.addOrRemoveBookmark(id: verseId)
-        webView.evaluateJavaScript(JavaScriptSnippets.getBookmarkUpdateScript(verseId: verseId), completionHandler: nil)
+        webView.evaluateJavaScript(JavaScriptSnippets.getBookmarkUpdate(verseId: verseId), completionHandler: nil)
     }
     
     func jumpToAnotherContent(path: [String]!) {
@@ -273,7 +267,7 @@ extension ContentViewController: WKNavigationDelegate {
     }
     
     func spotlightFoundVerse(verseId: String) {
-        webView.evaluateJavaScript(JavaScriptSnippets.getVerseSpotlightScript(verseId: verseId), completionHandler: nil)
+        webView.evaluateJavaScript(JavaScriptSnippets.getVerseSpotlight(verseId: verseId), completionHandler: nil)
     }
 }
 

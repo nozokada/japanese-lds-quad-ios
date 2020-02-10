@@ -110,7 +110,7 @@ extension BooksViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "Cell")
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
         let cellColor = UserDefaults.standard.bool(forKey: Constants.Config.night) ?
             Constants.CellColor.night : Constants.CellColor.day
         
@@ -159,7 +159,7 @@ extension BooksViewController: UITableViewDelegate {
         }
         else if selectedBook.child_scriptures.sorted(byKeyPath: "id").last?.chapter == 1 {
             if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
-                viewController.initTargetBookAndChapter(targetBook: selectedBook, targetChapter: 1, targetVerse: nil)
+                viewController.initData(targetBook: selectedBook, targetChapter: 1, targetVerse: nil)
                 self.navigationController?.pushViewController(viewController, animated: true)
             }
         }
