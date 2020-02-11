@@ -13,8 +13,8 @@ class ChaptersViewController: UIViewController {
     
     var targetBook: Book!
     var targetBookName: String!
-    var chaptersList: Results<Scripture>!
-    var titlesList: Results<Scripture>!
+    var counters: Results<Scripture>!
+    var titles: Results<Scripture>!
     var chapterType = Constants.ChapterType.number
     
     @IBOutlet weak var tableView: UITableView!
@@ -26,9 +26,9 @@ class ChaptersViewController: UIViewController {
         super.viewDidLoad()
         title = targetBookName
         setChapterType()
-        chaptersList = targetBook.child_scriptures.filter("verse = 'counter'")
+        counters = targetBook.child_scriptures.filter("verse = 'counter'")
         if chapterType == Constants.ChapterType.title {
-            titlesList = targetBook.child_scriptures.filter("verse = 'title'")
+            titles = targetBook.child_scriptures.filter("verse = 'title'")
         }
     }
     
@@ -100,15 +100,15 @@ class ChaptersViewController: UIViewController {
 extension ChaptersViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection: Int) -> Int {
-        return chaptersList.count
+        return counters.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
         let cellColor = UserDefaults.standard.bool(forKey: Constants.Config.night) ? Constants.CellColor.night : Constants.CellColor.day
         
-        var cellTextLabel = chaptersList[indexPath.row].scripture_primary
-        if let titles = titlesList {
+        var cellTextLabel = counters[indexPath.row].scripture_primary
+        if let titles = titles {
             cellTextLabel += " \(titles[indexPath.row].scripture_primary.tagsRemoved)"
         }
         
@@ -125,8 +125,8 @@ extension ChaptersViewController: UITableViewDataSource {
         if targetBook.link.hasPrefix("gs") { return cell }
         
         if UserDefaults.standard.bool(forKey: Constants.Config.dual) {
-            var cellDetailTextLabel = chaptersList[indexPath.row].scripture_secondary
-            if let titles = titlesList {
+            var cellDetailTextLabel = counters[indexPath.row].scripture_secondary
+            if let titles = titles {
                 cellDetailTextLabel += " \(titles[indexPath.row].scripture_secondary.tagsRemoved)"
             }
             cell.detailTextLabel?.text = cellDetailTextLabel

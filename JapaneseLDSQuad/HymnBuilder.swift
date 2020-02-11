@@ -11,10 +11,6 @@ import RealmSwift
 
 class HymnBuilder: ContentBuilder {
     
-    init(scriptures: Results<Scripture>, targetVerse: String?) {
-        super.init(scriptures: scriptures, targetVerse: targetVerse, showVerseNumber: false)
-    }
-    
     override func buildTitle() -> String {
         var html = ""
         if let title = scriptures.filter("verse = 'title'").first {

@@ -14,7 +14,7 @@ class BooksViewController: UIViewController {
     var realm: Realm!
     var targetBook: Book!
     var targetBookName: String!
-    var booksList: Results<Book>!
+    var books: Results<Book>!
     var isTopMenu = false
     
     @IBOutlet weak var tableView: UITableView!
@@ -29,7 +29,7 @@ class BooksViewController: UIViewController {
         targetBookName = targetBookName ?? "rootViewTitle".localized
         title = targetBookName
         isTopMenu = targetBook.parent_book == nil
-        booksList = targetBook.child_books.sorted(byKeyPath: "id")
+        books = targetBook.child_books.sorted(byKeyPath: "id")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -99,7 +99,7 @@ extension BooksViewController: UITableViewDataSource {
         if isTopMenu {
             return section == 0 ? Constants.Count.rowsForStandardWorks : Constants.Count.rowsForResources
         }
-        return booksList.count
+        return books.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -117,7 +117,7 @@ extension BooksViewController: UITableViewDataSource {
         let font = UserDefaults.standard.bool(forKey: Constants.Config.font) ?
             Constants.Font.min : Constants.Font.kaku
         let fontSize = Constants.FontSize.regular * UserDefaults.standard.double(forKey: Constants.Config.size)
-        let book = booksList[indexPath.row + groupedCellsOffset(section: indexPath.section)]
+        let book = books[indexPath.row + groupedCellsOffset(section: indexPath.section)]
         
         if Constants.PaidContent.books.contains(book.link) {
             cell.isUserInteractionEnabled = PurchaseManager.shared.isPurchased
@@ -150,7 +150,7 @@ extension BooksViewController: UITableViewDataSource {
 extension BooksViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedBook = booksList[indexPath.row + groupedCellsOffset(section: indexPath.section)]
+        let selectedBook = books[indexPath.row + groupedCellsOffset(section: indexPath.section)]
         if selectedBook.child_books.count > 0 {
             if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.books) as? BooksViewController {
                 viewController.initTargetBook(targetBook: selectedBook)

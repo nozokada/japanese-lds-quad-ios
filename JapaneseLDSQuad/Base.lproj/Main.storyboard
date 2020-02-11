@@ -189,7 +189,7 @@
                     <navigationItem key="navigationItem" id="CuM-8z-AmE"/>
                     <connections>
                         <outlet property="searchBar" destination="rsi-b6-fDt" id="eEq-N9-VzY"/>
-                        <outlet property="searchSegmentControl" destination="Apl-mt-2OM" id="SUK-iM-09H"/>
+                        <outlet property="searchResultsSegmentedControl" destination="Apl-mt-2OM" id="SUK-iM-09H"/>
                         <outlet property="tableView" destination="hTm-2w-wYS" id="ZRt-lD-lsc"/>
                     </connections>
                 </viewController>

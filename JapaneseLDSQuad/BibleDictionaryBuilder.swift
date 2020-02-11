@@ -11,10 +11,6 @@ import RealmSwift
 
 class BibleDictionaryBuilder: ContentBuilder {
     
-    init(scriptures: Results<Scripture>, targetVerse: String?) {
-        super.init(scriptures: scriptures, targetVerse: targetVerse, showVerseNumber: false)
-    }
-    
     override func buildTitle() -> String {
         var html = ""
         if let title = scriptures.filter("verse = 'title'").first {
@@ -40,7 +36,7 @@ class BibleDictionaryBuilder: ContentBuilder {
         return html
     }
 
-    func getGSWithBibleLinks(gsString: String) -> String {
+    private func getGSWithBibleLinks(gsString: String) -> String {
         let regex = try! NSRegularExpression(pattern: Constants.RegexPattern.passage)
         let matchResults = regex.matches(in: gsString, range: NSMakeRange(0, gsString.count))
         var target = gsString as NSString

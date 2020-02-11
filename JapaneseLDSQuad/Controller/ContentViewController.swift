@@ -43,7 +43,7 @@ class ContentViewController: UIViewController {
         self.targetChapterId = targetChapterId
         self.targetVerse = targetVerse
         pageIndex = index
-        htmlContent = builder.build()
+        htmlContent = builder.buildContent(targetVerse: targetVerse)
     }
     
     func addActivityIndicator() {

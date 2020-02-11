@@ -14,18 +14,18 @@ class ContentBuilder {
     var realm: Realm
     var dualEnabled: Bool
     var scriptures: Results<Scripture>
+    var showVerseNumber: Bool
     var targetVerse: String?
-    var showVerseNumber = true
     
-    init(scriptures: Results<Scripture>, targetVerse: String?, showVerseNumber: Bool) {
+    init(scriptures: Results<Scripture>, showVerseNumber: Bool = false) {
         realm = try! Realm()
         self.scriptures = scriptures
-        self.targetVerse = targetVerse
         self.showVerseNumber =  showVerseNumber
         dualEnabled = UserDefaults.standard.bool(forKey: Constants.Config.dual)
     }
     
-    func build() -> String {
+    func buildContent(targetVerse: String?) -> String {
+        self.targetVerse = targetVerse
         return buildCSS() + buildTitle() + buildPrefaces() + buildBody()
     }
     
@@ -91,7 +91,7 @@ class ContentBuilder {
         return html
     }
     
-    func buildCSS() -> String {
+    private func buildCSS() -> String {
         let font = UserDefaults.standard.bool(forKey: Constants.Config.font) ?
             Constants.Font.min : Constants.Font.kaku
         let fontSize = UserDefaults.standard.double(forKey: Constants.Config.size)

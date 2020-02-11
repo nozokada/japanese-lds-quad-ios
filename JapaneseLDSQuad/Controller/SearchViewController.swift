@@ -13,13 +13,13 @@ class SearchViewController: UIViewController {
     
     var realm: Realm!
     var message: UILabel!
-    var searchResultsList: Results<Scripture>!
+    var searchResults: Results<Scripture>!
     var searchActive = false
     var currentSearchText = ""
     var currentSegmentIndex = "1"
     
     @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var searchSegmentControl: UISegmentedControl!
+    @IBOutlet weak var searchResultsSegmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
@@ -68,13 +68,11 @@ class SearchViewController: UIViewController {
         message.text = "noSearchResultsLabel".localized
         message.textAlignment = .center
         message.textColor = Constants.FontColor.night
-        
-        updateNoResultsMessageBackgroundColor()
-        
+        updateTableBackgroundColor()
         tableView.backgroundView = message
     }
     
-    func updateNoResultsMessageBackgroundColor() {
+    func updateTableBackgroundColor() {
         message.backgroundColor = UserDefaults.standard.bool(forKey: Constants.Config.night) ?
             Constants.BackgroundColor.night : Constants.BackgroundColor.day
     }
@@ -82,13 +80,13 @@ class SearchViewController: UIViewController {
     func updateSearchBarStyle() {
         let nightModeEnabled = UserDefaults.standard.bool(forKey: Constants.Config.night)
         searchBar.barStyle = nightModeEnabled ? .black : .default
-        searchSegmentControl.backgroundColor = nightModeEnabled ?
+        searchResultsSegmentedControl.backgroundColor = nightModeEnabled ?
             Constants.BackgroundColor.nightSearchBar : Constants.BackgroundColor.daySearchBar
     }
     
     func reload() {
         updateSearchBarStyle()
-        updateNoResultsMessageBackgroundColor()
+        updateTableBackgroundColor()
         tableView.reloadData()
     }
 }
@@ -107,13 +105,10 @@ extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
-            let scripture = searchResultsList[indexPath.row]
-            viewController.initData(targetBook: scripture.parent_book,
-                                    targetChapter: scripture.chapter,
-                                    targetVerse: scripture.verse)
+            let scripture = searchResults[indexPath.row]
+            viewController.initData(targetBook: scripture.parent_book, targetChapter: scripture.chapter, targetVerse: scripture.verse)
             navigationController?.pushViewController(viewController, animated: true)
         }
-        
         tableView.deselectRow(at: indexPath, animated: true)
         searchBar.resignFirstResponder()
     }
@@ -123,14 +118,11 @@ extension SearchViewController: UITableViewDelegate {
 extension SearchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection: Int) -> Int {
-        if searchActive {
-            return searchResultsList.count
-        }
-        return 0
+        return searchActive ? searchResults.count : 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "searchResultCell")
         let cellColor = UserDefaults.standard.bool(forKey: Constants.Config.night) ?
             Constants.CellColor.night : Constants.CellColor.day
         
@@ -138,7 +130,7 @@ extension SearchViewController: UITableViewDataSource {
             Constants.Font.min : Constants.Font.kaku
         let fontSize = Constants.FontSize.regular * UserDefaults.standard.double(forKey: Constants.Config.size)
         
-        let scripture = searchResultsList[indexPath.row]
+        let scripture = searchResults[indexPath.row]
         let hymnsCell = scripture.parent_book.link.hasPrefix("hymns")
         let gsCell = scripture.parent_book.link.hasPrefix("gs")
         let jstCell = scripture.parent_book.link.hasPrefix("jst")
@@ -198,11 +190,9 @@ extension SearchViewController: UITableViewDataSource {
                 jstFound = scripture.parent_book.child_scriptures.filter("chapter = \(scripture.chapter)")
                 let title = jstFound.filter("verse = 'title'").first!.scripture_secondary.tagsRemoved.replacingOccurrences(of: ":.*", with: "", options: .regularExpression)
                 cellDetailTextLabel = "\(title) : \(scripture.verse)"
-            }
-            else if contCell {
+            } else if contCell {
                 cellDetailTextLabel = "\(scripture.parent_book.parent_book.name_secondary) \(scripture.parent_book.name_secondary) Paragraph \(scripture.verse)"
-            }
-            else {
+            } else {
                 cellDetailTextLabel = "\(scripture.parent_book.name_secondary) \(scripture.chapter) : \(scripture.verse)"
             }
             
@@ -235,22 +225,18 @@ extension SearchViewController: UISearchBarDelegate {
         if currentSearchText.isEmpty {
             searchActive = false
             message.isHidden = false
-        }
-        else {
+        } else {
             let searchQueryPrimary = "scripture_primary_raw CONTAINS '\(currentSearchText)'"
             let searchQuerySecondary = "scripture_secondary_raw CONTAINS[c] '\(currentSearchText)'"
-            
-            let selectedSegmentIndex = searchSegmentControl.selectedSegmentIndex
-            let grandParentBookQuery = selectedSegmentIndex == searchSegmentControl.numberOfSegments - 1 ?
+            let selectedSegmentIndex = searchResultsSegmentedControl.selectedSegmentIndex
+            let grandParentBookQuery = selectedSegmentIndex == searchResultsSegmentedControl.numberOfSegments - 1 ?
                 "NOT parent_book.parent_book.id IN {'1', '2', '3', '4', '5'}" : "parent_book.parent_book.id = '\(selectedSegmentIndex + 1)'"
             
-            searchResultsList = realm.objects(Scripture.self)
+            searchResults = realm.objects(Scripture.self)
                 .filter("(\(searchQuerySecondary) OR \(searchQueryPrimary)) AND \(grandParentBookQuery)").sorted(byKeyPath: "id")
-            
-            searchActive = searchResultsList.count > 0
+            searchActive = searchResults.count > 0
             message.isHidden = searchActive
         }
-        
         reload()
     }
     
