@@ -73,15 +73,17 @@ class SearchViewController: UIViewController {
     }
     
     func updateTableBackgroundColor() {
-        message.backgroundColor = UserDefaults.standard.bool(forKey: Constants.Config.night) ?
-            Constants.BackgroundColor.night : Constants.BackgroundColor.day
+        message.backgroundColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
+            ? Constants.BackgroundColor.night
+            : Constants.BackgroundColor.day
     }
     
     func updateSearchBarStyle() {
         let nightModeEnabled = UserDefaults.standard.bool(forKey: Constants.Config.night)
         searchBar.barStyle = nightModeEnabled ? .black : .default
-        searchResultsSegmentedControl.backgroundColor = nightModeEnabled ?
-            Constants.BackgroundColor.nightSearchBar : Constants.BackgroundColor.daySearchBar
+        searchResultsSegmentedControl.backgroundColor = nightModeEnabled
+            ? Constants.BackgroundColor.nightSearchBar
+            : Constants.BackgroundColor.daySearchBar
     }
     
     func reload() {
@@ -123,11 +125,12 @@ extension SearchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "searchResultCell")
-        let cellColor = UserDefaults.standard.bool(forKey: Constants.Config.night) ?
-            Constants.CellColor.night : Constants.CellColor.day
-        
-        let font = UserDefaults.standard.bool(forKey: Constants.Config.font) ?
-            Constants.Font.min : Constants.Font.kaku
+        let cellColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
+            ? Constants.CellColor.night
+            : Constants.CellColor.day
+        let font = UserDefaults.standard.bool(forKey: Constants.Config.font)
+            ? Constants.Font.min
+            : Constants.Font.kaku
         let fontSize = Constants.FontSize.regular * UserDefaults.standard.double(forKey: Constants.Config.size)
         
         tableView.backgroundColor = cellColor
@@ -139,22 +142,23 @@ extension SearchViewController: UITableViewDataSource {
         let builder = AppUtility.shared.getContentBuilder(scriptures: scriptures, contentType: contentType)
         let cellTextLabel = builder.buildSearchResultText(scripture: scripture)
         
-        if Constants.PaidContent.books.contains(scripture.parent_book.link) {
-            cell.isUserInteractionEnabled = PurchaseManager.shared.isPurchased
-            cell.textLabel?.isEnabled = PurchaseManager.shared.isPurchased
-            cell.detailTextLabel?.isEnabled = PurchaseManager.shared.isPurchased
-        }
-        
         cell.textLabel?.text = cellTextLabel
         cell.textLabel?.font = UIFont(name: font, size: CGFloat(fontSize))
-        cell.textLabel?.textColor = UserDefaults.standard.bool(forKey: Constants.Config.night) ?
-            Constants.FontColor.night : Constants.FontColor.day
+        cell.textLabel?.textColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
+            ? Constants.FontColor.night
+            : Constants.FontColor.day
         
         if UserDefaults.standard.bool(forKey: Constants.Config.dual) {
             let cellDetailTextLabel = builder.buildSearchResultDetailText(scripture: scripture)
             cell.detailTextLabel?.text = cellDetailTextLabel
             cell.detailTextLabel?.font = UIFont(name: font, size: CGFloat(fontSize) / 2)
             cell.detailTextLabel?.textColor = UIColor.gray
+        }
+        
+        if Constants.PaidContent.books.contains(scripture.parent_book.link) {
+            cell.isUserInteractionEnabled = PurchaseManager.shared.isPurchased
+            cell.textLabel?.isEnabled = PurchaseManager.shared.isPurchased
+            cell.detailTextLabel?.isEnabled = PurchaseManager.shared.isPurchased
         }
         return cell
     }
@@ -185,11 +189,11 @@ extension SearchViewController: UISearchBarDelegate {
             let searchQueryPrimary = "scripture_primary_raw CONTAINS '\(currentSearchText)'"
             let searchQuerySecondary = "scripture_secondary_raw CONTAINS[c] '\(currentSearchText)'"
             let selectedSegmentIndex = searchResultsSegmentedControl.selectedSegmentIndex
-            let grandParentBookQuery = selectedSegmentIndex == searchResultsSegmentedControl.numberOfSegments - 1 ?
-                "NOT parent_book.parent_book.id IN {'1', '2', '3', '4', '5'}" : "parent_book.parent_book.id = '\(selectedSegmentIndex + 1)'"
+            let grandParentBookQuery = selectedSegmentIndex == searchResultsSegmentedControl.numberOfSegments - 1
+                ? "NOT parent_book.parent_book.id IN {'1', '2', '3', '4', '5'}"
+                : "parent_book.parent_book.id = '\(selectedSegmentIndex + 1)'"
             
-            searchResults = realm.objects(Scripture.self)
-                .filter("(\(searchQuerySecondary) OR \(searchQueryPrimary)) AND \(grandParentBookQuery)").sorted(byKeyPath: "id")
+            searchResults = realm.objects(Scripture.self).filter("(\(searchQuerySecondary) OR \(searchQueryPrimary)) AND \(grandParentBookQuery)").sorted(byKeyPath: "id")
             searchActive = searchResults.count > 0
             message.isHidden = searchActive
         }

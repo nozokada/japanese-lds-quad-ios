@@ -18,8 +18,7 @@ class HighlightManager: AnnotationManager {
             try! realm.write {
                 if language == Constants.LanguageCode.primary {
                     existingHighlightedScripture.scripture_primary = scriptureContent
-                }
-                else {
+                } else {
                     existingHighlightedScripture.scripture_secondary = scriptureContent
                 }
             }
@@ -29,10 +28,12 @@ class HighlightManager: AnnotationManager {
             if let scripture = realm.objects(Scripture.self).filter("id = '\(scriptureId)'").first {
                 let highlightedScriptureToAdd = HighlightedScripture()
                 highlightedScriptureToAdd.id = scriptureId
-                highlightedScriptureToAdd.scripture_primary = language == Constants.LanguageCode.primary ?
-                    scriptureContent : scripture.scripture_primary
-                highlightedScriptureToAdd.scripture_secondary = language == Constants.LanguageCode.secondary ?
-                    scriptureContent : scripture.scripture_secondary
+                highlightedScriptureToAdd.scripture_primary = language == Constants.LanguageCode.primary
+                    ? scriptureContent
+                    : scripture.scripture_primary
+                highlightedScriptureToAdd.scripture_secondary = language == Constants.LanguageCode.secondary
+                    ? scriptureContent
+                    : scripture.scripture_secondary
                 highlightedScriptureToAdd.scripture = scripture
                 highlightedScriptureToAdd.date = NSDate()
                 
@@ -84,8 +85,7 @@ class HighlightManager: AnnotationManager {
             try! realm.write {
                 if language == Constants.LanguageCode.primary {
                     scripture.scripture_primary = content
-                }
-                else {
+                } else {
                     scripture.scripture_secondary = content
                 }
             }

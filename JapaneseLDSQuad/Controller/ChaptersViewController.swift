@@ -25,7 +25,7 @@ class ChaptersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = targetBookName
-        setChapterType()
+        chapterType = getChapterType()
         counters = targetBook.child_scriptures.filter("verse = 'counter'")
         if chapterType == Constants.ChapterType.title {
             titles = targetBook.child_scriptures.filter("verse = 'title'")
@@ -45,12 +45,13 @@ class ChaptersViewController: UIViewController {
         targetBookName = targetBook.name_primary
     }
     
-    func setChapterType() {
-        if targetBook.link.hasPrefix("gs") || targetBook.link.hasPrefix("jst") || targetBook.link.hasPrefix("hymns") {
-            chapterType = Constants.ChapterType.title
-        } else {
-            chapterType = Constants.ChapterType.number
+    func getChapterType() -> String {
+        if targetBook.link.hasPrefix("gs")
+            || targetBook.link.hasPrefix("jst")
+            || targetBook.link.hasPrefix("hymns") {
+            return Constants.ChapterType.title
         }
+        return Constants.ChapterType.number
     }
     
 //    @IBAction func rootButtonTapped(_ sender: Any) {
@@ -104,23 +105,27 @@ extension ChaptersViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
-        let cellColor = UserDefaults.standard.bool(forKey: Constants.Config.night) ? Constants.CellColor.night : Constants.CellColor.day
-        
-        var cellTextLabel = counters[indexPath.row].scripture_primary
-        if let titles = titles {
-            cellTextLabel += " \(titles[indexPath.row].scripture_primary.tagsRemoved)"
-        }
-        
-        let font = UserDefaults.standard.bool(forKey: Constants.Config.font) ? Constants.Font.min : Constants.Font.kaku
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "chapterCell")
+        let cellColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
+            ? Constants.CellColor.night
+            : Constants.CellColor.day
+        let font = UserDefaults.standard.bool(forKey: Constants.Config.font)
+            ? Constants.Font.min
+            : Constants.Font.kaku
         let fontSize = Constants.FontSize.regular * UserDefaults.standard.double(forKey: Constants.Config.size)
         
         tableView.backgroundColor = cellColor
         cell.backgroundColor = cellColor
         
+        var cellTextLabel = counters[indexPath.row].scripture_primary
+        if let titles = titles {
+            cellTextLabel += " \(titles[indexPath.row].scripture_primary.tagsRemoved)"
+        }
         cell.textLabel?.text = cellTextLabel
         cell.textLabel?.font = UIFont(name: font, size: CGFloat(fontSize))
-        cell.textLabel?.textColor = UserDefaults.standard.bool(forKey: Constants.Config.night) ? Constants.FontColor.night : Constants.FontColor.day
+        cell.textLabel?.textColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
+            ? Constants.FontColor.night
+            : Constants.FontColor.day
         
         if targetBook.link.hasPrefix("gs") { return cell }
         

@@ -26,7 +26,7 @@ class ContentBuilder {
     
     func buildSearchResultText(scripture: Scripture) -> String {
         if scripture.parent_book.link.hasPrefix("jst") {
-            let title = scriptures.filter("verse = 'title'").first!.scripture_primary.tagsRemoved.replacingOccurrences(of: "：.*", with: "", options: .regularExpression)
+            let title = scriptures.filter("verse = 'title'").first!.scripture_primary.tagsRemoved.verseAfterColonRemoved
              return "\(title) : \(scripture.verse)"
         }
         return numbered
@@ -36,12 +36,12 @@ class ContentBuilder {
     
     func buildSearchResultDetailText(scripture: Scripture) -> String {
         if scripture.parent_book.link.hasPrefix("jst") {
-            let title = scriptures.filter("verse = 'title'").first!.scripture_secondary.tagsRemoved.replacingOccurrences(of: ":.*", with: "", options: .regularExpression)
+            let title = scriptures.filter("verse = 'title'").first!.scripture_secondary.tagsRemoved.verseAfterColonRemoved
             return "\(title) : \(scripture.verse)"
         }
         return numbered
-        ? "\(scripture.parent_book.name_secondary) \(scripture.chapter) : \(scripture.verse)"
-        : "\(scripture.parent_book.parent_book.name_secondary) \(scripture.parent_book.name_secondary) Paragraph \(scripture.verse)"
+            ? "\(scripture.parent_book.name_secondary) \(scripture.chapter) : \(scripture.verse)"
+            : "\(scripture.parent_book.parent_book.name_secondary) \(scripture.parent_book.name_secondary) Paragraph \(scripture.verse)"
     }
     
     func buildContent(targetVerse: String?) -> String {
@@ -112,16 +112,19 @@ class ContentBuilder {
     }
     
     private func buildCSS() -> String {
-        let font = UserDefaults.standard.bool(forKey: Constants.Config.font) ?
-            Constants.Font.min : Constants.Font.kaku
+        let font = UserDefaults.standard.bool(forKey: Constants.Config.font)
+            ? Constants.Font.min
+            : Constants.Font.kaku
         let fontSize = UserDefaults.standard.double(forKey: Constants.Config.size)
         let paddingSize = sqrt(sqrt(fontSize))
-        let fontColor = UserDefaults.standard.bool(forKey: Constants.Config.night) ?
-            "rgb(186,186,186)" : "rgb(0,0,0)"
-        let backgroundColor = UserDefaults.standard.bool(forKey: Constants.Config.night) ?
-            "rgb(33,34,37)" : "rgb(255,255,255)"
-        let sideBySideEnabled = UserDefaults.standard.bool(forKey: Constants.Config.dual) &&
-            UserDefaults.standard.bool(forKey: Constants.Config.side)
+        let fontColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
+            ? "rgb(186,186,186)"
+            : "rgb(0,0,0)"
+        let backgroundColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
+            ? "rgb(33,34,37)"
+            : "rgb(255,255,255)"
+        let sideBySideEnabled = UserDefaults.standard.bool(forKey: Constants.Config.dual)
+            && UserDefaults.standard.bool(forKey: Constants.Config.side)
         
         let screenScale = Int(UIScreen.main.scale)
         let bookmarkImageFileName = screenScale > 1 ? "Bookmark Verse@\(screenScale)x" : "Bookmark Verse"

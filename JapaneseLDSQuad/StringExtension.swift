@@ -14,7 +14,11 @@ extension String {
         return NSLocalizedString(self, comment: "")
     }
     
-    var tagsRemoved: String{
+    var tagsRemoved: String {
         return self.replacingOccurrences(of: Constants.RegexPattern.tags, with: "", options: .regularExpression)
+    }
+    
+    var verseAfterColonRemoved: String {
+        return self.replacingOccurrences(of: "[：|:].*", with: "", options: .regularExpression)
     }
 }

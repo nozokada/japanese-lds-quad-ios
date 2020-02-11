@@ -91,52 +91,62 @@ class BooksViewController: UIViewController {
 extension BooksViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if isTopMenu { return Constants.Count.sectionsInTopBooksView }
+        if isTopMenu {
+            return Constants.Count.sectionsInTopBooksView
+        }
         return Constants.Count.sectionsInBooksView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isTopMenu {
-            return section == 0 ? Constants.Count.rowsForStandardWorks : Constants.Count.rowsForResources
+            return section == 0
+                ? Constants.Count.rowsForStandardWorks
+                : Constants.Count.rowsForResources
         }
         return books.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if isTopMenu {
-            return section == 0 ? "standardWorksGroupedTableViewLabel".localized : "resourcesGroupedTableViewLabel".localized
+            return section == 0
+                ? "standardWorksGroupedTableViewLabel".localized
+                : "resourcesGroupedTableViewLabel".localized
         }
-        return Locale.current.languageCode == Constants.LanguageCode.primary ? targetBook.name_primary : targetBook.name_secondary
+        return Locale.current.languageCode == Constants.LanguageCode.primary
+            ? targetBook.name_primary
+            : targetBook.name_secondary
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
-        let cellColor = UserDefaults.standard.bool(forKey: Constants.Config.night) ?
-            Constants.CellColor.night : Constants.CellColor.day
-        
-        let font = UserDefaults.standard.bool(forKey: Constants.Config.font) ?
-            Constants.Font.min : Constants.Font.kaku
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "bookCell")
+        let cellColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
+            ? Constants.CellColor.night
+            : Constants.CellColor.day
+        let font = UserDefaults.standard.bool(forKey: Constants.Config.font)
+            ? Constants.Font.min
+            : Constants.Font.kaku
         let fontSize = Constants.FontSize.regular * UserDefaults.standard.double(forKey: Constants.Config.size)
         let book = books[indexPath.row + groupedCellsOffset(section: indexPath.section)]
-        
-        if Constants.PaidContent.books.contains(book.link) {
-            cell.isUserInteractionEnabled = PurchaseManager.shared.isPurchased
-            cell.textLabel?.isEnabled = PurchaseManager.shared.isPurchased
-            cell.detailTextLabel?.isEnabled = PurchaseManager.shared.isPurchased
-        }
 
         tableView.backgroundColor = cellColor
         cell.backgroundColor = cellColor
         
         cell.textLabel?.text = book.name_primary
         cell.textLabel?.font = UIFont(name: font, size: CGFloat(fontSize))
-        cell.textLabel?.textColor = UserDefaults.standard.bool(forKey: Constants.Config.night) ?
-            Constants.FontColor.night : Constants.FontColor.day
+        cell.textLabel?.textColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
+            ? Constants.FontColor.night
+            : Constants.FontColor.day
         
         if UserDefaults.standard.bool(forKey: Constants.Config.dual) {
             cell.detailTextLabel?.text = book.name_secondary
             cell.detailTextLabel?.font = UIFont(name: font, size: CGFloat(fontSize / 1.6))
             cell.detailTextLabel?.textColor = UIColor.gray
+        }
+        
+        if Constants.PaidContent.books.contains(book.link) {
+            cell.isUserInteractionEnabled = PurchaseManager.shared.isPurchased
+            cell.textLabel?.isEnabled = PurchaseManager.shared.isPurchased
+            cell.detailTextLabel?.isEnabled = PurchaseManager.shared.isPurchased
         }
         return cell
     }
