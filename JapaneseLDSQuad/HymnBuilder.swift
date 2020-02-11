@@ -11,6 +11,18 @@ import RealmSwift
 
 class HymnBuilder: ContentBuilder {
     
+    override func buildSearchResultText(scripture: Scripture) -> String {
+        let title = scriptures.filter("verse = 'title'").first!.scripture_primary.tagsRemoved
+        let counter = scriptures.filter("verse = 'counter'").first!.scripture_primary
+        return "賛美歌 \(counter) \(title) \(scripture.verse)番"
+    }
+    
+    override func buildSearchResultDetailText(scripture: Scripture) -> String {
+        let title = scriptures.filter("verse = 'title'").first!.scripture_secondary.tagsRemoved
+        let counter = scriptures.filter("verse = 'counter'").first!.scripture_secondary
+        return "HYMN \(counter) \(title) Verse \(scripture.verse)"
+    }
+    
     override func buildTitle() -> String {
         var html = ""
         if let title = scriptures.filter("verse = 'title'").first {

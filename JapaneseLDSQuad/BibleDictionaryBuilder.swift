@@ -11,6 +11,15 @@ import RealmSwift
 
 class BibleDictionaryBuilder: ContentBuilder {
     
+    override func buildSearchResultText(scripture: Scripture) -> String {
+        let title = scriptures.filter("verse = 'title'").first!.scripture_primary.tagsRemoved
+        return "聖句ガイド「\(title)」\(scripture.verse)段落目"
+    }
+    
+    override func buildSearchResultDetailText(scripture: Scripture) -> String {
+        return ""
+    }
+    
     override func buildTitle() -> String {
         var html = ""
         if let title = scriptures.filter("verse = 'title'").first {

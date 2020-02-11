@@ -14,14 +14,34 @@ class ContentBuilder {
     var realm: Realm
     var dualEnabled: Bool
     var scriptures: Results<Scripture>
-    var showVerseNumber: Bool
+    var numbered: Bool
     var targetVerse: String?
     
-    init(scriptures: Results<Scripture>, showVerseNumber: Bool = false) {
+    init(scriptures: Results<Scripture>, numbered: Bool = false) {
         realm = try! Realm()
         self.scriptures = scriptures
-        self.showVerseNumber =  showVerseNumber
+        self.numbered = numbered
         dualEnabled = UserDefaults.standard.bool(forKey: Constants.Config.dual)
+    }
+    
+    func buildSearchResultText(scripture: Scripture) -> String {
+        if scripture.parent_book.link.hasPrefix("jst") {
+            let title = scriptures.filter("verse = 'title'").first!.scripture_primary.tagsRemoved.replacingOccurrences(of: "：.*", with: "", options: .regularExpression)
+             return "\(title) : \(scripture.verse)"
+        }
+        return numbered
+            ? "\(scripture.parent_book.name_primary) \(scripture.chapter) : \(scripture.verse)"
+            : "\(scripture.parent_book.parent_book.name_primary) \(scripture.parent_book.name_primary) \(scripture.verse)段落目"
+    }
+    
+    func buildSearchResultDetailText(scripture: Scripture) -> String {
+        if scripture.parent_book.link.hasPrefix("jst") {
+            let title = scriptures.filter("verse = 'title'").first!.scripture_secondary.tagsRemoved.replacingOccurrences(of: ":.*", with: "", options: .regularExpression)
+            return "\(title) : \(scripture.verse)"
+        }
+        return numbered
+        ? "\(scripture.parent_book.name_secondary) \(scripture.chapter) : \(scripture.verse)"
+        : "\(scripture.parent_book.parent_book.name_secondary) \(scripture.parent_book.name_secondary) Paragraph \(scripture.verse)"
     }
     
     func buildContent(targetVerse: String?) -> String {
@@ -69,7 +89,7 @@ class ContentBuilder {
     func buildBody() -> String {
         var html = ""
         for scripture in scriptures {
-            let verse = showVerseNumber ? scripture.verse : ""
+            let verse = numbered ? scripture.verse : ""
             if scripture.id.count == 6 {
                 if scripture.verse == targetVerse { html += "<a id='anchor'></a>" }
                 let bookmarked = realm.objects(Bookmark.self).filter("id = '\(scripture.id)'").first != nil ? true : false

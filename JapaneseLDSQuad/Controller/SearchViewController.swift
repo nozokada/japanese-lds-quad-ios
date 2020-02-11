@@ -130,38 +130,14 @@ extension SearchViewController: UITableViewDataSource {
             Constants.Font.min : Constants.Font.kaku
         let fontSize = Constants.FontSize.regular * UserDefaults.standard.double(forKey: Constants.Config.size)
         
-        let scripture = searchResults[indexPath.row]
-        let hymnsCell = scripture.parent_book.link.hasPrefix("hymns")
-        let gsCell = scripture.parent_book.link.hasPrefix("gs")
-        let jstCell = scripture.parent_book.link.hasPrefix("jst")
-        let contCell = scripture.parent_book.link.hasSuffix("_cont")
-        
         tableView.backgroundColor = cellColor
         cell.backgroundColor = cellColor
         
-        var cellTextLabel: String!
-        var hymnFound: Results<Scripture>!
-        var gsFound: Results<Scripture>!
-        var jstFound: Results<Scripture>!
-        
-        if hymnsCell {
-            hymnFound = scripture.parent_book.child_scriptures.filter("chapter = \(scripture.chapter)")
-            let title = hymnFound.filter("verse = 'title'").first!.scripture_primary.tagsRemoved
-            let counter = hymnFound.filter("verse = 'counter'").first!.scripture_primary
-            cellTextLabel = "賛美歌 \(counter) \(title) \(scripture.verse)番"
-        } else if gsCell {
-            gsFound = scripture.parent_book.child_scriptures.filter("chapter = \(scripture.chapter)")
-            let title = gsFound.filter("verse = 'title'").first!.scripture_primary.tagsRemoved
-            cellTextLabel = "聖句ガイド「\(title)」\(scripture.verse)段落目"
-        } else if jstCell {
-            jstFound = scripture.parent_book.child_scriptures.filter("chapter = \(scripture.chapter)")
-            let title = jstFound.filter("verse = 'title'").first!.scripture_primary.tagsRemoved.replacingOccurrences(of: "：.*", with: "", options: .regularExpression)
-            cellTextLabel = "\(title) : \(scripture.verse)"
-        } else if contCell {
-            cellTextLabel = "\(scripture.parent_book.parent_book.name_primary) \(scripture.parent_book.name_primary) \(scripture.verse)段落目"
-        } else {
-            cellTextLabel = "\(scripture.parent_book.name_primary) \(scripture.chapter) : \(scripture.verse)"
-        }
+        let scripture = searchResults[indexPath.row]
+        let contentType = AppUtility.shared.getContentType(targetBook: scripture.parent_book)
+        let scriptures = scripture.parent_book.child_scriptures.filter("chapter = \(scripture.chapter)")
+        let builder = AppUtility.shared.getContentBuilder(scriptures: scriptures, contentType: contentType)
+        let cellTextLabel = builder.buildSearchResultText(scripture: scripture)
         
         if Constants.PaidContent.books.contains(scripture.parent_book.link) {
             cell.isUserInteractionEnabled = PurchaseManager.shared.isPurchased
@@ -175,27 +151,7 @@ extension SearchViewController: UITableViewDataSource {
             Constants.FontColor.night : Constants.FontColor.day
         
         if UserDefaults.standard.bool(forKey: Constants.Config.dual) {
-            var cellDetailTextLabel: String!
-            
-            if hymnsCell {
-                hymnFound = scripture.parent_book.child_scriptures.filter("chapter = \(scripture.chapter)")
-                let title = hymnFound.filter("verse = 'title'").first!.scripture_secondary.tagsRemoved
-                let counter = hymnFound.filter("verse = 'counter'").first!.scripture_secondary
-                cellDetailTextLabel = "HYMN \(counter) \(title) Verse \(scripture.verse)"
-            }
-            else if gsCell {
-                return cell
-            }
-            else if jstCell {
-                jstFound = scripture.parent_book.child_scriptures.filter("chapter = \(scripture.chapter)")
-                let title = jstFound.filter("verse = 'title'").first!.scripture_secondary.tagsRemoved.replacingOccurrences(of: ":.*", with: "", options: .regularExpression)
-                cellDetailTextLabel = "\(title) : \(scripture.verse)"
-            } else if contCell {
-                cellDetailTextLabel = "\(scripture.parent_book.parent_book.name_secondary) \(scripture.parent_book.name_secondary) Paragraph \(scripture.verse)"
-            } else {
-                cellDetailTextLabel = "\(scripture.parent_book.name_secondary) \(scripture.chapter) : \(scripture.verse)"
-            }
-            
+            let cellDetailTextLabel = builder.buildSearchResultDetailText(scripture: scripture)
             cell.detailTextLabel?.text = cellDetailTextLabel
             cell.detailTextLabel?.font = UIFont(name: font, size: CGFloat(fontSize) / 2)
             cell.detailTextLabel?.textColor = UIColor.gray

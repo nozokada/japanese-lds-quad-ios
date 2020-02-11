@@ -36,7 +36,7 @@ class AppUtility {
         case Constants.ContentType.hymn:
             return HymnBuilder(scriptures: scriptures)
         default:
-            return ContentBuilder(scriptures: scriptures, showVerseNumber: true)
+            return ContentBuilder(scriptures: scriptures, numbered: true)
         }
     }
     
