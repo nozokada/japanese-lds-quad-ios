@@ -48,6 +48,7 @@
 		D475CCF923E9534800678A85 /* AnnotationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCF823E9534800678A85 /* AnnotationManager.swift */; };
 		D475CCFB23E9538300678A85 /* BookmarkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCFA23E9538300678A85 /* BookmarkManager.swift */; };
 		D475CCFD23E953F200678A85 /* HighlightManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCFC23E953F200678A85 /* HighlightManager.swift */; };
+		D4DFE61923F4C0DE0055B6FB /* Images in Resources */ = {isa = PBXBuildFile; fileRef = D4DFE61823F4C0DE0055B6FB /* Images */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,6 +125,7 @@
 		D475CCF823E9534800678A85 /* AnnotationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationManager.swift; sourceTree = "<group>"; };
 		D475CCFA23E9538300678A85 /* BookmarkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkManager.swift; sourceTree = "<group>"; };
 		D475CCFC23E953F200678A85 /* HighlightManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightManager.swift; sourceTree = "<group>"; };
+		D4DFE61823F4C0DE0055B6FB /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
 		F24AEA88112E18282C759158 /* Pods-JapaneseLDSQuad.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JapaneseLDSQuad.debug.xcconfig"; path = "Target Support Files/Pods-JapaneseLDSQuad/Pods-JapaneseLDSQuad.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -252,6 +254,7 @@
 				D4212A2C23E7BC02002CD60A /* Info.plist */,
 				D40B3E9523E8E1B400276662 /* Localizable.strings */,
 				D40B3E9C23E8E23700276662 /* infoPlist.strings */,
+				D4DFE61823F4C0DE0055B6FB /* Images */,
 				D4212A2723E7BC02002CD60A /* Assets.xcassets */,
 			);
 			path = JapaneseLDSQuad;
@@ -398,6 +401,7 @@
 			files = (
 				D40B3E9323E8E1B400276662 /* Localizable.strings in Resources */,
 				D4212A2B23E7BC02002CD60A /* LaunchScreen.storyboard in Resources */,
+				D4DFE61923F4C0DE0055B6FB /* Images in Resources */,
 				D4212A2823E7BC02002CD60A /* Assets.xcassets in Resources */,
 				D4212A2623E7BC02002CD60A /* Main.storyboard in Resources */,
 				D40B3E7A23E8943200276662 /* JLQ.realm in Resources */,

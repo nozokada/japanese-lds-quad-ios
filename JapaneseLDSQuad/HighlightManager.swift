@@ -81,7 +81,7 @@ class HighlightManager: AnnotationManager {
     }
     
     private func updateHighlightChange(id: String, content: String, language: String) {
-        if let scripture = getScripture(verseId: id) {
+        if let scripture = getScripture(id: id) {
             try! realm.write {
                 if language == Constants.LanguageCode.primary {
                     scripture.scripture_primary = content

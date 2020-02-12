@@ -12,8 +12,8 @@ class AnnotationManager {
     
     let realm: Realm = try! Realm()
     
-    func getScripture(verseId: String) -> Scripture? {
-        if let scripture = realm.objects(Scripture.self).filter("id = '\(verseId)'").first {
+    func getScripture(id: String) -> Scripture? {
+        if let scripture = realm.objects(Scripture.self).filter("id = '\(id)'").first {
             return scripture
         }
         return nil
@@ -21,7 +21,7 @@ class AnnotationManager {
     
     func generateTitlePrimary(scripture: Scripture) -> String {
         if scripture.parent_book.link.hasPrefix("gs") || scripture.parent_book.link.hasPrefix("jst") {
-            if let title = getScripture(verseId: "\(scripture.id.prefix(4))title") {
+            if let title = getScripture(id: "\(scripture.id.prefix(4))title") {
                 return "\(title.scripture_primary.tagsRemoved.verseAfterColonRemoved) : \(scripture.verse)"
             }
         }
@@ -30,7 +30,7 @@ class AnnotationManager {
     
     func generateTitleSecondary(scripture: Scripture) -> String {
         if scripture.parent_book.link.hasPrefix("gs") || scripture.parent_book.link.hasPrefix("jst") {
-            if let title = getScripture(verseId: "\(scripture.id.prefix(4))title") {
+            if let title = getScripture(id: "\(scripture.id.prefix(4))title") {
                 let titleSecondary = title.scripture_secondary.isEmpty ? title.scripture_primary : title.scripture_secondary
                 return "\(titleSecondary.tagsRemoved.verseAfterColonRemoved) : \(scripture.verse)"
             }

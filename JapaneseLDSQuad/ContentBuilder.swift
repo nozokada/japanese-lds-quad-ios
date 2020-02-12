@@ -97,13 +97,13 @@ class ContentBuilder {
                     html += "<hr>"
                     html += "<div id='\(scripture.id)'"
                     html += bookmarked ? " class='bookmarked'>" : ">"
-                    html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/bookmark'>\(verse)</a> <span lang='\(Constants.LanguageCode.primary)'>\(scripture.scripture_primary)</span></div>"
-                    html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/bookmark'>\(verse)</a> <span lang='\(Constants.LanguageCode.secondary)'>\(scripture.scripture_secondary)</span></div>"
+                    html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/\(Constants.RequestType.bookmark)'>\(verse)</a> <span lang='\(Constants.LanguageCode.primary)'>\(scripture.scripture_primary)</span></div>"
+                    html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/\(Constants.RequestType.bookmark)'>\(verse)</a> <span lang='\(Constants.LanguageCode.secondary)'>\(scripture.scripture_secondary)</span></div>"
                 } else {
                     html += "<div id='\(scripture.id)'"
                     html += bookmarked ? " class='bookmarked'>" : ">"
                     let primaryScripture = scripture.scripture_primary
-                    html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/bookmark'>\(verse)</a> <span lang='\(Constants.LanguageCode.primary)'>\(primaryScripture)</span></div>"
+                    html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/\(Constants.RequestType.bookmark)'>\(verse)</a> <span lang='\(Constants.LanguageCode.primary)'>\(primaryScripture)</span></div>"
                 }
                 html += "</div>"
             }

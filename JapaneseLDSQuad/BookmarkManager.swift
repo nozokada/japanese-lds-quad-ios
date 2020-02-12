@@ -13,11 +13,12 @@ class BookmarkManager: AnnotationManager {
     
     static let shared = BookmarkManager()
     
-    func addOrRemoveBookmark(id: String) {
-        if let scripture = getScripture(verseId: id) {
+    func addOrDeleteBookmark(id: String) {
+        if let scripture = getScripture(id: id) {
             if let bookmarkToRemove = realm.objects(Bookmark.self).filter("id = '\(scripture.id)'").first {
                 try! realm.write {
                     realm.delete(bookmarkToRemove)
+                    debugPrint("Deleted bookmark for scripture \(scripture.id) successfully")
                 }
             }
             else {
@@ -30,6 +31,7 @@ class BookmarkManager: AnnotationManager {
                 
                 try! realm.write {
                     realm.add(bookmarkToAdd)
+                    debugPrint("Added bookmark for scripture \(scripture.id) successfully")
                 }
             }
         }

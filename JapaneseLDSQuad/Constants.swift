@@ -91,6 +91,11 @@ struct Constants {
         static let main = "main"
     }
     
+    struct RequestType {
+        static let bookmark = "bookmark"
+        static let highlight = "highlight"
+    }
+    
     struct PaidContent {
         static let books = ["jst"]
     }

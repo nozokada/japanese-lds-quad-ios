@@ -58,24 +58,23 @@ class ContentViewController: UIViewController {
 
 extension ContentViewController: WKNavigationDelegate {
     
-//    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-//        let request = navigationAction.request
-//        let eventId = request.url?.lastPathComponent
-//        var path = (request.url?.pathComponents)!
-//        
-//        let rangeToRemove = path.startIndex..<path.firstIndex(of: "Japanese LDS Quad.app")!
-//        path.removeSubrange(rangeToRemove)
-//        
-//        if eventId == "bookmark" {
-//            toggleBookmark(verseId: path[1])
-//        } else if eventId == "highlight" {
-//            showHighlightMenuItems(highlightedTextId: path[1])
-//        } else {
-//            if path.count >= 2 {
-//                jumpToAnotherContent(path: path)
-//            }
-//        }
-//    }
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
+        guard var requestUrl = navigationAction.request.url else { return }
+        let requestType = requestUrl.lastPathComponent
+        requestUrl.deleteLastPathComponent()
+        
+        switch requestType {
+        case Constants.RequestType.bookmark:
+            toggleBookmark(verseId: requestUrl.lastPathComponent)
+            decisionHandler(.cancel)
+        case Constants.RequestType.highlight:
+            showHighlightMenuItems(highlightedTextId: requestUrl.lastPathComponent)
+            decisionHandler(.cancel)
+        default:
+//            jumpToAnotherContent(path: path)
+            decisionHandler(.allow)
+        }
+    }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
 //        if targetScriptureId != "" {
@@ -216,7 +215,7 @@ extension ContentViewController: WKNavigationDelegate {
     }
     
     func toggleBookmark(verseId: String) {
-        bookmarkManager.addOrRemoveBookmark(id: verseId)
+        bookmarkManager.addOrDeleteBookmark(id: verseId)
         webView.evaluateJavaScript(JavaScriptSnippets.getBookmarkUpdate(verseId: verseId), completionHandler: nil)
     }
     
