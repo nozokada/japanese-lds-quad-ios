@@ -9,9 +9,9 @@
 import UIKit
 import RealmSwift
 
-class HighlightManager: AnnotationManager {
+class HighlightsManager: AnnotationsManager {
     
-    static let shared = HighlightManager()
+    static let shared = HighlightsManager()
     
     func addHighlight(textId: String, textContent: String, scriptureId: String, scriptureContent: String, language: String) {
         if let existingHighlightedScripture = realm.objects(HighlightedScripture.self).filter("id = '\(scriptureId)'").first {

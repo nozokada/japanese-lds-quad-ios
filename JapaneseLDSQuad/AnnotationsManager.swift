@@ -8,7 +8,7 @@
 
 import RealmSwift
 
-class AnnotationManager {
+class AnnotationsManager {
     
     let realm: Realm = try! Realm()
     

@@ -26,8 +26,8 @@ class ContentViewController: UIViewController {
     var lastTapPoint = CGPoint(x: 0, y: 0)
     var selectedHighlightedTextId = ""
     
-    let bookmarkManager = BookmarkManager.shared
-    let highlightManager = HighlightManager.shared
+    let bookmarkManager = BookmarksManager.shared
+    let highlightManager = HighlightsManager.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()

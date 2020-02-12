@@ -9,9 +9,9 @@
 import UIKit
 import RealmSwift
 
-class BookmarkManager: AnnotationManager {
+class BookmarksManager: AnnotationsManager {
     
-    static let shared = BookmarkManager()
+    static let shared = BookmarksManager()
     
     func addOrDeleteBookmark(id: String) {
         if let scripture = getScripture(id: id) {
