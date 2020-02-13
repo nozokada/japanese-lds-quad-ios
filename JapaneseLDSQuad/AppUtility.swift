@@ -13,6 +13,15 @@ class AppUtility {
     
     static let shared = AppUtility()
     
+    func getChapterId(bookId: String, chapter: Int) -> String {
+        return "\(bookId)\(String(chapter / 10, radix: 21).uppercased())\(String(chapter % 10))"
+    }
+    
+    func getChapterNumber(id: String) -> Int {
+        let chapter = id.prefix(4).suffix(2)
+        return Int(String(chapter.first!), radix: 21)! * 10 + Int(String(chapter.last!))!
+    }
+    
     func getContentType(targetBook: Book) -> String {
         var contentType: String
         if targetBook.link.hasSuffix("_cont") {
@@ -40,12 +49,22 @@ class AppUtility {
         }
     }
     
-    func getChapterId(bookId: String, chapter: Int) -> String {
-        return "\(bookId)\(String(chapter / 10, radix: 21).uppercased())\(String(chapter % 10))"
-    }
-    
-    func getChapterNumber(id: String) -> Int {
-        let chapter = id.prefix(4).suffix(2)
-        return Int(String(chapter.first!), radix: 21)! * 10 + Int(String(chapter.last!))!
+    func getParentViewControllers(storyboard: UIStoryboard?, scripture: Scripture) -> [UIViewController] {
+        let parentBook = scripture.parent_book!
+        let grandParentBook = parentBook.parent_book!
+        var viewControllers = [UIViewController]()
+
+        if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.books) as? BooksViewController {
+            viewController.initTargetBook(targetBook: grandParentBook)
+            viewControllers.append(viewController)
+        }
+
+        if parentBook.child_scriptures.sorted(byKeyPath: "id").last?.chapter != 1 {
+            if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.chapters) as? ChaptersViewController {
+                viewController.initTargetBook(targetBook: parentBook)
+                viewControllers.append(viewController)
+            }
+        }
+        return viewControllers
     }
 }

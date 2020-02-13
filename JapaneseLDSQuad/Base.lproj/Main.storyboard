@@ -124,21 +124,36 @@
             </objects>
             <point key="canvasLocation" x="3012" y="-320"/>
         </scene>
-        <!--Bookmarks-->
+        <!--Bookmarks View Controller-->
         <scene sceneID="BSq-hG-oBT">
             <objects>
                 <viewController id="53i-T1-aC0" customClass="BookmarksViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="b94-zI-MIg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SOL-ov-HkG">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="SOL-ov-HkG" firstAttribute="trailing" secondItem="OPJ-4m-O8c" secondAttribute="trailing" id="JoK-By-S9n"/>
+                            <constraint firstItem="SOL-ov-HkG" firstAttribute="bottom" secondItem="OPJ-4m-O8c" secondAttribute="bottom" id="XRu-3J-YaT"/>
+                            <constraint firstItem="SOL-ov-HkG" firstAttribute="leading" secondItem="OPJ-4m-O8c" secondAttribute="leading" id="gFH-pA-Q1e"/>
+                            <constraint firstItem="SOL-ov-HkG" firstAttribute="top" secondItem="OPJ-4m-O8c" secondAttribute="top" id="r7I-ep-cCV"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="OPJ-4m-O8c"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Bookmarks" image="first" id="woe-p4-W1f"/>
+                    <navigationItem key="navigationItem" id="zHB-DM-4he"/>
+                    <connections>
+                        <outlet property="tableView" destination="SOL-ov-HkG" id="on9-St-XLx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zV0-QK-8zL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="749" y="1039"/>
+            <point key="canvasLocation" x="1485.5072463768117" y="1038.6160714285713"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="wg7-f3-ORb">
@@ -209,7 +224,7 @@
                     <connections>
                         <segue destination="5Hr-dn-jPU" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="VX4-bx-qvp" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
-                        <segue destination="53i-T1-aC0" kind="relationship" relationship="viewControllers" id="fz5-WP-uyD"/>
+                        <segue destination="2y5-Sl-xad" kind="relationship" relationship="viewControllers" id="fz5-WP-uyD"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -253,6 +268,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hli-ZS-Vum" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="749" y="360"/>
+        </scene>
+        <!--Bookmarks-->
+        <scene sceneID="Gaz-45-KqQ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2y5-Sl-xad" customClass="MainNavigationController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Bookmarks" image="first" id="woe-p4-W1f"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2SY-TM-r5d" customClass="MainNavigationBar" customModule="JapaneseLDSQuad" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="53i-T1-aC0" kind="relationship" relationship="rootViewController" id="6L8-96-nns"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sBY-KT-cVj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="747.82608695652175" y="1038.6160714285713"/>
         </scene>
     </scenes>
     <resources>

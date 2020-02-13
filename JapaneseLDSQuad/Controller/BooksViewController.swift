@@ -164,19 +164,19 @@ extension BooksViewController: UITableViewDelegate {
         if selectedBook.child_books.count > 0 {
             if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.books) as? BooksViewController {
                 viewController.initTargetBook(targetBook: selectedBook)
-                self.navigationController?.pushViewController(viewController, animated: true)
+                navigationController?.pushViewController(viewController, animated: true)
             }
         }
         else if selectedBook.child_scriptures.sorted(byKeyPath: "id").last?.chapter == 1 {
             if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
                 viewController.initData(targetBook: selectedBook, targetChapter: 1, targetVerse: nil)
-                self.navigationController?.pushViewController(viewController, animated: true)
+                navigationController?.pushViewController(viewController, animated: true)
             }
         }
         else {
             if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.chapters) as? ChaptersViewController {
                 viewController.initTargetBook(targetBook: selectedBook)
-                self.navigationController?.pushViewController(viewController, animated: true)
+                navigationController?.pushViewController(viewController, animated: true)
             }
         }
         tableView.deselectRow(at: indexPath, animated: true)
