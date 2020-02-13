@@ -61,18 +61,24 @@ extension ContentViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
         guard var requestUrl = navigationAction.request.url else { return }
         let requestType = requestUrl.lastPathComponent
-        requestUrl.deleteLastPathComponent()
         
         switch requestType {
-        case Constants.RequestType.bookmark:
-            toggleBookmark(verseId: requestUrl.lastPathComponent)
-            decisionHandler(.cancel)
-        case Constants.RequestType.highlight:
-            showHighlightMenuItems(highlightedTextId: requestUrl.lastPathComponent)
-            decisionHandler(.cancel)
-        default:
-//            jumpToAnotherContent(path: path)
+        case Bundle.main.bundleURL.lastPathComponent:
             decisionHandler(.allow)
+        case Constants.RequestType.bookmark:
+            decisionHandler(.cancel)
+            requestUrl.deleteLastPathComponent()
+            toggleBookmark(verseId: requestUrl.lastPathComponent)
+        case Constants.RequestType.highlight:
+            decisionHandler(.cancel)
+            requestUrl.deleteLastPathComponent()
+            showHighlightMenuItems(highlightedTextId: requestUrl.lastPathComponent)
+        default:
+            decisionHandler(.cancel)
+            let scripturePath = requestUrl.pathComponents.filter {
+                e in return !Bundle.main.bundleURL.pathComponents.contains(e)
+            }
+            presentAnotherContent(path: scripturePath)
         }
     }
     
@@ -92,6 +98,39 @@ extension ContentViewController: WKNavigationDelegate {
                 self.hideActivityIndicator()
             }
         }
+    }
+    
+    func presentAnotherContent(path: [String]) {
+        guard let targetScriptureData = createTargetScriptureDataFromPath(path: path) else { return }
+        if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
+            viewController.initData(targetScriptureData: targetScriptureData)
+            if targetChapterId == viewController.targetChapterId {
+                guard var viewControllers = navigationController?.viewControllers else { return }
+                viewControllers.removeLast()
+                viewControllers.append(viewController)
+                navigationController?.setViewControllers(viewControllers, animated: false)
+            } else {
+                navigationController?.pushViewController(viewController, animated: true)
+            }
+        }
+    }
+    
+    func createTargetScriptureDataFromPath(path: [String]) -> TargetScriptureData? {
+        guard var bookId = path.first else { return nil }
+        var chapter = path.count > 1 ? Int(path[1]) ?? 1 : 1
+        var verse = path.count > 2 ? path[2].components(separatedBy: CharacterSet.punctuationCharacters).first! : nil
+        if bookId == Constants.ContentType.gs {
+            guard let v = verse else { return nil }
+            bookId = "gs_\(chapter)"
+            chapter = Int(v) ?? 1
+            verse = nil
+        }
+        guard let book = realm.objects(Book.self).filter("link = '\(bookId)'").sorted(byKeyPath: "id").last else { return nil }
+        return TargetScriptureData(book: book, chapter: chapter, verse: verse)
+    }
+    
+    func spotlightTargetVerses() {
+        webView.evaluateJavaScript(JavaScriptSnippets.SpotlightTargetVerses(), completionHandler: nil)
     }
     
     func showHighlightMenuItems(highlightedTextId: String) {
@@ -215,56 +254,6 @@ extension ContentViewController: WKNavigationDelegate {
     func toggleBookmark(verseId: String) {
         bookmarkManager.addOrDeleteBookmark(id: verseId)
         webView.evaluateJavaScript(JavaScriptSnippets.toggleBookmarkStatus(verseId: verseId), completionHandler: nil)
-    }
-    
-    func jumpToAnotherContent(path: [String]!) {
-        if path.count == 2 { // if the link contains only book name
-            if let nextBook = realm.objects(Book.self).filter("link = '\(path[1])'").last {
-                if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
-                    viewController.targetBookName = nextBook.name_primary
-                    viewController.targetBook = nextBook
-                    viewController.targetChapterId = AppUtility.shared.getChapterIdFromChapterNumber(bookId: nextBook.id, chapter: 1)
-                    self.navigationController?.pushViewController(viewController, animated: true)
-                }
-            }
-        }
-        else if path.count > 2 { // if the link contains book name and chaper
-            var bookId = path[1], chapter = path[2], verse = "0"
-            
-            if path.count > 3 { // if the link contains verse(s)
-                verse = path[3].components(separatedBy: CharacterSet.punctuationCharacters).first!
-            }
-            
-            if bookId == "gs" {
-                bookId = "gs_\(chapter)"
-                chapter = verse
-                verse = "0"
-            }
-            
-            if let nextBook = realm.objects(Book.self).filter("link = '\(bookId)'").sorted(byKeyPath: "id").last {
-                if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
-                    viewController.targetBookName = nextBook.name_primary
-                    viewController.targetBook = nextBook
-                    viewController.targetChapterId = AppUtility.shared.getChapterIdFromChapterNumber(bookId: nextBook.id, chapter: Int(chapter)!)
-                    viewController.targetVerse = verse
-                    
-                    let navigationController = self.navigationController!
-                    if targetChapterId == viewController.targetChapterId {
-                        var viewControllers: [UIViewController] = navigationController.viewControllers
-                        viewControllers.removeLast()
-                        viewControllers.append(viewController)
-                        navigationController.setViewControllers(viewControllers, animated: false)
-                    }
-                    else {
-                        navigationController.pushViewController(viewController, animated: true)
-                    }
-                }
-            }
-        }
-    }
-    
-    func spotlightTargetVerses() {
-        webView.evaluateJavaScript(JavaScriptSnippets.SpotlightTargetVerses(), completionHandler: nil)
     }
 }
 

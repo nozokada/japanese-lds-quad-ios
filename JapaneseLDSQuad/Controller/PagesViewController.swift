@@ -65,10 +65,11 @@ class PagesViewController: UIPageViewController {
 //        stopSpeaking()
     }
     
-    func initData(targetBook: Book, targetChapter: Int) {
-        self.targetBook = targetBook
-        targetBookName = targetBook.name_primary
-        targetChapterId = AppUtility.shared.getChapterIdFromChapterNumber(bookId: targetBook.id, chapter: targetChapter)
+    func initData(targetScriptureData: TargetScriptureData) {
+        targetBook = targetScriptureData.book
+        targetBookName = targetScriptureData.book.name_primary
+        targetChapterId = AppUtility.shared.getChapterIdFromChapterNumber(bookId: targetBook.id, chapter: targetScriptureData.chapter)
+        targetVerse = targetScriptureData.verse
     }
     
     func initData(scripture: Scripture) {

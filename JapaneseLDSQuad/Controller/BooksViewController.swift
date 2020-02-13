@@ -169,7 +169,7 @@ extension BooksViewController: UITableViewDelegate {
         }
         else if selectedBook.child_scriptures.sorted(byKeyPath: "id").last?.chapter == 1 {
             if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
-                viewController.initData(targetBook: selectedBook, targetChapter: 1)
+                viewController.initData(targetScriptureData: TargetScriptureData(book: selectedBook, chapter: 1))
                 navigationController?.pushViewController(viewController, animated: true)
             }
         }

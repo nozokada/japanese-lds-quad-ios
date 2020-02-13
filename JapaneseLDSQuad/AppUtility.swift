@@ -9,6 +9,18 @@
 import Foundation
 import RealmSwift
 
+struct TargetScriptureData {
+    var book: Book
+    var chapter: Int
+    var verse: String?
+    
+    init(book: Book, chapter: Int, verse: String? = nil) {
+        self.book = book
+        self.chapter = chapter
+        self.verse = verse
+    }
+}
+
 class AppUtility {
     
     static let shared = AppUtility()
