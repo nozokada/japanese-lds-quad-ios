@@ -10,6 +10,44 @@ import Foundation
 
 struct JavaScriptSnippets {
     
+    static func getAnchorOffset() -> String {
+        return """
+            getAnchorOffset();
+            function getAnchorOffset() {
+               var anchor = document.getElementById('anchor');
+               if (anchor == null) {
+                   return 0;
+               } else {
+                   return anchor.offsetTop;
+               }
+            }
+            """
+    }
+    
+    static func toggleBookmarkStatus(verseId: String) -> String {
+        return """
+            var verse = document.getElementById('\(verseId)');
+            if (verse.classList.contains('bookmarked')) {
+                verse.classList.remove('bookmarked');
+            } else {
+                verse.classList.add('bookmarked');
+            }
+            """
+    }
+    
+    static func SpotlightTargetVerses() -> String {
+        return """
+            var verses = document.getElementsByClassName('targeted');
+            for (verse of verses) {
+                verse.style.backgroundColor = '#ffff66';
+                verse.style.transition = 'background-color 1s linear';
+                setTimeout(function() {
+                    verse.style.background = 'transparent';
+                }, 600);
+            }
+            """
+    }
+    
     static func getHighlightedText(textId: String) -> String {
         return """
             var selection = window.getSelection();
@@ -102,44 +140,6 @@ struct JavaScriptSnippets {
             parent.removeChild(highlightedText);
             var scriptureContent = getScriptureContent(parent.firstChild);
             scriptureContent
-            """
-    }
-    
-    static func getBookmarkUpdate(verseId: String) -> String {
-        return """
-            var verse = document.getElementById('\(verseId)');
-            if (verse.classList.contains('bookmarked')) {
-                verse.classList.remove('bookmarked');
-            }
-            else {
-                verse.classList.add('bookmarked');
-            }
-            """
-    }
-    
-    static func getAnchorOffset() -> String {
-        return """
-            getAnchorOffset();
-            function getAnchorOffset() {
-               var anchor = document.getElementById('anchor');
-               if (anchor == null) {
-                   return 0;
-               }
-               else {
-                   return anchor.offsetTop;
-               }
-            }
-            """
-    }
-    
-    static func getVerseSpotlight(verseId: String) -> String {
-        return """
-            var verse = document.getElementById('\(verseId)');
-            verse.style.backgroundColor = '#ffff66';
-            verse.style.transition = 'background-color 1s linear';
-            setTimeout(function() {
-               verse.style.background = 'transparent';
-            }, 600);
             """
     }
 }

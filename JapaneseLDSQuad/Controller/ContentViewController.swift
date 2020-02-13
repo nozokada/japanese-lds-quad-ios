@@ -77,9 +77,6 @@ extension ContentViewController: WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-//        if targetScriptureId != "" {
-//            spotlightFoundVerse(verseId: targetScriptureId)
-//        }
         webView.evaluateJavaScript("document.documentElement.scrollHeight;") { result, error in
             guard let height = result as? CGFloat else { return }
             let visibleHeight = webView.scrollView.bounds.size.height
@@ -91,6 +88,7 @@ extension ContentViewController: WKNavigationDelegate {
                     offset = height - visibleHeight
                 }
                 webView.evaluateJavaScript("window.scrollTo(0,\(offset))", completionHandler: nil)
+                self.spotlightTargetVerses()
                 self.hideActivityIndicator()
             }
         }
@@ -216,7 +214,7 @@ extension ContentViewController: WKNavigationDelegate {
     
     func toggleBookmark(verseId: String) {
         bookmarkManager.addOrDeleteBookmark(id: verseId)
-        webView.evaluateJavaScript(JavaScriptSnippets.getBookmarkUpdate(verseId: verseId), completionHandler: nil)
+        webView.evaluateJavaScript(JavaScriptSnippets.toggleBookmarkStatus(verseId: verseId), completionHandler: nil)
     }
     
     func jumpToAnotherContent(path: [String]!) {
@@ -225,7 +223,7 @@ extension ContentViewController: WKNavigationDelegate {
                 if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
                     viewController.targetBookName = nextBook.name_primary
                     viewController.targetBook = nextBook
-                    viewController.targetChapterId = AppUtility.shared.getChapterId(bookId: nextBook.id, chapter: 1)
+                    viewController.targetChapterId = AppUtility.shared.getChapterIdFromChapterNumber(bookId: nextBook.id, chapter: 1)
                     self.navigationController?.pushViewController(viewController, animated: true)
                 }
             }
@@ -247,7 +245,7 @@ extension ContentViewController: WKNavigationDelegate {
                 if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
                     viewController.targetBookName = nextBook.name_primary
                     viewController.targetBook = nextBook
-                    viewController.targetChapterId = AppUtility.shared.getChapterId(bookId: nextBook.id, chapter: Int(chapter)!)
+                    viewController.targetChapterId = AppUtility.shared.getChapterIdFromChapterNumber(bookId: nextBook.id, chapter: Int(chapter)!)
                     viewController.targetVerse = verse
                     
                     let navigationController = self.navigationController!
@@ -265,8 +263,8 @@ extension ContentViewController: WKNavigationDelegate {
         }
     }
     
-    func spotlightFoundVerse(verseId: String) {
-        webView.evaluateJavaScript(JavaScriptSnippets.getVerseSpotlight(verseId: verseId), completionHandler: nil)
+    func spotlightTargetVerses() {
+        webView.evaluateJavaScript(JavaScriptSnippets.SpotlightTargetVerses(), completionHandler: nil)
     }
 }
 

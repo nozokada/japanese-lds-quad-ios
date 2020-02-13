@@ -13,11 +13,15 @@ class AppUtility {
     
     static let shared = AppUtility()
     
-    func getChapterId(bookId: String, chapter: Int) -> String {
+    func getChapterIdFromChapterNumber(bookId: String, chapter: Int) -> String {
         return "\(bookId)\(String(chapter / 10, radix: 21).uppercased())\(String(chapter % 10))"
     }
     
-    func getChapterNumber(id: String) -> Int {
+    func getChapterIdFromScripture(scripture: Scripture) -> String {
+        return String(scripture.id.prefix(4))
+    }
+    
+    func getChapterNumberFromScriptureId(id: String) -> Int {
         let chapter = id.prefix(4).suffix(2)
         return Int(String(chapter.first!), radix: 21)! * 10 + Int(String(chapter.last!))!
     }

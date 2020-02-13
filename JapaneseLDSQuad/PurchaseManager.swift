@@ -14,5 +14,5 @@ class PurchaseManager: NSObject {
     static var shared = PurchaseManager()
     
     let allFeaturesPassProductId = "com.nozokada.JapaneseLDSQuad.allFeaturesPass"
-    var isPurchased = false
+    var isPurchased = true
 }

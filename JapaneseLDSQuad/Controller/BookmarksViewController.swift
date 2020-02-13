@@ -91,7 +91,7 @@ extension BookmarksViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
             let bookmark = bookmarks[indexPath.row]
-            viewController.initData(targetBook: bookmark.scripture.parent_book, targetChapter: bookmark.scripture.chapter, targetVerse: bookmark.scripture.verse)
+            viewController.initData(scripture: bookmark.scripture)
             navigationController?.pushViewController(viewController, animated: true)
         }
         tableView.deselectRow(at: indexPath, animated: true)

@@ -108,7 +108,7 @@ extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
             let scripture = searchResults[indexPath.row]
-            viewController.initData(targetBook: scripture.parent_book, targetChapter: scripture.chapter, targetVerse: scripture.verse)
+            viewController.initData(scripture: scripture)
             navigationController?.pushViewController(viewController, animated: true)
         }
         tableView.deselectRow(at: indexPath, animated: true)
@@ -176,12 +176,6 @@ extension SearchViewController: UIScrollViewDelegate {
 extension SearchViewController: UISearchBarDelegate {
     
     func updateSearchResults() {
-        
-//      TODO: Remove this in production
-//        if currentSearchText == Constants.Keys.AllFeaturesDebug {
-//            PurchaseManager.shared.enablePurchase(purchased: true)
-//        }
-        
         if currentSearchText.isEmpty {
             searchActive = false
             noResultsLabel.isHidden = false

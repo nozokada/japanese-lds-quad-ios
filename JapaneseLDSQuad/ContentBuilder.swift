@@ -89,21 +89,25 @@ class ContentBuilder {
     func buildBody() -> String {
         var html = ""
         for scripture in scriptures {
-            let verse = numbered ? scripture.verse : ""
+            let verseNumber = numbered ? scripture.verse : ""
             if scripture.id.count == 6 {
-                if scripture.verse == targetVerse { html += "<a id='anchor'></a>" }
+                let targeted = scripture.verse == targetVerse
                 let bookmarked = realm.objects(Bookmark.self).filter("id = '\(scripture.id)'").first != nil ? true : false
+                
+                if targeted { html += "<a id='anchor'></a>" }
                 if dualEnabled && !scripture.scripture_secondary.isEmpty {
                     html += "<hr>"
-                    html += "<div id='\(scripture.id)'"
-                    html += bookmarked ? " class='bookmarked'>" : ">"
-                    html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/\(Constants.RequestType.bookmark)'>\(verse)</a> <span lang='\(Constants.LanguageCode.primary)'>\(scripture.scripture_primary)</span></div>"
-                    html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/\(Constants.RequestType.bookmark)'>\(verse)</a> <span lang='\(Constants.LanguageCode.secondary)'>\(scripture.scripture_secondary)</span></div>"
+                    html += "<div id='\(scripture.id)' class='"
+                    html += targeted ? "targeted " : ""
+                    html += bookmarked ? "bookmarked" : ""
+                    html += "'>"
+                    html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/\(Constants.RequestType.bookmark)'>\(verseNumber)</a> <span lang='\(Constants.LanguageCode.primary)'>\(scripture.scripture_primary)</span></div>"
+                    html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/\(Constants.RequestType.bookmark)'>\(verseNumber)</a> <span lang='\(Constants.LanguageCode.secondary)'>\(scripture.scripture_secondary)</span></div>"
                 } else {
                     html += "<div id='\(scripture.id)'"
                     html += bookmarked ? " class='bookmarked'>" : ">"
                     let primaryScripture = scripture.scripture_primary
-                    html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/\(Constants.RequestType.bookmark)'>\(verse)</a> <span lang='\(Constants.LanguageCode.primary)'>\(primaryScripture)</span></div>"
+                    html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/\(Constants.RequestType.bookmark)'>\(verseNumber)</a> <span lang='\(Constants.LanguageCode.primary)'>\(primaryScripture)</span></div>"
                 }
                 html += "</div>"
             }
