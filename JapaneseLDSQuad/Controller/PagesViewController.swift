@@ -53,7 +53,6 @@ class PagesViewController: UIPageViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
 //        updateDualSwitch()
         updatePageContentView()
 //        updateAdditionalFeatureBarButtons()

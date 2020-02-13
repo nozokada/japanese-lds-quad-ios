@@ -10,10 +10,6 @@ import UIKit
 
 class MainNavigationController: UINavigationController {
 
-    var previousNavigationController: UINavigationController?
-    var isSearchNavigationController = false
-    var isPassageLookupNavigationController = false
-
     override func viewDidLoad() {
         super.viewDidLoad()
     }

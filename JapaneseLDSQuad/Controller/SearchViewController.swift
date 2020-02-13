@@ -12,7 +12,7 @@ import RealmSwift
 class SearchViewController: UIViewController {
     
     var realm: Realm!
-    var message: UILabel!
+    var noResultsLabel: UILabel!
     var searchResults: Results<Scripture>!
     var searchActive = false
     var currentSearchText = ""
@@ -33,7 +33,7 @@ class SearchViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+        super.viewWillAppear(animated)
         tableView.estimatedRowHeight = CGFloat(Constants.FontSize.regular)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = tableView.tableFooterView ?? UIView(frame: CGRect.zero)
@@ -63,17 +63,17 @@ class SearchViewController: UIViewController {
 //    }
     
     func initializeNoResultsMessage() {
-        message = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
-        message.numberOfLines = 4
-        message.text = "noSearchResultsLabel".localized
-        message.textAlignment = .center
-        message.textColor = Constants.FontColor.night
+        noResultsLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+        noResultsLabel.numberOfLines = 4
+        noResultsLabel.text = "noSearchResultsLabel".localized
+        noResultsLabel.textAlignment = .center
+        noResultsLabel.textColor = Constants.FontColor.night
         updateTableBackgroundColor()
-        tableView.backgroundView = message
+        tableView.backgroundView = noResultsLabel
     }
     
     func updateTableBackgroundColor() {
-        message.backgroundColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
+        noResultsLabel.backgroundColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
             ? Constants.BackgroundColor.night
             : Constants.BackgroundColor.day
     }
@@ -184,7 +184,7 @@ extension SearchViewController: UISearchBarDelegate {
         
         if currentSearchText.isEmpty {
             searchActive = false
-            message.isHidden = false
+            noResultsLabel.isHidden = false
         } else {
             let searchQueryPrimary = "scripture_primary_raw CONTAINS '\(currentSearchText)'"
             let searchQuerySecondary = "scripture_secondary_raw CONTAINS[c] '\(currentSearchText)'"
@@ -195,7 +195,7 @@ extension SearchViewController: UISearchBarDelegate {
             
             searchResults = realm.objects(Scripture.self).filter("(\(searchQuerySecondary) OR \(searchQueryPrimary)) AND \(grandParentBookQuery)").sorted(byKeyPath: "id")
             searchActive = searchResults.count > 0
-            message.isHidden = searchActive
+            noResultsLabel.isHidden = searchActive
         }
         reload()
     }

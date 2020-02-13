@@ -14,7 +14,7 @@ class BookmarksViewController: UIViewController {
     var realm: Realm!
     
     var bookmarks: Results<Bookmark>!
-    var message: UILabel!
+    var noBookmarksLabel: UILabel!
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -26,15 +26,15 @@ class BookmarksViewController: UIViewController {
         title = "bookmarksViewTitle".localized
         initializeNoBookmarksMessage()
         bookmarks = realm.objects(Bookmark.self).sorted(byKeyPath: "date")
-        message.isHidden = bookmarks.count > 0
+        noBookmarksLabel.isHidden = bookmarks.count > 0
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+        super.viewWillAppear(animated)
         tableView.estimatedRowHeight = CGFloat(Constants.FontSize.regular)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = tableView.tableFooterView ?? UIView(frame: CGRect.zero)
-//        reload()
+        reload()
     }
     
 //    @IBAction func settingsButtonTapped(_ sender: UIBarButtonItem) {
@@ -54,19 +54,17 @@ class BookmarksViewController: UIViewController {
 //    }
     
     func initializeNoBookmarksMessage() {
-        message = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
-        message.numberOfLines = 4
-        message.text = "noBookmarksLabel".localized
-        message.textAlignment = .center
-        message.textColor = Constants.FontColor.night
-        
+        noBookmarksLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+        noBookmarksLabel.numberOfLines = 4
+        noBookmarksLabel.text = "noBookmarksLabel".localized
+        noBookmarksLabel.textAlignment = .center
+        noBookmarksLabel.textColor = Constants.FontColor.night
         updateNoBookmarksMessageBackgroundColor()
-        
-        tableView.backgroundView = message
+        tableView.backgroundView = noBookmarksLabel
     }
     
     func updateNoBookmarksMessageBackgroundColor() {
-        message.backgroundColor =  UserDefaults.standard.bool(forKey: Constants.Config.night)
+        noBookmarksLabel.backgroundColor =  UserDefaults.standard.bool(forKey: Constants.Config.night)
             ? Constants.BackgroundColor.night
             : Constants.BackgroundColor.day
     }
@@ -109,13 +107,9 @@ extension BookmarksViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let bookmarkToDelete = bookmarks[indexPath.row]
-            try! realm.write {
-                realm.delete(bookmarkToDelete)
-            }
-            
+            BookmarksManager.shared.addOrDeleteBookmark(id: bookmarks[indexPath.row].id)
             tableView.deleteRows(at: [indexPath], with: .automatic)
-            message.isHidden = bookmarks.count > 0
+            noBookmarksLabel.isHidden = bookmarks.count > 0
         }
     }
     
