@@ -48,39 +48,6 @@ struct JavaScriptSnippets {
             """
     }
     
-    static func getHighlightedText(textId: String) -> String {
-        return """
-            var selection = window.getSelection();
-            var highlightedText = '';
-            if(selection) {
-                if(selection.rangeCount) {
-                    var range = selection.getRangeAt(0);
-                    var startContainerTagName = range.startContainer.parentElement.tagName;
-                    var startContainerNodeName = range.startContainer.nodeName;
-                    if(startContainerTagName != 'SPAN') {
-                        while(startContainerNodeName == 'RUBY'|| startContainerNodeName == 'RT' ||
-                            startContainerNodeName == '#text') {
-                            range.setStartBefore(range.startContainer);
-                            startContainerNodeName = range.startContainer.nodeName;
-                        }
-                    }
-                    var endContainerTagName = range.endContainer.parentElement.tagName;
-                    var endContainerNodeName = range.endContainer.nodeName;
-                    if(endContainerTagName != 'SPAN') {
-                        while(endContainerNodeName == 'RUBY' || endContainerNodeName == 'RT' ||
-                            endContainerNodeName == '#text') {
-                            range.setEndAfter(range.endContainer);
-                            endContainerNodeName = range.endContainer.nodeName;
-                        }
-                    }
-                    highlightText(range, '\(textId)');
-                    highlightedText = range.toString();
-                }
-            }
-            highlightedText
-            """
-    }
-    
     static func getScriptureId() -> String {
         return """
             var selection = window.getSelection();
@@ -140,6 +107,39 @@ struct JavaScriptSnippets {
             parent.removeChild(highlightedText);
             var scriptureContent = getScriptureContent(parent.firstChild);
             scriptureContent
+            """
+    }
+    
+    static func getHighlightedText(textId: String) -> String {
+        return """
+            var selection = window.getSelection();
+            var highlightedText = '';
+            if(selection) {
+                if(selection.rangeCount) {
+                    var range = selection.getRangeAt(0);
+                    var startContainerTagName = range.startContainer.parentElement.tagName;
+                    var startContainerNodeName = range.startContainer.nodeName;
+                    if(startContainerTagName != 'SPAN') {
+                        while(startContainerNodeName == 'RUBY'|| startContainerNodeName == 'RT' ||
+                            startContainerNodeName == '#text') {
+                            range.setStartBefore(range.startContainer);
+                            startContainerNodeName = range.startContainer.nodeName;
+                        }
+                    }
+                    var endContainerTagName = range.endContainer.parentElement.tagName;
+                    var endContainerNodeName = range.endContainer.nodeName;
+                    if(endContainerTagName != 'SPAN') {
+                        while(endContainerNodeName == 'RUBY' || endContainerNodeName == 'RT' ||
+                            endContainerNodeName == '#text') {
+                            range.setEndAfter(range.endContainer);
+                            endContainerNodeName = range.endContainer.nodeName;
+                        }
+                    }
+                    highlightText(range, '\(textId)');
+                    highlightedText = range.toString();
+                }
+            }
+            highlightedText
             """
     }
 }

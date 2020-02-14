@@ -33,6 +33,7 @@ class ContentViewController: UIViewController {
         super.viewDidLoad()
         realm = try! Realm()
         webView.navigationDelegate = self
+        webView.evaluateJavaScript(JavaScriptFunctions.getAllFunctions(), completionHandler: nil)
         webView.loadHTMLString(htmlContent, baseURL: Bundle.main.bundleURL)
         addGestureRecognizerToWebView()
         addActivityIndicator()
@@ -159,8 +160,7 @@ extension ContentViewController: WKNavigationDelegate {
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         switch action {
-        case #selector(copyVerseText), #selector(highlightText),
-             #selector(editNote), #selector(unhighlightText):
+        case #selector(copyVerseText), #selector(highlightText), #selector(editNote), #selector(unhighlightText):
             return true
         default:
             return false
@@ -177,12 +177,10 @@ extension ContentViewController: WKNavigationDelegate {
             if let id = result as? String { scriptureId = id } else { return }
             if scriptureId!.isEmpty { self.showInvalidSelectedRangeAlert(); return }
         }
-        
         var scriptureLanguage: String?
         webView.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguage()) { result, error in
             if let language = result as? String { scriptureLanguage = language } else { return }
         }
-        
         if let scripture = realm.objects(Scripture.self).filter("id = '\(scriptureId)'").first {
             UIPasteboard.general.string = scriptureLanguage == Constants.LanguageCode.primary ?
                 scripture.scripture_primary_raw : scripture.scripture_secondary_raw
@@ -190,47 +188,36 @@ extension ContentViewController: WKNavigationDelegate {
     }
     
     @objc func highlightText() {
-        let highlightedTextId = "highlight_" + NSUUID().uuidString
-        
-        var scriptureId: String?
+        let highlightedTextId = Constants.Prefix.highlight + NSUUID().uuidString
         webView.evaluateJavaScript(JavaScriptSnippets.getScriptureId()) { result, error in
-            if let id = result as? String { scriptureId = id } else { return }
-            if scriptureId!.isEmpty { self.showInvalidSelectedRangeAlert(); return }
+            guard let scriptureId = result as? String else { return }
+            if scriptureId.isEmpty { self.showInvalidSelectedRangeAlert(); return }
+            self.webView.evaluateJavaScript(JavaScriptSnippets.getHighlightedText(textId: highlightedTextId)) { result, error in
+                guard let highlightedText = result as? String else { return }
+                if highlightedText.isEmpty { self.showInvalidSelectedRangeAlert(); return }
+                self.webView.evaluateJavaScript(JavaScriptSnippets.getScriptureContent()) { result, error in
+                    guard let scriptureContent = result as? String else { return }
+                    self.webView.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguage()) { result, error in
+                        guard let scriptureLanguage = result as? String else { return }
+                        self.highlightManager.addHighlight(textId: highlightedTextId,
+                                                           textContent: highlightedText,
+                                                           scriptureId: scriptureId,
+                                                           scriptureContent: scriptureContent,
+                                                           language: scriptureLanguage)
+                    }
+                }
+            }
         }
-        
-        var highlightedText: String?
-        webView.evaluateJavaScript(JavaScriptSnippets.getHighlightedText(textId: highlightedTextId)) { result, error in
-            if let text = result as? String { highlightedText = text } else { return }
-            if highlightedText!.isEmpty { self.showInvalidSelectedRangeAlert(); return }
-        }
-        
-        var scriptureContent: String?
-        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureContent()) { result, error in
-            if let content = result as? String { scriptureContent = content } else { return }
-        }
-        
-        var scriptureLanguage: String?
-        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguage()) { result, error in
-            if let language = result as? String { scriptureLanguage = language } else { return }
-        }
-        
-//        highlightManager.addHighlight(textId: highlightedTextId, textContent: highlightedText,
-//                                       scriptureId: scriptureId, scriptureContent: scriptureContent,
-//                                       language: scriptureLanguage)
     }
     
     @objc func unhighlightText() {
-        var scriptureContentLanguage: String?
-        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureContentLanguage(textId: selectedHighlightedTextId)) { result, error in
-            if let language = result as? String { scriptureContentLanguage = language } else { return }
+        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureContentLanguage(textId: self.selectedHighlightedTextId)) { result, error in
+            guard let scriptureContentLanguage = result as? String else { return }
+            self.webView.evaluateJavaScript(JavaScriptSnippets.getScriptureContent(textId: self.selectedHighlightedTextId)) { result, error in
+                guard let scriptureContent = result as? String else { return }
+                self.highlightManager.removeHighlight(id: self.selectedHighlightedTextId, content: scriptureContent, contentLanguage: scriptureContentLanguage)
+            }
         }
-        
-        var scriptureContent: String?
-        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureContent(textId: selectedHighlightedTextId)) { result, error in
-            if let content = result as? String { scriptureContent = content } else { return }
-        }
-
-//        highlightManager.removeHighlight(id: selectedHighlightedTextId, content: scriptureContent, contentLanguage: scriptureContentLanguage)
     }
     
     @objc func editNote() {

@@ -15,12 +15,10 @@ class HighlightsManager: AnnotationsManager {
     
     func addHighlight(textId: String, textContent: String, scriptureId: String, scriptureContent: String, language: String) {
         if let existingHighlightedScripture = realm.objects(HighlightedScripture.self).filter("id = '\(scriptureId)'").first {
-            try! realm.write {
-                if language == Constants.LanguageCode.primary {
-                    existingHighlightedScripture.scripture_primary = scriptureContent
-                } else {
-                    existingHighlightedScripture.scripture_secondary = scriptureContent
-                }
+            if language == Constants.LanguageCode.primary {
+                existingHighlightedScripture.scripture_primary = scriptureContent
+            } else {
+                existingHighlightedScripture.scripture_secondary = scriptureContent
             }
             addHighlightedText(id: textId, content: textContent, scripture: existingHighlightedScripture)
         }
@@ -39,6 +37,7 @@ class HighlightsManager: AnnotationsManager {
                 
                 try! realm.write {
                     realm.add(highlightedScriptureToAdd)
+                    debugPrint("Added highlighted scripture \(scripture.id) successfully")
                 }
                 addHighlightedText(id: textId, content: textContent, scripture: highlightedScriptureToAdd)
             }
@@ -57,6 +56,7 @@ class HighlightsManager: AnnotationsManager {
         
         try! realm.write {
             realm.add(highlightedTextToAdd)
+            debugPrint("Added highlighted text for scripture \(scripture.id) successfully")
         }
     }
     
@@ -69,6 +69,7 @@ class HighlightsManager: AnnotationsManager {
             if highlightedScripture.highlighted_texts.count == 0 {
                 try! realm.write {
                     realm.delete(highlightedScripture)
+                    debugPrint("Removed highlighted scripture successfully")
                 }
             }
         }
@@ -77,6 +78,7 @@ class HighlightsManager: AnnotationsManager {
     private func removeHighlightedText(highlightedTextToRemove: HighlightedText) {
         try! realm.write {
             realm.delete(highlightedTextToRemove)
+            debugPrint("Removed highlighted text for scripture successfully")
         }
     }
     

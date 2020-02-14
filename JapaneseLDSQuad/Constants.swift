@@ -100,6 +100,10 @@ struct Constants {
         static let books = ["jst"]
     }
     
+    struct Prefix {
+        static let highlight = "highlight_"
+    }
+    
     struct RegexPattern {
         static let tags = "<((?!.?name|.?span).*?)ruby>|<(.*?)>"
         static let passage = "([123新](?!；)|ジ―)?((?<=[\\d章編>])；|[^\\x01-\\x7Eあ-を訳（［：；。，－]{1,5})(\\d{1,3}－\\d{1,3}|\\d{1,3})(?![^\\x01-\\x7E：；章編])：?(\\d{1,3}－\\d{1,3}|\\d{1,3})?(，\\d{1,3}－\\d{1,3}|，\\d{1,3})*"
