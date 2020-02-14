@@ -13,49 +13,52 @@ class HighlightsManager: AnnotationsManager {
     
     static let shared = HighlightsManager()
     
+    private func ApplyHighlightChangeToScripture(id: String, content: String, language: String) {
+        if let scripture = getScripture(id: id) {
+            try! realm.write {
+                if language == Constants.LanguageCode.primary {
+                    scripture.scripture_primary = content
+                } else {
+                    scripture.scripture_secondary = content
+                }
+            }
+        }
+    }
+    
     func addHighlight(textId: String, textContent: String, scriptureId: String, scriptureContent: String, language: String) {
         if let existingHighlightedScripture = realm.objects(HighlightedScripture.self).filter("id = '\(scriptureId)'").first {
-            if language == Constants.LanguageCode.primary {
-                existingHighlightedScripture.scripture_primary = scriptureContent
-            } else {
-                existingHighlightedScripture.scripture_secondary = scriptureContent
-            }
             addHighlightedText(id: textId, content: textContent, scripture: existingHighlightedScripture)
-        }
-        else {
+        } else {
             if let scripture = realm.objects(Scripture.self).filter("id = '\(scriptureId)'").first {
-                let highlightedScriptureToAdd = HighlightedScripture()
-                highlightedScriptureToAdd.id = scriptureId
-                highlightedScriptureToAdd.scripture_primary = language == Constants.LanguageCode.primary
-                    ? scriptureContent
-                    : scripture.scripture_primary
-                highlightedScriptureToAdd.scripture_secondary = language == Constants.LanguageCode.secondary
-                    ? scriptureContent
-                    : scripture.scripture_secondary
-                highlightedScriptureToAdd.scripture = scripture
-                highlightedScriptureToAdd.date = NSDate()
-                
+                let highlightedScripture = HighlightedScripture(id: scriptureId,
+                                                                scripturePrimary: language == Constants.LanguageCode.primary
+                                                                    ? scriptureContent
+                                                                    : scripture.scripture_primary,
+                                                                scriptureSecondary: language == Constants.LanguageCode.secondary
+                                                                    ? scriptureContent
+                                                                    : scripture.scripture_secondary,
+                                                                scripture: scripture,
+                                                                date: NSDate())
                 try! realm.write {
-                    realm.add(highlightedScriptureToAdd)
+                    realm.add(highlightedScripture)
                     debugPrint("Added highlighted scripture \(scripture.id) successfully")
                 }
-                addHighlightedText(id: textId, content: textContent, scripture: highlightedScriptureToAdd)
+                addHighlightedText(id: textId, content: textContent, scripture: highlightedScripture)
             }
         }
-        updateHighlightChange(id: scriptureId, content: scriptureContent, language: language)
+        ApplyHighlightChangeToScripture(id: scriptureId, content: scriptureContent, language: language)
     }
     
     private func addHighlightedText(id: String, content: String, scripture: HighlightedScripture) {
-        let highlightedTextToAdd = HighlightedText()
-        highlightedTextToAdd.id = id
-        highlightedTextToAdd.name_primary = generateTitlePrimary(scripture: scripture.scripture)
-        highlightedTextToAdd.name_secondary = generateTitleSecondary(scripture: scripture.scripture)
-        highlightedTextToAdd.text = content
-        highlightedTextToAdd.highlighted_scripture = scripture
-        highlightedTextToAdd.date = NSDate()
-        
+        let highlightedText = HighlightedText(id: id,
+                                              namePrimary: generateTitlePrimary(scripture: scripture.scripture),
+                                              nameSecondary: generateTitleSecondary(scripture: scripture.scripture),
+                                              text: content,
+                                              note: "",
+                                              highlightedScripture: scripture,
+                                              date: NSDate())
         try! realm.write {
-            realm.add(highlightedTextToAdd)
+            realm.add(highlightedText)
             debugPrint("Added highlighted text for scripture \(scripture.id) successfully")
         }
     }
@@ -64,7 +67,7 @@ class HighlightsManager: AnnotationsManager {
         if let highlightedTextToRemove = realm.objects(HighlightedText.self).filter("id = '\(id)'").first {
             let highlightedScripture = highlightedTextToRemove.highlighted_scripture!
             removeHighlightedText(highlightedTextToRemove: highlightedTextToRemove)
-            updateHighlightChange(id: highlightedScripture.id, content: content, language: contentLanguage)
+            ApplyHighlightChangeToScripture(id: highlightedScripture.id, content: content, language: contentLanguage)
             
             if highlightedScripture.highlighted_texts.count == 0 {
                 try! realm.write {
@@ -81,18 +84,4 @@ class HighlightsManager: AnnotationsManager {
             debugPrint("Removed highlighted text for scripture successfully")
         }
     }
-    
-    private func updateHighlightChange(id: String, content: String, language: String) {
-        if let scripture = getScripture(id: id) {
-            try! realm.write {
-                if language == Constants.LanguageCode.primary {
-                    scripture.scripture_primary = content
-                } else {
-                    scripture.scripture_secondary = content
-                }
-            }
-        }
-    }
-    
 }
-

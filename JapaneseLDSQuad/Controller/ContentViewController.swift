@@ -19,15 +19,12 @@ class ContentViewController: UIViewController {
     var htmlContent: String!
     var pageIndex: Int = 0
     
-    @IBOutlet weak var webView: WKWebView!
+    @IBOutlet weak var webView: MainWebView!
     var spinner: MainIndicatorView!
     
     var relativeOffset: CGFloat = 0
     var lastTapPoint = CGPoint(x: 0, y: 0)
     var selectedHighlightedTextId = ""
-    
-    let bookmarkManager = BookmarksManager.shared
-    let highlightManager = HighlightsManager.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,7 +66,7 @@ extension ContentViewController: WKNavigationDelegate {
         case Constants.RequestType.bookmark:
             decisionHandler(.cancel)
             requestUrl.deleteLastPathComponent()
-            toggleBookmark(verseId: requestUrl.lastPathComponent)
+            toggleBookmarkStatus(verseId: requestUrl.lastPathComponent)
         case Constants.RequestType.highlight:
             decisionHandler(.cancel)
             requestUrl.deleteLastPathComponent()
@@ -136,24 +133,19 @@ extension ContentViewController: WKNavigationDelegate {
     
     func showHighlightMenuItems(highlightedTextId: String) {
         becomeFirstResponder()
-        let menuController = UIMenuController.shared
-        let noteEditTitle = "noteEditMenuItemLabel".localized
-        let noteEditMenuItem = UIMenuItem(title: noteEditTitle, action: #selector(self.editNote))
-        let unhighlightTitle = "unhighlightMenuItemLabel".localized
-        let unhighlightMenuItem = UIMenuItem(title: unhighlightTitle, action: #selector(self.unhighlightText))
-        menuController.menuItems = [noteEditMenuItem, unhighlightMenuItem]
-        menuController.setTargetRect(CGRect(x: lastTapPoint.x, y: lastTapPoint.y, width: 0, height: 0), in: webView)
-        menuController.setMenuVisible(true, animated: true)
-        setDefaultMenuItems()
         selectedHighlightedTextId = highlightedTextId
+        let menuController = UIMenuController.shared
+        let noteEditMenuItem = UIMenuItem(title: "noteEditMenuItemLabel".localized, action: #selector(editNote))
+        let unhighlightMenuItem = UIMenuItem(title: "unhighlightMenuItemLabel".localized, action: #selector(unhighlightText))
+        menuController.menuItems = [noteEditMenuItem, unhighlightMenuItem]
+        menuController.showMenu(from: webView, rect: CGRect(x: lastTapPoint.x, y: lastTapPoint.y, width: 0, height: 0))
+        setDefaultMenuItems()
     }
     
     func setDefaultMenuItems() {
         if PurchaseManager.shared.isPurchased {
-            let copyVerseTitle = "copyVerseMenuItemLabel".localized
-            let copyVerseMenuItem = UIMenuItem(title: copyVerseTitle, action: #selector(self.copyVerseText))
-            let highlightTitle = "highlightMenuItemLabel".localized
-            let highlightMenuItem = UIMenuItem(title: highlightTitle, action: #selector(self.highlightText))
+            let copyVerseMenuItem = UIMenuItem(title: "copyVerseMenuItemLabel".localized, action: #selector(copyVerseText))
+            let highlightMenuItem = UIMenuItem(title: "highlightMenuItemLabel".localized, action: #selector(highlightText))
             UIMenuController.shared.menuItems = [copyVerseMenuItem, highlightMenuItem]
         }
     }
@@ -171,19 +163,31 @@ extension ContentViewController: WKNavigationDelegate {
         return true
     }
     
+    func showInvalidSelectedRangeAlert() {
+        let alertTitle = "InvalidActionAlertTitle".localized
+        let alertMessage = "InvalidSelectedRangeAlertMessage".localized
+        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true)
+    }
+    
+    func toggleBookmarkStatus(verseId: String) {
+        BookmarksManager.shared.addOrDeleteBookmark(id: verseId)
+        webView.evaluateJavaScript(JavaScriptSnippets.toggleBookmarkStatus(verseId: verseId), completionHandler: nil)
+    }
+    
     @objc func copyVerseText() {
-        var scriptureId: String?
         webView.evaluateJavaScript(JavaScriptSnippets.getScriptureId()) { result, error in
-            if let id = result as? String { scriptureId = id } else { return }
-            if scriptureId!.isEmpty { self.showInvalidSelectedRangeAlert(); return }
-        }
-        var scriptureLanguage: String?
-        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguage()) { result, error in
-            if let language = result as? String { scriptureLanguage = language } else { return }
-        }
-        if let scripture = realm.objects(Scripture.self).filter("id = '\(scriptureId)'").first {
-            UIPasteboard.general.string = scriptureLanguage == Constants.LanguageCode.primary ?
-                scripture.scripture_primary_raw : scripture.scripture_secondary_raw
+            guard let scriptureId = result as? String else { return }
+            if scriptureId.isEmpty { self.showInvalidSelectedRangeAlert(); return }
+            self.webView.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguage()) { result, error in
+                guard let scriptureLanguage = result as? String else { return }
+                guard let scripture = self.realm.objects(Scripture.self).filter("id = '\(scriptureId)'").first else { return }
+                UIPasteboard.general.string = scriptureLanguage == Constants.LanguageCode.primary
+                    ? scripture.scripture_primary_raw
+                    : scripture.scripture_secondary_raw
+            }
         }
     }
     
@@ -199,7 +203,7 @@ extension ContentViewController: WKNavigationDelegate {
                     guard let scriptureContent = result as? String else { return }
                     self.webView.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguage()) { result, error in
                         guard let scriptureLanguage = result as? String else { return }
-                        self.highlightManager.addHighlight(textId: highlightedTextId,
+                        HighlightsManager.shared.addHighlight(textId: highlightedTextId,
                                                            textContent: highlightedText,
                                                            scriptureId: scriptureId,
                                                            scriptureContent: scriptureContent,
@@ -212,10 +216,10 @@ extension ContentViewController: WKNavigationDelegate {
     
     @objc func unhighlightText() {
         webView.evaluateJavaScript(JavaScriptSnippets.getScriptureContentLanguage(textId: self.selectedHighlightedTextId)) { result, error in
-            guard let scriptureContentLanguage = result as? String else { return }
+            guard let contentLanguage = result as? String else { return }
             self.webView.evaluateJavaScript(JavaScriptSnippets.getScriptureContent(textId: self.selectedHighlightedTextId)) { result, error in
-                guard let scriptureContent = result as? String else { return }
-                self.highlightManager.removeHighlight(id: self.selectedHighlightedTextId, content: scriptureContent, contentLanguage: scriptureContentLanguage)
+                guard let content = result as? String else { return }
+                HighlightsManager.shared.removeHighlight(id: self.selectedHighlightedTextId, content: content, contentLanguage: contentLanguage)
             }
         }
     }
@@ -228,35 +232,22 @@ extension ContentViewController: WKNavigationDelegate {
 //            self.present(notesNavigationController, animated: true, completion: nil)
 //        }
     }
-    
-    func showInvalidSelectedRangeAlert() {
-        let alertTitle = "InvalidActionAlertTitle".localized
-        let alertMessage = "InvalidSelectedRangeAlertMessage".localized
-        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default)
-        alertController.addAction(okAction)
-        self.present(alertController, animated: true)
-    }
-    
-    func toggleBookmark(verseId: String) {
-        bookmarkManager.addOrDeleteBookmark(id: verseId)
-        webView.evaluateJavaScript(JavaScriptSnippets.toggleBookmarkStatus(verseId: verseId), completionHandler: nil)
-    }
 }
 
 extension ContentViewController: UIGestureRecognizerDelegate {
-    func addGestureRecognizerToWebView() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapAction))
-        tapGestureRecognizer.numberOfTouchesRequired = 1
-        tapGestureRecognizer.delegate = self
-        webView.addGestureRecognizer(tapGestureRecognizer)
-    }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
     
-    @objc func tapAction(sender: UIGestureRecognizer) {
+    func addGestureRecognizerToWebView() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(setLastTapPoint))
+        tapGestureRecognizer.numberOfTouchesRequired = 1
+        tapGestureRecognizer.delegate = self
+        webView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc func setLastTapPoint(sender: UIGestureRecognizer) {
         let point = sender.location(in: self.view)
         lastTapPoint = point
     }

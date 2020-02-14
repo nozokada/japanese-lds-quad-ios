@@ -48,6 +48,7 @@
 		D475CCFD23E953F200678A85 /* HighlightsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCFC23E953F200678A85 /* HighlightsManager.swift */; };
 		D481DC3023F515AB00F166B7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D481DC3223F515AB00F166B7 /* InfoPlist.strings */; };
 		D481DC3523F6657B00F166B7 /* JavaScriptFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481DC3423F6657B00F166B7 /* JavaScriptFunctions.swift */; };
+		D481DC3723F678C300F166B7 /* MainWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481DC3623F678C300F166B7 /* MainWebView.swift */; };
 		D4DFE61923F4C0DE0055B6FB /* Images in Resources */ = {isa = PBXBuildFile; fileRef = D4DFE61823F4C0DE0055B6FB /* Images */; };
 /* End PBXBuildFile section */
 
@@ -125,6 +126,7 @@
 		D481DC3123F515AB00F166B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D481DC3323F515B000F166B7 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D481DC3423F6657B00F166B7 /* JavaScriptFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaScriptFunctions.swift; sourceTree = "<group>"; };
+		D481DC3623F678C300F166B7 /* MainWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWebView.swift; sourceTree = "<group>"; };
 		D4DFE61823F4C0DE0055B6FB /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
 		F24AEA88112E18282C759158 /* Pods-JapaneseLDSQuad.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JapaneseLDSQuad.debug.xcconfig"; path = "Target Support Files/Pods-JapaneseLDSQuad/Pods-JapaneseLDSQuad.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -285,6 +287,7 @@
 				D475CCE623E92E5000678A85 /* MainTabBar.swift */,
 				D475CCE423E92D5200678A85 /* MainNavigationBar.swift */,
 				D44FF28523EA91990014B30F /* MainIndicatorView.swift */,
+				D481DC3623F678C300F166B7 /* MainWebView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -562,6 +565,7 @@
 				D475CCE923E92F9800678A85 /* MainTabBarController.swift in Sources */,
 				D481DC3523F6657B00F166B7 /* JavaScriptFunctions.swift in Sources */,
 				D475CCF723E9521200678A85 /* PurchaseManager.swift in Sources */,
+				D481DC3723F678C300F166B7 /* MainWebView.swift in Sources */,
 				D475CCEF23E9449600678A85 /* AppUtility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
