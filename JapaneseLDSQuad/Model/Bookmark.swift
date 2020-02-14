@@ -17,6 +17,15 @@ class Bookmark: Object {
     @objc dynamic var scripture: Scripture!
     @objc dynamic var date: NSDate!
     
+    convenience init(id: String, namePrimary: String, nameSecondary: String, scripture: Scripture, date: NSDate) {
+        self.init()
+        self.id = id
+        self.name_primary = namePrimary
+        self.name_secondary = nameSecondary
+        self.scripture = scripture
+        self.date = date
+    }
+    
     override static func primaryKey() -> String? {
         return "id"
     }

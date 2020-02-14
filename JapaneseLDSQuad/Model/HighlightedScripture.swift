@@ -19,6 +19,15 @@ class HighlightedScripture: Object {
     
     let highlighted_texts = LinkingObjects(fromType: HighlightedText.self, property: "highlighted_scripture")
     
+    convenience init(id: String, scripturePrimary: String, scriptureSecondary: String, scripture: Scripture, date: NSDate) {
+        self.init()
+        self.id = id
+        self.scripture_primary = scripturePrimary
+        self.scripture_secondary = scriptureSecondary
+        self.scripture = scripture
+        self.date = date
+    }
+    
     override static func primaryKey() -> String? {
         return "id"
     }

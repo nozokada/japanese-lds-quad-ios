@@ -22,13 +22,11 @@ class BookmarksManager: AnnotationsManager {
                 }
             }
             else {
-                let bookmarkToAdd = Bookmark()
-                bookmarkToAdd.id = scripture.id
-                bookmarkToAdd.scripture = scripture
-                bookmarkToAdd.date = NSDate()
-                bookmarkToAdd.name_primary = generateTitlePrimary(scripture: scripture)
-                bookmarkToAdd.name_secondary = generateTitleSecondary(scripture: scripture)
-                
+                let bookmarkToAdd = Bookmark(id: scripture.id,
+                                             namePrimary: generateTitlePrimary(scripture: scripture),
+                                             nameSecondary: generateTitleSecondary(scripture: scripture),
+                                             scripture: scripture,
+                                             date: NSDate())
                 try! realm.write {
                     realm.add(bookmarkToAdd)
                     debugPrint("Added bookmark for scripture \(scripture.id) successfully")

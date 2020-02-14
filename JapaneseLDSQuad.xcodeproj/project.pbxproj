@@ -185,9 +185,9 @@
 			children = (
 				D40B3E6F23E892F900276662 /* Book.swift */,
 				D40B3E7123E8932900276662 /* Scripture.swift */,
+				D40B3E7723E893BD00276662 /* Bookmark.swift */,
 				D40B3E7323E8935F00276662 /* HighlightedScripture.swift */,
 				D40B3E7523E8938A00276662 /* HighlightedText.swift */,
-				D40B3E7723E893BD00276662 /* Bookmark.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

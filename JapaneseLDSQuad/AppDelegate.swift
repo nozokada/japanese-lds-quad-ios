@@ -126,13 +126,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func copyUserBookmarks(to realm: Realm, bookmarks: Results<Bookmark>) {
         for bookmarkToCopy in bookmarks {
-            let bookmark = Bookmark()
-            bookmark.id = bookmarkToCopy.id
-            bookmark.name_primary = bookmarkToCopy.name_primary
-            bookmark.name_secondary = bookmarkToCopy.name_secondary
-            bookmark.scripture = realm.objects(Scripture.self).filter("id = '\(bookmarkToCopy.id)'").first
-            bookmark.date = bookmarkToCopy.date
-            
+            let bookmark = Bookmark(id: bookmarkToCopy.id,
+                                    namePrimary: bookmarkToCopy.name_primary,
+                                    nameSecondary: bookmarkToCopy.name_secondary,
+                                    scripture: realm.objects(Scripture.self).filter("id = '\(bookmarkToCopy.id)'").first!,
+                                    date: bookmarkToCopy.date)
             realm.create(Bookmark.self, value: bookmark, update: .all)
         }
     }
@@ -142,14 +140,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if let scripture = realm.objects(Scripture.self).filter("id = '\(highlightedScriptureToCopy.id)'").first {
                 scripture.scripture_primary = highlightedScriptureToCopy.scripture_primary
                 scripture.scripture_secondary = highlightedScriptureToCopy.scripture_secondary
-                
-                let highlightedScripture = HighlightedScripture()
-                highlightedScripture.id = highlightedScriptureToCopy.id
-                highlightedScripture.scripture_primary = highlightedScriptureToCopy.scripture_primary
-                highlightedScripture.scripture_secondary = highlightedScriptureToCopy.scripture_secondary
-                highlightedScripture.scripture = scripture
-                highlightedScripture.date = highlightedScriptureToCopy.date
-                
+                let highlightedScripture = HighlightedScripture(id: highlightedScriptureToCopy.id,
+                                                                scripturePrimary: highlightedScriptureToCopy.scripture_primary,
+                                                                scriptureSecondary: highlightedScriptureToCopy.scripture_secondary,
+                                                                scripture: scripture,
+                                                                date: highlightedScriptureToCopy.date)
                 realm.create(HighlightedScripture.self, value: highlightedScripture, update: .all)
             }
         }
@@ -157,15 +152,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func copyUserHighlightedText(to realm: Realm, highlightedTexts: Results<HighlightedText>) {
         for highlightedTextToCopy in highlightedTexts {
-            let highlightedText = HighlightedText()
-            highlightedText.id = highlightedTextToCopy.id
-            highlightedText.name_primary = highlightedTextToCopy.name_primary
-            highlightedText.name_secondary = highlightedTextToCopy.name_secondary
-            highlightedText.text = highlightedTextToCopy.text
-            highlightedText.note = highlightedTextToCopy.note
-            highlightedText.highlighted_scripture = highlightedTextToCopy.highlighted_scripture
-            highlightedText.date = highlightedTextToCopy.date
-            
+            let highlightedText = HighlightedText(id: highlightedTextToCopy.id,
+                                                  namePrimary: highlightedTextToCopy.name_primary,
+                                                  nameSecondary: highlightedTextToCopy.name_secondary,
+                                                  text: highlightedTextToCopy.text,
+                                                  note:  highlightedTextToCopy.note,
+                                                  highlightedScripture: highlightedTextToCopy.highlighted_scripture,
+                                                  date: highlightedTextToCopy.date)
             realm.create(HighlightedText.self, value: highlightedText, update: .all)
         }
     }
