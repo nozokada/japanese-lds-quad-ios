@@ -90,14 +90,6 @@ struct JavaScriptSnippets {
             """
     }
     
-    static func getScriptureContentLanguage(textId: String) -> String {
-        return """
-            var highlightedText = document.getElementById('\(textId)');
-            var scriptureContentLanguage = getScriptureContentLanguage(highlightedText);
-            scriptureContentLanguage
-            """
-    }
-    
     static func getScriptureContent(textId: String) -> String {
         return """
             var highlightedText = document.getElementById('\(textId)');
@@ -110,7 +102,16 @@ struct JavaScriptSnippets {
             """
     }
     
-    static func getHighlightedText(textId: String) -> String {
+    static func getScriptureLanguage(textId: String) -> String {
+        return """
+            var highlightedText = document.getElementById('\(textId)');
+            var scriptureContentLanguage = getScriptureContentLanguage(highlightedText);
+            scriptureContentLanguage
+            """
+    }
+    
+    
+    static func getTextToHighlight(textId: String) -> String {
         return """
             var selection = window.getSelection();
             var highlightedText = '';

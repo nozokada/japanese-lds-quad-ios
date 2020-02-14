@@ -196,18 +196,18 @@ extension ContentViewController: WKNavigationDelegate {
         webView.evaluateJavaScript(JavaScriptSnippets.getScriptureId()) { result, error in
             guard let scriptureId = result as? String else { return }
             if scriptureId.isEmpty { self.showInvalidSelectedRangeAlert(); return }
-            self.webView.evaluateJavaScript(JavaScriptSnippets.getHighlightedText(textId: highlightedTextId)) { result, error in
+            self.webView.evaluateJavaScript(JavaScriptSnippets.getTextToHighlight(textId: highlightedTextId)) { result, error in
                 guard let highlightedText = result as? String else { return }
                 if highlightedText.isEmpty { self.showInvalidSelectedRangeAlert(); return }
                 self.webView.evaluateJavaScript(JavaScriptSnippets.getScriptureContent()) { result, error in
                     guard let scriptureContent = result as? String else { return }
                     self.webView.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguage()) { result, error in
-                        guard let scriptureLanguage = result as? String else { return }
+                        guard let language = result as? String else { return }
                         HighlightsManager.shared.addHighlight(textId: highlightedTextId,
-                                                           textContent: highlightedText,
-                                                           scriptureId: scriptureId,
-                                                           scriptureContent: scriptureContent,
-                                                           language: scriptureLanguage)
+                                                              textContent: highlightedText,
+                                                              scriptureId: scriptureId,
+                                                              scriptureContent: scriptureContent,
+                                                              language: language)
                     }
                 }
             }
@@ -215,11 +215,11 @@ extension ContentViewController: WKNavigationDelegate {
     }
     
     @objc func unhighlightText() {
-        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureContentLanguage(textId: self.selectedHighlightedTextId)) { result, error in
-            guard let contentLanguage = result as? String else { return }
+        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguage(textId: self.selectedHighlightedTextId)) { result, error in
+            guard let language = result as? String else { return }
             self.webView.evaluateJavaScript(JavaScriptSnippets.getScriptureContent(textId: self.selectedHighlightedTextId)) { result, error in
                 guard let content = result as? String else { return }
-                HighlightsManager.shared.removeHighlight(id: self.selectedHighlightedTextId, content: content, contentLanguage: contentLanguage)
+                HighlightsManager.shared.removeHighlight(id: self.selectedHighlightedTextId, content: content, language: language)
             }
         }
     }

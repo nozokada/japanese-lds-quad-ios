@@ -63,12 +63,11 @@ class HighlightsManager: AnnotationsManager {
         }
     }
     
-    func removeHighlight(id: String, content: String, contentLanguage: String) {
-        if let highlightedTextToRemove = realm.objects(HighlightedText.self).filter("id = '\(id)'").first {
-            let highlightedScripture = highlightedTextToRemove.highlighted_scripture!
-            removeHighlightedText(highlightedTextToRemove: highlightedTextToRemove)
-            ApplyHighlightChangeToScripture(id: highlightedScripture.id, content: content, language: contentLanguage)
-            
+    func removeHighlight(id: String, content: String, language: String) {
+        if let highlightedText = realm.objects(HighlightedText.self).filter("id = '\(id)'").first {
+            let highlightedScripture = highlightedText.highlighted_scripture!
+            removeHighlightedText(highlightedTextToRemove: highlightedText)
+            ApplyHighlightChangeToScripture(id: highlightedScripture.id, content: content, language: language)
             if highlightedScripture.highlighted_texts.count == 0 {
                 try! realm.write {
                     realm.delete(highlightedScripture)
