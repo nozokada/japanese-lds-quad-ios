@@ -39,11 +39,11 @@ class ContentViewController: UIViewController {
         setDefaultMenuItems()
     }
     
-    func initData(index: Int, builder: ContentBuilder, targetChapterId: String, targetVerse: String?) {
-        self.targetChapterId = targetChapterId
-        self.targetVerse = targetVerse
-        pageIndex = index
-        htmlContent = builder.buildContent(targetVerse: targetVerse)
+    func initData(contentViewData: ContentViewData) {
+        pageIndex = contentViewData.index
+        targetChapterId = contentViewData.chapterId
+        targetVerse = contentViewData.verse
+        htmlContent = contentViewData.builder.buildContent(targetVerse: targetVerse)
     }
     
     func addActivityIndicator() {

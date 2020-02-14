@@ -21,6 +21,20 @@ struct TargetScriptureData {
     }
 }
 
+struct ContentViewData {
+    var index: Int
+    var builder: ContentBuilder
+    var chapterId: String
+    var verse: String?
+    
+    init(index: Int, builder: ContentBuilder, chapterId: String, verse: String?) {
+        self.index = index
+        self.builder = builder
+        self.chapterId = chapterId
+        self.verse = verse
+    }
+}
+
 class AppUtility {
     
     static let shared = AppUtility()

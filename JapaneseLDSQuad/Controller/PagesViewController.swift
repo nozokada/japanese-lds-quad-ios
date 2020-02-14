@@ -73,8 +73,8 @@ class PagesViewController: UIPageViewController {
     }
     
     func initData(scripture: Scripture) {
-        self.targetBook = scripture.parent_book
-        self.targetVerse = scripture.verse
+        targetBook = scripture.parent_book
+        targetVerse = scripture.verse
         targetBookName = targetBook.name_primary
         targetChapterId = AppUtility.shared.getChapterIdFromScripture(scripture: scripture)
     }
@@ -90,12 +90,10 @@ class PagesViewController: UIPageViewController {
         let chapterId = AppUtility.shared.getChapterIdFromChapterNumber(bookId: targetBook.id, chapter: index + 1)
         let scriptures = scripturesInBook.filter("id BEGINSWITH '\(chapterId)'").sorted(byKeyPath: "id")
         let contentBuilder = AppUtility.shared.getContentBuilder(scriptures: scriptures, contentType: contentType)
-        
         if let contentViewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.content) as? ContentViewController {
-            contentViewController.initData(index: index,
-                                           builder: contentBuilder,
-                                           targetChapterId: targetChapterId,
-                                           targetVerse: chapterId == targetChapterId ? targetVerse: nil)
+            let contentViewData = ContentViewData(
+                index: index, builder: contentBuilder, chapterId: targetChapterId, verse: chapterId == targetChapterId ? targetVerse: nil)
+            contentViewController.initData(contentViewData: contentViewData)
             return contentViewController
         }
         return nil
