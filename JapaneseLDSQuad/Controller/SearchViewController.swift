@@ -39,7 +39,7 @@ class SearchViewController: UIViewController {
         tableView.estimatedRowHeight = CGFloat(Constants.FontSize.regular)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = tableView.tableFooterView ?? UIView(frame: CGRect.zero)
-//        reload()
+        reload()
     }
     
 //    @IBAction func settingsButtonTapped(_ sender: UIBarButtonItem) {
@@ -95,9 +95,11 @@ class SearchViewController: UIViewController {
     }
     
     func reload() {
+        if let results = results {
+            noResultsLabel.isHidden = results.count > 0
+        }
         updateSearchBarStyle()
         updateTableBackgroundColor()
-        noResultsLabel.isHidden = results.count > 0
         tableView.reloadData()
     }
     
@@ -133,8 +135,10 @@ extension SearchViewController: UITableViewDelegate {
 extension SearchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection: Int) -> Int {
-        guard let results = segmentedResults else { return 0 }
-        return results.count
+        if let results = segmentedResults {
+            return results.count
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -205,7 +209,10 @@ extension SearchViewController: UISearchBarDelegate {
     func updateSegmentResults() {
         guard let results = results else { return }
         let selectedSegmentIndex = searchResultsSegmentedControl.selectedSegmentIndex
-        segmentedResults = results.filter("parent_book.parent_book.id = '\(selectedSegmentIndex + 1)'")
+        let filterQuery = selectedSegmentIndex != searchResultsSegmentedControl.numberOfSegments - 1
+            ? "parent_book.parent_book.id = '\(selectedSegmentIndex + 1)'"
+            : "NOT parent_book.parent_book.id IN {'1', '2', '3', '4', '5'}"
+        segmentedResults = results.filter(filterQuery)
         reload()
     }
     
