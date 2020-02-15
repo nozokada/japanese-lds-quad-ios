@@ -67,7 +67,6 @@ class SearchViewController: UIViewController {
     
     func hideActivityIndicator() {
         spinner.stopAnimating()
-        noResultsLabel.isHidden = false
     }
     
     func getNoResultsMessageLabel() -> UILabel {
