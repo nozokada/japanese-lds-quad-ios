@@ -24,6 +24,8 @@ class BooksViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.dataSource = self
+        tableView.delegate = self
         realm = try! Realm()
         targetBook = targetBook ?? realm.objects(Book.self).filter("id = '0'").first
         targetBookName = targetBookName ?? "rootViewTitle".localized

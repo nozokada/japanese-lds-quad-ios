@@ -24,6 +24,8 @@ class ChaptersViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.dataSource = self
+        tableView.delegate = self
         title = targetBookName
         chapterType = getChapterType()
         counters = targetBook.child_scriptures.filter("verse = 'counter'")

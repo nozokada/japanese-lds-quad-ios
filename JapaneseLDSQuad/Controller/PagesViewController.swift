@@ -20,7 +20,7 @@ class PagesViewController: UIPageViewController {
     
     var currentContentViewController: ContentViewController!
     var currentChapterIndex: Int!
-    var webViewRelativeOffset: CGFloat = 0
+    var currentRelativeOffset: CGFloat = 0
     
 //    var speechVerses: Results<Scripture>!
 //    var currentSpokenVerseIndex = 0
@@ -60,8 +60,9 @@ class PagesViewController: UIPageViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-//        targetVerse = nil
-//        saveCurrentRelativeOffset()
+        super.viewWillAppear(animated)
+        targetVerse = nil
+        setCurrentRelativeOffset()
 //        stopSpeaking()
     }
     
@@ -83,7 +84,7 @@ class PagesViewController: UIPageViewController {
         guard let contentViewControllers = [getViewControllerAt(index: currentChapterIndex)] as? [UIViewController] else { return }
         setViewControllers(contentViewControllers, direction: .forward, animated: false, completion: nil)
         currentContentViewController = viewControllers?.last as? ContentViewController
-//        currentContentViewController.relativeOffset = webViewRelativeOffset
+        currentContentViewController.relativeOffset = currentRelativeOffset
     }
     
     func getViewControllerAt(index: Int) -> ContentViewController? {
@@ -113,10 +114,10 @@ class PagesViewController: UIPageViewController {
         }
     }
     
-    func saveCurrentRelativeOffset() {
+    func setCurrentRelativeOffset() {
         let offset = currentContentViewController.webView.scrollView.contentOffset.y
         let height = currentContentViewController.webView.scrollView.contentSize.height
-        webViewRelativeOffset = offset / height
+        currentRelativeOffset = offset / height
     }
     
 //    @IBAction func rootButtonTapped(_ sender: Any) {
