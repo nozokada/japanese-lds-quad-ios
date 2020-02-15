@@ -33,7 +33,7 @@ class ContentViewController: UIViewController {
         webView.evaluateJavaScript(JavaScriptFunctions.getAllFunctions(), completionHandler: nil)
         webView.loadHTMLString(htmlContent, baseURL: Bundle.main.bundleURL)
         addGestureRecognizerToWebView()
-        addActivityIndicator()
+        showActivityIndicator()
         setDefaultMenuItems()
     }
     
@@ -44,7 +44,7 @@ class ContentViewController: UIViewController {
         htmlContent = contentViewData.builder.buildContent(targetVerse: targetVerse)
     }
     
-    func addActivityIndicator() {
+    func showActivityIndicator() {
         spinner = MainIndicatorView(parentView: view)
         spinner.startAnimating()
     }
@@ -91,7 +91,7 @@ extension ContentViewController: WKNavigationDelegate {
                 if offset >= (height - visibleHeight) {
                     offset = height - visibleHeight
                 }
-                webView.evaluateJavaScript("window.scrollTo(0,\(offset))", completionHandler: nil)
+                webView.evaluateJavaScript("window.scrollTo(0,\(offset));", completionHandler: nil)
                 self.spotlightTargetVerses()
                 self.hideActivityIndicator()
             }

@@ -11,25 +11,27 @@ import RealmSwift
 
 class SearchViewController: UIViewController {
     
-    var realm: Realm!
-    var noResultsLabel: UILabel!
-    var searchResults: Results<Scripture>!
-    var searchActive = false
+    var results: Results<Scripture>!
+    var segmentedResults: Results<Scripture>!
     var currentSearchText = ""
     var currentSegmentIndex = "1"
+    var token: NotificationToken? = nil
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchResultsSegmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
+    
+    var noResultsLabel: UILabel!
+    var spinner: MainIndicatorView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        realm = try! Realm()
         tableView.delegate = self
         tableView.dataSource = self
         searchBar.delegate = self
         title = "searchViewTitle".localized
-        initializeNoResultsMessage()
+        spinner = MainIndicatorView(parentView: view)
+        noResultsLabel = getNoResultsMessageLabel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,10 +40,6 @@ class SearchViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = tableView.tableFooterView ?? UIView(frame: CGRect.zero)
 //        reload()
-    }
-    
-    @IBAction func searchSegmentControlValueChanged(_ sender: Any) {
-        updateSearchResults()
     }
     
 //    @IBAction func settingsButtonTapped(_ sender: UIBarButtonItem) {
@@ -62,18 +60,28 @@ class SearchViewController: UIViewController {
 //        return UIModalPresentationStyle.none
 //    }
     
-    func initializeNoResultsMessage() {
-        noResultsLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
-        noResultsLabel.numberOfLines = 4
-        noResultsLabel.text = "noSearchResultsLabel".localized
-        noResultsLabel.textAlignment = .center
-        noResultsLabel.textColor = Constants.FontColor.night
-        updateTableBackgroundColor()
-        tableView.backgroundView = noResultsLabel
+    func showActivityIndicator() {
+        noResultsLabel.isHidden = true
+        spinner.startAnimating()
+    }
+    
+    func hideActivityIndicator() {
+        spinner.stopAnimating()
+        noResultsLabel.isHidden = false
+    }
+    
+    func getNoResultsMessageLabel() -> UILabel {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+        label.numberOfLines = 4
+        label.text = "noSearchResultsLabel".localized
+        label.textAlignment = .center
+        label.textColor = Constants.FontColor.night
+        tableView.backgroundView = label
+        return label
     }
     
     func updateTableBackgroundColor() {
-        noResultsLabel.backgroundColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
+        tableView.backgroundColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
             ? Constants.BackgroundColor.night
             : Constants.BackgroundColor.day
     }
@@ -89,7 +97,12 @@ class SearchViewController: UIViewController {
     func reload() {
         updateSearchBarStyle()
         updateTableBackgroundColor()
+        noResultsLabel.isHidden = results.count > 0
         tableView.reloadData()
+    }
+    
+    @IBAction func searchSegmentControlValueChanged(_ sender: Any) {
+        updateSegmentResults()
     }
 }
 
@@ -107,7 +120,7 @@ extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
-            let scripture = searchResults[indexPath.row]
+            let scripture = segmentedResults[indexPath.row]
             viewController.initData(scripture: scripture)
             navigationController?.pushViewController(viewController, animated: true)
         }
@@ -120,7 +133,8 @@ extension SearchViewController: UITableViewDelegate {
 extension SearchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection: Int) -> Int {
-        return searchActive ? searchResults.count : 0
+        guard let results = segmentedResults else { return 0 }
+        return results.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -136,7 +150,7 @@ extension SearchViewController: UITableViewDataSource {
         tableView.backgroundColor = cellColor
         cell.backgroundColor = cellColor
         
-        let scripture = searchResults[indexPath.row]
+        let scripture = segmentedResults[indexPath.row]
         let contentType = AppUtility.shared.getContentType(targetBook: scripture.parent_book)
         let scriptures = scripture.parent_book.child_scriptures.filter("chapter = \(scripture.chapter)")
         let builder = AppUtility.shared.getContentBuilder(scriptures: scriptures, contentType: contentType)
@@ -175,40 +189,33 @@ extension SearchViewController: UIScrollViewDelegate {
 
 extension SearchViewController: UISearchBarDelegate {
     
-    func updateSearchResults() {
-        if currentSearchText.isEmpty {
-            searchActive = false
-            noResultsLabel.isHidden = false
-        } else {
-            let searchQueryPrimary = "scripture_primary_raw CONTAINS '\(currentSearchText)'"
-            let searchQuerySecondary = "scripture_secondary_raw CONTAINS[c] '\(currentSearchText)'"
-            let selectedSegmentIndex = searchResultsSegmentedControl.selectedSegmentIndex
-            let grandParentBookQuery = selectedSegmentIndex == searchResultsSegmentedControl.numberOfSegments - 1
-                ? "NOT parent_book.parent_book.id IN {'1', '2', '3', '4', '5'}"
-                : "parent_book.parent_book.id = '\(selectedSegmentIndex + 1)'"
-            
-            searchResults = realm.objects(Scripture.self).filter("(\(searchQuerySecondary) OR \(searchQueryPrimary)) AND \(grandParentBookQuery)").sorted(byKeyPath: "id")
-            searchActive = searchResults.count > 0
-            noResultsLabel.isHidden = searchActive
+    func updateResults() {
+        showActivityIndicator()
+        let searchQueryPrimary = "scripture_primary_raw CONTAINS '\(currentSearchText)'"
+        let searchQuerySecondary = "scripture_secondary_raw CONTAINS[c] '\(currentSearchText)'"
+        
+        let realm = try! Realm()
+        results = realm.objects(Scripture.self).filter("\(searchQuerySecondary) OR \(searchQueryPrimary)")
+        token = results.observe { _ in
+            self.updateSegmentResults()
+            self.hideActivityIndicator()
         }
+    }
+    
+    func updateSegmentResults() {
+        guard let results = results else { return }
+        let selectedSegmentIndex = searchResultsSegmentedControl.selectedSegmentIndex
+        segmentedResults = results.filter("parent_book.parent_book.id = '\(selectedSegmentIndex + 1)'")
         reload()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         currentSearchText = searchText
-        updateSearchResults()
-    }
-    
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchActive = true
+        updateResults()
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchActive = false
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
