@@ -24,9 +24,8 @@ class BookmarksViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         title = "bookmarksViewTitle".localized
-        initializeNoBookmarksMessage()
+        noBookmarksLabel = getNoBookmarksMessageLabel()
         bookmarks = realm.objects(Bookmark.self).sorted(byKeyPath: "date")
-        noBookmarksLabel.isHidden = bookmarks.count > 0
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,17 +36,17 @@ class BookmarksViewController: UIViewController {
         reload()
     }
     
-    func initializeNoBookmarksMessage() {
-        noBookmarksLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
-        noBookmarksLabel.numberOfLines = 4
-        noBookmarksLabel.text = "noBookmarksLabel".localized
-        noBookmarksLabel.textAlignment = .center
-        noBookmarksLabel.textColor = Constants.FontColor.night
-        updateNoBookmarksMessageBackgroundColor()
-        tableView.backgroundView = noBookmarksLabel
+    func getNoBookmarksMessageLabel() -> UILabel {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+        label.numberOfLines = 4
+        label.text = "noBookmarksLabel".localized
+        label.textAlignment = .center
+        label.textColor = Constants.FontColor.night
+        tableView.backgroundView = label
+        return label
     }
     
-    func updateNoBookmarksMessageBackgroundColor() {
+    func updateTableBackgroundColor() {
         noBookmarksLabel.backgroundColor =  UserDefaults.standard.bool(forKey: Constants.Config.night)
             ? Constants.BackgroundColor.night
             : Constants.BackgroundColor.day
@@ -57,7 +56,8 @@ class BookmarksViewController: UIViewController {
 extension BookmarksViewController: SettingsChangeDelegate {
 
     func reload() {
-        updateNoBookmarksMessageBackgroundColor()
+        noBookmarksLabel.isHidden = bookmarks.count > 0
+        updateTableBackgroundColor()
         tableView.reloadData()
     }
 }

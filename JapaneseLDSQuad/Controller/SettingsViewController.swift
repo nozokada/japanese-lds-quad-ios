@@ -27,7 +27,7 @@ class SettingsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setLabelsText()
-        setTextSizeStepperImages()
+//        setTextSizeStepperImages()
         setAlternativeFontSwitchState()
         setNightModeSwitchState()
         setDualModeSwitchState()
