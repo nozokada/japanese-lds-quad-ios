@@ -18,14 +18,12 @@ class ChaptersViewController: UIViewController {
     var chapterType = Constants.ChapterType.number
     
     @IBOutlet weak var tableView: UITableView!
-//    @IBOutlet weak var dualSwitch: UIBarButtonItem!
-//    @IBOutlet weak var passageLookUpViewButton: UIBarButtonItem!
-//    @IBOutlet weak var highlightsViewButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        setSettingsBarButton()
         title = targetBookName
         chapterType = getChapterType()
         counters = targetBook.child_scriptures.filter("verse = 'counter'")
@@ -39,7 +37,7 @@ class ChaptersViewController: UIViewController {
         tableView.estimatedRowHeight = CGFloat(Constants.FontSize.regular)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = tableView.tableFooterView ?? UIView(frame: CGRect.zero)
-//        reload()
+        reload()
     }
     
     func initTargetBook(targetBook: Book) {
@@ -55,50 +53,14 @@ class ChaptersViewController: UIViewController {
         }
         return Constants.ChapterType.number
     }
-    
-//    @IBAction func rootButtonTapped(_ sender: Any) {
-//        popToRootViewController()
-//    }
-//
-//    @IBAction func passageLookupViewButtonTapped(_ sender: Any) {
-//        presentPassageLookupViewController()
-//    }
-//
-//    @IBAction func searchButtonTapped(_ sender: Any) {
-//        presentSearchViewController()
-//    }
-//
-//    @IBAction func bookmarksButtonTapped(_ sender: Any) {
-//        presentBookmarksViewController()
-//    }
-//
-//    @IBAction func highlightsButtonTapped(_ sender: Any) {
-//        presentHighlightsViewController()
-//    }
-//
-//    @IBAction func settingsButtonTapped(_ sender: UIBarButtonItem) {
-//        presentSettingsTableViewController(sender)
-//    }
-//
-//    @IBAction func dualSwitchToggled(_ sender: Any) {
-//        changeDualMode()
-//    }
-//
-//    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-//        return UIModalPresentationStyle.none
-//    }
 }
 
+extension ChaptersViewController: SettingsChangeDelegate {
 
-//extension ChaptersViewController: UpperBarButtonsDelegate {
-//
-//    func reload() {
-//        updateDualSwitch()
-//        updateAdditionalFeatureBarButtons()
-//        tableView.reloadData()
-//    }
-//}
-
+    func reload() {
+        tableView.reloadData()
+    }
+}
 
 extension ChaptersViewController: UITableViewDataSource {
     
@@ -143,7 +105,6 @@ extension ChaptersViewController: UITableViewDataSource {
         return cell
     }
 }
-
 
 extension ChaptersViewController: UITableViewDelegate {
     

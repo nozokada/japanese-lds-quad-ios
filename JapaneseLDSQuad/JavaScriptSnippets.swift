@@ -110,7 +110,6 @@ struct JavaScriptSnippets {
             """
     }
     
-    
     static func getTextToHighlight(textId: String) -> String {
         return """
             var selection = window.getSelection();

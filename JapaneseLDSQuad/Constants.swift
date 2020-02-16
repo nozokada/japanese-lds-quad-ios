@@ -19,6 +19,7 @@ struct Constants {
         static let chapters = "chapters"
         static let pages = "pages"
         static let content = "content"
+        static let settings = "settings"
     }
     
     struct Count {

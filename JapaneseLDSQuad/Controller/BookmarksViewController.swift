@@ -37,22 +37,6 @@ class BookmarksViewController: UIViewController {
         reload()
     }
     
-//    @IBAction func settingsButtonTapped(_ sender: UIBarButtonItem) {
-//        presentSettingsTableViewController(sender)
-//    }
-//
-//    @IBAction func dualSwitchToggled(_ sender: Any) {
-//        changeDualMode()
-//    }
-//
-//    @IBAction func closeButtonTapped(_ sender: Any) {
-//        self.dismiss(animated: true, completion: nil)
-//    }
-    
-//    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-//        return UIModalPresentationStyle.none
-//    }
-    
     func initializeNoBookmarksMessage() {
         noBookmarksLabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
         noBookmarksLabel.numberOfLines = 4
@@ -68,23 +52,15 @@ class BookmarksViewController: UIViewController {
             ? Constants.BackgroundColor.night
             : Constants.BackgroundColor.day
     }
-    
+}
+
+extension BookmarksViewController: SettingsChangeDelegate {
+
     func reload() {
         updateNoBookmarksMessageBackgroundColor()
         tableView.reloadData()
     }
 }
-
-
-//extension BookmarksViewController: UpperBarButtonsDelegate {
-//
-//    func reload() {
-//        updateDualSwitch()
-//        updateNoBookmarksMessageBackgroundColor()
-//        tableView.reloadData()
-//    }
-//}
-
 
 extension BookmarksViewController: UITableViewDelegate {
     
@@ -97,7 +73,6 @@ extension BookmarksViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
-
 
 extension BookmarksViewController: UITableViewDataSource {
     

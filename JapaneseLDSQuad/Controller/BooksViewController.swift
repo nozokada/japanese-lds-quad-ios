@@ -18,14 +18,12 @@ class BooksViewController: UIViewController {
     var isTopMenu = false
     
     @IBOutlet weak var tableView: UITableView!
-//    @IBOutlet weak var dualSwitch: UIBarButtonItem!
-//    @IBOutlet weak var passageLookUpViewButton: UIBarButtonItem!
-//    @IBOutlet weak var highlightsViewButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        setSettingsBarButton()
         realm = try! Realm()
         targetBook = targetBook ?? realm.objects(Book.self).filter("id = '0'").first
         targetBookName = targetBookName ?? "rootViewTitle".localized
@@ -38,57 +36,21 @@ class BooksViewController: UIViewController {
         super.viewWillAppear(animated)
         tableView.estimatedRowHeight = CGFloat(Constants.FontSize.regular)
         tableView.rowHeight = UITableView.automaticDimension
-//        reload()
+        reload()
     }
     
     func initTargetBook(targetBook: Book) {
         self.targetBook = targetBook
         targetBookName = targetBook.name_primary
     }
-    
-//    @IBAction func rootButtonTapped(_ sender: Any) {
-//        popToRootViewController()
-//    }
-//
-//    @IBAction func passageLookupViewButtonTapped(_ sender: Any) {
-//        presentPassageLookupViewController()
-//    }
-//
-//    @IBAction func searchButtonTapped(_ sender: Any) {
-//        presentSearchViewController()
-//    }
-//
-//    @IBAction func bookmarksButtonTapped(_ sender: Any) {
-//        presentBookmarksViewController()
-//    }
-//
-//    @IBAction func highlightsButtonTapped(_ sender: Any) {
-//        presentHighlightsViewController()
-//    }
-//
-//    @IBAction func settingsButtonTapped(_ sender: UIBarButtonItem) {
-//        presentSettingsTableViewController(sender)
-//    }
-//
-//    @IBAction func dualSwitchToggled(_ sender: Any) {
-//        changeDualMode()
-//    }
-//
-//    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-//        return .none
-//    }
 }
 
+extension BooksViewController: SettingsChangeDelegate {
 
-//extension BooksViewController: UpperBarButtonsDelegate {
-//
-//    func reload() {
-//        updateDualSwitch()
-//        updateAdditionalFeatureBarButtons()
-//        tableView.reloadData()
-//    }
-//}
-
+    func reload() {
+        tableView.reloadData()
+    }
+}
 
 extension BooksViewController: UITableViewDataSource {
     

@@ -28,9 +28,6 @@ class PagesViewController: UIPageViewController {
 //    let speechQueue = DispatchQueue(label: "com.nozokada.JapaneseLDSQuad.speechQueue")
 //    let speechSynthesizer = AVSpeechSynthesizer()
     
-//    @IBOutlet weak var dualSwitch: UIBarButtonItem!
-//    @IBOutlet weak var passageLookUpViewButton: UIBarButtonItem!
-//    @IBOutlet weak var highlightsViewButton: UIBarButtonItem!
 //    var speechPlayButton: UIButton!
 //    var speechForwardButton: UIButton!
 //    var speechBackButton: UIButton!
@@ -42,6 +39,7 @@ class PagesViewController: UIPageViewController {
         super.viewDidLoad()
         delegate = self
         dataSource = self
+        setSettingsBarButton()
         contentType = AppUtility.shared.getContentType(targetBook: targetBook)
         scripturesInBook = targetBook.child_scriptures.sorted(byKeyPath: "id")
         currentChapterIndex = AppUtility.shared.getChapterNumberFromScriptureId(id: targetChapterId) - 1
@@ -53,9 +51,7 @@ class PagesViewController: UIPageViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        updateDualSwitch()
         updatePageContentView()
-//        updateAdditionalFeatureBarButtons()
 //        initializeSpeechButtons()
     }
     
@@ -120,60 +116,6 @@ class PagesViewController: UIPageViewController {
         currentRelativeOffset = offset / height
     }
     
-//    @IBAction func rootButtonTapped(_ sender: Any) {
-//        let currentNavigationController = self.navigationController as! AppNavigationController
-//
-//        if let previousNavigationController = currentNavigationController.previousNavigationController {
-//            currentNavigationController.dismiss(animated: true, completion: nil)
-//            previousNavigationController.popToRootViewController(animated: true)
-//        }
-//        else {
-//            currentNavigationController.popToRootViewController(animated: true)
-//        }
-//    }
-    
-//    @IBAction func passageLookupViewButtonTapped(_ sender: Any) {
-//        let navigationController = self.navigationController as! AppNavigationController
-//
-//        if navigationController.isPassageLookupNavigationController {
-//            navigationController.popToRootViewController(animated: true)
-//        }
-//        else {
-//            presentPassageLookupViewController()
-//        }
-//    }
-//
-//    @IBAction func searchButtonTapped(_ sender: Any) {
-//        let navigationController = self.navigationController as! AppNavigationController
-//
-//        if navigationController.isSearchNavigationController {
-//            navigationController.popToRootViewController(animated: true)
-//        }
-//        else {
-//            presentSearchViewController()
-//        }
-//    }
-//
-//    @IBAction func highlightsButtonTapped(_ sender: Any) {
-//        presentHighlightsViewController()
-//    }
-//
-//    @IBAction func bookmarksButtonTapped(_ sender: Any) {
-//        presentBookmarksViewController()
-//    }
-//
-//    @IBAction func settingsButtonTapped(_ sender: UIBarButtonItem) {
-//        presentSettingsTableViewController(sender)
-//    }
-//
-//    @IBAction func dualSwitchToggled(_ sender: Any) {
-//        changeDualMode()
-//    }
-//
-//    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-//        return UIModalPresentationStyle.none
-//    }
-    
 //    func initializeSpeechButtons() {
 //        if PurchaseManager.shared.isPurchased {
 //            speechPlayButton = createSpeechButton(iconImage: #imageLiteral(resourceName: "Headset"), horizontalOffset: 0)
@@ -228,16 +170,12 @@ class PagesViewController: UIPageViewController {
 }
 
 
-//extension ContentViewController: UpperBarButtonsDelegate {
-//
-//    func reload() {
-//        clearTargetScripture()
-//        updateDualSwitch()
-//        updateAdditionalFeatureBarButtons()
-//        saveCurrentRelativeOffset()
-//        updatePageContentView()
-//    }
-//}
+extension PagesViewController: SettingsChangeDelegate {
+    func reload() {
+        setCurrentRelativeOffset()
+        updatePageContentView()
+    }
+}
 
 extension PagesViewController: UIPageViewControllerDataSource {
     

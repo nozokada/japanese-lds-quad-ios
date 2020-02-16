@@ -42,24 +42,6 @@ class SearchViewController: UIViewController {
         reload()
     }
     
-//    @IBAction func settingsButtonTapped(_ sender: UIBarButtonItem) {
-//        presentSettingsTableViewController(sender)
-//    }
-//
-//    @IBAction func dualSwitchToggled(_ sender: Any) {
-//        changeDualMode()
-//    }
-//
-//    @IBAction func closeButtonTapped(_ sender: Any) {
-//        delegate?.updateAdditionalFeatureBarButtons()
-//        searchBar.resignFirstResponder()
-//        self.dismiss(animated: true, completion: nil)
-//    }
-//
-//    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-//        return UIModalPresentationStyle.none
-//    }
-    
     func showActivityIndicator() {
         noResultsLabel.isHidden = true
         spinner.startAnimating()
@@ -93,6 +75,13 @@ class SearchViewController: UIViewController {
             : Constants.BackgroundColor.daySearchBar
     }
     
+    @IBAction func searchSegmentControlValueChanged(_ sender: Any) {
+        updateSegmentResults()
+    }
+}
+
+extension SearchViewController: SettingsChangeDelegate {
+
     func reload() {
         if let results = results {
             noResultsLabel.isHidden = results.count > 0
@@ -101,21 +90,7 @@ class SearchViewController: UIViewController {
         updateTableBackgroundColor()
         tableView.reloadData()
     }
-    
-    @IBAction func searchSegmentControlValueChanged(_ sender: Any) {
-        updateSegmentResults()
-    }
 }
-
-//extension SearchViewController: UpperBarButtonsDelegate {
-//
-//    func reload() {
-//        updateDualSwitch()
-//        updateSearchBarStyle()
-//        updateNoResultsMessageBackgroundColor()
-//        tableView.reloadData()
-//    }
-//}
 
 extension SearchViewController: UITableViewDelegate {
     
