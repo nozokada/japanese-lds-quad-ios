@@ -23,6 +23,7 @@ class BookmarksViewController: UIViewController {
         realm = try! Realm()
         tableView.delegate = self
         tableView.dataSource = self
+        setSettingsBarButton()
         title = "bookmarksViewTitle".localized
         noBookmarksLabel = getNoBookmarksMessageLabel()
         bookmarks = realm.objects(Bookmark.self).sorted(byKeyPath: "date")
@@ -47,7 +48,7 @@ class BookmarksViewController: UIViewController {
     }
     
     func updateTableBackgroundColor() {
-        noBookmarksLabel.backgroundColor =  UserDefaults.standard.bool(forKey: Constants.Config.night)
+        tableView.backgroundColor =  UserDefaults.standard.bool(forKey: Constants.Config.night)
             ? Constants.BackgroundColor.night
             : Constants.BackgroundColor.day
     }

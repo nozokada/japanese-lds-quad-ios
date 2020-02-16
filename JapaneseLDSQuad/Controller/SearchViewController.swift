@@ -19,6 +19,7 @@ class SearchViewController: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchResultsSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var segmentedControlView: UIView!
     @IBOutlet weak var tableView: UITableView!
     
     var noResultsLabel: UILabel!
@@ -29,6 +30,7 @@ class SearchViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         searchBar.delegate = self
+        setSettingsBarButton()
         title = "searchViewTitle".localized
         spinner = MainIndicatorView(parentView: view)
         noResultsLabel = getNoResultsMessageLabel()
@@ -73,6 +75,7 @@ class SearchViewController: UIViewController {
         searchResultsSegmentedControl.backgroundColor = nightModeEnabled
             ? Constants.BackgroundColor.nightSearchBar
             : Constants.BackgroundColor.daySearchBar
+        segmentedControlView.backgroundColor = searchResultsSegmentedControl.backgroundColor
     }
     
     @IBAction func searchSegmentControlValueChanged(_ sender: Any) {
