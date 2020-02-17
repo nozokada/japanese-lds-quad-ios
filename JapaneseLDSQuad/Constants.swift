@@ -22,6 +22,14 @@ struct Constants {
         static let settings = "settings"
     }
     
+    struct ReuseID {
+        static let bookCell = "bookCell"
+        static let chapterCell = "chapterCell"
+        static let searchResultCell = "searchResultCell"
+        static let bookmarkCell = "bookmarkCell"
+        static let highlightCell = "highlightCell"
+    }
+    
     struct Count {
         static let sectionsInBooksView = 1
         static let sectionsInTopBooksView = 2

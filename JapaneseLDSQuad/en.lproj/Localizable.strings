@@ -9,13 +9,14 @@
 "readTabBarItemTitle" = "Read";
 "searchTabBarItemTitle" = "Search";
 "bookmarksTabBarItemTitle" = "Bookmarks";
+"highlightsTabBarItemTitle" = "Highlights";
 
 "rootViewTitle" = "TOP";
 
 "standardWorksGroupedTableViewLabel" = "Standard Works";
 "resourcesGroupedTableViewLabel" = "Resources";
 
-"searchViewTitle" = "Search by Keywords";
+"searchViewTitle" = "Keyword Search";
 "bookmarksViewTitle" = "Bookmarks";
 "highlightsViewTitle" = "Highlights";
 "PassageLookupViewTitle" = "Passage Lookup";

@@ -9,6 +9,7 @@
 "readTabBarItemTitle" = "読む";
 "searchTabBarItemTitle" = "探す";
 "bookmarksTabBarItemTitle" = "ブックマーク";
+"highlightsTabBarItemTitle" = "印とメモ";
 
 "rootViewTitle" = "一覧";
 "standardWorksGroupedTableViewLabel" = "標準聖典";
@@ -16,7 +17,7 @@
 
 "searchViewTitle" = "キーワードで探す";
 "bookmarksViewTitle" = "ブックマーク";
-"highlightsViewTitle" = "ハイライト";
+"highlightsViewTitle" = "印とメモ";
 "PassageLookupViewTitle" = "章と節で探す";
 "PassageLookupChapterTextFieldPlaceholder" = "章";
 "PassageLookupVerseTextFieldPlaceholder" = "節";
@@ -38,11 +39,11 @@
 
 "copyTextMenuItemLabel" = "コピー";
 "copyVerseMenuItemLabel" = "節をコピー (ルビなし)";
-"highlightMenuItemLabel" = "ハイライトを付ける";
+"highlightMenuItemLabel" = "印を付ける";
 "noteEditMenuItemLabel" = "メモ";
-"unhighlightMenuItemLabel" = "ハイライトを消す";
+"unhighlightMenuItemLabel" = "印を消す";
 "InvalidActionAlertTitle" = "申し訳ありません";
-"InvalidSelectedRangeAlertMessage" = "選択された範囲ではその操作はサポートされていません";
+"InvalidSelectedRangeAlertMessage" = "選択された範囲でその操作はサポートされていません";
 
 "purchaseViewTitleLabel" = "オール機能パスの購入";
 "purchaseViewDescriptionLabel" = "オール機能パスを購入することで、全ての機能を使用できるようになります\n\n現在の有料機能は以下の通りです\n日英横並び表示\n章と節で探す\nハイライト\n機械音声読み上げ\n聖句ガイドの聖書へのリンク\n聖句ガイドの聖書のジョセフ・スミス訳";

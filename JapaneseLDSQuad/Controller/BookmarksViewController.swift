@@ -90,7 +90,7 @@ extension BookmarksViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "bookmarkCell")
+        let cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: Constants.ReuseID.bookmarkCell)
         let cellColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
             ? Constants.CellColor.night
             : Constants.CellColor.day

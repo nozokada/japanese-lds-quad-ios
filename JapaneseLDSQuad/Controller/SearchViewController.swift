@@ -128,7 +128,7 @@ extension SearchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let results = filteredResults, results.count > 0 else { return UITableViewCell() }
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "searchResultCell")
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: Constants.ReuseID.searchResultCell)
         let cellColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
             ? Constants.CellColor.night
             : Constants.CellColor.day
