@@ -9,20 +9,15 @@
 import UIKit
 
 class MainTextLabel: UILabel {
-
-   override func awakeFromNib() {
-       super.awakeFromNib()
-       customizeViews()
-   }
    
-   func customizeViews() {
-       let fontName = UserDefaults.standard.bool(forKey: Constants.Config.font)
-           ? Constants.Font.min
-           : Constants.Font.kaku
-       let fontSize = Constants.FontSize.regular * UserDefaults.standard.double(forKey: Constants.Config.size)
-       font = UIFont(name: fontName, size: CGFloat(fontSize))
-       textColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
-           ? Constants.FontColor.night
-           : Constants.FontColor.day
+    func customizeViews() {
+        let fontName = UserDefaults.standard.bool(forKey: Constants.Config.font)
+            ? Constants.Font.min
+            : Constants.Font.kaku
+        let fontSize = Constants.FontSize.regular * UserDefaults.standard.double(forKey: Constants.Config.size)
+        font = UIFont(name: fontName, size: CGFloat(fontSize))
+        textColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
+            ? Constants.FontColor.night
+            : Constants.FontColor.day
    }
 }

@@ -511,32 +511,41 @@
                                             <rect key="frame" x="0.0" y="0.0" width="180" height="180"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="jihjdg asdfopasdfpg dfgopadjghiopad dfjdfopg dfpdg dfsdpdpg df" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VHL-UJ-XqZ" customClass="MainTextLabel" customModule="JapaneseLDSQuad" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="8" width="164" height="164"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" secondItem="VHL-UJ-XqZ" secondAttribute="height" multiplier="1:1" id="gmq-yB-Jge"/>
-                                                    </constraints>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="jihjdg asdfopasdfpg dfgopadjghiopad dfjdfopg dfpdg dfsdpdpg df" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VHL-UJ-XqZ" customClass="MainTextLabel" customModule="JapaneseLDSQuad" customModuleProvider="target">
+                                                    <rect key="frame" x="8" y="90.5" width="164" height="81.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="アルマ書37章38節" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IqO-ij-cBa" customClass="MainTextLabel" customModule="JapaneseLDSQuad" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="151" width="145" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="アルマ書37章38節" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IqO-ij-cBa" customClass="MainTextLabel" customModule="JapaneseLDSQuad" customModuleProvider="target">
+                                                    <rect key="frame" x="8" y="8" width="164" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="jihjdg asdfopasdfpg dfgopadjghiopad dfjdfopg dfpdg dfsdpdpg df" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xTF-yL-9io" customClass="MainTextLabel" customModule="JapaneseLDSQuad" customModuleProvider="target">
+                                                    <rect key="frame" x="8" y="36" width="164" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="IqO-ij-cBa" firstAttribute="leading" secondItem="pYK-UD-8kf" secondAttribute="leading" constant="8" id="9IN-Cr-OFU"/>
-                                                <constraint firstItem="VHL-UJ-XqZ" firstAttribute="leading" secondItem="pYK-UD-8kf" secondAttribute="leading" constant="8" id="JvZ-eL-JWE"/>
-                                                <constraint firstAttribute="trailing" secondItem="VHL-UJ-XqZ" secondAttribute="trailing" constant="8" id="UqS-y4-GRv"/>
-                                                <constraint firstAttribute="bottom" secondItem="IqO-ij-cBa" secondAttribute="bottom" constant="8" id="doF-3X-7vl"/>
-                                                <constraint firstItem="VHL-UJ-XqZ" firstAttribute="top" secondItem="pYK-UD-8kf" secondAttribute="top" constant="8" id="uOc-Xc-tFs"/>
+                                                <constraint firstItem="VHL-UJ-XqZ" firstAttribute="leading" secondItem="pYK-UD-8kf" secondAttribute="leading" constant="8" id="Ocg-AF-pni"/>
+                                                <constraint firstItem="IqO-ij-cBa" firstAttribute="top" secondItem="pYK-UD-8kf" secondAttribute="top" constant="8" id="Tjd-36-Sql"/>
+                                                <constraint firstAttribute="bottom" secondItem="VHL-UJ-XqZ" secondAttribute="bottom" constant="8" id="UbT-hw-DX0"/>
+                                                <constraint firstItem="xTF-yL-9io" firstAttribute="leading" secondItem="pYK-UD-8kf" secondAttribute="leading" constant="8" id="bYy-m0-aqT"/>
+                                                <constraint firstAttribute="trailing" secondItem="IqO-ij-cBa" secondAttribute="trailing" constant="8" id="bn3-OY-bUZ"/>
+                                                <constraint firstItem="IqO-ij-cBa" firstAttribute="leading" secondItem="pYK-UD-8kf" secondAttribute="leading" constant="8" id="fnn-1P-JKQ"/>
+                                                <constraint firstAttribute="trailing" secondItem="xTF-yL-9io" secondAttribute="trailing" constant="8" id="hzc-cz-LNv"/>
+                                                <constraint firstItem="xTF-yL-9io" firstAttribute="top" secondItem="IqO-ij-cBa" secondAttribute="bottom" constant="8" id="kYb-u2-Q4f"/>
+                                                <constraint firstAttribute="trailing" secondItem="VHL-UJ-XqZ" secondAttribute="trailing" constant="8" id="tSv-Iv-I8i"/>
+                                                <constraint firstItem="VHL-UJ-XqZ" firstAttribute="top" secondItem="xTF-yL-9io" secondAttribute="bottom" constant="8" id="vy6-uv-fRH"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="180" height="180"/>
                                         <connections>
+                                            <outlet property="highlightedTextLabel" destination="xTF-yL-9io" id="9fL-YY-2dg"/>
                                             <outlet property="nameLabel" destination="IqO-ij-cBa" id="fH3-73-wfQ"/>
                                             <outlet property="noteTextLabel" destination="VHL-UJ-XqZ" id="ioi-b0-5eD"/>
                                         </connections>

@@ -89,6 +89,6 @@ extension HighlightsViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: cellHorizontalPaddingSize, bottom: 0, right: cellHorizontalPaddingSize)
+        return UIEdgeInsets(top: cellHorizontalPaddingSize, left: cellHorizontalPaddingSize, bottom: cellHorizontalPaddingSize, right: cellHorizontalPaddingSize)
     }
 }
