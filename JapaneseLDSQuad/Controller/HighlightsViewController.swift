@@ -70,6 +70,7 @@ extension HighlightsViewController: UICollectionViewDataSource, UICollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.ReuseID.highlightCell, for: indexPath) as? HighlightCell else { return HighlightCell() }
         cell.update(highlight: highlights[indexPath.row])
+        cell.layoutIfNeeded()
         return cell
     }
     

@@ -10,8 +10,8 @@ import UIKit
 
 class HighlightCell: UICollectionViewCell {
     
-    @IBOutlet weak var noteTextLabel: UILabel!
-    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var noteTextLabel: MainTextLabel!
+    @IBOutlet weak var nameLabel: MainTextLabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -19,16 +19,24 @@ class HighlightCell: UICollectionViewCell {
     }
     
     func customizeViews() {
-        backgroundColor = .gray
+        layer.cornerRadius = 15
+        layer.borderWidth = 1.0
+        layer.borderColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
+            ? Constants.FontColor.night.cgColor
+            : Constants.FontColor.day.cgColor
     }
     
     func update(highlight: HighlightedText) {
+        customizeViews()
+        noteTextLabel.customizeViews()
+        nameLabel.customizeViews()
+        
         if highlight.note.isEmpty {
             let formatter = DateFormatter()
             formatter.setLocalizedDateFormatFromTemplate("yMMMdE jms")
             noteTextLabel.text = Locale.current.languageCode == Constants.LanguageCode.primary ?
                 "\(formatter.string(from: highlight.date as Date))のハイライト" : "Created on \(formatter.string(from: highlight.date as Date))"
-        } else  {
+        } else {
             noteTextLabel.text = highlight.note
         }
         nameLabel.text = Locale.current.languageCode == Constants.LanguageCode.primary
