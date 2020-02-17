@@ -29,7 +29,7 @@
 "noHighlightsLabel" = "There are no highlights\n\nHold down on a text you want to highlight";
 "editButtonLabel" = "Edit";
 
-"noResultsLabel" = "No results found";
+"searchMatches" = "matche(s) found";
 "noSearchResultsLabel" = "No results found\n\nOnly phrase match is supported\nRuby text cannot be searched";
 
 "settingsGroupedTableViewLabel" = "Settings";

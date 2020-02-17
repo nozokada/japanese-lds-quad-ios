@@ -258,7 +258,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mincho Font" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7w-8s-8aq">
-                                                    <rect key="frame" x="36" y="11.5" width="95" height="21"/>
+                                                    <rect key="frame" x="32" y="11.5" width="95" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -273,7 +273,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="iB8-bb-szg" firstAttribute="centerY" secondItem="LCT-aP-eLN" secondAttribute="centerY" id="3AR-MY-a9u"/>
-                                                <constraint firstItem="o7w-8s-8aq" firstAttribute="leading" secondItem="LCT-aP-eLN" secondAttribute="leadingMargin" constant="20" id="UPd-hA-oxf"/>
+                                                <constraint firstItem="o7w-8s-8aq" firstAttribute="leading" secondItem="LCT-aP-eLN" secondAttribute="leadingMargin" constant="16" id="UPd-hA-oxf"/>
                                                 <constraint firstItem="o7w-8s-8aq" firstAttribute="centerY" secondItem="LCT-aP-eLN" secondAttribute="centerY" id="X76-OT-PbI"/>
                                                 <constraint firstAttribute="trailing" secondItem="iB8-bb-szg" secondAttribute="trailing" constant="20" id="bc3-VZ-YQt"/>
                                                 <constraint firstItem="iB8-bb-szg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="o7w-8s-8aq" secondAttribute="trailing" constant="8" symbolic="YES" id="eLq-Ed-eRN"/>
@@ -289,7 +289,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Night Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DdA-Rb-Ujg">
-                                                    <rect key="frame" x="36" y="11.5" width="90" height="21"/>
+                                                    <rect key="frame" x="32" y="11.5" width="90" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -306,7 +306,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="Naj-oq-IUf" secondAttribute="trailing" constant="20" id="1Kx-Ep-HOO"/>
                                                 <constraint firstItem="Naj-oq-IUf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="DdA-Rb-Ujg" secondAttribute="trailing" constant="8" symbolic="YES" id="1Rx-fM-njI"/>
                                                 <constraint firstItem="Naj-oq-IUf" firstAttribute="centerY" secondItem="7cx-ah-7BN" secondAttribute="centerY" id="5sK-jf-JvJ"/>
-                                                <constraint firstItem="DdA-Rb-Ujg" firstAttribute="leading" secondItem="7cx-ah-7BN" secondAttribute="leadingMargin" constant="20" id="RQs-pR-cCN"/>
+                                                <constraint firstItem="DdA-Rb-Ujg" firstAttribute="leading" secondItem="7cx-ah-7BN" secondAttribute="leadingMargin" constant="16" id="RQs-pR-cCN"/>
                                                 <constraint firstItem="DdA-Rb-Ujg" firstAttribute="centerY" secondItem="7cx-ah-7BN" secondAttribute="centerY" id="eq3-EM-r9Q"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -319,7 +319,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="English" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FkT-VA-tRC">
-                                                    <rect key="frame" x="36" y="11.5" width="56" height="21"/>
+                                                    <rect key="frame" x="32" y="11.5" width="56" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -336,7 +336,7 @@
                                                 <constraint firstItem="mrX-fI-AEM" firstAttribute="centerY" secondItem="5CJ-qc-Qfh" secondAttribute="centerY" id="16I-4f-mlQ"/>
                                                 <constraint firstAttribute="trailing" secondItem="mrX-fI-AEM" secondAttribute="trailing" constant="20" id="6RX-Hs-dKO"/>
                                                 <constraint firstItem="mrX-fI-AEM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FkT-VA-tRC" secondAttribute="trailing" constant="8" symbolic="YES" id="orf-OA-dRS"/>
-                                                <constraint firstItem="FkT-VA-tRC" firstAttribute="leading" secondItem="5CJ-qc-Qfh" secondAttribute="leadingMargin" constant="20" id="s12-5t-A5K"/>
+                                                <constraint firstItem="FkT-VA-tRC" firstAttribute="leading" secondItem="5CJ-qc-Qfh" secondAttribute="leadingMargin" constant="16" id="s12-5t-A5K"/>
                                                 <constraint firstItem="FkT-VA-tRC" firstAttribute="centerY" secondItem="5CJ-qc-Qfh" secondAttribute="centerY" id="zOc-lu-wPU"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -349,7 +349,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Side by Side" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sA4-Yh-snc">
-                                                    <rect key="frame" x="36" y="11.5" width="95" height="21"/>
+                                                    <rect key="frame" x="32" y="11.5" width="95" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -367,7 +367,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="5jB-qn-seR" secondAttribute="trailing" constant="20" id="Qni-BC-PUD"/>
                                                 <constraint firstItem="5jB-qn-seR" firstAttribute="centerY" secondItem="8B1-zk-SQC" secondAttribute="centerY" id="Y63-Cz-FVP"/>
                                                 <constraint firstItem="5jB-qn-seR" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sA4-Yh-snc" secondAttribute="trailing" constant="8" symbolic="YES" id="k7o-sp-R3d"/>
-                                                <constraint firstItem="sA4-Yh-snc" firstAttribute="leading" secondItem="8B1-zk-SQC" secondAttribute="leadingMargin" constant="20" id="o4s-c2-ShY"/>
+                                                <constraint firstItem="sA4-Yh-snc" firstAttribute="leading" secondItem="8B1-zk-SQC" secondAttribute="leadingMargin" constant="16" id="o4s-c2-ShY"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -379,7 +379,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text Size" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5pj-Or-IrA">
-                                                    <rect key="frame" x="36" y="11.5" width="69" height="21"/>
+                                                    <rect key="frame" x="32" y="11.5" width="69" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -395,7 +395,7 @@
                                                 <constraint firstItem="5pj-Or-IrA" firstAttribute="centerY" secondItem="AsO-Ti-AcO" secondAttribute="centerY" id="8wW-9J-arA"/>
                                                 <constraint firstItem="31D-I1-jfp" firstAttribute="centerY" secondItem="AsO-Ti-AcO" secondAttribute="centerY" id="M1V-q9-qgY"/>
                                                 <constraint firstAttribute="trailing" secondItem="31D-I1-jfp" secondAttribute="trailing" constant="20" id="QTW-jj-vnm"/>
-                                                <constraint firstItem="5pj-Or-IrA" firstAttribute="leading" secondItem="AsO-Ti-AcO" secondAttribute="leadingMargin" constant="20" id="aX9-E7-uBQ"/>
+                                                <constraint firstItem="5pj-Or-IrA" firstAttribute="leading" secondItem="AsO-Ti-AcO" secondAttribute="leadingMargin" constant="16" id="aX9-E7-uBQ"/>
                                                 <constraint firstItem="31D-I1-jfp" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5pj-Or-IrA" secondAttribute="trailing" constant="8" symbolic="YES" id="dF1-of-coF"/>
                                             </constraints>
                                         </tableViewCellContentView>

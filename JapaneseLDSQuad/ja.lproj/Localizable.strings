@@ -29,7 +29,7 @@
 "noHighlightsLabel" = "ハイライトはありません\n\nハイライトしたい語句を選択して追加してください";
 "editButtonLabel" = "編集";
 
-"noResultsLabel" = "検索結果はありません";
+"searchMatches" = "件の聖句が一致しました";
 "noSearchResultsLabel" = "検索結果はありません\n\nフレーズ一致のみ対応しています\nルビの検索はできません";
 
 "settingsGroupedTableViewLabel" = "設定";

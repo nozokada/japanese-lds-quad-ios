@@ -12,10 +12,11 @@ import RealmSwift
 class SearchViewController: UIViewController {
     
     var results: Results<Scripture>!
-    var segmentedResults: Results<Scripture>!
+    var filteredResults: Results<Scripture>!
     var currentSearchText = ""
     var currentSegmentIndex = "1"
-    var token: NotificationToken? = nil
+    var searchNoficationToken: NotificationToken? = nil
+    var filterNotificationToken: NotificationToken? = nil
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchResultsSegmentedControl: UISegmentedControl!
@@ -78,8 +79,15 @@ class SearchViewController: UIViewController {
         segmentedControlView.backgroundColor = searchResultsSegmentedControl.backgroundColor
     }
     
+    func updateSearchBarPrompt() {
+        searchBar.prompt = currentSearchText.isEmpty
+            ? nil
+            : "\(filteredResults.count) \("searchMatches".localized)"
+    }
+    
     @IBAction func searchSegmentControlValueChanged(_ sender: Any) {
         updateSegmentResults()
+        updateSearchBarPrompt()
     }
 }
 
@@ -99,7 +107,7 @@ extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
-            let scripture = segmentedResults[indexPath.row]
+            let scripture = filteredResults[indexPath.row]
             viewController.initData(scripture: scripture)
             navigationController?.pushViewController(viewController, animated: true)
         }
@@ -112,13 +120,14 @@ extension SearchViewController: UITableViewDelegate {
 extension SearchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection: Int) -> Int {
-        if let results = segmentedResults {
+        if let results = filteredResults {
             return results.count
         }
         return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let results = filteredResults, results.count > 0 else { return UITableViewCell() }
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "searchResultCell")
         let cellColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
             ? Constants.CellColor.night
@@ -131,7 +140,7 @@ extension SearchViewController: UITableViewDataSource {
         tableView.backgroundColor = cellColor
         cell.backgroundColor = cellColor
         
-        let scripture = segmentedResults[indexPath.row]
+        let scripture = results[indexPath.row]
         let contentType = AppUtility.shared.getContentType(targetBook: scripture.parent_book)
         let scriptures = scripture.parent_book.child_scriptures.filter("chapter = \(scripture.chapter)")
         let builder = AppUtility.shared.getContentBuilder(scriptures: scriptures, contentType: contentType)
@@ -177,9 +186,8 @@ extension SearchViewController: UISearchBarDelegate {
         
         let realm = try! Realm()
         results = realm.objects(Scripture.self).filter("\(searchQuerySecondary) OR \(searchQueryPrimary)")
-        token = results.observe { _ in
+        searchNoficationToken = results.observe { _ in
             self.updateSegmentResults()
-            self.hideActivityIndicator()
         }
     }
     
@@ -189,8 +197,12 @@ extension SearchViewController: UISearchBarDelegate {
         let filterQuery = selectedSegmentIndex != searchResultsSegmentedControl.numberOfSegments - 1
             ? "parent_book.parent_book.id = '\(selectedSegmentIndex + 1)'"
             : "NOT parent_book.parent_book.id IN {'1', '2', '3', '4', '5'}"
-        segmentedResults = results.filter(filterQuery)
-        reload()
+        filteredResults = results.filter(filterQuery)
+        filterNotificationToken = filteredResults.observe { _ in
+            self.reload()
+            self.updateSearchBarPrompt()
+            self.hideActivityIndicator()
+        }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
