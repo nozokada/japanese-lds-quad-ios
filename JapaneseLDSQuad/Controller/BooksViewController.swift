@@ -27,7 +27,7 @@ class BooksViewController: UIViewController {
         realm = try! Realm()
         targetBook = targetBook ?? realm.objects(Book.self).filter("id = '0'").first
         targetBookName = targetBookName ?? "rootViewTitle".localized
-        title = targetBookName
+        navigationItem.title = targetBookName
         isTopMenu = targetBook.parent_book == nil
         books = targetBook.child_books.sorted(byKeyPath: "id")
     }

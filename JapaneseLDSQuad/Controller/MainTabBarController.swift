@@ -12,5 +12,9 @@ class MainTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tabBar.items?[0].title = "readTabBarItemTitle".localized
+        tabBar.items?[1].title = "searchTabBarItemTitle".localized
+        tabBar.items?[2].title = "bookmarksTabBarItemTitle".localized
     }
 }

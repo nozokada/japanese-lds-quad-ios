@@ -220,10 +220,10 @@
             </objects>
             <point key="canvasLocation" x="1485.5072463768117" y="359.59821428571428"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Main Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
+                <tabBarController id="49e-Tb-3d3" customClass="MainTabBarController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA" customClass="MainTabBar" customModule="JapaneseLDSQuad" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -318,8 +318,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="300" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="English" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FkT-VA-tRC">
-                                                    <rect key="frame" x="32" y="11.5" width="56" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="English Enabled" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FkT-VA-tRC">
+                                                    <rect key="frame" x="32" y="11.5" width="121.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -431,7 +431,7 @@
         <scene sceneID="HWb-KW-YCZ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5Hr-dn-jPU" customClass="MainNavigationController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Read" image="first" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="Read" image="book.fill" catalog="system" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="LPC-xt-Irw" customClass="MainNavigationBar" customModule="JapaneseLDSQuad" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -450,7 +450,7 @@
         <scene sceneID="JGo-3Z-Iye">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VX4-bx-qvp" customClass="MainNavigationController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Search" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" id="cPa-gy-q4n"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ce2-Og-oF2" customClass="MainNavigationBar" customModule="JapaneseLDSQuad" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -469,7 +469,7 @@
         <scene sceneID="Gaz-45-KqQ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2y5-Sl-xad" customClass="MainNavigationController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Bookmarks" image="first" id="woe-p4-W1f"/>
+                    <tabBarItem key="tabBarItem" title="Bookmarks" image="bookmark.fill" catalog="system" id="woe-p4-W1f"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2SY-TM-r5d" customClass="MainNavigationBar" customModule="JapaneseLDSQuad" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -487,7 +487,8 @@
     </scenes>
     <resources>
         <image name="ToggleOn" width="73.5" height="48"/>
-        <image name="first" width="30" height="30"/>
-        <image name="second" width="30" height="30"/>
+        <image name="book.fill" catalog="system" width="64" height="50"/>
+        <image name="bookmark.fill" catalog="system" width="56" height="64"/>
+        <image name="magnifyingglass" catalog="system" width="64" height="56"/>
     </resources>
 </document>

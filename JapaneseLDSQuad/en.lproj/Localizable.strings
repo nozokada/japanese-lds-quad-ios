@@ -6,31 +6,29 @@
   Copyright © 2020 nozokada. All rights reserved.
 */
 
+"readTabBarItemTitle" = "Read";
+"searchTabBarItemTitle" = "Search";
+"bookmarksTabBarItemTitle" = "Bookmarks";
+
 "rootViewTitle" = "TOP";
 
 "standardWorksGroupedTableViewLabel" = "Standard Works";
-
 "resourcesGroupedTableViewLabel" = "Resources";
 
+"searchViewTitle" = "Search by Keywords";
 "bookmarksViewTitle" = "Bookmarks";
-
 "highlightsViewTitle" = "Highlights";
-
-"searchViewTitle" = "Search";
-
 "PassageLookupViewTitle" = "Passage Lookup";
 "PassageLookupChapterTextFieldPlaceholder" = "Chapter";
 "PassageLookupVerseTextFieldPlaceholder" = "Verse";
 
-"rootButtonLabel" = "TOP";
-
 "noBookmarksLabel" = "There are no bookmarks\n\nTap a verse number to add\nSwipe left on cell to remove";
 
-"noHighlightsLabel" = "There are no highlights\n\nHold down on a text you want to highlight";
-"editButtonLabel" = "Edit";
-
-"searchMatches" = "matche(s) found";
+"searchMatches" = "matches found";
 "noSearchResultsLabel" = "No results found\n\nOnly phrase match is supported\nRuby text cannot be searched";
+
+"noHighlightsLabel" = "There are no highlights\n\nHold down on a text to highlight";
+"editButtonLabel" = "Edit";
 
 "settingsGroupedTableViewLabel" = "Settings";
 "settingMinchoFontLabel" = "Mincho Font";

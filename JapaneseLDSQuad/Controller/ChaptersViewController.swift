@@ -24,7 +24,7 @@ class ChaptersViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         setSettingsBarButton()
-        title = targetBookName
+        navigationItem.title = targetBookName
         chapterType = getChapterType()
         counters = targetBook.child_scriptures.filter("verse = 'counter'")
         if chapterType == Constants.ChapterType.title {

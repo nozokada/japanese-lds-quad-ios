@@ -20,8 +20,8 @@ class MainTabBar: UITabBar {
     }
     
     func customizeViews() {
-        self.barTintColor = Constants.NavigationBarColor.day
-        self.tintColor = UIColor.white
-        self.isTranslucent = false
+        barTintColor = Constants.NavigationBarColor.day
+        tintColor = UIColor.white
+        isTranslucent = false
     }
 }

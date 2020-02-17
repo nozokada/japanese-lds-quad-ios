@@ -24,7 +24,7 @@ class BookmarksViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         setSettingsBarButton()
-        title = "bookmarksViewTitle".localized
+        navigationItem.title = "bookmarksViewTitle".localized
         noBookmarksLabel = getNoBookmarksMessageLabel()
         bookmarks = realm.objects(Bookmark.self).sorted(byKeyPath: "date")
     }

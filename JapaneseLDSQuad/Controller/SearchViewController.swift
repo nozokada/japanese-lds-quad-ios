@@ -32,7 +32,7 @@ class SearchViewController: UIViewController {
         tableView.dataSource = self
         searchBar.delegate = self
         setSettingsBarButton()
-        title = "searchViewTitle".localized
+        navigationItem.title = "searchViewTitle".localized
         spinner = MainIndicatorView(parentView: view)
         noResultsLabel = getNoResultsMessageLabel()
     }

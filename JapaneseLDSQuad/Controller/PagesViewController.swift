@@ -100,13 +100,13 @@ class PagesViewController: UIPageViewController {
         guard let chapterId = targetChapterId else { return }
         switch contentType {
         case Constants.ContentType.aux:
-            title = scripturesInBook.first?.parent_book.name_primary
+            navigationItem.title = scripturesInBook.first?.parent_book.name_primary
         case  Constants.ContentType.gs:
-            title = scripturesInBook.filter("verse = 'title' AND id BEGINSWITH '\(chapterId)'").first?.scripture_primary.tagsRemoved
+            navigationItem.title = scripturesInBook.filter("verse = 'title' AND id BEGINSWITH '\(chapterId)'").first?.scripture_primary.tagsRemoved
         default:
             guard let bookName = targetBookName else { return }
             let counter = scripturesInBook.filter("verse = 'counter' AND id BEGINSWITH '\(chapterId)'").first?.scripture_primary ?? ""
-            title = "\(bookName) \(counter)"
+            navigationItem.title = "\(bookName) \(counter)"
         }
     }
     
