@@ -33,7 +33,7 @@ class HighlightsViewLayout: UICollectionViewLayout {
     }
     
     override func prepare() {
-        guard cache.isEmpty, let collectionView = collectionView else { return }
+        guard let collectionView = collectionView else { return }
         
         let columnWidth = contentWidth / CGFloat(numberOfColumns)
         var xOffset: [CGFloat] = []
