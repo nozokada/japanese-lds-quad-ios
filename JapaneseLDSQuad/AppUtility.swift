@@ -39,6 +39,26 @@ class AppUtility {
     
     static let shared = AppUtility()
     
+    func getCurrentFont(multiplySizeBy: Double = 1) -> UIFont? {
+        let fontName = UserDefaults.standard.bool(forKey: Constants.Config.font)
+            ? Constants.Font.min
+            : Constants.Font.kaku
+        let fontSize = Constants.FontSize.regular * UserDefaults.standard.double(forKey: Constants.Config.size) * multiplySizeBy
+        return UIFont(name: fontName, size: CGFloat(fontSize))
+    }
+    
+    func getCurrentTextColor() -> UIColor {
+        return UserDefaults.standard.bool(forKey: Constants.Config.night)
+            ? Constants.FontColor.night
+            : Constants.FontColor.day
+    }
+    
+    func getCurrentCellColor() -> UIColor {
+        return UserDefaults.standard.bool(forKey: Constants.Config.night)
+            ? Constants.CellColor.night
+            : Constants.CellColor.day
+    }
+    
     func getChapterIdFromChapterNumber(bookId: String, chapter: Int) -> String {
         return "\(bookId)\(String(chapter / 10, radix: 21).uppercased())\(String(chapter % 10))"
     }

@@ -91,30 +91,22 @@ extension BookmarksViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: Constants.ReuseID.bookmarkCell)
-        let cellColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
-            ? Constants.CellColor.night
-            : Constants.CellColor.day
-        let font = UserDefaults.standard.bool(forKey: Constants.Config.font)
-            ? Constants.Font.min
-            : Constants.Font.kaku
-        let fontSize = Constants.FontSize.regular * UserDefaults.standard.double(forKey: Constants.Config.size)
+        let cellColor = AppUtility.shared.getCurrentCellColor()
         
         tableView.backgroundColor = cellColor
         cell.backgroundColor = cellColor
         
         let bookmark = bookmarks[indexPath.row]
         cell.textLabel?.text = bookmark.name_primary
-        cell.textLabel?.font = UIFont(name: font, size: CGFloat(fontSize))
-        cell.textLabel?.textColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
-            ? Constants.FontColor.night
-            : Constants.FontColor.day
+        cell.textLabel?.font = AppUtility.shared.getCurrentFont()
+        cell.textLabel?.textColor = AppUtility.shared.getCurrentTextColor()
         cell.textLabel?.numberOfLines = 0;
         cell.textLabel?.lineBreakMode = .byWordWrapping;
         
         if UserDefaults.standard.bool(forKey: Constants.Config.dual) {
             let cellDetailTextLabel = bookmarks[indexPath.row].name_secondary
             cell.detailTextLabel?.text = cellDetailTextLabel
-            cell.detailTextLabel?.font = UIFont(name: font, size: CGFloat(fontSize) / 2)
+            cell.detailTextLabel?.font = AppUtility.shared.getCurrentFont(multiplySizeBy: 0.6)
             cell.detailTextLabel?.textColor = .gray
             cell.detailTextLabel?.numberOfLines = 0;
             cell.detailTextLabel?.lineBreakMode = .byWordWrapping;
@@ -127,7 +119,7 @@ extension BookmarksViewController: UITableViewDataSource {
         label.lineBreakMode = .byWordWrapping
         label.text = formatter.string(from: bookmark.date as Date)
         label.textColor = .gray
-        label.font = UIFont(name: font, size: CGFloat(fontSize) / 2)
+        label.font = AppUtility.shared.getCurrentFont(multiplySizeBy: 0.5)
         cell.accessoryView = label
         
         return cell

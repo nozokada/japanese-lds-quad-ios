@@ -10,9 +10,9 @@ import UIKit
 
 class HighlightCell: UICollectionViewCell {
     
-    @IBOutlet weak var noteTextLabel: MainTextLabel!
-    @IBOutlet weak var highlightedTextLabel: MainTextLabel!
-    @IBOutlet weak var nameLabel: MainTextLabel!
+    @IBOutlet weak var noteTextLabel: HighlightTextLabel!
+    @IBOutlet weak var highlightedTextLabel: HighlightTextLabel!
+    @IBOutlet weak var nameLabel: HighlightTextLabel!
     
     func customizeViews() {
         layer.cornerRadius = 5
@@ -33,13 +33,13 @@ class HighlightCell: UICollectionViewCell {
             : "\(highlight.name_secondary)"
         highlightedTextLabel.text = highlight.text
         
-        if highlight.note.isEmpty {
-            let formatter = DateFormatter()
-            formatter.setLocalizedDateFormatFromTemplate("yMMMdE jms")
-            noteTextLabel.text = Locale.current.languageCode == Constants.LanguageCode.primary ?
-                "\(formatter.string(from: highlight.date as Date))のハイライト" : "Created on \(formatter.string(from: highlight.date as Date))"
-        } else {
+//        if highlight.note.isEmpty {
+//            let formatter = DateFormatter()
+//            formatter.setLocalizedDateFormatFromTemplate("yMMMdE jms")
+//            noteTextLabel.text = Locale.current.languageCode == Constants.LanguageCode.primary ?
+//                "\(formatter.string(from: highlight.date as Date))のハイライト" : "Created on \(formatter.string(from: highlight.date as Date))"
+//        } else {
             noteTextLabel.text = highlight.note
-        }
+//        }
     }
 }

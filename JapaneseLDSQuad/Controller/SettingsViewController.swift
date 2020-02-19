@@ -40,10 +40,8 @@ class SettingsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let nightModeEnabled = UserDefaults.standard.bool(forKey: Constants.Config.night)
-        
-        let fontColor = nightModeEnabled ? Constants.FontColor.night : Constants.FontColor.day
-        let cellColor = nightModeEnabled ? Constants.CellColor.night : Constants.CellColor.day
+        let fontColor = AppUtility.shared.getCurrentTextColor()
+        let cellColor = AppUtility.shared.getCurrentCellColor()
         let backgroundColor = cellColor
         
         tableView.backgroundColor = backgroundColor

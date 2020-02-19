@@ -70,13 +70,7 @@ extension ChaptersViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: Constants.ReuseID.chapterCell)
-        let cellColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
-            ? Constants.CellColor.night
-            : Constants.CellColor.day
-        let font = UserDefaults.standard.bool(forKey: Constants.Config.font)
-            ? Constants.Font.min
-            : Constants.Font.kaku
-        let fontSize = Constants.FontSize.regular * UserDefaults.standard.double(forKey: Constants.Config.size)
+        let cellColor = AppUtility.shared.getCurrentCellColor()
         
         tableView.backgroundColor = cellColor
         cell.backgroundColor = cellColor
@@ -86,10 +80,8 @@ extension ChaptersViewController: UITableViewDataSource {
             cellTextLabel += " \(titles[indexPath.row].scripture_primary.tagsRemoved)"
         }
         cell.textLabel?.text = cellTextLabel
-        cell.textLabel?.font = UIFont(name: font, size: CGFloat(fontSize))
-        cell.textLabel?.textColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
-            ? Constants.FontColor.night
-            : Constants.FontColor.day
+        cell.textLabel?.font = AppUtility.shared.getCurrentFont()
+        cell.textLabel?.textColor = AppUtility.shared.getCurrentTextColor()
         
         if targetBook.link.hasPrefix("gs") { return cell }
         
@@ -99,7 +91,7 @@ extension ChaptersViewController: UITableViewDataSource {
                 cellDetailTextLabel += " \(titles[indexPath.row].scripture_secondary.tagsRemoved)"
             }
             cell.detailTextLabel?.text = cellDetailTextLabel
-            cell.detailTextLabel?.font = UIFont(name: font, size: CGFloat(fontSize) / 2)
+            cell.detailTextLabel?.font = AppUtility.shared.getCurrentFont(multiplySizeBy: 0.6)
             cell.detailTextLabel?.textColor = UIColor.gray
         }
         return cell

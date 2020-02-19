@@ -83,27 +83,19 @@ extension BooksViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: Constants.ReuseID.bookCell)
-        let cellColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
-            ? Constants.CellColor.night
-            : Constants.CellColor.day
-        let font = UserDefaults.standard.bool(forKey: Constants.Config.font)
-            ? Constants.Font.min
-            : Constants.Font.kaku
-        let fontSize = Constants.FontSize.regular * UserDefaults.standard.double(forKey: Constants.Config.size)
+        let cellColor = AppUtility.shared.getCurrentCellColor()
         let book = books[indexPath.row + groupedCellsOffset(section: indexPath.section)]
 
         tableView.backgroundColor = cellColor
         cell.backgroundColor = cellColor
         
         cell.textLabel?.text = book.name_primary
-        cell.textLabel?.font = UIFont(name: font, size: CGFloat(fontSize))
-        cell.textLabel?.textColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
-            ? Constants.FontColor.night
-            : Constants.FontColor.day
+        cell.textLabel?.font = AppUtility.shared.getCurrentFont()
+        cell.textLabel?.textColor = AppUtility.shared.getCurrentTextColor()
         
         if UserDefaults.standard.bool(forKey: Constants.Config.dual) {
             cell.detailTextLabel?.text = book.name_secondary
-            cell.detailTextLabel?.font = UIFont(name: font, size: CGFloat(fontSize / 1.6))
+            cell.detailTextLabel?.font = AppUtility.shared.getCurrentFont(multiplySizeBy: 0.6)
             cell.detailTextLabel?.textColor = UIColor.gray
         }
         

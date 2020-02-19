@@ -54,7 +54,8 @@
 		D4EBF00123F906E200275624 /* SettingsChangeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EBF00023F906E200275624 /* SettingsChangeDelegate.swift */; };
 		D4EBF00323FA508C00275624 /* HighlightsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EBF00223FA508C00275624 /* HighlightsViewController.swift */; };
 		D4EBF00523FA562D00275624 /* HighlightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EBF00423FA562D00275624 /* HighlightCell.swift */; };
-		D4EBF00723FA726200275624 /* MainTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EBF00623FA726200275624 /* MainTextLabel.swift */; };
+		D4EBF00723FA726200275624 /* HighlightTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EBF00623FA726200275624 /* HighlightTextLabel.swift */; };
+		D4EBF00923FBA56B00275624 /* HighlightsViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EBF00823FBA56B00275624 /* HighlightsViewLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,7 +138,8 @@
 		D4EBF00023F906E200275624 /* SettingsChangeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsChangeDelegate.swift; sourceTree = "<group>"; };
 		D4EBF00223FA508C00275624 /* HighlightsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightsViewController.swift; sourceTree = "<group>"; };
 		D4EBF00423FA562D00275624 /* HighlightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightCell.swift; sourceTree = "<group>"; };
-		D4EBF00623FA726200275624 /* MainTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTextLabel.swift; sourceTree = "<group>"; };
+		D4EBF00623FA726200275624 /* HighlightTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightTextLabel.swift; sourceTree = "<group>"; };
+		D4EBF00823FBA56B00275624 /* HighlightsViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightsViewLayout.swift; sourceTree = "<group>"; };
 		F24AEA88112E18282C759158 /* Pods-JapaneseLDSQuad.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JapaneseLDSQuad.debug.xcconfig"; path = "Target Support Files/Pods-JapaneseLDSQuad/Pods-JapaneseLDSQuad.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -302,7 +304,8 @@
 				D44FF28523EA91990014B30F /* MainIndicatorView.swift */,
 				D481DC3623F678C300F166B7 /* MainWebView.swift */,
 				D4EBF00423FA562D00275624 /* HighlightCell.swift */,
-				D4EBF00623FA726200275624 /* MainTextLabel.swift */,
+				D4EBF00623FA726200275624 /* HighlightTextLabel.swift */,
+				D4EBF00823FBA56B00275624 /* HighlightsViewLayout.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -562,8 +565,9 @@
 				D475CCE523E92D5200678A85 /* MainNavigationBar.swift in Sources */,
 				D40B3E7223E8932900276662 /* Scripture.swift in Sources */,
 				D4EBF00123F906E200275624 /* SettingsChangeDelegate.swift in Sources */,
+				D4EBF00923FBA56B00275624 /* HighlightsViewLayout.swift in Sources */,
 				D475CCE023E8F2F300678A85 /* ChaptersViewController.swift in Sources */,
-				D4EBF00723FA726200275624 /* MainTextLabel.swift in Sources */,
+				D4EBF00723FA726200275624 /* HighlightTextLabel.swift in Sources */,
 				D4212A2123E7BC02002CD60A /* BooksViewController.swift in Sources */,
 				D44FF28623EA91990014B30F /* MainIndicatorView.swift in Sources */,
 				D475CCFB23E9538300678A85 /* BookmarksManager.swift in Sources */,

@@ -25,6 +25,9 @@ class HighlightsViewController: UIViewController {
         realm = try! Realm()
         collectionView.dataSource = self
         collectionView.delegate = self
+        if let layout = collectionView?.collectionViewLayout as? HighlightsViewLayout {
+            layout.delegate = self
+        }
         setSettingsBarButton()
         navigationItem.title = "highlightsViewTitle".localized
         noHighlightsLabel = getNoHighlightssMessageLabel()
@@ -62,7 +65,7 @@ extension HighlightsViewController: SettingsChangeDelegate {
     }
 }
 
-extension HighlightsViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension HighlightsViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return highlights.count
     }
@@ -82,13 +85,22 @@ extension HighlightsViewController: UICollectionViewDataSource, UICollectionView
         }
         collectionView.deselectItem(at: indexPath, animated: true)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = collectionView.bounds.width / 2 - cellHorizontalPaddingSize * 2
-        return CGSize(width: cellWidth, height: cellWidth)
+}
+
+extension HighlightsViewController: HighlightsViewLayoutDelegate {
+    func collectionView(_ collectionView: UICollectionView, heightForLabelAt indexPath: IndexPath) -> CGFloat {
+        let highlight = highlights[indexPath.item]
+        return getLabelHeight(text: highlight.text) + getLabelHeight(text: highlight.note) + getLabelHeight(text: highlight.name_primary)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: cellHorizontalPaddingSize, left: cellHorizontalPaddingSize, bottom: cellHorizontalPaddingSize, right: cellHorizontalPaddingSize)
+    func getLabelHeight(text: String) -> CGFloat {
+        let labelWidth = collectionView.collectionViewLayout.collectionViewContentSize.width / CGFloat(2)
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: CGFloat.greatestFiniteMagnitude))
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        label.font = AppUtility.shared.getCurrentFont()
+        label.text = text
+        label.sizeToFit()
+        return label.frame.height
     }
 }

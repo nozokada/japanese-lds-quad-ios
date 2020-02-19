@@ -129,13 +129,7 @@ extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let results = filteredResults, results.count > 0 else { return UITableViewCell() }
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: Constants.ReuseID.searchResultCell)
-        let cellColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
-            ? Constants.CellColor.night
-            : Constants.CellColor.day
-        let font = UserDefaults.standard.bool(forKey: Constants.Config.font)
-            ? Constants.Font.min
-            : Constants.Font.kaku
-        let fontSize = Constants.FontSize.regular * UserDefaults.standard.double(forKey: Constants.Config.size)
+        let cellColor = AppUtility.shared.getCurrentCellColor()
         
         tableView.backgroundColor = cellColor
         cell.backgroundColor = cellColor
@@ -147,15 +141,13 @@ extension SearchViewController: UITableViewDataSource {
         let cellTextLabel = builder.buildSearchResultText(scripture: scripture)
         
         cell.textLabel?.text = cellTextLabel
-        cell.textLabel?.font = UIFont(name: font, size: CGFloat(fontSize))
-        cell.textLabel?.textColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
-            ? Constants.FontColor.night
-            : Constants.FontColor.day
+        cell.textLabel?.font = AppUtility.shared.getCurrentFont()
+        cell.textLabel?.textColor = AppUtility.shared.getCurrentTextColor()
         
         if UserDefaults.standard.bool(forKey: Constants.Config.dual) {
             let cellDetailTextLabel = builder.buildSearchResultDetailText(scripture: scripture)
             cell.detailTextLabel?.text = cellDetailTextLabel
-            cell.detailTextLabel?.font = UIFont(name: font, size: CGFloat(fontSize) / 2)
+            cell.detailTextLabel?.font = AppUtility.shared.getCurrentFont(multiplySizeBy: 0.6)
             cell.detailTextLabel?.textColor = UIColor.gray
         }
         
