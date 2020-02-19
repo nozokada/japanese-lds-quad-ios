@@ -30,7 +30,7 @@ class HighlightsViewController: UIViewController {
         }
         setSettingsBarButton()
         navigationItem.title = "highlightsViewTitle".localized
-        noHighlightsLabel = getNoHighlightssMessageLabel()
+        noHighlightsLabel = getNoHighlightsMessageLabel()
         highlights = realm.objects(HighlightedText.self).sorted(byKeyPath: "date")
     }
     
@@ -39,12 +39,12 @@ class HighlightsViewController: UIViewController {
         reload()
     }
     
-    func getNoHighlightssMessageLabel() -> UILabel {
+    func getNoHighlightsMessageLabel() -> UILabel {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: collectionView.bounds.size.width, height: collectionView.bounds.size.height))
         label.numberOfLines = 4
         label.text = "noHighlightsLabel".localized
         label.textAlignment = .center
-        label.textColor = Constants.FontColor.night
+        label.textColor = Constants.TextColor.night
         collectionView.backgroundView = label
         return label
     }
@@ -59,6 +59,9 @@ class HighlightsViewController: UIViewController {
 extension HighlightsViewController: SettingsChangeDelegate {
     
     func reload() {
+        if let layout = collectionView?.collectionViewLayout as? HighlightsViewLayout {
+            layout.clearCache()
+        }
         noHighlightsLabel.isHidden = highlights.count > 0
         updateCollectionBackgroundColor()
         collectionView.reloadData()
@@ -95,16 +98,18 @@ extension HighlightsViewController: HighlightsViewLayoutDelegate {
             + getLabelHeight(text: Locale.current.languageCode == Constants.LanguageCode.primary
                 ? "\(highlight.name_primary)"
                 : "\(highlight.name_secondary)")
+            + 12
     }
     
     func getLabelHeight(text: String) -> CGFloat {
-        let labelWidth = collectionView.collectionViewLayout.collectionViewContentSize.width / CGFloat(Constants.Count.columnsForHighlightsView) - 16
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: CGFloat.greatestFiniteMagnitude))
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
-        label.font = AppUtility.shared.getCurrentFont()
+        if text.isEmpty {
+            return 12
+        }
+        let labelWidth = collectionView.collectionViewLayout.collectionViewContentSize.width / CGFloat(Constants.Count.columnsForHighlightsView) - Constants.Size.highlightCellPadding * 2 - 16
+        let label = HighlightTextLabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: CGFloat.greatestFiniteMagnitude))
+        label.customizeViews()
         label.text = text
         label.sizeToFit()
-        return label.frame.height + 22
+        return label.frame.height + 12
     }
 }

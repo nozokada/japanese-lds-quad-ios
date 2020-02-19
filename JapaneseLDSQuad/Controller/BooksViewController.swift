@@ -34,7 +34,7 @@ class BooksViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.estimatedRowHeight = CGFloat(Constants.FontSize.regular)
+        tableView.estimatedRowHeight = CGFloat(Constants.TextSize.regular)
         tableView.rowHeight = UITableView.automaticDimension
         reload()
     }

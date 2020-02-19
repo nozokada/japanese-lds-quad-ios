@@ -39,7 +39,7 @@ class SearchViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.estimatedRowHeight = CGFloat(Constants.FontSize.regular)
+        tableView.estimatedRowHeight = CGFloat(Constants.TextSize.regular)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = tableView.tableFooterView ?? UIView(frame: CGRect.zero)
         reload()
@@ -59,7 +59,7 @@ class SearchViewController: UIViewController {
         label.numberOfLines = 4
         label.text = "noSearchResultsLabel".localized
         label.textAlignment = .center
-        label.textColor = Constants.FontColor.night
+        label.textColor = Constants.TextColor.night
         tableView.backgroundView = label
         return label
     }

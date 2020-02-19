@@ -43,14 +43,14 @@ class AppUtility {
         let fontName = UserDefaults.standard.bool(forKey: Constants.Config.font)
             ? Constants.Font.min
             : Constants.Font.kaku
-        let fontSize = Constants.FontSize.regular * UserDefaults.standard.double(forKey: Constants.Config.size) * multiplySizeBy
+        let fontSize = Constants.TextSize.regular * UserDefaults.standard.double(forKey: Constants.Config.size) * multiplySizeBy
         return UIFont(name: fontName, size: CGFloat(fontSize))
     }
     
     func getCurrentTextColor() -> UIColor {
         return UserDefaults.standard.bool(forKey: Constants.Config.night)
-            ? Constants.FontColor.night
-            : Constants.FontColor.day
+            ? Constants.TextColor.night
+            : Constants.TextColor.day
     }
     
     func getCurrentCellColor() -> UIColor {

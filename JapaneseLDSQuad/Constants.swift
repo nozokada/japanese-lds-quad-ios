@@ -63,11 +63,15 @@ struct Constants {
         static let min = "HiraMinProN-W3"
     }
     
-    struct FontSize {
-        static let regular = 20.0
+    struct Size {
+        static let highlightCellPadding: CGFloat = 6
     }
     
-    struct FontColor {
+    struct TextSize {
+        static let regular: Double = 20
+    }
+    
+    struct TextColor {
         static let day = UIColor.black
         static let night = UIColor(red:0.73, green:0.73, blue:0.73, alpha:1.0)
     }

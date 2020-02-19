@@ -17,7 +17,7 @@ class HighlightsViewLayout: UICollectionViewLayout {
     weak var delegate: HighlightsViewLayoutDelegate?
 
     private let numberOfColumns = Constants.Count.columnsForHighlightsView
-    private let cellPadding: CGFloat = 6
+    private let cellPadding: CGFloat = Constants.Size.highlightCellPadding
 
     private var cache: [UICollectionViewLayoutAttributes] = []
 
@@ -33,7 +33,8 @@ class HighlightsViewLayout: UICollectionViewLayout {
     }
     
     override func prepare() {
-        guard let collectionView = collectionView else { return }
+        guard cache.isEmpty, let collectionView = collectionView else { return }
+        contentHeight = 0
         
         let columnWidth = contentWidth / CGFloat(numberOfColumns)
         var xOffset: [CGFloat] = []
@@ -78,5 +79,9 @@ class HighlightsViewLayout: UICollectionViewLayout {
     
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         return cache[indexPath.item]
+    }
+    
+    func clearCache() {
+        cache.removeAll()
     }
 }
