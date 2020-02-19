@@ -35,6 +35,7 @@ struct Constants {
         static let sectionsInTopBooksView = 2
         static let rowsForStandardWorks = 5
         static let rowsForResources = 2
+        static let columnsForHighlightsView = 2
     }
     
     struct Config {

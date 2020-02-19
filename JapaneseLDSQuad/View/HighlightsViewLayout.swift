@@ -16,7 +16,7 @@ class HighlightsViewLayout: UICollectionViewLayout {
     
     weak var delegate: HighlightsViewLayoutDelegate?
 
-    private let numberOfColumns = 2
+    private let numberOfColumns = Constants.Count.columnsForHighlightsView
     private let cellPadding: CGFloat = 6
 
     private var cache: [UICollectionViewLayoutAttributes] = []
@@ -45,8 +45,8 @@ class HighlightsViewLayout: UICollectionViewLayout {
         
         for item in 0..<collectionView.numberOfItems(inSection: 0) {
             let indexPath = IndexPath(item: item, section: 0)
-            let photoHeight = delegate?.collectionView(collectionView, heightForLabelAt: indexPath) ?? 180
-            let height = cellPadding * 2 + photoHeight
+            let labelHeight = delegate?.collectionView(collectionView, heightForLabelAt: indexPath) ?? 180
+            let height = cellPadding * 2 + labelHeight
             let frame = CGRect(x: xOffset[column],
                                y: yOffset[column],
                                width: columnWidth,

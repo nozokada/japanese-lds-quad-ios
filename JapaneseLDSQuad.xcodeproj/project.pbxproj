@@ -303,9 +303,9 @@
 				D475CCE423E92D5200678A85 /* MainNavigationBar.swift */,
 				D44FF28523EA91990014B30F /* MainIndicatorView.swift */,
 				D481DC3623F678C300F166B7 /* MainWebView.swift */,
+				D4EBF00823FBA56B00275624 /* HighlightsViewLayout.swift */,
 				D4EBF00423FA562D00275624 /* HighlightCell.swift */,
 				D4EBF00623FA726200275624 /* HighlightTextLabel.swift */,
-				D4EBF00823FBA56B00275624 /* HighlightsViewLayout.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

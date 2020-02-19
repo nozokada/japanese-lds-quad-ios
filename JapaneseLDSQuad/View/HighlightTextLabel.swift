@@ -11,6 +11,8 @@ import UIKit
 class HighlightTextLabel: UILabel {
    
     func customizeViews() {
+        numberOfLines = 0
+        lineBreakMode = .byWordWrapping
         font = AppUtility.shared.getCurrentFont()
         textColor = AppUtility.shared.getCurrentTextColor()
    }

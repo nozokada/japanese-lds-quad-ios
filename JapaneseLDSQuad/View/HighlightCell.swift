@@ -27,19 +27,10 @@ class HighlightCell: UICollectionViewCell {
         noteTextLabel.customizeViews()
         highlightedTextLabel.customizeViews()
         nameLabel.customizeViews()
-        
         nameLabel.text = Locale.current.languageCode == Constants.LanguageCode.primary
             ? "\(highlight.name_primary)"
             : "\(highlight.name_secondary)"
         highlightedTextLabel.text = highlight.text
-        
-//        if highlight.note.isEmpty {
-//            let formatter = DateFormatter()
-//            formatter.setLocalizedDateFormatFromTemplate("yMMMdE jms")
-//            noteTextLabel.text = Locale.current.languageCode == Constants.LanguageCode.primary ?
-//                "\(formatter.string(from: highlight.date as Date))のハイライト" : "Created on \(formatter.string(from: highlight.date as Date))"
-//        } else {
-            noteTextLabel.text = highlight.note
-//        }
+        noteTextLabel.text = highlight.note
     }
 }

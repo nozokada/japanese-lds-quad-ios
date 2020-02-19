@@ -90,17 +90,21 @@ extension HighlightsViewController: UICollectionViewDataSource, UICollectionView
 extension HighlightsViewController: HighlightsViewLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, heightForLabelAt indexPath: IndexPath) -> CGFloat {
         let highlight = highlights[indexPath.item]
-        return getLabelHeight(text: highlight.text) + getLabelHeight(text: highlight.note) + getLabelHeight(text: highlight.name_primary)
+        return getLabelHeight(text: highlight.text)
+            + getLabelHeight(text: highlight.note)
+            + getLabelHeight(text: Locale.current.languageCode == Constants.LanguageCode.primary
+                ? "\(highlight.name_primary)"
+                : "\(highlight.name_secondary)")
     }
     
     func getLabelHeight(text: String) -> CGFloat {
-        let labelWidth = collectionView.collectionViewLayout.collectionViewContentSize.width / CGFloat(2)
+        let labelWidth = collectionView.collectionViewLayout.collectionViewContentSize.width / CGFloat(Constants.Count.columnsForHighlightsView) - 16
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: CGFloat.greatestFiniteMagnitude))
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         label.font = AppUtility.shared.getCurrentFont()
         label.text = text
         label.sizeToFit()
-        return label.frame.height
+        return label.frame.height + 22
     }
 }
