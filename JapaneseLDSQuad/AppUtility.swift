@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 
 struct TargetScriptureData {
+    
     var book: Book
     var chapter: Int
     var verse: String?
@@ -22,6 +23,7 @@ struct TargetScriptureData {
 }
 
 struct ContentViewData {
+    
     var index: Int
     var builder: ContentBuilder
     var chapterId: String

@@ -67,6 +67,7 @@ extension HighlightsViewController: SettingsChangeDelegate {
 }
 
 extension HighlightsViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return highlights.count
     }
@@ -89,6 +90,7 @@ extension HighlightsViewController: UICollectionViewDataSource, UICollectionView
 }
 
 extension HighlightsViewController: HighlightsViewLayoutDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, heightForLabelAt indexPath: IndexPath) -> CGFloat {
         let highlight = highlights[indexPath.item]
         return getLabelHeight(text: Locale.current.languageCode == Constants.LanguageCode.primary
