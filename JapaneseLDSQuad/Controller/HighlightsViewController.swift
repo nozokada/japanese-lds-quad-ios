@@ -102,9 +102,6 @@ extension HighlightsViewController: HighlightsViewLayoutDelegate {
     }
     
     func getLabelHeight(text: String) -> CGFloat {
-        if text.isEmpty {
-            return 12
-        }
         let labelWidth = collectionView.collectionViewLayout.collectionViewContentSize.width / CGFloat(Constants.Count.columnsForHighlightsView) - Constants.Size.highlightCellPadding * 2 - 16
         let label = HighlightTextLabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: CGFloat.greatestFiniteMagnitude))
         label.customizeViews()
