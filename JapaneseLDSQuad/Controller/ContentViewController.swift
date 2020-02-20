@@ -157,7 +157,7 @@ extension ContentViewController: WKNavigationDelegate {
         becomeFirstResponder()
         selectedHighlightedTextId = highlightedTextId
         let menuController = UIMenuController.shared
-        let noteEditMenuItem = UIMenuItem(title: "noteEditMenuItemLabel".localized, action: #selector(editNote))
+        let noteEditMenuItem = UIMenuItem(title: "noteEditMenuItemLabel".localized, action: #selector(showNote))
         let unhighlightMenuItem = UIMenuItem(title: "unhighlightMenuItemLabel".localized, action: #selector(unhighlightText))
         menuController.menuItems = [noteEditMenuItem, unhighlightMenuItem]
         menuController.showMenu(from: webView, rect: CGRect(x: lastTapPoint.x, y: lastTapPoint.y, width: 0, height: 0))
@@ -174,7 +174,7 @@ extension ContentViewController: WKNavigationDelegate {
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         switch action {
-        case #selector(copyVerseText), #selector(highlightText), #selector(editNote), #selector(unhighlightText):
+        case #selector(copyVerseText), #selector(highlightText), #selector(showNote), #selector(unhighlightText):
             return true
         default:
             return false
@@ -246,7 +246,7 @@ extension ContentViewController: WKNavigationDelegate {
         }
     }
     
-    @objc func editNote() {
+    @objc func showNote() {
         notesView.initHighlightedText(id: selectedHighlightedTextId)
         notesView.show()
     }
