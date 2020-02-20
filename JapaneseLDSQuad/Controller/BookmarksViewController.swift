@@ -48,9 +48,7 @@ class BookmarksViewController: UIViewController {
     }
     
     func updateTableBackgroundColor() {
-        tableView.backgroundColor =  UserDefaults.standard.bool(forKey: Constants.Config.night)
-            ? Constants.BackgroundColor.night
-            : Constants.BackgroundColor.day
+        tableView.backgroundColor = AppUtility.shared.getCurrentBackgroundColor()
     }
 }
 

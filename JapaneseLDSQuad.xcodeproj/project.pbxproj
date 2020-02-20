@@ -46,6 +46,7 @@
 		D475CCF923E9534800678A85 /* AnnotationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCF823E9534800678A85 /* AnnotationsManager.swift */; };
 		D475CCFB23E9538300678A85 /* BookmarksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCFA23E9538300678A85 /* BookmarksManager.swift */; };
 		D475CCFD23E953F200678A85 /* HighlightsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCFC23E953F200678A85 /* HighlightsManager.swift */; };
+		D47EFBC423FE4579001E213F /* HighlightSmallTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47EFBC323FE4579001E213F /* HighlightSmallTextLabel.swift */; };
 		D481DC3023F515AB00F166B7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D481DC3223F515AB00F166B7 /* InfoPlist.strings */; };
 		D481DC3523F6657B00F166B7 /* JavaScriptFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481DC3423F6657B00F166B7 /* JavaScriptFunctions.swift */; };
 		D481DC3723F678C300F166B7 /* MainWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481DC3623F678C300F166B7 /* MainWebView.swift */; };
@@ -54,7 +55,7 @@
 		D4EBF00123F906E200275624 /* SettingsChangeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EBF00023F906E200275624 /* SettingsChangeDelegate.swift */; };
 		D4EBF00323FA508C00275624 /* HighlightsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EBF00223FA508C00275624 /* HighlightsViewController.swift */; };
 		D4EBF00523FA562D00275624 /* HighlightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EBF00423FA562D00275624 /* HighlightCell.swift */; };
-		D4EBF00723FA726200275624 /* HighlightTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EBF00623FA726200275624 /* HighlightTextLabel.swift */; };
+		D4EBF00723FA726200275624 /* HighlightRegularTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EBF00623FA726200275624 /* HighlightRegularTextLabel.swift */; };
 		D4EBF00923FBA56B00275624 /* HighlightsViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EBF00823FBA56B00275624 /* HighlightsViewLayout.swift */; };
 /* End PBXBuildFile section */
 
@@ -129,6 +130,7 @@
 		D475CCF823E9534800678A85 /* AnnotationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationsManager.swift; sourceTree = "<group>"; };
 		D475CCFA23E9538300678A85 /* BookmarksManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksManager.swift; sourceTree = "<group>"; };
 		D475CCFC23E953F200678A85 /* HighlightsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightsManager.swift; sourceTree = "<group>"; };
+		D47EFBC323FE4579001E213F /* HighlightSmallTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightSmallTextLabel.swift; sourceTree = "<group>"; };
 		D481DC3123F515AB00F166B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D481DC3323F515B000F166B7 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D481DC3423F6657B00F166B7 /* JavaScriptFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaScriptFunctions.swift; sourceTree = "<group>"; };
@@ -138,7 +140,7 @@
 		D4EBF00023F906E200275624 /* SettingsChangeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsChangeDelegate.swift; sourceTree = "<group>"; };
 		D4EBF00223FA508C00275624 /* HighlightsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightsViewController.swift; sourceTree = "<group>"; };
 		D4EBF00423FA562D00275624 /* HighlightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightCell.swift; sourceTree = "<group>"; };
-		D4EBF00623FA726200275624 /* HighlightTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightTextLabel.swift; sourceTree = "<group>"; };
+		D4EBF00623FA726200275624 /* HighlightRegularTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightRegularTextLabel.swift; sourceTree = "<group>"; };
 		D4EBF00823FBA56B00275624 /* HighlightsViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightsViewLayout.swift; sourceTree = "<group>"; };
 		F24AEA88112E18282C759158 /* Pods-JapaneseLDSQuad.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JapaneseLDSQuad.debug.xcconfig"; path = "Target Support Files/Pods-JapaneseLDSQuad/Pods-JapaneseLDSQuad.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -305,7 +307,8 @@
 				D481DC3623F678C300F166B7 /* MainWebView.swift */,
 				D4EBF00823FBA56B00275624 /* HighlightsViewLayout.swift */,
 				D4EBF00423FA562D00275624 /* HighlightCell.swift */,
-				D4EBF00623FA726200275624 /* HighlightTextLabel.swift */,
+				D4EBF00623FA726200275624 /* HighlightRegularTextLabel.swift */,
+				D47EFBC323FE4579001E213F /* HighlightSmallTextLabel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -567,7 +570,7 @@
 				D4EBF00123F906E200275624 /* SettingsChangeDelegate.swift in Sources */,
 				D4EBF00923FBA56B00275624 /* HighlightsViewLayout.swift in Sources */,
 				D475CCE023E8F2F300678A85 /* ChaptersViewController.swift in Sources */,
-				D4EBF00723FA726200275624 /* HighlightTextLabel.swift in Sources */,
+				D4EBF00723FA726200275624 /* HighlightRegularTextLabel.swift in Sources */,
 				D4212A2123E7BC02002CD60A /* BooksViewController.swift in Sources */,
 				D44FF28623EA91990014B30F /* MainIndicatorView.swift in Sources */,
 				D475CCFB23E9538300678A85 /* BookmarksManager.swift in Sources */,
@@ -588,6 +591,7 @@
 				D475CCE923E92F9800678A85 /* MainTabBarController.swift in Sources */,
 				D4EBF00523FA562D00275624 /* HighlightCell.swift in Sources */,
 				D481DC3523F6657B00F166B7 /* JavaScriptFunctions.swift in Sources */,
+				D47EFBC423FE4579001E213F /* HighlightSmallTextLabel.swift in Sources */,
 				D475CCF723E9521200678A85 /* PurchaseManager.swift in Sources */,
 				D481DC3723F678C300F166B7 /* MainWebView.swift in Sources */,
 				D475CCEF23E9449600678A85 /* AppUtility.swift in Sources */,

@@ -50,9 +50,7 @@ class HighlightsViewController: UIViewController {
     }
     
     func updateCollectionBackgroundColor() {
-        collectionView.backgroundColor =  UserDefaults.standard.bool(forKey: Constants.Config.night)
-            ? Constants.BackgroundColor.night
-            : Constants.BackgroundColor.day
+        collectionView.backgroundColor = AppUtility.shared.getCurrentBackgroundColor()
     }
 }
 
@@ -93,18 +91,17 @@ extension HighlightsViewController: UICollectionViewDataSource, UICollectionView
 extension HighlightsViewController: HighlightsViewLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, heightForLabelAt indexPath: IndexPath) -> CGFloat {
         let highlight = highlights[indexPath.item]
-        return getLabelHeight(text: highlight.text)
-            + getLabelHeight(text: highlight.note)
-            + getLabelHeight(text: Locale.current.languageCode == Constants.LanguageCode.primary
-                ? "\(highlight.name_primary)"
-                : "\(highlight.name_secondary)")
+        return getLabelHeight(text: Locale.current.languageCode == Constants.LanguageCode.primary
+            ? "\(highlight.name_primary)"
+            : "\(highlight.name_secondary)", labelType: HighlightRegularTextLabel.self)
+            + getLabelHeight(text: highlight.text, labelType: HighlightSmallTextLabel.self)
+            + getLabelHeight(text: highlight.note, labelType: HighlightRegularTextLabel.self)
             + 12
     }
     
-    func getLabelHeight(text: String) -> CGFloat {
+    func getLabelHeight(text: String, labelType: UILabel.Type) -> CGFloat {
         let labelWidth = collectionView.collectionViewLayout.collectionViewContentSize.width / CGFloat(Constants.Count.columnsForHighlightsView) - Constants.Size.highlightCellPadding * 2 - 16
-        let label = HighlightTextLabel(frame: CGRect(x: 0, y: 0, width: labelWidth, height: CGFloat.greatestFiniteMagnitude))
-        label.customizeViews()
+        let label = labelType.init(frame: CGRect(x: 0, y: 0, width: labelWidth, height: CGFloat.greatestFiniteMagnitude))
         label.text = text
         label.sizeToFit()
         return label.frame.height + 12

@@ -10,27 +10,28 @@ import UIKit
 
 class HighlightCell: UICollectionViewCell {
     
-    @IBOutlet weak var noteTextLabel: HighlightTextLabel!
-    @IBOutlet weak var highlightedTextLabel: HighlightTextLabel!
-    @IBOutlet weak var nameLabel: HighlightTextLabel!
+    @IBOutlet weak var nameLabel: HighlightRegularTextLabel!
+    @IBOutlet weak var noteTextLabel: HighlightRegularTextLabel!
+    @IBOutlet weak var highlightedTextLabel: HighlightSmallTextLabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        customizeViews()
+    }
     
     func customizeViews() {
-        layer.cornerRadius = 5
-        layer.borderWidth = 1.0
-        layer.borderColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
-            ? UIColor.darkGray.cgColor
-            : UIColor.lightGray.cgColor
+        layer.cornerRadius = Constants.Size.highlightCellCornerRadius
+        layer.borderWidth = Constants.Size.highlightCellBorderWidth
+        layer.borderColor = UIColor.lightGray.cgColor
     }
     
     func update(highlight: HighlightedText) {
         customizeViews()
-        noteTextLabel.customizeViews()
-        highlightedTextLabel.customizeViews()
-        nameLabel.customizeViews()
-        nameLabel.text = Locale.current.languageCode == Constants.LanguageCode.primary
+        nameLabel.update(text: Locale.current.languageCode == Constants.LanguageCode.primary
             ? "\(highlight.name_primary)"
             : "\(highlight.name_secondary)"
-        highlightedTextLabel.text = highlight.text
-        noteTextLabel.text = highlight.note
+        )
+        noteTextLabel.update(text: highlight.note)
+        highlightedTextLabel.update(text: highlight.text)
     }
 }

@@ -59,6 +59,12 @@ class AppUtility {
             : Constants.CellColor.day
     }
     
+    func getCurrentBackgroundColor() -> UIColor {
+        return UserDefaults.standard.bool(forKey: Constants.Config.night)
+            ? Constants.BackgroundColor.night
+            : Constants.BackgroundColor.day
+    }
+    
     func getChapterIdFromChapterNumber(bookId: String, chapter: Int) -> String {
         return "\(bookId)\(String(chapter / 10, radix: 21).uppercased())\(String(chapter % 10))"
     }

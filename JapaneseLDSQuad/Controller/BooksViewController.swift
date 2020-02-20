@@ -96,7 +96,7 @@ extension BooksViewController: UITableViewDataSource {
         if UserDefaults.standard.bool(forKey: Constants.Config.dual) {
             cell.detailTextLabel?.text = book.name_secondary
             cell.detailTextLabel?.font = AppUtility.shared.getCurrentFont(multiplySizeBy: 0.6)
-            cell.detailTextLabel?.textColor = UIColor.gray
+            cell.detailTextLabel?.textColor = .gray
         }
         
         if Constants.PaidContent.books.contains(book.link) {

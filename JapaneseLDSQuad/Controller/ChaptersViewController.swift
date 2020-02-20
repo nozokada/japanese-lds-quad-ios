@@ -92,7 +92,7 @@ extension ChaptersViewController: UITableViewDataSource {
             }
             cell.detailTextLabel?.text = cellDetailTextLabel
             cell.detailTextLabel?.font = AppUtility.shared.getCurrentFont(multiplySizeBy: 0.6)
-            cell.detailTextLabel?.textColor = UIColor.gray
+            cell.detailTextLabel?.textColor = .gray
         }
         return cell
     }

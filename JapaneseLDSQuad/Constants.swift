@@ -64,6 +64,8 @@ struct Constants {
     }
     
     struct Size {
+        static let highlightCellCornerRadius: CGFloat = 5
+        static let highlightCellBorderWidth: CGFloat = 1
         static let highlightCellPadding: CGFloat = 6
     }
     

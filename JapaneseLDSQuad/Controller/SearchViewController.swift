@@ -65,9 +65,7 @@ class SearchViewController: UIViewController {
     }
     
     func updateTableBackgroundColor() {
-        tableView.backgroundColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
-            ? Constants.BackgroundColor.night
-            : Constants.BackgroundColor.day
+        tableView.backgroundColor = AppUtility.shared.getCurrentBackgroundColor()
     }
     
     func updateSearchBarStyle() {
@@ -148,7 +146,7 @@ extension SearchViewController: UITableViewDataSource {
             let cellDetailTextLabel = builder.buildSearchResultDetailText(scripture: scripture)
             cell.detailTextLabel?.text = cellDetailTextLabel
             cell.detailTextLabel?.font = AppUtility.shared.getCurrentFont(multiplySizeBy: 0.6)
-            cell.detailTextLabel?.textColor = UIColor.gray
+            cell.detailTextLabel?.textColor = .gray
         }
         
         if Constants.PaidContent.books.contains(scripture.parent_book.link) {
