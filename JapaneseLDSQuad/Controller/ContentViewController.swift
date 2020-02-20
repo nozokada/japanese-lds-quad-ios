@@ -21,6 +21,7 @@ class ContentViewController: UIViewController {
     
     @IBOutlet weak var webView: MainWebView!
     var spinner: MainIndicatorView!
+    var notesView: NotesViewController!
     
     var relativeOffset: CGFloat = 0
     var lastTapPoint = CGPoint(x: 0, y: 0)
@@ -37,6 +38,11 @@ class ContentViewController: UIViewController {
         setDefaultMenuItems()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        addBottomSheetNotesView()
+    }
+    
     func initData(contentViewData: ContentViewData) {
         pageIndex = contentViewData.index
         targetChapterId = contentViewData.chapterId
@@ -51,6 +57,22 @@ class ContentViewController: UIViewController {
     
     func hideActivityIndicator() {
         spinner.stopAnimating()
+    }
+    
+    func addBottomSheetNotesView() {
+        guard let notesViewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.notes) as? NotesViewController else { return }
+        addChild(notesViewController)
+        view.addSubview(notesViewController.view)
+        notesViewController.didMove(toParent: self)
+        
+        let height = view.frame.height
+        let width  = view.frame.width
+        notesViewController.view.frame = CGRect(x: 0, y: view.frame.maxY, width: width, height: height)
+        notesView = notesViewController
+    }
+    
+    func showBottomSheetNotesView() {
+        notesView.show()
     }
 }
 
@@ -225,12 +247,8 @@ extension ContentViewController: WKNavigationDelegate {
     }
     
     @objc func editNote() {
-//        if let viewController = storyboard?.instantiateViewController(withIdentifier: "notes") as? NotesViewController {
-//            viewController.selectedHighlightedTextId = selectedHighlightedTextId
-//            let notesNavigationController = MainNavigationController(rootViewController: viewController)
-//            notesNavigationController.previousNavigationController = self.navigationController
-//            self.present(notesNavigationController, animated: true, completion: nil)
-//        }
+        notesView.initHighlightedText(id: selectedHighlightedTextId)
+        notesView.show()
     }
 }
 

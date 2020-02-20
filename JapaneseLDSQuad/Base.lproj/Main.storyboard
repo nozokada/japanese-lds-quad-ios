@@ -500,14 +500,14 @@
                                 <collectionViewLayout key="collectionViewLayout" id="ovd-40-xeJ" customClass="HighlightsViewLayout" customModule="JapaneseLDSQuad" customModuleProvider="target"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="highlightCell" id="Gwp-Tm-lhz" customClass="HighlightCell" customModule="JapaneseLDSQuad" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="183" height="341"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="183" height="183"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="pYK-UD-8kf">
-                                            <rect key="frame" x="0.0" y="0.0" width="183" height="341"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="183" height="183"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="jihjdg asdfopasdfpg dfgopadjghiopad dfjdfopg dfpdg dfsdpdpg df" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xTF-yL-9io" customClass="HighlightSmallTextLabel" customModule="JapaneseLDSQuad" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="36" width="167" height="100"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="ここはメモが表示されるLabelです" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xTF-yL-9io" customClass="HighlightSmallTextLabel" customModule="JapaneseLDSQuad" customModuleProvider="target">
+                                                    <rect key="frame" x="8" y="36" width="167" height="60"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -518,8 +518,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="jihjdg asdfopasdfpg dfgopadjghiopad dfjdfopg dfpdg dfsdpdpg df" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VHL-UJ-XqZ" customClass="HighlightRegularTextLabel" customModule="JapaneseLDSQuad" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="138" width="167" height="171"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="ここはハイライトされた聖句が表示されるLabelです" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VHL-UJ-XqZ" customClass="HighlightRegularTextLabel" customModule="JapaneseLDSQuad" customModuleProvider="target">
+                                                    <rect key="frame" x="8" y="104" width="167" height="71"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -538,7 +538,7 @@
                                                 <constraint firstItem="VHL-UJ-XqZ" firstAttribute="top" secondItem="xTF-yL-9io" secondAttribute="bottom" constant="12" id="vy6-uv-fRH"/>
                                             </constraints>
                                         </collectionViewCellContentView>
-                                        <size key="customSize" width="183" height="341"/>
+                                        <size key="customSize" width="183" height="183"/>
                                         <connections>
                                             <outlet property="highlightedTextLabel" destination="xTF-yL-9io" id="9fL-YY-2dg"/>
                                             <outlet property="nameLabel" destination="IqO-ij-cBa" id="fH3-73-wfQ"/>
@@ -565,6 +565,41 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pxd-5P-Vwa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1485.5072463768117" y="1719.6428571428571"/>
+        </scene>
+        <!--Notes View Controller-->
+        <scene sceneID="Hvj-nT-TEl">
+            <objects>
+                <viewController storyboardIdentifier="notes" id="n05-c0-JaN" customClass="NotesViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jvP-af-qDM">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="ここはメモが表示されるTextViewです" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VwB-EE-2OB">
+                                <rect key="frame" x="20" y="44" width="374" height="374"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="VwB-EE-2OB" secondAttribute="height" multiplier="1:1" id="MJD-Wo-fwV"/>
+                                </constraints>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="v7F-bW-jwN" firstAttribute="trailing" secondItem="VwB-EE-2OB" secondAttribute="trailing" constant="20" id="9S9-Cm-0Zm"/>
+                            <constraint firstItem="VwB-EE-2OB" firstAttribute="leading" secondItem="v7F-bW-jwN" secondAttribute="leading" constant="20" id="CA6-BN-gbk"/>
+                            <constraint firstItem="VwB-EE-2OB" firstAttribute="top" secondItem="v7F-bW-jwN" secondAttribute="top" id="P27-kh-OxN"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="v7F-bW-jwN"/>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="VwB-EE-2OB" id="EiI-js-LQt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p5L-Z3-3FR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2239.130434782609" y="1719.6428571428571"/>
         </scene>
         <!--Highlights-->
         <scene sceneID="Qcm-ng-gDF">
