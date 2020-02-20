@@ -16,6 +16,7 @@ class NotesViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     
     var selectedHighlightedTextId = ""
+    var bottomY: CGFloat = UIScreen.main.bounds.height
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,11 +25,6 @@ class NotesViewController: UIViewController {
         let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(NotesViewController.panGesture))
         view.addGestureRecognizer(gesture)
     }
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//       super.viewWillAppear(animated)
-//       prepareBackgroundView()
-//    }
     
     func initHighlightedText(id: String) {
         selectedHighlightedTextId = id
@@ -39,30 +35,53 @@ class NotesViewController: UIViewController {
     }
     
     func show() {
-        UIView.animate(withDuration: 0.3) { [weak self] in
-            let frame = self?.view.frame
-            let yComponent = UIScreen.main.bounds.height - 200
-            self?.view.frame = CGRect(x: 0, y: yComponent, width: frame!.width, height: frame!.height)
+        if let superview = view.superview {
+            bottomY = superview.frame.maxY
+        }
+        UIView.animate(withDuration: 0.3) {
+            let frame = self.view.frame
+            let y = self.bottomY - frame.height / 3
+            self.view.frame = CGRect(x: 0, y: y, width: frame.width, height: frame.height)
         }
     }
     
-//    func prepareBackgroundView() {
-//
-//        let blurEffect = UIBlurEffect.init(style: .dark)
-//        let visualEffect = UIVisualEffectView.init(effect: blurEffect)
-//        let bluredView = UIVisualEffectView.init(effect: blurEffect)
-//        bluredView.contentView.addSubview(visualEffect)
-//
-//        visualEffect.frame = UIScreen.main.bounds
-//        bluredView.frame = UIScreen.main.bounds
-//
-//        view.insertSubview(bluredView, at: 0)
-//    }
+    func showFull() {
+        UIView.animate(withDuration: 0.3) {
+            let frame = self.view.frame
+            let y = self.bottomY - frame.height / 2
+            self.view.frame = CGRect(x: 0, y: y, width: frame.width, height: frame.height)
+        }
+    }
+    
+    func hide() {
+        UIView.animate(withDuration: 0.3) {
+            let frame = self.view.frame
+            let y = self.bottomY
+            self.view.frame = CGRect(x: 0, y: y, width: frame.width, height: frame.height)
+        }
+    }
     
     @objc func panGesture(recognizer: UIPanGestureRecognizer) {
         let translation = recognizer.translation(in: view)
-        let y = view.frame.minY
-        view.frame = CGRect(x: 0, y: y + translation.y, width: view.frame.width, height: view.frame.height)
-        recognizer.setTranslation(CGPoint.zero, in: view)
+        let frame = view.frame
+        let newY = frame.minY + translation.y
+        if newY > bottomY - frame.height {
+            view.frame = CGRect(x: 0, y: newY, width: frame.width, height: frame.height)
+            recognizer.setTranslation(CGPoint.zero, in: view)
+        }
+        
+        if recognizer.state == .ended {
+            if newY < bottomY - frame.height / 2 {
+                showFull()
+            } else if newY >= bottomY - frame.height / 2 && newY < bottomY - frame.height / 2.5 {
+                showFull()
+            } else if newY >= bottomY - frame.height / 2.5 && newY < bottomY - frame.height / 3 {
+                show()
+            } else if newY >= bottomY - frame.height / 3 && newY < bottomY - frame.height / 3.5 {
+                show()
+            } else {
+                hide()
+            }
+        }
     }
 }
