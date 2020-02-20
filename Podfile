@@ -7,6 +7,7 @@ target 'JapaneseLDSQuad' do
 
   # Pods for JapaneseLDSQuad
   pod 'RealmSwift'
+  pod 'IQKeyboardManagerSwift'
 
   target 'JapaneseLDSQuadTests' do
     inherit! :search_paths

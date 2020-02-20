@@ -20,9 +20,9 @@ class MainNavigationBar: UINavigationBar {
     }
     
     func customizeViews() {
-        self.barTintColor = Constants.NavigationBarColor.day
-        self.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        self.tintColor = UIColor.white
-        self.isTranslucent = false
+        barTintColor = Constants.NavigationBarColor.day
+        titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        tintColor = UIColor.white
+        isTranslucent = false
     }
 }

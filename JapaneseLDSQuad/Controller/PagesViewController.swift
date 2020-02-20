@@ -45,6 +45,7 @@ class PagesViewController: UIPageViewController {
         currentChapterIndex = AppUtility.shared.getChapterNumberFromScriptureId(id: targetChapterId) - 1
         currentContentViewController = getViewControllerAt(index: currentChapterIndex)
         setTitle()
+        extendedLayoutIncludesOpaqueBars = true
 //        speechSynthesizer.delegate = self
 //        initializeSpeechButtons()
     }
