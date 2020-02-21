@@ -28,7 +28,8 @@
 "noSearchResultsLabel" = "No results found\n\nOnly phrase match is supported\nRuby text cannot be searched";
 
 "noHighlightsLabel" = "There are no highlights\n\nHold down on a text to highlight";
-"editButtonLabel" = "Edit";
+
+"noteSaveButton" = "Save Note";
 
 "settingsGroupedTableViewLabel" = "Settings";
 "settingMinchoFontLabel" = "Mincho Font";

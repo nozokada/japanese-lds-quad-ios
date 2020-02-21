@@ -34,7 +34,6 @@ class ContentViewController: UIViewController {
         webView.evaluateJavaScript(JavaScriptFunctions.getAllFunctions(), completionHandler: nil)
         webView.loadHTMLString(htmlContent, baseURL: Bundle.main.bundleURL)
         showActivityIndicator()
-        setDefaultMenuItems()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -87,7 +86,7 @@ extension ContentViewController: WKNavigationDelegate {
         case Constants.RequestType.bookmark:
             decisionHandler(.cancel)
             requestUrl.deleteLastPathComponent()
-            toggleBookmarkStatus(verseId: requestUrl.lastPathComponent)
+            toggleBookmark(verseId: requestUrl.lastPathComponent)
         case Constants.RequestType.highlight:
             decisionHandler(.cancel)
             requestUrl.deleteLastPathComponent()
@@ -119,6 +118,20 @@ extension ContentViewController: WKNavigationDelegate {
         }
     }
     
+    func spotlightTargetVerses() {
+        webView.evaluateJavaScript(JavaScriptSnippets.SpotlightTargetVerses(), completionHandler: nil)
+    }
+    
+    func toggleBookmark(verseId: String) {
+        BookmarksManager.shared.addOrDeleteBookmark(id: verseId)
+        webView.evaluateJavaScript(JavaScriptSnippets.toggleBookmarkStatus(verseId: verseId), completionHandler: nil)
+    }
+    
+    func showNote(highlightedTextId: String) {
+        notesView.initHighlightedText(id: highlightedTextId)
+        notesView.show()
+    }
+    
     func presentAnotherContent(path: [String]) {
         guard let targetScriptureData = createTargetScriptureDataFromPath(path: path) else { return }
         if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
@@ -148,36 +161,6 @@ extension ContentViewController: WKNavigationDelegate {
         return TargetScriptureData(book: book, chapter: chapter, verse: verse)
     }
     
-    func spotlightTargetVerses() {
-        webView.evaluateJavaScript(JavaScriptSnippets.SpotlightTargetVerses(), completionHandler: nil)
-    }
-    
-    func showNote(highlightedTextId: String) {
-        notesView.initHighlightedText(id: highlightedTextId)
-        notesView.show()
-    }
-    
-    func setDefaultMenuItems() {
-        if PurchaseManager.shared.isPurchased {
-            let copyVerseMenuItem = UIMenuItem(title: "copyVerseMenuItemLabel".localized, action: #selector(copyVerseText))
-            let highlightMenuItem = UIMenuItem(title: "highlightMenuItemLabel".localized, action: #selector(highlightText))
-            UIMenuController.shared.menuItems = [copyVerseMenuItem, highlightMenuItem]
-        }
-    }
-    
-    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        switch action {
-        case #selector(copyVerseText), #selector(highlightText):
-            return true
-        default:
-            return false
-        }
-    }
-    
-    override var canBecomeFirstResponder: Bool {
-        return true
-    }
-    
     func showInvalidSelectedRangeAlert() {
         let alertTitle = "InvalidActionAlertTitle".localized
         let alertMessage = "InvalidSelectedRangeAlertMessage".localized
@@ -185,48 +168,6 @@ extension ContentViewController: WKNavigationDelegate {
         let okAction = UIAlertAction(title: "OK", style: .default)
         alertController.addAction(okAction)
         self.present(alertController, animated: true)
-    }
-    
-    func toggleBookmarkStatus(verseId: String) {
-        BookmarksManager.shared.addOrDeleteBookmark(id: verseId)
-        webView.evaluateJavaScript(JavaScriptSnippets.toggleBookmarkStatus(verseId: verseId), completionHandler: nil)
-    }
-    
-    @objc func copyVerseText() {
-        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureId()) { result, error in
-            guard let scriptureId = result as? String else { return }
-            if scriptureId.isEmpty { self.showInvalidSelectedRangeAlert(); return }
-            self.webView.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguage()) { result, error in
-                guard let scriptureLanguage = result as? String else { return }
-                guard let scripture = self.realm.objects(Scripture.self).filter("id = '\(scriptureId)'").first else { return }
-                UIPasteboard.general.string = scriptureLanguage == Constants.LanguageCode.primary
-                    ? scripture.scripture_primary_raw
-                    : scripture.scripture_secondary_raw
-            }
-        }
-    }
-    
-    @objc func highlightText() {
-        let highlightedTextId = Constants.Prefix.highlight + NSUUID().uuidString
-        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureId()) { result, error in
-            guard let scriptureId = result as? String else { return }
-            if scriptureId.isEmpty { self.showInvalidSelectedRangeAlert(); return }
-            self.webView.evaluateJavaScript(JavaScriptSnippets.getTextToHighlight(textId: highlightedTextId)) { result, error in
-                guard let highlightedText = result as? String else { return }
-                if highlightedText.isEmpty { self.showInvalidSelectedRangeAlert(); return }
-                self.webView.evaluateJavaScript(JavaScriptSnippets.getScriptureContent()) { result, error in
-                    guard let scriptureContent = result as? String else { return }
-                    self.webView.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguage()) { result, error in
-                        guard let language = result as? String else { return }
-                        HighlightsManager.shared.addHighlight(textId: highlightedTextId,
-                                                              textContent: highlightedText,
-                                                              scriptureId: scriptureId,
-                                                              scriptureContent: scriptureContent,
-                                                              language: language)
-                    }
-                }
-            }
-        }
     }
     
     @objc func unhighlightText() {

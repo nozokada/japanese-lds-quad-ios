@@ -28,20 +28,22 @@
 "noSearchResultsLabel" = "一致する聖句はありません\n\nフレーズ一致のみ対応しています\nルビの検索はできません";
 
 "noHighlightsLabel" = "ハイライトはありません\n\nハイライトしたい語句を選択して追加してください";
-"editButtonLabel" = "編集";
+
+"noteSaveButton" = "メモを保存";
 
 "settingsGroupedTableViewLabel" = "設定";
 "settingMinchoFontLabel" = "明朝体を使用";
 "settingNightModeLabel" = "ナイトモード";
 "settingDualSwitchLabel" = "英訳を表示";
 "settingSideBySideSwitchLabel" = "日英横並び";
-"settingfontSizeStepperLabel" = "文字の大きさ";
+"settingfontSizeStepperLabel" = "文字のサイズ";
 
 "copyTextMenuItemLabel" = "コピー";
 "copyVerseMenuItemLabel" = "節をコピー (ルビなし)";
 "highlightMenuItemLabel" = "印を付ける";
 "noteEditMenuItemLabel" = "メモ";
 "unhighlightMenuItemLabel" = "印を消す";
+
 "InvalidActionAlertTitle" = "申し訳ありません";
 "InvalidSelectedRangeAlertMessage" = "選択された範囲でその操作はサポートされていません";
 

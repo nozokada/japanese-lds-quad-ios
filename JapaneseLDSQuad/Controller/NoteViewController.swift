@@ -28,6 +28,7 @@ class NoteViewController: UIViewController {
         super.viewDidLoad()
         realm = try! Realm()
         noteTextView.delegate = self
+        saveButton.setTitle("noteSaveButton".localized, for: .normal)
         adjustNoteTextViewHeight()
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture))
         view.addGestureRecognizer(gesture)
@@ -115,7 +116,6 @@ class NoteViewController: UIViewController {
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {
-        saveButton.disable()
         var textToSave = ""
         if noteTextView.textColor == .black {
             textToSave = noteTextView.text
@@ -123,7 +123,7 @@ class NoteViewController: UIViewController {
         try! realm.write {
             highlightedText?.note = textToSave
         }
-        saveButton.enable()
+        saveButton.disable()
     }
     
     @IBAction func closeButtonTapped(_ sender: Any) {
@@ -134,13 +134,16 @@ class NoteViewController: UIViewController {
 extension NoteViewController: SettingsChangeDelegate {
     func reload() {
         setTitleAndNote()
+        saveButton.disable()
         view.backgroundColor = AppUtility.shared.getCurrentBackgroundColor()
+        noteTextView.backgroundColor = view.backgroundColor
     }
 }
 
 extension NoteViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
+        showFull()
         if textView.textColor == .lightGray {
             textView.text = nil
             textView.textColor = .black
@@ -152,5 +155,9 @@ extension NoteViewController: UITextViewDelegate {
             textView.text = noteTextViewPlaceholder
             textView.textColor = .lightGray
         }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        saveButton.enable()
     }
 }

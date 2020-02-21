@@ -7,15 +7,75 @@
 //
 
 import WebKit
+import RealmSwift
 
 class MainWebView: WKWebView {
     
+    override func awakeFromNib() {
+        setDefaultMenuItems()
+    }
+    
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         switch action {
-        case #selector(copy(_:)), Selector(("_define:")):
+        case #selector(copy(_:)), Selector(("_define:")), #selector(copyVerseText), #selector(highlightText):
             return true
         default:
             return false
+        }
+    }
+    
+    func setDefaultMenuItems() {
+        if PurchaseManager.shared.isPurchased {
+            let copyVerseMenuItem = UIMenuItem(title: "copyVerseMenuItemLabel".localized, action: #selector(copyVerseText))
+            let highlightMenuItem = UIMenuItem(title: "highlightMenuItemLabel".localized, action: #selector(highlightText))
+            UIMenuController.shared.menuItems = [copyVerseMenuItem, highlightMenuItem]
+        }
+    }
+    
+    @objc func copyVerseText() {
+        evaluateJavaScript(JavaScriptSnippets.getScriptureId()) { result, error in
+            guard let scriptureId = result as? String else { return }
+            if scriptureId.isEmpty {
+//                self.showInvalidSelectedRangeAlert()
+                return
+            }
+            self.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguage()) { result, error in
+                guard let scriptureLanguage = result as? String else { return }
+                guard let realm = try? Realm() else { return }
+                guard let scripture = realm.objects(Scripture.self).filter("id = '\(scriptureId)'").first else { return }
+                UIPasteboard.general.string = scriptureLanguage == Constants.LanguageCode.primary
+                    ? scripture.scripture_primary_raw
+                    : scripture.scripture_secondary_raw
+            }
+        }
+    }
+    
+    @objc func highlightText() {
+        let highlightedTextId = Constants.Prefix.highlight + NSUUID().uuidString
+        evaluateJavaScript(JavaScriptSnippets.getScriptureId()) { result, error in
+            guard let scriptureId = result as? String else { return }
+            if scriptureId.isEmpty {
+//                self.showInvalidSelectedRangeAlert()
+                return
+            }
+            self.evaluateJavaScript(JavaScriptSnippets.getTextToHighlight(textId: highlightedTextId)) { result, error in
+                guard let highlightedText = result as? String else { return }
+                if highlightedText.isEmpty {
+//                    self.showInvalidSelectedRangeAlert()
+                    return
+                }
+                self.evaluateJavaScript(JavaScriptSnippets.getScriptureContent()) { result, error in
+                    guard let scriptureContent = result as? String else { return }
+                    self.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguage()) { result, error in
+                        guard let language = result as? String else { return }
+                        HighlightsManager.shared.addHighlight(textId: highlightedTextId,
+                                                              textContent: highlightedText,
+                                                              scriptureId: scriptureId,
+                                                              scriptureContent: scriptureContent,
+                                                              language: language)
+                    }
+                }
+            }
         }
     }
 }
