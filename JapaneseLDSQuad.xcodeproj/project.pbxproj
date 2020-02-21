@@ -47,7 +47,7 @@
 		D475CCFB23E9538300678A85 /* BookmarksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCFA23E9538300678A85 /* BookmarksManager.swift */; };
 		D475CCFD23E953F200678A85 /* HighlightsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCFC23E953F200678A85 /* HighlightsManager.swift */; };
 		D47EFBC423FE4579001E213F /* HighlightSmallTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47EFBC323FE4579001E213F /* HighlightSmallTextLabel.swift */; };
-		D47EFBC623FE5B28001E213F /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47EFBC523FE5B28001E213F /* NotesViewController.swift */; };
+		D47EFBC623FE5B28001E213F /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47EFBC523FE5B28001E213F /* NoteViewController.swift */; };
 		D47EFBC823FFBB9A001E213F /* MainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47EFBC723FFBB9A001E213F /* MainButton.swift */; };
 		D481DC3023F515AB00F166B7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D481DC3223F515AB00F166B7 /* InfoPlist.strings */; };
 		D481DC3523F6657B00F166B7 /* JavaScriptFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481DC3423F6657B00F166B7 /* JavaScriptFunctions.swift */; };
@@ -133,7 +133,7 @@
 		D475CCFA23E9538300678A85 /* BookmarksManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksManager.swift; sourceTree = "<group>"; };
 		D475CCFC23E953F200678A85 /* HighlightsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightsManager.swift; sourceTree = "<group>"; };
 		D47EFBC323FE4579001E213F /* HighlightSmallTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightSmallTextLabel.swift; sourceTree = "<group>"; };
-		D47EFBC523FE5B28001E213F /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
+		D47EFBC523FE5B28001E213F /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 		D47EFBC723FFBB9A001E213F /* MainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButton.swift; sourceTree = "<group>"; };
 		D481DC3123F515AB00F166B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D481DC3323F515B000F166B7 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -224,7 +224,7 @@
 				D4212A2223E7BC02002CD60A /* SearchViewController.swift */,
 				D40B3E6B23E7F89500276662 /* BookmarksViewController.swift */,
 				D4EBF00223FA508C00275624 /* HighlightsViewController.swift */,
-				D47EFBC523FE5B28001E213F /* NotesViewController.swift */,
+				D47EFBC523FE5B28001E213F /* NoteViewController.swift */,
 				D4EBEFFC23F8EF4700275624 /* SettingsViewController.swift */,
 			);
 			path = Controller;
@@ -584,7 +584,7 @@
 				D475CCF523E94EF700678A85 /* JavaScriptSnippets.swift in Sources */,
 				D475CCFD23E953F200678A85 /* HighlightsManager.swift in Sources */,
 				D40B3E7823E893BD00276662 /* Bookmark.swift in Sources */,
-				D47EFBC623FE5B28001E213F /* NotesViewController.swift in Sources */,
+				D47EFBC623FE5B28001E213F /* NoteViewController.swift in Sources */,
 				D44FF28C23ECAB8E0014B30F /* HymnBuilder.swift in Sources */,
 				D44FF28E23ECB3460014B30F /* BibleDictionaryBuilder.swift in Sources */,
 				D4212A1D23E7BC02002CD60A /* AppDelegate.swift in Sources */,

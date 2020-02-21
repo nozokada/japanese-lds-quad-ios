@@ -9,20 +9,26 @@
 import UIKit
 import RealmSwift
 
-class NotesViewController: UIViewController {
+class NoteViewController: UIViewController {
     
     var realm: Realm!
     
-    @IBOutlet weak var notesViewTitleLabel: UILabel!
+    @IBOutlet weak var noteViewTitleLabel: UILabel!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var noteTextView: UITextView!
+    @IBOutlet weak var noteTextViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var saveButton: MainButton!
     
     var highlightedText: HighlightedText?
     var bottomY: CGFloat = UIScreen.main.bounds.height
+    
+    let noteTextViewPlaceholder = "メモはありません"
 
     override func viewDidLoad() {
         super.viewDidLoad()
         realm = try! Realm()
+        noteTextView.delegate = self
+        adjustNoteTextViewHeight()
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture))
         view.addGestureRecognizer(gesture)
     }
@@ -30,9 +36,6 @@ class NotesViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         reload()
-        debugPrint(noteTextView.frame)
-        noteTextView.frame.size = CGSize(width: noteTextView.frame.width, height: view.frame.height / 3 - notesViewTitleLabel.frame.height - 100 - 16 - 16)
-        debugPrint(noteTextView.frame)
     }
     
     func initHighlightedText(id: String) {
@@ -43,10 +46,21 @@ class NotesViewController: UIViewController {
     }
     
     func setTitleAndNote() {
-        notesViewTitleLabel.text = Locale.current.languageCode == Constants.LanguageCode.primary
+        noteViewTitleLabel.text = Locale.current.languageCode == Constants.LanguageCode.primary
             ? highlightedText?.name_primary
             : highlightedText?.name_secondary
-        noteTextView.text = highlightedText?.text
+        noteTextView.text = highlightedText?.note
+        
+        if noteTextView.text.isEmpty {
+            noteTextView.text = noteTextViewPlaceholder
+            noteTextView.textColor = .lightGray
+        } else {
+            noteTextView.textColor = .black
+        }
+    }
+    
+    func adjustNoteTextViewHeight() {
+        noteTextViewHeight.constant = view.frame.height / 3 - noteViewTitleLabel.frame.height - 20 - 16
     }
     
     func show() {
@@ -101,9 +115,15 @@ class NotesViewController: UIViewController {
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {
-        try! realm.write {
-            highlightedText?.note = noteTextView.text
+        saveButton.disable()
+        var textToSave = ""
+        if noteTextView.textColor == .black {
+            textToSave = noteTextView.text
         }
+        try! realm.write {
+            highlightedText?.note = textToSave
+        }
+        saveButton.enable()
     }
     
     @IBAction func closeButtonTapped(_ sender: Any) {
@@ -111,9 +131,26 @@ class NotesViewController: UIViewController {
     }
 }
 
-extension NotesViewController: SettingsChangeDelegate {
+extension NoteViewController: SettingsChangeDelegate {
     func reload() {
         setTitleAndNote()
         view.backgroundColor = AppUtility.shared.getCurrentBackgroundColor()
+    }
+}
+
+extension NoteViewController: UITextViewDelegate {
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == .lightGray {
+            textView.text = nil
+            textView.textColor = .black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = noteTextViewPlaceholder
+            textView.textColor = .lightGray
+        }
     }
 }

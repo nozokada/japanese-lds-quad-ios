@@ -21,7 +21,7 @@ class ContentViewController: UIViewController {
     
     @IBOutlet weak var webView: MainWebView!
     var spinner: MainIndicatorView!
-    var notesView: NotesViewController!
+    var notesView: NoteViewController!
     
     var relativeOffset: CGFloat = 0
     var lastTapPoint = CGPoint(x: 0, y: 0)
@@ -59,7 +59,7 @@ class ContentViewController: UIViewController {
     }
     
     func addBottomSheetNotesView() {
-        guard let notesViewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.notes) as? NotesViewController else { return }
+        guard let notesViewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.notes) as? NoteViewController else { return }
         addChild(notesViewController)
         view.addSubview(notesViewController.view)
         notesViewController.didMove(toParent: self)

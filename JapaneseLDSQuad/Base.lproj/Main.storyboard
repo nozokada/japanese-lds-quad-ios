@@ -500,26 +500,26 @@
                                 <collectionViewLayout key="collectionViewLayout" id="ovd-40-xeJ" customClass="HighlightsViewLayout" customModule="JapaneseLDSQuad" customModuleProvider="target"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="highlightCell" id="Gwp-Tm-lhz" customClass="HighlightCell" customModule="JapaneseLDSQuad" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="183" height="183"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="183" height="171"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="pYK-UD-8kf">
-                                            <rect key="frame" x="0.0" y="0.0" width="183" height="183"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="183" height="171"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="ここはメモが表示されるLabelです" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xTF-yL-9io" customClass="HighlightSmallTextLabel" customModule="JapaneseLDSQuad" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="36" width="167" height="60"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="ここはハイライトされた聖句が表示されるLabelです" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xTF-yL-9io" customClass="HighlightSmallTextLabel" customModule="JapaneseLDSQuad" customModuleProvider="target">
+                                                    <rect key="frame" x="8" y="97.5" width="167" height="61"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="アルマ書37章38節" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IqO-ij-cBa" customClass="HighlightRegularTextLabel" customModule="JapaneseLDSQuad" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="8" width="167" height="20.5"/>
+                                                    <rect key="frame" x="8" y="12" width="167" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="ここはハイライトされた聖句が表示されるLabelです" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VHL-UJ-XqZ" customClass="HighlightRegularTextLabel" customModule="JapaneseLDSQuad" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="104" width="167" height="71"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="ここはメモが表示されるLabelです" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VHL-UJ-XqZ" customClass="HighlightRegularTextLabel" customModule="JapaneseLDSQuad" customModuleProvider="target">
+                                                    <rect key="frame" x="8" y="44.5" width="167" height="41"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -528,17 +528,17 @@
                                             <constraints>
                                                 <constraint firstItem="VHL-UJ-XqZ" firstAttribute="leading" secondItem="pYK-UD-8kf" secondAttribute="leading" constant="8" id="Ocg-AF-pni"/>
                                                 <constraint firstItem="IqO-ij-cBa" firstAttribute="top" secondItem="pYK-UD-8kf" secondAttribute="top" constant="12" id="Tjd-36-Sql"/>
-                                                <constraint firstAttribute="bottom" secondItem="VHL-UJ-XqZ" secondAttribute="bottom" constant="12" id="UbT-hw-DX0"/>
+                                                <constraint firstItem="xTF-yL-9io" firstAttribute="top" secondItem="VHL-UJ-XqZ" secondAttribute="bottom" constant="12" id="Vir-mf-6QJ"/>
                                                 <constraint firstItem="xTF-yL-9io" firstAttribute="leading" secondItem="pYK-UD-8kf" secondAttribute="leading" constant="8" id="bYy-m0-aqT"/>
                                                 <constraint firstAttribute="trailing" secondItem="IqO-ij-cBa" secondAttribute="trailing" constant="8" id="bn3-OY-bUZ"/>
                                                 <constraint firstItem="IqO-ij-cBa" firstAttribute="leading" secondItem="pYK-UD-8kf" secondAttribute="leading" constant="8" id="fnn-1P-JKQ"/>
+                                                <constraint firstItem="VHL-UJ-XqZ" firstAttribute="top" secondItem="IqO-ij-cBa" secondAttribute="bottom" constant="12" id="gdb-r3-GPr"/>
                                                 <constraint firstAttribute="trailing" secondItem="xTF-yL-9io" secondAttribute="trailing" constant="8" id="hzc-cz-LNv"/>
-                                                <constraint firstItem="xTF-yL-9io" firstAttribute="top" secondItem="IqO-ij-cBa" secondAttribute="bottom" constant="12" id="kYb-u2-Q4f"/>
+                                                <constraint firstAttribute="bottom" secondItem="xTF-yL-9io" secondAttribute="bottom" constant="12" id="mDG-Qs-1z4"/>
                                                 <constraint firstAttribute="trailing" secondItem="VHL-UJ-XqZ" secondAttribute="trailing" constant="8" id="tSv-Iv-I8i"/>
-                                                <constraint firstItem="VHL-UJ-XqZ" firstAttribute="top" secondItem="xTF-yL-9io" secondAttribute="bottom" constant="12" id="vy6-uv-fRH"/>
                                             </constraints>
                                         </collectionViewCellContentView>
-                                        <size key="customSize" width="183" height="183"/>
+                                        <size key="customSize" width="183" height="171"/>
                                         <connections>
                                             <outlet property="highlightedTextLabel" destination="xTF-yL-9io" id="9fL-YY-2dg"/>
                                             <outlet property="nameLabel" destination="IqO-ij-cBa" id="fH3-73-wfQ"/>
@@ -566,10 +566,10 @@
             </objects>
             <point key="canvasLocation" x="1485.5072463768117" y="1719.6428571428571"/>
         </scene>
-        <!--Notes View Controller-->
+        <!--Note View Controller-->
         <scene sceneID="Hvj-nT-TEl">
             <objects>
-                <viewController storyboardIdentifier="notes" id="n05-c0-JaN" customClass="NotesViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="notes" id="n05-c0-JaN" customClass="NoteViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jvP-af-qDM">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -625,7 +625,9 @@
                     <connections>
                         <outlet property="closeButton" destination="noe-sa-QWN" id="HR6-ZZ-gKG"/>
                         <outlet property="noteTextView" destination="VwB-EE-2OB" id="EiI-js-LQt"/>
-                        <outlet property="notesViewTitleLabel" destination="SAs-Ap-UA3" id="rFU-5Q-NFK"/>
+                        <outlet property="noteTextViewHeight" destination="GID-Na-ZfV" id="96b-CM-Khb"/>
+                        <outlet property="noteViewTitleLabel" destination="SAs-Ap-UA3" id="rFU-5Q-NFK"/>
+                        <outlet property="saveButton" destination="7Kn-wn-pRg" id="2gy-QU-PsN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p5L-Z3-3FR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
