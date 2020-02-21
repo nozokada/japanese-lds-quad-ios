@@ -13,25 +13,40 @@ class NotesViewController: UIViewController {
     
     var realm: Realm!
     
-    @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var notesViewTitleLabel: UILabel!
+    @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var noteTextView: UITextView!
     
-    var selectedHighlightedTextId = ""
+    var highlightedText: HighlightedText?
     var bottomY: CGFloat = UIScreen.main.bounds.height
 
     override func viewDidLoad() {
         super.viewDidLoad()
         realm = try! Realm()
-        
-        let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(NotesViewController.panGesture))
+        let gesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture))
         view.addGestureRecognizer(gesture)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        reload()
+        debugPrint(noteTextView.frame)
+        noteTextView.frame.size = CGSize(width: noteTextView.frame.width, height: view.frame.height / 3 - notesViewTitleLabel.frame.height - 100 - 16 - 16)
+        debugPrint(noteTextView.frame)
+    }
+    
     func initHighlightedText(id: String) {
-        selectedHighlightedTextId = id
-        
-        if let highlightedText = realm.objects(HighlightedText.self).filter("id = '\(selectedHighlightedTextId)'").first {
-            textView.text = highlightedText.note
+        if let highlightedText = realm.objects(HighlightedText.self).filter("id = '\(id)'").first {
+            self.highlightedText = highlightedText
         }
+        reload()
+    }
+    
+    func setTitleAndNote() {
+        notesViewTitleLabel.text = Locale.current.languageCode == Constants.LanguageCode.primary
+            ? highlightedText?.name_primary
+            : highlightedText?.name_secondary
+        noteTextView.text = highlightedText?.text
     }
     
     func show() {
@@ -83,5 +98,22 @@ class NotesViewController: UIViewController {
                 hide()
             }
         }
+    }
+    
+    @IBAction func saveButtonTapped(_ sender: Any) {
+        try! realm.write {
+            highlightedText?.note = noteTextView.text
+        }
+    }
+    
+    @IBAction func closeButtonTapped(_ sender: Any) {
+        hide()
+    }
+}
+
+extension NotesViewController: SettingsChangeDelegate {
+    func reload() {
+        setTitleAndNote()
+        view.backgroundColor = AppUtility.shared.getCurrentBackgroundColor()
     }
 }

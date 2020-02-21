@@ -33,7 +33,6 @@ class ContentViewController: UIViewController {
         webView.navigationDelegate = self
         webView.evaluateJavaScript(JavaScriptFunctions.getAllFunctions(), completionHandler: nil)
         webView.loadHTMLString(htmlContent, baseURL: Bundle.main.bundleURL)
-        addGestureRecognizerToWebView()
         showActivityIndicator()
         setDefaultMenuItems()
     }
@@ -92,7 +91,7 @@ extension ContentViewController: WKNavigationDelegate {
         case Constants.RequestType.highlight:
             decisionHandler(.cancel)
             requestUrl.deleteLastPathComponent()
-            showHighlightMenuItems(highlightedTextId: requestUrl.lastPathComponent)
+            showNote(highlightedTextId: requestUrl.lastPathComponent)
         default:
             decisionHandler(.cancel)
             let scripturePath = requestUrl.pathComponents.filter {
@@ -153,15 +152,9 @@ extension ContentViewController: WKNavigationDelegate {
         webView.evaluateJavaScript(JavaScriptSnippets.SpotlightTargetVerses(), completionHandler: nil)
     }
     
-    func showHighlightMenuItems(highlightedTextId: String) {
-        becomeFirstResponder()
-        selectedHighlightedTextId = highlightedTextId
-        let menuController = UIMenuController.shared
-        let noteEditMenuItem = UIMenuItem(title: "noteEditMenuItemLabel".localized, action: #selector(showNote))
-        let unhighlightMenuItem = UIMenuItem(title: "unhighlightMenuItemLabel".localized, action: #selector(unhighlightText))
-        menuController.menuItems = [noteEditMenuItem, unhighlightMenuItem]
-        menuController.showMenu(from: webView, rect: CGRect(x: lastTapPoint.x, y: lastTapPoint.y, width: 0, height: 0))
-        setDefaultMenuItems()
+    func showNote(highlightedTextId: String) {
+        notesView.initHighlightedText(id: highlightedTextId)
+        notesView.show()
     }
     
     func setDefaultMenuItems() {
@@ -174,7 +167,7 @@ extension ContentViewController: WKNavigationDelegate {
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         switch action {
-        case #selector(copyVerseText), #selector(highlightText), #selector(showNote), #selector(unhighlightText):
+        case #selector(copyVerseText), #selector(highlightText):
             return true
         default:
             return false
@@ -245,28 +238,3 @@ extension ContentViewController: WKNavigationDelegate {
             }
         }
     }
-    
-    @objc func showNote() {
-        notesView.initHighlightedText(id: selectedHighlightedTextId)
-        notesView.show()
-    }
-}
-
-extension ContentViewController: UIGestureRecognizerDelegate {
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-    
-    func addGestureRecognizerToWebView() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(setLastTapPoint))
-        tapGestureRecognizer.numberOfTouchesRequired = 1
-        tapGestureRecognizer.delegate = self
-        webView.addGestureRecognizer(tapGestureRecognizer)
-    }
-    
-    @objc func setLastTapPoint(sender: UIGestureRecognizer) {
-        let point = sender.location(in: self.view)
-        lastTapPoint = point
-    }
-}

@@ -297,7 +297,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Naj-oq-IUf">
-                                                    <rect key="frame" x="133" y="-26" width="147" height="96"/>
+                                                    <rect key="frame" x="206.5" y="-2" width="73.5" height="48"/>
                                                     <state key="normal" image="ToggleOn"/>
                                                     <connections>
                                                         <action selector="nightModeSwitchToggled:" destination="Rqq-KP-cul" eventType="touchUpInside" id="4zu-9e-HeL"/>
@@ -574,27 +574,58 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="アルマ書37章38節" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SAs-Ap-UA3">
+                                <rect key="frame" x="20" y="64" width="144.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="noe-sa-QWN">
+                                <rect key="frame" x="376.5" y="64" width="17.5" height="22"/>
+                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="xmark" catalog="system"/>
+                                <connections>
+                                    <action selector="closeButtonTapped:" destination="n05-c0-JaN" eventType="touchUpInside" id="K37-Iy-eQN"/>
+                                </connections>
+                            </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="ここはメモが表示されるTextViewです" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VwB-EE-2OB">
-                                <rect key="frame" x="20" y="44" width="374" height="374"/>
+                                <rect key="frame" x="20" y="102" width="374" height="300"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="VwB-EE-2OB" secondAttribute="height" multiplier="1:1" id="MJD-Wo-fwV"/>
+                                    <constraint firstAttribute="height" constant="300" id="GID-Na-ZfV"/>
                                 </constraints>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Kn-wn-pRg" customClass="MainButton" customModule="JapaneseLDSQuad" customModuleProvider="target">
+                                <rect key="frame" x="100" y="418" width="214" height="30"/>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="saveButtonTapped:" destination="n05-c0-JaN" eventType="touchUpInside" id="uDk-uI-BGy"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="v7F-bW-jwN" firstAttribute="trailing" secondItem="noe-sa-QWN" secondAttribute="trailing" constant="20" id="0KB-GE-8x4"/>
+                            <constraint firstItem="noe-sa-QWN" firstAttribute="top" secondItem="v7F-bW-jwN" secondAttribute="top" constant="20" id="0n5-6y-Mlk"/>
+                            <constraint firstItem="7Kn-wn-pRg" firstAttribute="top" secondItem="VwB-EE-2OB" secondAttribute="bottom" constant="16" id="5h7-fc-LSk"/>
                             <constraint firstItem="v7F-bW-jwN" firstAttribute="trailing" secondItem="VwB-EE-2OB" secondAttribute="trailing" constant="20" id="9S9-Cm-0Zm"/>
                             <constraint firstItem="VwB-EE-2OB" firstAttribute="leading" secondItem="v7F-bW-jwN" secondAttribute="leading" constant="20" id="CA6-BN-gbk"/>
-                            <constraint firstItem="VwB-EE-2OB" firstAttribute="top" secondItem="v7F-bW-jwN" secondAttribute="top" id="P27-kh-OxN"/>
+                            <constraint firstItem="7Kn-wn-pRg" firstAttribute="leading" secondItem="v7F-bW-jwN" secondAttribute="leading" constant="100" id="IFH-6V-ZXl"/>
+                            <constraint firstItem="SAs-Ap-UA3" firstAttribute="top" secondItem="v7F-bW-jwN" secondAttribute="top" constant="20" id="OyO-P2-O4Y"/>
+                            <constraint firstItem="noe-sa-QWN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="SAs-Ap-UA3" secondAttribute="trailing" constant="8" symbolic="YES" id="bd6-nh-4If"/>
+                            <constraint firstItem="VwB-EE-2OB" firstAttribute="top" secondItem="noe-sa-QWN" secondAttribute="bottom" constant="16" id="bvn-ft-Uc5"/>
+                            <constraint firstItem="v7F-bW-jwN" firstAttribute="trailing" secondItem="7Kn-wn-pRg" secondAttribute="trailing" constant="100" id="omy-ol-lSF"/>
+                            <constraint firstItem="SAs-Ap-UA3" firstAttribute="leading" secondItem="v7F-bW-jwN" secondAttribute="leading" constant="20" id="zvh-aV-da7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="v7F-bW-jwN"/>
                     </view>
                     <connections>
-                        <outlet property="textView" destination="VwB-EE-2OB" id="EiI-js-LQt"/>
+                        <outlet property="closeButton" destination="noe-sa-QWN" id="HR6-ZZ-gKG"/>
+                        <outlet property="noteTextView" destination="VwB-EE-2OB" id="EiI-js-LQt"/>
+                        <outlet property="notesViewTitleLabel" destination="SAs-Ap-UA3" id="rFU-5Q-NFK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p5L-Z3-3FR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -627,5 +658,6 @@
         <image name="bookmark.fill" catalog="system" width="56" height="64"/>
         <image name="magnifyingglass" catalog="system" width="64" height="56"/>
         <image name="pencil" catalog="system" width="64" height="56"/>
+        <image name="xmark" catalog="system" width="64" height="56"/>
     </resources>
 </document>
