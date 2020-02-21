@@ -172,6 +172,7 @@ extension ContentViewController: WKNavigationDelegate {
 }
 
 extension ContentViewController: HighlightChangeDelegate {
+    
     func removeHighlight(id: String) {
         webView.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguage(textId: id)) { result, error in
             guard let language = result as? String else { return }
