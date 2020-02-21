@@ -9,11 +9,19 @@
 import UIKit
 import RealmSwift
 
+protocol HighlightChangeDelegate {
+    
+    func removeHighlight(id: String)
+}
+
 class NoteViewController: UIViewController {
     
     var realm: Realm!
     
+    var delegate: HighlightChangeDelegate?
+    
     @IBOutlet weak var noteViewTitleLabel: UILabel!
+    @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var noteTextView: UITextView!
     @IBOutlet weak var noteTextViewHeight: NSLayoutConstraint!
@@ -117,6 +125,11 @@ class NoteViewController: UIViewController {
         }
     }
     
+    @IBAction func deleteButtonTapped(_ sender: Any) {
+        guard let highlightedText = highlightedText else { return }
+        delegate?.removeHighlight(id: highlightedText.id)
+    }
+    
     @IBAction func saveButtonTapped(_ sender: Any) {
         var textToSave = ""
         if noteTextView.textColor == .black {
@@ -134,6 +147,7 @@ class NoteViewController: UIViewController {
 }
 
 extension NoteViewController: SettingsChangeDelegate {
+    
     func reload() {
         setTitleAndNote()
         saveButton.disable()

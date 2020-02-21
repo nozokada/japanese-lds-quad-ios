@@ -25,7 +25,6 @@ class ContentViewController: UIViewController {
     
     var relativeOffset: CGFloat = 0
     var lastTapPoint = CGPoint(x: 0, y: 0)
-    var selectedHighlightedTextId = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +61,7 @@ class ContentViewController: UIViewController {
         addChild(viewController)
         view.addSubview(viewController.view)
         viewController.didMove(toParent: self)
+        viewController.delegate = self
         
         let height = view.frame.height
         let width  = view.frame.width
@@ -169,13 +169,16 @@ extension ContentViewController: WKNavigationDelegate {
         alertController.addAction(okAction)
         self.present(alertController, animated: true)
     }
-    
-    @objc func unhighlightText() {
-        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguage(textId: self.selectedHighlightedTextId)) { result, error in
+}
+
+extension ContentViewController: HighlightChangeDelegate {
+    func removeHighlight(id: String) {
+        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguage(textId: id)) { result, error in
             guard let language = result as? String else { return }
-            self.webView.evaluateJavaScript(JavaScriptSnippets.getScriptureContent(textId: self.selectedHighlightedTextId)) { result, error in
+            self.webView.evaluateJavaScript(JavaScriptSnippets.getScriptureContent(textId: id)) { result, error in
                 guard let content = result as? String else { return }
-                HighlightsManager.shared.removeHighlight(id: self.selectedHighlightedTextId, content: content, language: language)
+                HighlightsManager.shared.removeHighlight(id: id, content: content, language: language)
+                self.noteView.hide()
             }
         }
     }

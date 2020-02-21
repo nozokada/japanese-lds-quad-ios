@@ -8,7 +8,7 @@
 
 import UIKit
 
-@objc protocol SettingsChangeDelegate {
+protocol SettingsChangeDelegate {
     
     func reload()
 }
