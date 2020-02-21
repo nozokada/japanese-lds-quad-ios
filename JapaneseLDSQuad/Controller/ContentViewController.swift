@@ -21,7 +21,7 @@ class ContentViewController: UIViewController {
     
     @IBOutlet weak var webView: MainWebView!
     var spinner: MainIndicatorView!
-    var notesView: NoteViewController!
+    var noteView: NoteViewController!
     
     var relativeOffset: CGFloat = 0
     var lastTapPoint = CGPoint(x: 0, y: 0)
@@ -38,7 +38,7 @@ class ContentViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        addBottomSheetNotesView()
+        addBottomSheetNoteView()
     }
     
     func initData(contentViewData: ContentViewData) {
@@ -57,20 +57,20 @@ class ContentViewController: UIViewController {
         spinner.stopAnimating()
     }
     
-    func addBottomSheetNotesView() {
-        guard let notesViewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.notes) as? NoteViewController else { return }
-        addChild(notesViewController)
-        view.addSubview(notesViewController.view)
-        notesViewController.didMove(toParent: self)
+    func addBottomSheetNoteView() {
+        guard let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.notes) as? NoteViewController else { return }
+        addChild(viewController)
+        view.addSubview(viewController.view)
+        viewController.didMove(toParent: self)
         
         let height = view.frame.height
         let width  = view.frame.width
-        notesViewController.view.frame = CGRect(x: 0, y: view.frame.maxY, width: width, height: height)
-        notesView = notesViewController
+        viewController.view.frame = CGRect(x: 0, y: view.frame.maxY, width: width, height: height)
+        noteView = viewController
     }
     
-    func showBottomSheetNotesView() {
-        notesView.show()
+    func showBottomSheetNoteView() {
+        noteView.show()
     }
 }
 
@@ -128,8 +128,8 @@ extension ContentViewController: WKNavigationDelegate {
     }
     
     func showNote(highlightedTextId: String) {
-        notesView.initHighlightedText(id: highlightedTextId)
-        notesView.show()
+        noteView.initHighlightedText(id: highlightedTextId)
+        noteView.show()
     }
     
     func presentAnotherContent(path: [String]) {

@@ -29,6 +29,7 @@
 
 "noHighlightsLabel" = "ハイライトはありません\n\nハイライトしたい語句を選択して追加してください";
 
+"notePlaceholder" = "メモはありません";
 "noteSaveButton" = "メモを保存";
 
 "settingsGroupedTableViewLabel" = "設定";

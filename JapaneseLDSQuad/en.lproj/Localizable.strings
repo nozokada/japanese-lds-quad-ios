@@ -29,6 +29,7 @@
 
 "noHighlightsLabel" = "There are no highlights\n\nHold down on a text to highlight";
 
+"notePlaceholder" = "Write down your thoughts...";
 "noteSaveButton" = "Save Note";
 
 "settingsGroupedTableViewLabel" = "Settings";

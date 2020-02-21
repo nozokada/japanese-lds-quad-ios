@@ -48,10 +48,6 @@ struct Constants {
         static let pass = "passPurchased"
     }
     
-    struct Key {
-        static let allFeaturesDebug = "2929riepon"
-    }
-    
     struct LanguageCode {
         static let primary = "ja"
         static let secondary = "en"
@@ -68,6 +64,9 @@ struct Constants {
         static let highlightCellCornerRadius: CGFloat = 5
         static let highlightCellBorderWidth: CGFloat = 1
         static let highlightCellPadding: CGFloat = 6
+        static let highlightCellLabelVerticalPadding: CGFloat = 12
+        static let highlightCellLabelHorizontalPadding: CGFloat = 8
+        static let noteViewTitleVerticalPadding: CGFloat = 20
     }
     
     struct TextSize {
@@ -94,6 +93,10 @@ struct Constants {
         static let night = UIColor(red:0.13, green:0.13, blue:0.15, alpha:1.0)
         static let daySearchBar = UIColor(red:0.79, green:0.79, blue:0.81, alpha:1.0)
         static let nightSearchBar = UIColor(red:0.20, green:0.20, blue:0.18, alpha:1.0)
+    }
+    
+    struct Duration {
+        static let noteViewAnimation = 0.3
     }
     
     struct ChapterType {

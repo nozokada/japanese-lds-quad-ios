@@ -98,14 +98,16 @@ extension HighlightsViewController: HighlightsViewLayoutDelegate {
             : "\(highlight.name_secondary)", labelType: HighlightRegularTextLabel.self)
             + getLabelHeight(text: highlight.text, labelType: HighlightSmallTextLabel.self)
             + getLabelHeight(text: highlight.note, labelType: HighlightRegularTextLabel.self)
-            + 12
+            + Constants.Size.highlightCellLabelVerticalPadding
     }
     
     func getLabelHeight(text: String, labelType: UILabel.Type) -> CGFloat {
-        let labelWidth = collectionView.collectionViewLayout.collectionViewContentSize.width / CGFloat(Constants.Count.columnsForHighlightsView) - Constants.Size.highlightCellPadding * 2 - 16
+        let labelWidth = collectionView.collectionViewLayout.collectionViewContentSize.width / CGFloat(Constants.Count.columnsForHighlightsView)
+            - Constants.Size.highlightCellPadding * 2
+            - Constants.Size.highlightCellLabelHorizontalPadding * 2
         let label = labelType.init(frame: CGRect(x: 0, y: 0, width: labelWidth, height: CGFloat.greatestFiniteMagnitude))
         label.text = text
         label.sizeToFit()
-        return label.frame.height + 12
+        return label.frame.height + Constants.Size.highlightCellLabelVerticalPadding
     }
 }

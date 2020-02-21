@@ -1,5 +1,5 @@
 //
-//  NotesViewController.swift
+//  NoteViewController.swift
 //  JapaneseLDSQuad
 //
 //  Created by Nozomi Okada on 2/19/20.
@@ -22,7 +22,7 @@ class NoteViewController: UIViewController {
     var highlightedText: HighlightedText?
     var bottomY: CGFloat = UIScreen.main.bounds.height
     
-    let noteTextViewPlaceholder = "メモはありません"
+    let noteTextViewPlaceholder = "notePlaceholder".localized
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,14 +61,16 @@ class NoteViewController: UIViewController {
     }
     
     func adjustNoteTextViewHeight() {
-        noteTextViewHeight.constant = view.frame.height / 3 - noteViewTitleLabel.frame.height - 20 - 16
+        noteTextViewHeight.constant = view.frame.height / 3
+            - noteViewTitleLabel.frame.height
+            - Constants.Size.noteViewTitleVerticalPadding * 2
     }
     
     func show() {
         if let superview = view.superview {
             bottomY = superview.frame.maxY
         }
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: Constants.Duration.noteViewAnimation) {
             let frame = self.view.frame
             let y = self.bottomY - frame.height / 3
             self.view.frame = CGRect(x: 0, y: y, width: frame.width, height: frame.height)
@@ -76,7 +78,7 @@ class NoteViewController: UIViewController {
     }
     
     func showFull() {
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: Constants.Duration.noteViewAnimation) {
             let frame = self.view.frame
             let y = self.bottomY - frame.height / 2
             self.view.frame = CGRect(x: 0, y: y, width: frame.width, height: frame.height)
@@ -84,7 +86,7 @@ class NoteViewController: UIViewController {
     }
     
     func hide() {
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: Constants.Duration.noteViewAnimation) {
             let frame = self.view.frame
             let y = self.bottomY
             self.view.frame = CGRect(x: 0, y: y, width: frame.width, height: frame.height)
@@ -144,6 +146,7 @@ extension NoteViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         showFull()
+        
         if textView.textColor == .lightGray {
             textView.text = nil
             textView.textColor = .black
