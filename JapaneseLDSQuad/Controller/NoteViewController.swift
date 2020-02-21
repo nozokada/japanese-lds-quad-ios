@@ -31,6 +31,7 @@ class NoteViewController: UIViewController {
     var bottomY: CGFloat = UIScreen.main.bounds.height
     
     let noteTextViewPlaceholder = "notePlaceholder".localized
+    let noteTextViewPlaceholderTextColor = UIColor.lightGray
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,9 +63,9 @@ class NoteViewController: UIViewController {
         
         if noteTextView.text.isEmpty {
             noteTextView.text = noteTextViewPlaceholder
-            noteTextView.textColor = .lightGray
+            noteTextView.textColor = noteTextViewPlaceholderTextColor
         } else {
-            noteTextView.textColor = .black
+            noteTextView.textColor = AppUtility.shared.getCurrentTextColor()
         }
     }
     
@@ -132,7 +133,7 @@ class NoteViewController: UIViewController {
     
     @IBAction func saveButtonTapped(_ sender: Any) {
         var textToSave = ""
-        if noteTextView.textColor == .black {
+        if noteTextView.textColor != noteTextViewPlaceholderTextColor {
             textToSave = noteTextView.text
         }
         try! realm.write {
@@ -151,8 +152,8 @@ extension NoteViewController: SettingsChangeDelegate {
     func reload() {
         setTitleAndNote()
         saveButton.disable()
-        view.backgroundColor = AppUtility.shared.getCurrentBackgroundColor()
-        noteTextView.backgroundColor = view.backgroundColor
+        noteTextView.backgroundColor = AppUtility.shared.getCurrentBackgroundColor()
+        view.backgroundColor = noteTextView.backgroundColor
     }
 }
 
@@ -161,16 +162,16 @@ extension NoteViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         showFull()
         
-        if textView.textColor == .lightGray {
+        if textView.textColor == noteTextViewPlaceholderTextColor {
             textView.text = nil
-            textView.textColor = .black
+            textView.textColor = AppUtility.shared.getCurrentTextColor()
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             textView.text = noteTextViewPlaceholder
-            textView.textColor = .lightGray
+            textView.textColor = noteTextViewPlaceholderTextColor
         }
     }
     

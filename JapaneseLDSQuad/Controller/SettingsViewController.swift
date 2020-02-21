@@ -40,13 +40,10 @@ class SettingsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        tableView.backgroundColor = AppUtility.shared.getCurrentBackgroundColor()
+        cell.backgroundColor = AppUtility.shared.getCurrentCellColor()
+        
         let fontColor = AppUtility.shared.getCurrentTextColor()
-        let cellColor = AppUtility.shared.getCurrentCellColor()
-        let backgroundColor = cellColor
-        
-        tableView.backgroundColor = backgroundColor
-        cell.backgroundColor = cellColor
-        
         alternativeFontLabel.textColor = fontColor
         nightModeLabel.textColor = fontColor
         dualModeSwitchLabel.textColor = fontColor
