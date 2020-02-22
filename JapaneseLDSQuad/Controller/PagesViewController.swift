@@ -40,6 +40,7 @@ class PagesViewController: UIPageViewController {
         delegate = self
         dataSource = self
         setSettingsBarButton()
+        setSpeechBarButton()
         contentType = AppUtility.shared.getContentType(targetBook: targetBook)
         scripturesInBook = targetBook.child_scriptures.sorted(byKeyPath: "id")
         currentChapterIndex = AppUtility.shared.getChapterNumberFromScriptureId(id: targetChapterId) - 1
