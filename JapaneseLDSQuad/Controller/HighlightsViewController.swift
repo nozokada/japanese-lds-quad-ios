@@ -39,6 +39,13 @@ class HighlightsViewController: UIViewController {
         reload()
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: nil) { _ in
+            self.reload()
+        }
+    }
+    
     func getNoHighlightsMessageLabel() -> UILabel {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: collectionView.bounds.size.width, height: collectionView.bounds.size.height))
         label.numberOfLines = 4
@@ -57,10 +64,10 @@ class HighlightsViewController: UIViewController {
 extension HighlightsViewController: SettingsChangeDelegate {
     
     func reload() {
-        if let layout = collectionView?.collectionViewLayout as? HighlightsViewLayout {
-            layout.clearCache()
+        if let highlights = highlights {
+            noHighlightsLabel.isHidden = highlights.count > 0
         }
-        noHighlightsLabel.isHidden = highlights.count > 0
+        clearLayoutCache()
         updateCollectionBackgroundColor()
         collectionView.reloadData()
     }
@@ -109,5 +116,11 @@ extension HighlightsViewController: HighlightsViewLayoutDelegate {
         label.text = text
         label.sizeToFit()
         return label.frame.height + Constants.Size.highlightCellLabelVerticalPadding
+    }
+    
+    func clearLayoutCache() {
+        if let layout = collectionView?.collectionViewLayout as? HighlightsViewLayout {
+            layout.clearCache()
+        }
     }
 }
