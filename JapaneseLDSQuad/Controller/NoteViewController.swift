@@ -88,7 +88,6 @@ class NoteViewController: UIViewController {
         noteTextViewHeight.constant = view.frame.height / 3
             - noteViewTitleLabel.frame.height
             - Constants.Size.noteViewTitleVerticalPadding * 2
-        debugPrint(noteViewTitleLabel.frame.height)
     }
     
     func updateBottomY() {
