@@ -577,7 +577,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="アルマ書37章38節" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SAs-Ap-UA3">
                                 <rect key="frame" x="20" y="64" width="144.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aeM-aW-BwF">
@@ -607,7 +607,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Kn-wn-pRg" customClass="MainButton" customModule="JapaneseLDSQuad" customModuleProvider="target">
-                                <rect key="frame" x="100" y="418" width="214" height="30"/>
+                                <rect key="frame" x="100" y="422" width="214" height="30"/>
                                 <state key="normal" title="Save"/>
                                 <connections>
                                     <action selector="saveButtonTapped:" destination="n05-c0-JaN" eventType="touchUpInside" id="uDk-uI-BGy"/>
@@ -619,7 +619,7 @@
                             <constraint firstItem="v7F-bW-jwN" firstAttribute="trailing" secondItem="noe-sa-QWN" secondAttribute="trailing" constant="20" id="0KB-GE-8x4"/>
                             <constraint firstItem="noe-sa-QWN" firstAttribute="leading" secondItem="aeM-aW-BwF" secondAttribute="trailing" constant="40" id="0c0-Uh-IQe"/>
                             <constraint firstItem="noe-sa-QWN" firstAttribute="top" secondItem="v7F-bW-jwN" secondAttribute="top" constant="20" id="0n5-6y-Mlk"/>
-                            <constraint firstItem="7Kn-wn-pRg" firstAttribute="top" secondItem="VwB-EE-2OB" secondAttribute="bottom" constant="16" id="5h7-fc-LSk"/>
+                            <constraint firstItem="7Kn-wn-pRg" firstAttribute="top" secondItem="VwB-EE-2OB" secondAttribute="bottom" constant="20" id="5h7-fc-LSk"/>
                             <constraint firstItem="v7F-bW-jwN" firstAttribute="trailing" secondItem="VwB-EE-2OB" secondAttribute="trailing" constant="20" id="9S9-Cm-0Zm"/>
                             <constraint firstItem="VwB-EE-2OB" firstAttribute="leading" secondItem="v7F-bW-jwN" secondAttribute="leading" constant="20" id="CA6-BN-gbk"/>
                             <constraint firstItem="7Kn-wn-pRg" firstAttribute="leading" secondItem="v7F-bW-jwN" secondAttribute="leading" constant="100" id="IFH-6V-ZXl"/>

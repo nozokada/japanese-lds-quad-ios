@@ -29,6 +29,7 @@ class NoteViewController: UIViewController {
     
     var highlightedText: HighlightedText?
     var bottomY: CGFloat = UIScreen.main.bounds.height
+    var isAtBottom = true
     
     let noteTextViewPlaceholder = "notePlaceholder".localized
     let noteTextViewPlaceholderTextColor = UIColor.lightGray
@@ -38,7 +39,6 @@ class NoteViewController: UIViewController {
         realm = try! Realm()
         noteTextView.delegate = self
         saveButton.setTitle("noteSaveButton".localized, for: .normal)
-        adjustNoteTextViewHeight()
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture))
         view.addGestureRecognizer(gesture)
     }
@@ -48,19 +48,34 @@ class NoteViewController: UIViewController {
         reload()
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        view.isHidden = true
+        coordinator.animate(alongsideTransition: nil) { _ in
+            if self.isAtBottom {
+                self.hide(animated: false)
+            } else {
+                self.show(animated: false)
+            }
+            self.view.isHidden = false
+        }
+    }
+    
     func initHighlightedText(id: String) {
         if let highlightedText = realm.objects(HighlightedText.self).filter("id = '\(id)'").first {
             self.highlightedText = highlightedText
         }
-        reload()
+        saveButton.disable()
+        setTitleAndNote()
     }
     
     func setTitleAndNote() {
         noteViewTitleLabel.text = Locale.current.languageCode == Constants.LanguageCode.primary
             ? highlightedText?.name_primary
             : highlightedText?.name_secondary
-        noteTextView.text = highlightedText?.note
+        noteViewTitleLabel.sizeToFit()
         
+        noteTextView.text = highlightedText?.note
         if noteTextView.text.isEmpty {
             noteTextView.text = noteTextViewPlaceholder
             noteTextView.textColor = noteTextViewPlaceholderTextColor
@@ -73,33 +88,46 @@ class NoteViewController: UIViewController {
         noteTextViewHeight.constant = view.frame.height / 3
             - noteViewTitleLabel.frame.height
             - Constants.Size.noteViewTitleVerticalPadding * 2
+        debugPrint(noteViewTitleLabel.frame.height)
     }
     
-    func show() {
+    func updateBottomY() {
         if let superview = view.superview {
             bottomY = superview.frame.maxY
         }
-        UIView.animate(withDuration: Constants.Duration.noteViewAnimation) {
+    }
+    
+    func show(animated: Bool = true) {
+        updateBottomY()
+        adjustNoteTextViewHeight()
+        UIView.animate(withDuration: animated ? Constants.Duration.noteViewAnimation : 0) {
             let frame = self.view.frame
             let y = self.bottomY - frame.height / 3
             self.view.frame = CGRect(x: 0, y: y, width: frame.width, height: frame.height)
         }
+        isAtBottom = false
     }
     
-    func showFull() {
-        UIView.animate(withDuration: Constants.Duration.noteViewAnimation) {
+    func showFull(animated: Bool = true) {
+        updateBottomY()
+        adjustNoteTextViewHeight()
+        UIView.animate(withDuration: animated ? Constants.Duration.noteViewAnimation : 0) {
             let frame = self.view.frame
             let y = self.bottomY - frame.height / 2
             self.view.frame = CGRect(x: 0, y: y, width: frame.width, height: frame.height)
         }
+        isAtBottom = false
     }
     
-    func hide() {
-        UIView.animate(withDuration: Constants.Duration.noteViewAnimation) {
+    func hide(animated: Bool = true) {
+        updateBottomY()
+        adjustNoteTextViewHeight()
+        UIView.animate(withDuration: animated ? Constants.Duration.noteViewAnimation : 0) {
             let frame = self.view.frame
             let y = self.bottomY
             self.view.frame = CGRect(x: 0, y: y, width: frame.width, height: frame.height)
         }
+        isAtBottom = true
     }
     
     @objc func panGesture(recognizer: UIPanGestureRecognizer) {
@@ -151,7 +179,6 @@ extension NoteViewController: SettingsChangeDelegate {
     
     func reload() {
         setTitleAndNote()
-        saveButton.disable()
         noteTextView.backgroundColor = AppUtility.shared.getCurrentBackgroundColor()
         view.backgroundColor = noteTextView.backgroundColor
     }
