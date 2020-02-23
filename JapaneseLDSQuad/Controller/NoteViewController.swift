@@ -38,7 +38,7 @@ class NoteViewController: UIViewController {
         super.viewDidLoad()
         realm = try! Realm()
         noteTextView.delegate = self
-        saveButton.setTitle("noteSaveButton".localized, for: .normal)
+        saveButton.setTitle("noteSavedButtonLabel".localized, for: .normal)
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture))
         view.addGestureRecognizer(gesture)
     }
@@ -167,6 +167,7 @@ class NoteViewController: UIViewController {
             highlightedText?.note = textToSave
         }
         saveButton.disable()
+        saveButton.setTitle("noteSavedButtonLabel".localized, for: .normal)
     }
     
     @IBAction func closeButtonTapped(_ sender: Any) {
@@ -204,5 +205,6 @@ extension NoteViewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         saveButton.enable()
+        saveButton.setTitle("noteSaveButtonLabel".localized, for: .normal)
     }
 }

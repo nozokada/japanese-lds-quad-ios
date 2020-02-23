@@ -30,7 +30,8 @@
 "noHighlightsLabel" = "ハイライトはありません\n\nハイライトしたい語句を選択して追加してください";
 
 "notePlaceholder" = "メモはありません";
-"noteSaveButton" = "メモを保存";
+"noteSaveButtonLabel" = "メモを保存";
+"noteSavedButtonLabel" = "メモを保存しました";
 
 "settingsGroupedTableViewLabel" = "設定";
 "settingMinchoFontLabel" = "明朝体を使用";

@@ -69,7 +69,8 @@ extension HighlightsViewController: SettingsChangeDelegate {
             noHighlightsLabel.isHidden = highlights.count > 0
         }
         updateCollectionBackgroundColor()
-        collectionView?.reloadData()
+        clearLayoutCache()
+        collectionView.reloadData()
     }
 }
 

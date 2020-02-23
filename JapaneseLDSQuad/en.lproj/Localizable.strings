@@ -30,7 +30,8 @@
 "noHighlightsLabel" = "There are no highlights\n\nHold down on a text to highlight";
 
 "notePlaceholder" = "Write down your thoughts...";
-"noteSaveButton" = "Save Note";
+"noteSaveButtonLabel" = "Save Note";
+"noteSavedButtonLabel" = "Note Saved";
 
 "settingsGroupedTableViewLabel" = "Settings";
 "settingMinchoFontLabel" = "Mincho Font";
