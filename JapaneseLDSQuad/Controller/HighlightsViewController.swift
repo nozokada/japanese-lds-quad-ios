@@ -42,7 +42,8 @@ class HighlightsViewController: UIViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: nil) { _ in
-            self.reload()
+            self.clearLayoutCache()
+            self.collectionView?.reloadData()
         }
     }
     
@@ -57,7 +58,7 @@ class HighlightsViewController: UIViewController {
     }
     
     func updateCollectionBackgroundColor() {
-        collectionView.backgroundColor = AppUtility.shared.getCurrentBackgroundColor()
+        collectionView?.backgroundColor = AppUtility.shared.getCurrentBackgroundColor()
     }
 }
 
@@ -67,9 +68,8 @@ extension HighlightsViewController: SettingsChangeDelegate {
         if let highlights = highlights {
             noHighlightsLabel.isHidden = highlights.count > 0
         }
-        clearLayoutCache()
         updateCollectionBackgroundColor()
-        collectionView.reloadData()
+        collectionView?.reloadData()
     }
 }
 

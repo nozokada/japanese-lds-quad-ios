@@ -21,7 +21,7 @@ class ContentViewController: UIViewController {
     
     @IBOutlet weak var webView: MainWebView!
     var spinner: MainIndicatorView!
-    var noteView: NoteViewController!
+    var noteViewController: NoteViewController!
     
     var relativeOffset: CGFloat = 0
     var lastTapPoint = CGPoint(x: 0, y: 0)
@@ -66,11 +66,7 @@ class ContentViewController: UIViewController {
         let height = view.frame.height
         let width  = view.frame.width
         viewController.view.frame = CGRect(x: 0, y: view.frame.maxY, width: width, height: height)
-        noteView = viewController
-    }
-    
-    func showBottomSheetNoteView() {
-        noteView.show()
+        noteViewController = viewController
     }
 }
 
@@ -128,8 +124,8 @@ extension ContentViewController: WKNavigationDelegate {
     }
     
     func showNote(highlightedTextId: String) {
-        noteView.initHighlightedText(id: highlightedTextId)
-        noteView.show()
+        noteViewController.initHighlightedText(id: highlightedTextId)
+        noteViewController.show()
     }
     
     func presentAnotherContent(path: [String]) {
@@ -179,7 +175,7 @@ extension ContentViewController: HighlightChangeDelegate {
             self.webView.evaluateJavaScript(JavaScriptSnippets.getScriptureContent(textId: id)) { result, error in
                 guard let content = result as? String else { return }
                 HighlightsManager.shared.removeHighlight(id: id, content: content, language: language)
-                self.noteView.hide()
+                self.noteViewController.hide()
             }
         }
     }

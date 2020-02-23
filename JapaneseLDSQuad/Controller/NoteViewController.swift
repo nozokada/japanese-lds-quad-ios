@@ -178,6 +178,7 @@ extension NoteViewController: SettingsChangeDelegate {
     
     func reload() {
         setTitleAndNote()
+        noteViewTitleLabel.textColor = AppUtility.shared.getCurrentTextColor()
         noteTextView.backgroundColor = AppUtility.shared.getCurrentBackgroundColor()
         view.backgroundColor = noteTextView.backgroundColor
     }

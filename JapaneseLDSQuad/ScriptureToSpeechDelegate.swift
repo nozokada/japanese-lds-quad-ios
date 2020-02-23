@@ -14,10 +14,10 @@ protocol ScriptureToSpeechDelegate {
     var speechVerses: Results<Scripture>? { get }
 }
 
-extension ScriptureToSpeechDelegate where Self: PagesViewController {
+extension ScriptureToSpeechDelegate where Self: UIViewController {
     
     func setSpeechBarButton() {
-        let speechButton = UIBarButtonItem(image: UIImage(systemName: "headphones"), style: .plain, target: self, action: #selector(showSpeechControlPanel(sender:)))
+        let speechButton = UIBarButtonItem(image: UIImage(systemName: "headphones"), style: .plain, target: self, action: #selector(PagesViewController.showSpeechControlPanel(sender:)))
         if let barButtonItems = navigationItem.rightBarButtonItems {
             navigationItem.rightBarButtonItems = barButtonItems + [speechButton]
         } else {
