@@ -21,7 +21,7 @@
 		D40B3E9323E8E1B400276662 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D40B3E9523E8E1B400276662 /* Localizable.strings */; };
 		D40B3E9F23E8E6DD00276662 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40B3E9E23E8E6DD00276662 /* StringExtension.swift */; };
 		D41EC66A24011328001521D8 /* ScriptureToSpeechDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EC66924011328001521D8 /* ScriptureToSpeechDelegate.swift */; };
-		D41EC66C240118C1001521D8 /* ScriptureSpeechSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EC66B240118C1001521D8 /* ScriptureSpeechSynthesizer.swift */; };
+		D41EC66E24034822001521D8 /* SpeechUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EC66D24034822001521D8 /* SpeechUtility.swift */; };
 		D4212A1D23E7BC02002CD60A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4212A1C23E7BC02002CD60A /* AppDelegate.swift */; };
 		D4212A1F23E7BC02002CD60A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4212A1E23E7BC02002CD60A /* SceneDelegate.swift */; };
 		D4212A2123E7BC02002CD60A /* BooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4212A2023E7BC02002CD60A /* BooksViewController.swift */; };
@@ -103,7 +103,7 @@
 		D40B3E9723E8E1E700276662 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D40B3E9E23E8E6DD00276662 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		D41EC66924011328001521D8 /* ScriptureToSpeechDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptureToSpeechDelegate.swift; sourceTree = "<group>"; };
-		D41EC66B240118C1001521D8 /* ScriptureSpeechSynthesizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptureSpeechSynthesizer.swift; sourceTree = "<group>"; };
+		D41EC66D24034822001521D8 /* SpeechUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechUtility.swift; sourceTree = "<group>"; };
 		D4212A1923E7BC02002CD60A /* JapaneseLDSQuad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JapaneseLDSQuad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4212A1C23E7BC02002CD60A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4212A1E23E7BC02002CD60A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -263,6 +263,7 @@
 				D4212A1C23E7BC02002CD60A /* AppDelegate.swift */,
 				D4212A1E23E7BC02002CD60A /* SceneDelegate.swift */,
 				D475CCEE23E9449600678A85 /* AppUtility.swift */,
+				D41EC66D24034822001521D8 /* SpeechUtility.swift */,
 				D40B3E7B23E896BA00276662 /* Constants.swift */,
 				D40B3E9E23E8E6DD00276662 /* StringExtension.swift */,
 				D481DC3423F6657B00F166B7 /* JavaScriptFunctions.swift */,
@@ -276,7 +277,6 @@
 				D475CCF623E9521200678A85 /* PurchaseManager.swift */,
 				D4EBF00023F906E200275624 /* SettingsChangeDelegate.swift */,
 				D41EC66924011328001521D8 /* ScriptureToSpeechDelegate.swift */,
-				D41EC66B240118C1001521D8 /* ScriptureSpeechSynthesizer.swift */,
 				D40B3E6E23E892C600276662 /* Controller */,
 				D40B3E6D23E892B600276662 /* Model */,
 				D475CCE323E92D2600678A85 /* View */,
@@ -585,6 +585,7 @@
 				D4EBF00923FBA56B00275624 /* HighlightsViewLayout.swift in Sources */,
 				D475CCE023E8F2F300678A85 /* ChaptersViewController.swift in Sources */,
 				D4EBF00723FA726200275624 /* HighlightRegularTextLabel.swift in Sources */,
+				D41EC66E24034822001521D8 /* SpeechUtility.swift in Sources */,
 				D4212A2123E7BC02002CD60A /* BooksViewController.swift in Sources */,
 				D44FF28623EA91990014B30F /* MainIndicatorView.swift in Sources */,
 				D475CCFB23E9538300678A85 /* BookmarksManager.swift in Sources */,
@@ -609,7 +610,6 @@
 				D47EFBC423FE4579001E213F /* HighlightSmallTextLabel.swift in Sources */,
 				D475CCF723E9521200678A85 /* PurchaseManager.swift in Sources */,
 				D481DC3723F678C300F166B7 /* MainWebView.swift in Sources */,
-				D41EC66C240118C1001521D8 /* ScriptureSpeechSynthesizer.swift in Sources */,
 				D475CCEF23E9449600678A85 /* AppUtility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

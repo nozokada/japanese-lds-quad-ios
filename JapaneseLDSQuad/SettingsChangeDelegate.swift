@@ -16,7 +16,7 @@ import UIKit
 extension SettingsChangeDelegate where Self: UIViewController {
     
     func setSettingsBarButton() {
-        let settingsButton = UIBarButtonItem(image: #imageLiteral(resourceName: "Settings"), style: .plain, target: self, action: #selector(presentSettingsViewController(sender:)))
+        let settingsButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis"), style: .plain, target: self, action: #selector(presentSettingsViewController(sender:)))
         if let barButtonItems = navigationItem.rightBarButtonItems {
             navigationItem.rightBarButtonItems = barButtonItems + [settingsButton]
         } else {

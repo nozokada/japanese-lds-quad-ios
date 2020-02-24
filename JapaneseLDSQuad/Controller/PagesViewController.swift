@@ -8,6 +8,8 @@
 
 import UIKit
 import RealmSwift
+import AVFoundation
+
 
 class PagesViewController: UIPageViewController {
 
@@ -22,18 +24,12 @@ class PagesViewController: UIPageViewController {
     var currentChapterIndex: Int!
     var currentRelativeOffset: CGFloat = 0
     
-//    var speechVerses: Results<Scripture>!
-//    var currentSpokenVerseIndex = 0
-//    var speechActive = false
-//    let speechQueue = DispatchQueue(label: "com.nozokada.JapaneseLDSQuad.speechQueue")
-//    let speechSynthesizer = AVSpeechSynthesizer()
-    
-//    var speechPlayButton: UIButton!
-//    var speechForwardButton: UIButton!
-//    var speechBackButton: UIButton!
-//
-//    let speechButtonSize: CGFloat = 50
-//    let speechButtonOffset: CGFloat = -20
+    var currentSpokenVerseIndex = 0
+    lazy var speechSynthesizer: AVSpeechSynthesizer = {
+        let synthesizer = AVSpeechSynthesizer()
+        synthesizer.delegate = self
+        return synthesizer
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +42,6 @@ class PagesViewController: UIPageViewController {
         currentChapterIndex = AppUtility.shared.getChapterNumberFromScriptureId(id: targetChapterId) - 1
         currentContentViewController = getViewControllerAt(index: currentChapterIndex)
         setTitle()
-//        speechSynthesizer.delegate = self
 //        initializeSpeechButtons()
     }
     
@@ -116,58 +111,6 @@ class PagesViewController: UIPageViewController {
         let height = currentContentViewController.webView.scrollView.contentSize.height
         currentRelativeOffset = offset / height
     }
-    
-//    func initializeSpeechButtons() {
-//        if PurchaseManager.shared.isPurchased {
-//            speechPlayButton = createSpeechButton(iconImage: #imageLiteral(resourceName: "Headset"), horizontalOffset: 0)
-//            speechForwardButton = createSpeechButton(iconImage: #imageLiteral(resourceName: "Skip"), horizontalOffset: -60)
-//            speechBackButton = createSpeechButton(iconImage: #imageLiteral(resourceName: "Back"), horizontalOffset: -120)
-//
-//            speechPlayButton.addTarget(self, action: #selector(speechPlayButtonTapped), for: .touchUpInside)
-//            speechForwardButton.addTarget(self, action: #selector(speechForwardButtonTapped), for: .touchUpInside)
-//            speechBackButton.addTarget(self, action: #selector(speechBackButtonTapped), for: .touchUpInside)
-//
-//            // addRemoteControlEvent()
-//            registerForNotifications()
-//            loadSpeechVerses()
-//            hideSpeechSkipButtons()
-//        }
-//    }
-    
-//    func createSpeechButton(iconImage: UIImage, horizontalOffset: CGFloat) -> UIButton {
-//        let button = UIButton(frame: CGRect(x: 0, y: 0, width: speechButtonSize, height: speechButtonSize))
-//        let imageEdgeInset = speechButtonSize * 0.2
-//        button.setImage(iconImage, for: .normal)
-//        button.imageEdgeInsets = UIEdgeInsetsMake(imageEdgeInset + 2, imageEdgeInset, imageEdgeInset, imageEdgeInset);
-//        button.backgroundColor = UIColor.orange
-//        button.layer.cornerRadius = 0.5 * button.bounds.size.width
-//        button.clipsToBounds = true
-//        button.translatesAutoresizingMaskIntoConstraints = false
-//        view.addSubview(button)
-//
-//        let buttonRightConstraint = NSLayoutConstraint(
-//            item: button,
-//            attribute: NSLayoutAttribute.trailing,
-//            relatedBy: NSLayoutRelation.equal,
-//            toItem: self.view,
-//            attribute: NSLayoutAttribute.trailing,
-//            multiplier: 1.0,
-//            constant: speechButtonOffset + horizontalOffset
-//        )
-//
-//        let buttonBottomConstraint = NSLayoutConstraint(
-//            item: button,
-//            attribute: NSLayoutAttribute.bottom,
-//            relatedBy: NSLayoutRelation.equal,
-//            toItem: self.view,
-//            attribute: NSLayoutAttribute.bottom,
-//            multiplier: 1.0,
-//            constant: speechButtonOffset
-//        )
-//        self.view.addConstraints([buttonRightConstraint, buttonBottomConstraint])
-//
-//        return button
-//    }
 }
 
 
