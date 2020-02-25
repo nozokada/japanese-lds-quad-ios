@@ -224,6 +224,60 @@
             </objects>
             <point key="canvasLocation" x="1485.5072463768117" y="359.59821428571428"/>
         </scene>
+        <!--Speech View Controller-->
+        <scene sceneID="uWY-cb-npa">
+            <objects>
+                <viewController storyboardIdentifier="speech" id="AUS-pu-oiz" customClass="SpeechViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lHG-rx-6Jc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="27" translatesAutoresizingMaskIntoConstraints="NO" id="heM-Hy-qRc">
+                                <rect key="frame" x="100" y="820" width="214" height="22"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BUu-7l-7ju">
+                                        <rect key="frame" x="0.0" y="0.0" width="21" height="22"/>
+                                        <state key="normal" image="backward.end" catalog="system"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oHI-ld-dSJ">
+                                        <rect key="frame" x="48" y="0.0" width="21.5" height="22"/>
+                                        <state key="normal" image="backward" catalog="system"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uey-GC-yPi">
+                                        <rect key="frame" x="96.5" y="0.0" width="21" height="22"/>
+                                        <state key="normal" image="play" catalog="system"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HQh-6m-qY8">
+                                        <rect key="frame" x="144.5" y="0.0" width="21.5" height="22"/>
+                                        <state key="normal" image="forward" catalog="system"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IBR-UL-7Gh">
+                                        <rect key="frame" x="193" y="0.0" width="21" height="22"/>
+                                        <state key="normal" image="forward.end" catalog="system"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="fGQ-qf-b1U" firstAttribute="bottom" secondItem="heM-Hy-qRc" secondAttribute="bottom" constant="20" id="77S-cx-WsV"/>
+                            <constraint firstItem="fGQ-qf-b1U" firstAttribute="trailing" secondItem="heM-Hy-qRc" secondAttribute="trailing" constant="100" id="RNw-TL-9PY"/>
+                            <constraint firstItem="heM-Hy-qRc" firstAttribute="leading" secondItem="fGQ-qf-b1U" secondAttribute="leading" constant="100" id="brm-hB-zYL"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="fGQ-qf-b1U"/>
+                    </view>
+                    <connections>
+                        <outlet property="backButton" destination="BUu-7l-7ju" id="i5I-lu-YaN"/>
+                        <outlet property="fasterButton" destination="HQh-6m-qY8" id="Lvy-m7-8zI"/>
+                        <outlet property="nextButton" destination="IBR-UL-7Gh" id="bHk-2T-6Fe"/>
+                        <outlet property="playOrPauseButton" destination="Uey-GC-yPi" id="txr-sV-Xng"/>
+                        <outlet property="slowerButton" destination="oHI-ld-dSJ" id="eR2-jh-ZP3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9D0-KC-F7V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3011.594202898551" y="1719.6428571428571"/>
+        </scene>
         <!--Main Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
@@ -670,10 +724,15 @@
     </scenes>
     <resources>
         <image name="ToggleOn" width="73.5" height="48"/>
+        <image name="backward" catalog="system" width="64" height="38"/>
+        <image name="backward.end" catalog="system" width="64" height="60"/>
         <image name="book.fill" catalog="system" width="64" height="50"/>
         <image name="bookmark.fill" catalog="system" width="56" height="64"/>
+        <image name="forward" catalog="system" width="64" height="38"/>
+        <image name="forward.end" catalog="system" width="64" height="60"/>
         <image name="magnifyingglass" catalog="system" width="64" height="56"/>
         <image name="pencil" catalog="system" width="64" height="56"/>
+        <image name="play" catalog="system" width="60" height="64"/>
         <image name="trash" catalog="system" width="60" height="64"/>
         <image name="xmark" catalog="system" width="64" height="56"/>
     </resources>

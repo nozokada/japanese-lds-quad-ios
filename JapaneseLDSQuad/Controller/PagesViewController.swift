@@ -24,13 +24,6 @@ class PagesViewController: UIPageViewController {
     var currentChapterIndex: Int!
     var currentRelativeOffset: CGFloat = 0
     
-    var currentSpokenVerseIndex = 0
-    lazy var speechSynthesizer: AVSpeechSynthesizer = {
-        let synthesizer = AVSpeechSynthesizer()
-        synthesizer.delegate = self
-        return synthesizer
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
@@ -42,13 +35,11 @@ class PagesViewController: UIPageViewController {
         currentChapterIndex = AppUtility.shared.getChapterNumberFromScriptureId(id: targetChapterId) - 1
         currentContentViewController = getViewControllerAt(index: currentChapterIndex)
         setTitle()
-//        initializeSpeechButtons()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updatePageContentView()
-//        initializeSpeechButtons()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -115,9 +106,16 @@ class PagesViewController: UIPageViewController {
 
 
 extension PagesViewController: SettingsChangeDelegate {
+    
     func reload() {
         setCurrentRelativeOffset()
         updatePageContentView()
+    }
+}
+
+extension PagesViewController: ScriptureToSpeechDelegate {
+    
+    func move() {
     }
 }
 

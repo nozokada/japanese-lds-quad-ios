@@ -9,11 +9,6 @@
 import UIKit
 import RealmSwift
 
-protocol HighlightChangeDelegate {
-    
-    func removeHighlight(id: String)
-}
-
 class NoteViewController: UIViewController {
     
     var realm: Realm!
@@ -29,7 +24,7 @@ class NoteViewController: UIViewController {
     
     var highlightedText: HighlightedText?
     var bottomY: CGFloat = UIScreen.main.bounds.height
-    var isAtBottom = true
+    var isHidden = true
     
     let noteTextViewPlaceholder = "notePlaceholder".localized
     let noteTextViewPlaceholderTextColor = UIColor.lightGray
@@ -52,7 +47,7 @@ class NoteViewController: UIViewController {
         super.viewWillTransition(to: size, with: coordinator)
         view.isHidden = true
         coordinator.animate(alongsideTransition: nil) { _ in
-            if self.isAtBottom {
+            if self.isHidden {
                 self.hide(animated: false)
             } else {
                 self.show(animated: false)
@@ -99,34 +94,34 @@ class NoteViewController: UIViewController {
     func show(animated: Bool = true) {
         updateBottomY()
         adjustNoteTextViewHeight()
-        UIView.animate(withDuration: animated ? Constants.Duration.noteViewAnimation : 0) {
+        UIView.animate(withDuration: animated ? Constants.Duration.slideUpViewAnimation : 0) {
             let frame = self.view.frame
             let y = self.bottomY - frame.height / 3
             self.view.frame = CGRect(x: 0, y: y, width: frame.width, height: frame.height)
         }
-        isAtBottom = false
+        isHidden = false
     }
     
     func showFull(animated: Bool = true) {
         updateBottomY()
         adjustNoteTextViewHeight()
-        UIView.animate(withDuration: animated ? Constants.Duration.noteViewAnimation : 0) {
+        UIView.animate(withDuration: animated ? Constants.Duration.slideUpViewAnimation : 0) {
             let frame = self.view.frame
             let y = self.bottomY - frame.height / 2
             self.view.frame = CGRect(x: 0, y: y, width: frame.width, height: frame.height)
         }
-        isAtBottom = false
+        isHidden = false
     }
     
     func hide(animated: Bool = true) {
         updateBottomY()
         adjustNoteTextViewHeight()
-        UIView.animate(withDuration: animated ? Constants.Duration.noteViewAnimation : 0) {
+        UIView.animate(withDuration: animated ? Constants.Duration.slideUpViewAnimation : 0) {
             let frame = self.view.frame
             let y = self.bottomY
             self.view.frame = CGRect(x: 0, y: y, width: frame.width, height: frame.height)
         }
-        isAtBottom = true
+        isHidden = true
     }
     
     @objc func panGesture(recognizer: UIPanGestureRecognizer) {

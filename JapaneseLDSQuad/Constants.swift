@@ -21,6 +21,7 @@ struct Constants {
         static let content = "content"
         static let notes = "notes"
         static let settings = "settings"
+        static let speech = "speech"
     }
     
     struct ReuseID {
@@ -67,6 +68,7 @@ struct Constants {
         static let highlightCellLabelVerticalPadding: CGFloat = 12
         static let highlightCellLabelHorizontalPadding: CGFloat = 8
         static let noteViewTitleVerticalPadding: CGFloat = 20
+        static let speechViewButtonVerticalPadding: CGFloat = 20
     }
     
     struct TextSize {
@@ -96,7 +98,7 @@ struct Constants {
     }
     
     struct Duration {
-        static let noteViewAnimation = 0.3
+        static let slideUpViewAnimation = 0.3
     }
     
     struct ChapterType {

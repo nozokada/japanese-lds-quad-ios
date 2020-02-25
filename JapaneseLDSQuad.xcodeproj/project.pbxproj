@@ -22,6 +22,8 @@
 		D40B3E9F23E8E6DD00276662 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40B3E9E23E8E6DD00276662 /* StringExtension.swift */; };
 		D41EC66A24011328001521D8 /* ScriptureToSpeechDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EC66924011328001521D8 /* ScriptureToSpeechDelegate.swift */; };
 		D41EC66E24034822001521D8 /* SpeechUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EC66D24034822001521D8 /* SpeechUtility.swift */; };
+		D41EC6722404CF18001521D8 /* SpeechViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EC6712404CF18001521D8 /* SpeechViewController.swift */; };
+		D41EC67424050876001521D8 /* HighlightChangeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EC67324050876001521D8 /* HighlightChangeDelegate.swift */; };
 		D4212A1D23E7BC02002CD60A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4212A1C23E7BC02002CD60A /* AppDelegate.swift */; };
 		D4212A1F23E7BC02002CD60A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4212A1E23E7BC02002CD60A /* SceneDelegate.swift */; };
 		D4212A2123E7BC02002CD60A /* BooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4212A2023E7BC02002CD60A /* BooksViewController.swift */; };
@@ -104,6 +106,8 @@
 		D40B3E9E23E8E6DD00276662 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		D41EC66924011328001521D8 /* ScriptureToSpeechDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptureToSpeechDelegate.swift; sourceTree = "<group>"; };
 		D41EC66D24034822001521D8 /* SpeechUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechUtility.swift; sourceTree = "<group>"; };
+		D41EC6712404CF18001521D8 /* SpeechViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechViewController.swift; sourceTree = "<group>"; };
+		D41EC67324050876001521D8 /* HighlightChangeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightChangeDelegate.swift; sourceTree = "<group>"; };
 		D4212A1923E7BC02002CD60A /* JapaneseLDSQuad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JapaneseLDSQuad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4212A1C23E7BC02002CD60A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4212A1E23E7BC02002CD60A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -229,6 +233,7 @@
 				D40B3E6B23E7F89500276662 /* BookmarksViewController.swift */,
 				D4EBF00223FA508C00275624 /* HighlightsViewController.swift */,
 				D47EFBC523FE5B28001E213F /* NoteViewController.swift */,
+				D41EC6712404CF18001521D8 /* SpeechViewController.swift */,
 				D4EBEFFC23F8EF4700275624 /* SettingsViewController.swift */,
 			);
 			path = Controller;
@@ -275,8 +280,9 @@
 				D475CCFA23E9538300678A85 /* BookmarksManager.swift */,
 				D475CCFC23E953F200678A85 /* HighlightsManager.swift */,
 				D475CCF623E9521200678A85 /* PurchaseManager.swift */,
-				D4EBF00023F906E200275624 /* SettingsChangeDelegate.swift */,
+				D41EC67324050876001521D8 /* HighlightChangeDelegate.swift */,
 				D41EC66924011328001521D8 /* ScriptureToSpeechDelegate.swift */,
+				D4EBF00023F906E200275624 /* SettingsChangeDelegate.swift */,
 				D40B3E6E23E892C600276662 /* Controller */,
 				D40B3E6D23E892B600276662 /* Model */,
 				D475CCE323E92D2600678A85 /* View */,
@@ -574,6 +580,7 @@
 				D4212A2323E7BC02002CD60A /* SearchViewController.swift in Sources */,
 				D40B3E7023E892F900276662 /* Book.swift in Sources */,
 				D47EFBC823FFBB9A001E213F /* MainButton.swift in Sources */,
+				D41EC67424050876001521D8 /* HighlightChangeDelegate.swift in Sources */,
 				D475CCEB23E934F200678A85 /* ContentViewController.swift in Sources */,
 				D475CCE223E9293700678A85 /* MainNavigationController.swift in Sources */,
 				D475CCF923E9534800678A85 /* AnnotationsManager.swift in Sources */,
@@ -595,6 +602,7 @@
 				D47EFBC623FE5B28001E213F /* NoteViewController.swift in Sources */,
 				D44FF28C23ECAB8E0014B30F /* HymnBuilder.swift in Sources */,
 				D44FF28E23ECB3460014B30F /* BibleDictionaryBuilder.swift in Sources */,
+				D41EC6722404CF18001521D8 /* SpeechViewController.swift in Sources */,
 				D4212A1D23E7BC02002CD60A /* AppDelegate.swift in Sources */,
 				D475CCED23E935F400678A85 /* PagesViewController.swift in Sources */,
 				D40B3E9F23E8E6DD00276662 /* StringExtension.swift in Sources */,

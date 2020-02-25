@@ -25,7 +25,7 @@ extension SettingsChangeDelegate where Self: UIViewController {
     }
 }
 
-extension UIViewController: UIPopoverPresentationControllerDelegate {
+extension UIViewController {
     
     @objc func presentSettingsViewController(sender: UIBarButtonItem) {
         if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.settings) as? SettingsViewController {
@@ -38,6 +38,9 @@ extension UIViewController: UIPopoverPresentationControllerDelegate {
             present(viewController, animated: true, completion: nil)
         }
     }
+}
+
+extension UIViewController: UIPopoverPresentationControllerDelegate {
     
     public func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
