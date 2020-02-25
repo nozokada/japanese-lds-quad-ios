@@ -21,7 +21,6 @@ class ContentViewController: UIViewController {
     
     @IBOutlet weak var webView: MainWebView!
     var spinner: MainIndicatorView!
-    var noteViewController: NoteViewController!
     
     var relativeOffset: CGFloat = 0
     var lastTapPoint = CGPoint(x: 0, y: 0)
@@ -37,7 +36,7 @@ class ContentViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        addBottomSheetNoteView()
+        addNoteViewController()
     }
     
     func initData(contentViewData: ContentViewData) {
@@ -54,19 +53,6 @@ class ContentViewController: UIViewController {
     
     func hideActivityIndicator() {
         spinner.stopAnimating()
-    }
-    
-    func addBottomSheetNoteView() {
-        guard let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.notes) as? NoteViewController else { return }
-        addChild(viewController)
-        view.addSubview(viewController.view)
-        viewController.didMove(toParent: self)
-        viewController.delegate = self
-        
-        let height = view.frame.height
-        let width  = view.frame.width
-        viewController.view.frame = CGRect(x: 0, y: view.frame.maxY, width: width, height: height)
-        noteViewController = viewController
     }
 }
 
@@ -124,8 +110,10 @@ extension ContentViewController: WKNavigationDelegate {
     }
     
     func showNote(highlightedTextId: String) {
-        noteViewController.initHighlightedText(id: highlightedTextId)
-        noteViewController.show()
+        if let noteViewController = getNoteViewController() {
+            noteViewController.initHighlightedText(id: highlightedTextId)
+            noteViewController.show()
+        }
     }
     
     func presentAnotherContent(path: [String]) {
@@ -175,7 +163,9 @@ extension ContentViewController: HighlightChangeDelegate {
             self.webView.evaluateJavaScript(JavaScriptSnippets.getScriptureContent(textId: id)) { result, error in
                 guard let content = result as? String else { return }
                 HighlightsManager.shared.removeHighlight(id: id, content: content, language: language)
-                self.noteViewController.hide()
+                if let noteViewController = self.getNoteViewController() {
+                    noteViewController.hide()
+                }
             }
         }
     }

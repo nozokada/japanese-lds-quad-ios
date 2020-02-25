@@ -23,33 +23,34 @@ extension ScriptureToSpeechDelegate where Self: UIViewController {
             navigationItem.rightBarButtonItem = speechButton
         }
     }
+    
+    func addSpeechViewController() {
+        guard let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.speech) as? SpeechViewController else { return }
+        addChild(viewController)
+        view.addSubview(viewController.view)
+        viewController.didMove(toParent: self)
+        viewController.delegate = self
+        
+        let height = view.frame.height
+        let width  = view.frame.width
+        viewController.view.frame = CGRect(x: 0, y: 0 - view.frame.height, width: width, height: height)
+    }
 }
 
 extension UIViewController {
     
     @objc func showOrHideSpeechControlPanel(sender: UIBarButtonItem) {
-        var speechViewController: SpeechViewController
-        let speechViewControllers = children.filter { $0 is SpeechViewController } as! [SpeechViewController]
-        
-        if let viewController = speechViewControllers.first {
-            speechViewController = viewController
-        } else {
-            guard let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.speech) as? SpeechViewController else { return }
-            addChild(viewController)
-            view.addSubview(viewController.view)
-            viewController.didMove(toParent: self)
-            viewController.delegate = self as? ScriptureToSpeechDelegate
-            
-            let height = view.frame.height
-            let width  = view.frame.width
-            viewController.view.frame = CGRect(x: 0, y: 0 - view.frame.height, width: width, height: height)
-            speechViewController = viewController
-        }
+        guard let speechViewController = getSpeechViewController() else { return }
  
         if speechViewController.isHidden {
             speechViewController.show()
         } else {
             speechViewController.hide()
         }
+    }
+    
+    func getSpeechViewController() -> SpeechViewController? {
+        let speechViewControllers = children.filter { $0 is SpeechViewController } as! [SpeechViewController]
+        return speechViewControllers.first
     }
 }
