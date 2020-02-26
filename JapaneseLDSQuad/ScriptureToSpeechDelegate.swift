@@ -12,7 +12,7 @@ protocol ScriptureToSpeechDelegate {
     
     func scroll()
     
-    func setScripturesToSpeech()
+    func updateScripturesToSpeech()
 }
 
 extension ScriptureToSpeechDelegate where Self: UIViewController {

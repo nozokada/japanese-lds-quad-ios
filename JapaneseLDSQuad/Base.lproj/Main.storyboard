@@ -238,6 +238,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BUu-7l-7ju">
                                         <rect key="frame" x="0.0" y="0.0" width="21" height="22"/>
                                         <state key="normal" image="backward.end" catalog="system"/>
+                                        <connections>
+                                            <action selector="backButtonTapped:" destination="AUS-pu-oiz" eventType="touchUpInside" id="eNi-7h-KF6"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oHI-ld-dSJ">
                                         <rect key="frame" x="48" y="0.0" width="21.5" height="22"/>
@@ -257,6 +260,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IBR-UL-7Gh">
                                         <rect key="frame" x="193" y="0.0" width="21" height="22"/>
                                         <state key="normal" image="forward.end" catalog="system"/>
+                                        <connections>
+                                            <action selector="nextButtonTapped:" destination="AUS-pu-oiz" eventType="touchUpInside" id="h5I-ii-aeO"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>

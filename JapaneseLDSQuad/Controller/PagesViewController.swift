@@ -125,9 +125,10 @@ extension PagesViewController: ScriptureToSpeechDelegate {
         // TODO: Implement the automatic scroll feature for Scripture-to-Speech
     }
     
-    func setScripturesToSpeech() {
-        let speechViewController = getSpeechViewController()
-        speechViewController?.initScriptureToSpeech(chapterId: targetChapterId, scriptures: scripturesInBook)
+    func updateScripturesToSpeech() {
+        if let speechViewController = getSpeechViewController() {
+            speechViewController.initScriptureToSpeech(chapterId: targetChapterId, scriptures: scripturesInBook)
+        }
     }
 }
 
@@ -161,143 +162,6 @@ extension PagesViewController: UIPageViewControllerDelegate {
             setTitle()
         }
         targetVerse = nil
-//        loadSpeechVerses()
-//        stopSpeaking()
+        updateScripturesToSpeech()
     }
 }
-
-//extension ContentViewController: AVSpeechSynthesizerDelegate {
-//
-//    @objc func speechForwardButtonTapped(_ sender: UIButton) {
-//        currentSpokenVerseIndex += 1
-//        if currentSpokenVerseIndex < speechVerses.count {
-//            speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
-//            speakCurrentVerseNumber()
-//            startSpeaking()
-//        }
-//        else {
-//            currentSpokenVerseIndex -= 1
-//        }
-//    }
-//
-//    @objc func speechBackButtonTapped(_ sender: UIButton) {
-//        speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
-//        currentSpokenVerseIndex -= 1
-//        if currentSpokenVerseIndex < 0 {
-//            currentSpokenVerseIndex += 1
-//        }
-//        speakCurrentVerseNumber()
-//        startSpeaking()
-//    }
-//
-//    func speakCurrentVerseNumber() {
-//        let verseNumber = speechVerses[currentSpokenVerseIndex].verse
-//        let utterance = AVSpeechUtterance(string: "\(verseNumber)")
-//        utterance.voice = AVSpeechSynthesisVoice(language: Constants.LanguageCodes.PrimarySpeech)
-//        utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 1.1
-//        speechSynthesizer.speak(utterance)
-//    }
-//
-//    func speakCurrentVerse(langCode: String) {
-//        if speechActive {
-//            let spokenVerse = speechVerses[currentSpokenVerseIndex]
-//            let speechText = langCode == Constants.LanguageCodes.PrimarySpeech ?
-//                SpeechCorrectionUtility.correctPrimaryLanguage(speechText: spokenVerse.scripture_primary_raw) :
-//                SpeechCorrectionUtility.correctSecondaryLanguage(speechText: spokenVerse.scripture_secondary_raw)
-//
-//            speechQueue.async {
-//                let utterance = AVSpeechUtterance(string: speechText)
-//                utterance.voice = AVSpeechSynthesisVoice(language: langCode)
-//                utterance.rate = AVSpeechUtteranceDefaultSpeechRate
-//                self.speechSynthesizer.speak(utterance)
-//            }
-//        }
-//    }
-//
-//    func addRemoteControlEvent() {
-//        let commandCenter = MPRemoteCommandCenter.shared()
-//
-//        commandCenter.playCommand.addTarget(self, action: #selector(speechPlayButtonTapped))
-//        commandCenter.pauseCommand.addTarget(self, action: #selector(speechPlayButtonTapped))
-//        commandCenter.nextTrackCommand.addTarget(self, action: #selector(speechForwardButtonTapped))
-//        commandCenter.previousTrackCommand.addTarget(self, action: #selector(speechBackButtonTapped))
-//    }
-//
-//    func registerForNotifications() {
-//        NotificationCenter.default.addObserver(self,
-//                                               selector: #selector(handleInterruption),
-//                                               name: .AVAudioSessionInterruption,
-//                                               object: AVAudioSession.sharedInstance())
-//        NotificationCenter.default.addObserver(self,
-//                                               selector: #selector(handleRouteChange),
-//                                               name: .AVAudioSessionRouteChange,
-//                                               object: AVAudioSession.sharedInstance())
-//    }
-//
-//    @objc func handleInterruption(_ notification: Notification) {
-//        guard let info = notification.userInfo,
-//            let typeValue = info[AVAudioSessionInterruptionTypeKey] as? UInt,
-//            let type = AVAudioSessionInterruptionType(rawValue: typeValue) else {
-//                return
-//        }
-//
-//        switch type {
-//        case .began:
-//            pauseSpeaking()
-//            break
-//
-//        case .ended:
-//            pauseSpeaking()
-//            break
-//        }
-//    }
-//
-//    @objc func handleRouteChange(_ notification: Notification) {
-//        guard let info = notification.userInfo,
-//            let reasonValue = info[AVAudioSessionRouteChangeReasonKey] as? UInt,
-//            let reason = AVAudioSessionRouteChangeReason(rawValue: reasonValue) else {
-//                return
-//        }
-//
-//        switch reason {
-//        case .oldDeviceUnavailable:
-//            pauseSpeaking()
-//            break
-//
-//        default:
-//            break
-//        }
-//    }
-//
-//    func startSpeaking() {
-//        speechActive = true
-//        speakCurrentVerse(langCode: Constants.LanguageCodes.PrimarySpeech)
-//        speechPlayButton.setImage(#imageLiteral(resourceName: "Pause"), for: .normal)
-//        showSpeechSkipButtons()
-//    }
-//
-//    func pauseSpeaking() {
-//        speechActive = false
-//        speechSynthesizer.pauseSpeaking(at: AVSpeechBoundary.immediate)
-//        DispatchQueue.main.async {
-//            self.speechPlayButton.setImage(#imageLiteral(resourceName: "Headset"), for: .normal)
-//            self.hideSpeechSkipButtons()
-//        }
-//    }
-//
-//    func continueSpeaking() {
-//        speechActive = true
-//        speechSynthesizer.continueSpeaking()
-//        speechPlayButton.setImage(#imageLiteral(resourceName: "Pause"), for: .normal)
-//        showSpeechSkipButtons()
-//    }
-//
-//    func stopSpeaking() {
-//        if PurchaseManager.shared.isPurchased {
-//            speechActive = false
-//            speechSynthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
-//            speechPlayButton.setImage(#imageLiteral(resourceName: "Headset"), for: .normal)
-//            hideSpeechSkipButtons()
-//        }
-//    }
-//}

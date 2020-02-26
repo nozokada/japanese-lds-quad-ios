@@ -53,6 +53,7 @@ class SpeechViewController: UIViewController {
             "id BEGINSWITH '\(chapterId)' AND NOT verse IN {'title', 'counter', 'preface', 'intro', 'summary', 'date'}"
         ).sorted(byKeyPath: "id")
         currentSpokenVerseIndex = 0
+        stop()
     }
     
     func updateTopY() {
@@ -79,44 +80,72 @@ class SpeechViewController: UIViewController {
         isHidden = true
     }
     
+    func play(langCode: String = Constants.LanguageCode.primarySpeech) {
+        speakCurrentVerse(langCode: langCode)
+        playOrPauseButton.setImage(UIImage(systemName: "pause"), for: .normal)
+    }
+    
+    func pause() {
+        speechSynthesizer.pauseSpeaking(at: .immediate)
+        playOrPauseButton.setImage(UIImage(systemName: "play"), for: .normal)
+    }
+    
+    func resume() {
+        speechSynthesizer.continueSpeaking()
+        playOrPauseButton.setImage(UIImage(systemName: "pause"), for: .normal)
+    }
+    
+    func stop() {
+        speechSynthesizer.stopSpeaking(at: .immediate)
+        playOrPauseButton.setImage(UIImage(systemName: "play"), for: .normal)
+    }
+    
     @IBAction func playButtonTapped(_ sender: Any) {
         if speechSynthesizer.isPaused {
-            speechSynthesizer.continueSpeaking()
-            playOrPauseButton.setImage(UIImage(systemName: "pause"), for: .normal)
+            resume()
         } else if speechSynthesizer.isSpeaking {
-            speechSynthesizer.pauseSpeaking(at: .immediate)
-            DispatchQueue.main.async {
-                self.playOrPauseButton.setImage(UIImage(systemName: "play"), for: .normal)
-            }
+            pause()
         } else {
-            delegate?.setScripturesToSpeech()
-            speakCurrentVerse(langCode: Constants.LanguageCode.primarySpeech)
-            playOrPauseButton.setImage(UIImage(systemName: "pause"), for: .normal)
+            delegate?.updateScripturesToSpeech()
+            play()
         }
     }
+    
+    @IBAction func nextButtonTapped(_ sender: Any) {
+        currentSpokenVerseIndex += 1
+        if currentSpokenVerseIndex < speechVerses.count {
+            speechSynthesizer.stopSpeaking(at: .immediate)
+            speakCurrentVerseNumber()
+            play()
+        } else {
+            currentSpokenVerseIndex -= 1
+        }
+    }
+    
+    @IBAction func backButtonTapped(_ sender: Any) {
+        speechSynthesizer.stopSpeaking(at: .immediate)
+        currentSpokenVerseIndex -= 1
+        if currentSpokenVerseIndex < 0 {
+            currentSpokenVerseIndex += 1
+        }
+        speakCurrentVerseNumber()
+        play()
+    }
 }
-
-//extension SpeechViewController: SettingsChangeDelegate {
-//
-//    func reload() {
-//        view.backgroundColor = AppUtility.shared.getCurrentBackgroundColor()
-//    }
-//}
 
 extension SpeechViewController: AVSpeechSynthesizerDelegate {
     
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        let englishEnabled = UserDefaults.standard.bool(forKey: Constants.Config.dual)
+        let dualEnabled = UserDefaults.standard.bool(forKey: Constants.Config.dual)
         if utterance.rate != AVSpeechUtteranceDefaultSpeechRate {
             return
-        } else if englishEnabled && utterance.voice == AVSpeechSynthesisVoice(language: Constants.LanguageCode.primarySpeech) {
-            speakCurrentVerse(langCode: Constants.LanguageCode.secondarySpeech)
+        } else if dualEnabled && utterance.voice == AVSpeechSynthesisVoice(language: Constants.LanguageCode.primarySpeech) {
+            play(langCode: Constants.LanguageCode.secondarySpeech)
         } else {
             currentSpokenVerseIndex += 1
             if currentSpokenVerseIndex < speechVerses!.count {
-                speakCurrentVerse(langCode: Constants.LanguageCode.primarySpeech)
-            }
-            else {
+                play()
+            } else {
                 currentSpokenVerseIndex = 0
             }
         }
@@ -128,11 +157,17 @@ extension SpeechViewController: AVSpeechSynthesizerDelegate {
             ? SpeechUtility.correctPrimaryLanguage(speechText: spokenVerse.scripture_primary_raw)
             : SpeechUtility.correctSecondaryLanguage(speechText: spokenVerse.scripture_secondary_raw)
 
-        DispatchQueue.main.async {
-            let utterance = AVSpeechUtterance(string: speechText)
-            utterance.voice = AVSpeechSynthesisVoice(language: langCode)
-            utterance.rate = AVSpeechUtteranceDefaultSpeechRate
-            self.speechSynthesizer.speak(utterance)
-        }
+        let utterance = AVSpeechUtterance(string: speechText)
+        utterance.voice = AVSpeechSynthesisVoice(language: langCode)
+        utterance.rate = AVSpeechUtteranceDefaultSpeechRate
+        self.speechSynthesizer.speak(utterance)
+    }
+    
+    func speakCurrentVerseNumber() {
+        let verseNumber = speechVerses[currentSpokenVerseIndex].verse
+        let utterance = AVSpeechUtterance(string: "\(verseNumber)")
+        utterance.voice = AVSpeechSynthesisVoice(language: Constants.LanguageCode.primarySpeech)
+        utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 1.1
+        speechSynthesizer.speak(utterance)
     }
 }
