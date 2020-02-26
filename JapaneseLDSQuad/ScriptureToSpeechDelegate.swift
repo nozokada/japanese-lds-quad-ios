@@ -10,7 +10,9 @@ import UIKit
 
 protocol ScriptureToSpeechDelegate {
     
-    func move()
+    func scroll()
+    
+    func setScripturesToSpeech()
 }
 
 extension ScriptureToSpeechDelegate where Self: UIViewController {

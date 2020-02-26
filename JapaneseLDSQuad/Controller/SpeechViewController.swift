@@ -35,11 +35,6 @@ class SpeechViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        reload()
-    }
-    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         view.isHidden = true
@@ -57,6 +52,7 @@ class SpeechViewController: UIViewController {
         speechVerses = scriptures.filter(
             "id BEGINSWITH '\(chapterId)' AND NOT verse IN {'title', 'counter', 'preface', 'intro', 'summary', 'date'}"
         ).sorted(byKeyPath: "id")
+        currentSpokenVerseIndex = 0
     }
     
     func updateTopY() {
@@ -82,14 +78,30 @@ class SpeechViewController: UIViewController {
         }
         isHidden = true
     }
-}
-
-extension SpeechViewController: SettingsChangeDelegate {
     
-    func reload() {
-        view.backgroundColor = AppUtility.shared.getCurrentBackgroundColor()
+    @IBAction func playButtonTapped(_ sender: Any) {
+        if speechSynthesizer.isPaused {
+            speechSynthesizer.continueSpeaking()
+            playOrPauseButton.setImage(UIImage(systemName: "pause"), for: .normal)
+        } else if speechSynthesizer.isSpeaking {
+            speechSynthesizer.pauseSpeaking(at: .immediate)
+            DispatchQueue.main.async {
+                self.playOrPauseButton.setImage(UIImage(systemName: "play"), for: .normal)
+            }
+        } else {
+            delegate?.setScripturesToSpeech()
+            speakCurrentVerse(langCode: Constants.LanguageCode.primarySpeech)
+            playOrPauseButton.setImage(UIImage(systemName: "pause"), for: .normal)
+        }
     }
 }
+
+//extension SpeechViewController: SettingsChangeDelegate {
+//
+//    func reload() {
+//        view.backgroundColor = AppUtility.shared.getCurrentBackgroundColor()
+//    }
+//}
 
 extension SpeechViewController: AVSpeechSynthesizerDelegate {
     
@@ -97,19 +109,15 @@ extension SpeechViewController: AVSpeechSynthesizerDelegate {
         let englishEnabled = UserDefaults.standard.bool(forKey: Constants.Config.dual)
         if utterance.rate != AVSpeechUtteranceDefaultSpeechRate {
             return
-        }
-        else if englishEnabled && utterance.voice == AVSpeechSynthesisVoice(language: Constants.LanguageCode.primarySpeech) {
+        } else if englishEnabled && utterance.voice == AVSpeechSynthesisVoice(language: Constants.LanguageCode.primarySpeech) {
             speakCurrentVerse(langCode: Constants.LanguageCode.secondarySpeech)
-        }
-        else {
+        } else {
             currentSpokenVerseIndex += 1
             if currentSpokenVerseIndex < speechVerses!.count {
                 speakCurrentVerse(langCode: Constants.LanguageCode.primarySpeech)
             }
             else {
                 currentSpokenVerseIndex = 0
-//                speechPlayButton.setImage(#imageLiteral(resourceName: "Headset"), for: .normal)
-//                hideSpeechSkipButtons()
             }
         }
     }

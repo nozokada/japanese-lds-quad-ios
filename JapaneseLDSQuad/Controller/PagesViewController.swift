@@ -121,7 +121,13 @@ extension PagesViewController: SettingsChangeDelegate {
 
 extension PagesViewController: ScriptureToSpeechDelegate {
     
-    func move() {
+    func scroll() {
+        // TODO: Implement the automatic scroll feature for Scripture-to-Speech
+    }
+    
+    func setScripturesToSpeech() {
+        let speechViewController = getSpeechViewController()
+        speechViewController?.initScriptureToSpeech(chapterId: targetChapterId, scriptures: scripturesInBook)
     }
 }
 
@@ -162,18 +168,6 @@ extension PagesViewController: UIPageViewControllerDelegate {
 
 //extension ContentViewController: AVSpeechSynthesizerDelegate {
 //
-//    @objc func speechPlayButtonTapped(_ sender: UIButton) {
-//        if speechSynthesizer.isPaused {
-//            continueSpeaking()
-//        }
-//        else if speechSynthesizer.isSpeaking {
-//            pauseSpeaking()
-//        }
-//        else {
-//            startSpeaking()
-//        }
-//    }
-//
 //    @objc func speechForwardButtonTapped(_ sender: UIButton) {
 //        currentSpokenVerseIndex += 1
 //        if currentSpokenVerseIndex < speechVerses.count {
@@ -196,11 +190,6 @@ extension PagesViewController: UIPageViewControllerDelegate {
 //        startSpeaking()
 //    }
 //
-//    func loadSpeechVerses() {
-//        speechVerses = scripturesList.filter("id BEGINSWITH '\(targetChapterId)' AND NOT verse IN {'title', 'counter', 'preface', 'intro', 'summary', 'date'}").sorted(byKeyPath: "id")
-//        currentSpokenVerseIndex = 0
-//    }
-//
 //    func speakCurrentVerseNumber() {
 //        let verseNumber = speechVerses[currentSpokenVerseIndex].verse
 //        let utterance = AVSpeechUtterance(string: "\(verseNumber)")
@@ -221,27 +210,6 @@ extension PagesViewController: UIPageViewControllerDelegate {
 //                utterance.voice = AVSpeechSynthesisVoice(language: langCode)
 //                utterance.rate = AVSpeechUtteranceDefaultSpeechRate
 //                self.speechSynthesizer.speak(utterance)
-//            }
-//        }
-//    }
-//
-//    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-//        let englishEnabled = UserDefaults.standard.bool(forKey: Constants.Configs.Dual)
-//        if utterance.rate != AVSpeechUtteranceDefaultSpeechRate {
-//            return
-//        }
-//        else if englishEnabled && utterance.voice == AVSpeechSynthesisVoice(language: Constants.LanguageCodes.PrimarySpeech) {
-//            speakCurrentVerse(langCode: Constants.LanguageCodes.SecondarySpeech)
-//        }
-//        else {
-//            currentSpokenVerseIndex += 1
-//            if currentSpokenVerseIndex < speechVerses.count {
-//                speakCurrentVerse(langCode: Constants.LanguageCodes.PrimarySpeech)
-//            }
-//            else {
-//                currentSpokenVerseIndex = 0
-//                speechPlayButton.setImage(#imageLiteral(resourceName: "Headset"), for: .normal)
-//                hideSpeechSkipButtons()
 //            }
 //        }
 //    }
@@ -331,15 +299,5 @@ extension PagesViewController: UIPageViewControllerDelegate {
 //            speechPlayButton.setImage(#imageLiteral(resourceName: "Headset"), for: .normal)
 //            hideSpeechSkipButtons()
 //        }
-//    }
-//
-//    func showSpeechSkipButtons() {
-//        speechForwardButton.isHidden = false
-//        speechBackButton.isHidden = false
-//    }
-//
-//    func hideSpeechSkipButtons() {
-//        speechForwardButton.isHidden = true
-//        speechBackButton.isHidden = true
 //    }
 //}
