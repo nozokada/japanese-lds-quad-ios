@@ -34,6 +34,9 @@ class SpeechViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        prepareBackgroundView()
+        let gesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture))
+        view.addGestureRecognizer(gesture)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -47,6 +50,14 @@ class SpeechViewController: UIViewController {
             }
             self.view.isHidden = false
         }
+    }
+    
+    func prepareBackgroundView(){
+        let blurEffect = UIBlurEffect(style: .light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.insertSubview(blurEffectView, at: 0)
     }
     
     func initScripturesToSpeech(chapterId: String, scriptures: Results<Scripture>) {
@@ -80,6 +91,24 @@ class SpeechViewController: UIViewController {
             self.view.frame = CGRect(x: 0, y: y, width: frame.width, height: frame.height)
         }
         isHidden = true
+    }
+    
+    @objc func panGesture(recognizer: UIPanGestureRecognizer) {
+        let translation = recognizer.translation(in: view)
+        let frame = view.frame
+        let newY = frame.minY + translation.y
+        if newY < 0 {
+            view.frame = CGRect(x: 0, y: newY, width: frame.width, height: frame.height)
+            recognizer.setTranslation(CGPoint.zero, in: view)
+        }
+        
+        if recognizer.state == .ended {
+            if newY > topY + playOrPauseButton.frame.height {
+                show()
+            } else {
+                hide()
+            }
+        }
     }
     
     func play(langCode: String = Constants.LanguageCode.primarySpeech) {
