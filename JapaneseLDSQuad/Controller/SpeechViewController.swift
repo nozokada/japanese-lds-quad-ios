@@ -104,10 +104,11 @@ class SpeechViewController: UIViewController {
     }
     
     func speakCurrentVerse(langCode: String) {
-        guard let spokenVerse = speechVerses?[currentSpokenVerseIndex] else { return }
+        guard let verses = speechVerses else { return }
+        let verse = verses[currentSpokenVerseIndex]
         let speechText = langCode == Constants.LanguageCode.primarySpeech
-            ? SpeechUtility.correctPrimaryLanguage(speechText: spokenVerse.scripture_primary_raw)
-            : SpeechUtility.correctSecondaryLanguage(speechText: spokenVerse.scripture_secondary_raw)
+            ? SpeechUtility.correctPrimaryLanguage(speechText: verse.scripture_primary_raw)
+            : SpeechUtility.correctSecondaryLanguage(speechText: verse.scripture_secondary_raw)
 
         let utterance = AVSpeechUtterance(string: speechText)
         utterance.voice = AVSpeechSynthesisVoice(language: langCode)
@@ -138,6 +139,9 @@ class SpeechViewController: UIViewController {
     }
     
     @IBAction func nextButtonTapped(_ sender: Any) {
+        if speechVerses == nil {
+            delegate?.updateScripturesToSpeech()
+        }
         allowedToPlayNext = true
         currentSpokenVerseIndex += 1
         if currentSpokenVerseIndex < speechVerses.count {
@@ -150,6 +154,9 @@ class SpeechViewController: UIViewController {
     }
     
     @IBAction func backButtonTapped(_ sender: Any) {
+        if speechVerses == nil {
+             delegate?.updateScripturesToSpeech()
+        }
         allowedToPlayNext = true
         stop()
         currentSpokenVerseIndex -= 1
@@ -171,7 +178,7 @@ extension SpeechViewController: AVSpeechSynthesizerDelegate {
             play(langCode: Constants.LanguageCode.secondarySpeech)
         } else {
             currentSpokenVerseIndex += 1
-            if currentSpokenVerseIndex < speechVerses!.count {
+            if currentSpokenVerseIndex < speechVerses.count {
                 play()
             } else {
                 currentSpokenVerseIndex = 0
