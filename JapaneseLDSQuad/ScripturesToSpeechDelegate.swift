@@ -8,14 +8,14 @@
 
 import UIKit
 
-protocol ScriptureToSpeechDelegate {
+protocol ScripturesToSpeechDelegate {
     
     func scroll()
     
     func updateScripturesToSpeech()
 }
 
-extension ScriptureToSpeechDelegate where Self: UIViewController {
+extension ScripturesToSpeechDelegate where Self: UIViewController {
 
     func setSpeechBarButton() {
         let speechButton = UIBarButtonItem(image: UIImage(systemName: "headphones"), style: .plain, target: self, action: #selector(showOrHideSpeechControlPanel(sender:)))

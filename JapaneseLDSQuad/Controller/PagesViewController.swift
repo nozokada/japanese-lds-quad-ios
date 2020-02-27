@@ -51,7 +51,7 @@ class PagesViewController: UIPageViewController {
         super.viewWillAppear(animated)
         targetVerse = nil
         setCurrentRelativeOffset()
-//        stopSpeaking()
+        updateScripturesToSpeech()
     }
     
     func initData(targetScriptureData: TargetScriptureData) {
@@ -119,15 +119,15 @@ extension PagesViewController: SettingsChangeDelegate {
     }
 }
 
-extension PagesViewController: ScriptureToSpeechDelegate {
+extension PagesViewController: ScripturesToSpeechDelegate {
     
     func scroll() {
-        // TODO: Implement the automatic scroll feature for Scripture-to-Speech
+        // TODO: Implement the automatic scroll feature for Scriptures-to-Speech
     }
     
     func updateScripturesToSpeech() {
         if let speechViewController = getSpeechViewController() {
-            speechViewController.initScriptureToSpeech(chapterId: targetChapterId, scriptures: scripturesInBook)
+            speechViewController.initScripturesToSpeech(chapterId: targetChapterId, scriptures: scripturesInBook)
         }
     }
 }

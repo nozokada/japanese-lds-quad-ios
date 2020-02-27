@@ -12,7 +12,7 @@ import AVFoundation
 
 class SpeechViewController: UIViewController {
     
-    var delegate: ScriptureToSpeechDelegate?
+    var delegate: ScripturesToSpeechDelegate?
 
     @IBOutlet weak var playOrPauseButton: UIButton!
     @IBOutlet weak var fasterButton: UIButton!
@@ -26,6 +26,7 @@ class SpeechViewController: UIViewController {
         synthesizer.delegate = self
         return synthesizer
     }()
+    var allowedToPlayNext = false
     var currentSpokenVerseIndex = 0
     
     var topY: CGFloat = 0
@@ -48,12 +49,13 @@ class SpeechViewController: UIViewController {
         }
     }
     
-    func initScriptureToSpeech(chapterId: String, scriptures: Results<Scripture>) {
+    func initScripturesToSpeech(chapterId: String, scriptures: Results<Scripture>) {
+        allowedToPlayNext = false
+        stop()
         speechVerses = scriptures.filter(
             "id BEGINSWITH '\(chapterId)' AND NOT verse IN {'title', 'counter', 'preface', 'intro', 'summary', 'date'}"
         ).sorted(byKeyPath: "id")
         currentSpokenVerseIndex = 0
-        stop()
     }
     
     func updateTopY() {
@@ -81,6 +83,7 @@ class SpeechViewController: UIViewController {
     }
     
     func play(langCode: String = Constants.LanguageCode.primarySpeech) {
+        if !allowedToPlayNext { return }
         speakCurrentVerse(langCode: langCode)
         playOrPauseButton.setImage(UIImage(systemName: "pause"), for: .normal)
     }
@@ -100,21 +103,45 @@ class SpeechViewController: UIViewController {
         playOrPauseButton.setImage(UIImage(systemName: "play"), for: .normal)
     }
     
+    func speakCurrentVerse(langCode: String) {
+        guard let spokenVerse = speechVerses?[currentSpokenVerseIndex] else { return }
+        let speechText = langCode == Constants.LanguageCode.primarySpeech
+            ? SpeechUtility.correctPrimaryLanguage(speechText: spokenVerse.scripture_primary_raw)
+            : SpeechUtility.correctSecondaryLanguage(speechText: spokenVerse.scripture_secondary_raw)
+
+        let utterance = AVSpeechUtterance(string: speechText)
+        utterance.voice = AVSpeechSynthesisVoice(language: langCode)
+        utterance.rate = AVSpeechUtteranceDefaultSpeechRate
+        speechSynthesizer.speak(utterance)
+    }
+    
+    func speakCurrentVerseNumber() {
+        let verseNumber = speechVerses[currentSpokenVerseIndex].verse
+        let utterance = AVSpeechUtterance(string: "\(verseNumber)")
+        utterance.voice = AVSpeechSynthesisVoice(language: Constants.LanguageCode.primarySpeech)
+        utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 1.1
+        speechSynthesizer.speak(utterance)
+    }
+    
     @IBAction func playButtonTapped(_ sender: Any) {
         if speechSynthesizer.isPaused {
+            allowedToPlayNext = true
             resume()
         } else if speechSynthesizer.isSpeaking {
+            allowedToPlayNext = false
             pause()
         } else {
             delegate?.updateScripturesToSpeech()
+            allowedToPlayNext = true
             play()
         }
     }
     
     @IBAction func nextButtonTapped(_ sender: Any) {
+        allowedToPlayNext = true
         currentSpokenVerseIndex += 1
         if currentSpokenVerseIndex < speechVerses.count {
-            speechSynthesizer.stopSpeaking(at: .immediate)
+            stop()
             speakCurrentVerseNumber()
             play()
         } else {
@@ -123,7 +150,8 @@ class SpeechViewController: UIViewController {
     }
     
     @IBAction func backButtonTapped(_ sender: Any) {
-        speechSynthesizer.stopSpeaking(at: .immediate)
+        allowedToPlayNext = true
+        stop()
         currentSpokenVerseIndex -= 1
         if currentSpokenVerseIndex < 0 {
             currentSpokenVerseIndex += 1
@@ -149,25 +177,5 @@ extension SpeechViewController: AVSpeechSynthesizerDelegate {
                 currentSpokenVerseIndex = 0
             }
         }
-    }
-    
-    func speakCurrentVerse(langCode: String) {
-        guard let spokenVerse = speechVerses?[currentSpokenVerseIndex] else { return }
-        let speechText = langCode == Constants.LanguageCode.primarySpeech
-            ? SpeechUtility.correctPrimaryLanguage(speechText: spokenVerse.scripture_primary_raw)
-            : SpeechUtility.correctSecondaryLanguage(speechText: spokenVerse.scripture_secondary_raw)
-
-        let utterance = AVSpeechUtterance(string: speechText)
-        utterance.voice = AVSpeechSynthesisVoice(language: langCode)
-        utterance.rate = AVSpeechUtteranceDefaultSpeechRate
-        self.speechSynthesizer.speak(utterance)
-    }
-    
-    func speakCurrentVerseNumber() {
-        let verseNumber = speechVerses[currentSpokenVerseIndex].verse
-        let utterance = AVSpeechUtterance(string: "\(verseNumber)")
-        utterance.voice = AVSpeechSynthesisVoice(language: Constants.LanguageCode.primarySpeech)
-        utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 1.1
-        speechSynthesizer.speak(utterance)
     }
 }
