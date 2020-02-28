@@ -114,9 +114,14 @@ class SpeechViewController: UIViewController {
         }
     }
     
-    func play(language: String = Constants.LanguageCode.primarySpeech, withNumber: Bool = false) {
+    func play(text: String = "", language: String = Constants.LanguageCode.primarySpeech, withNumber: Bool = false) {
         if !allowedToPlayNext { return }
-        speakCurrentVerse(language: language, withNumber: withNumber)
+        
+        if text.isEmpty {
+            speakCurrentVerse(language: language, withNumber: withNumber)
+        } else {
+            speak(text: text, language: language)
+        }
         playOrPauseButton.setImage(UIImage(systemName: "pause"), for: .normal)
     }
     
@@ -138,17 +143,22 @@ class SpeechViewController: UIViewController {
     func speakCurrentVerse(language: String, withNumber: Bool) {
         guard let scriptures = scripturesToSpeak else { return }
         let scripture = scriptures[currentSpokenVerseIndex]
+        
         var speechText = withNumber ? "\(scripture.verse): " : ""
         speechText.append(language == Constants.LanguageCode.primarySpeech
             ? SpeechUtility.correctPrimaryLanguage(speechText: scripture.scripture_primary_raw)
             : SpeechUtility.correctSecondaryLanguage(speechText: scripture.scripture_secondary_raw))
         
-        initUtterance(speechText: speechText, language: language)
+        speak(text: speechText, language: language)
+    }
+    
+    func speak(text: String, language: String) {
+        initUtterance(speechString: text, language: language)
         speechSynthesizer.speak(currentUtterance)
     }
     
-    func initUtterance(speechText: String, language: String) {
-        let newUtterance = AVSpeechUtterance(string: speechText)
+    func initUtterance(speechString: String, language: String) {
+        let newUtterance = AVSpeechUtterance(string: speechString)
         newUtterance.voice = AVSpeechSynthesisVoice(language: language)
         newUtterance.rate = currentSpeechRate
         currentUtterance = newUtterance
@@ -200,8 +210,7 @@ class SpeechViewController: UIViewController {
         if speechSynthesizer.isSpeaking {
             currentSpeechRate += 0.05
             stop()
-            initUtterance(speechText: remainingSpeechText, language: voice.language)
-            speechSynthesizer.speak(currentUtterance)
+            play(text: remainingSpeechText, language: voice.language)
         }
     }
     
@@ -210,8 +219,7 @@ class SpeechViewController: UIViewController {
         if speechSynthesizer.isSpeaking {
             currentSpeechRate -= 0.05
             stop()
-            initUtterance(speechText: remainingSpeechText, language: voice.language)
-            speechSynthesizer.speak(currentUtterance)
+            play(text: remainingSpeechText, language: voice.language)
         }
     }
 }
