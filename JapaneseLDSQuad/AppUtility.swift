@@ -41,6 +41,10 @@ class AppUtility {
     
     static let shared = AppUtility()
     
+    func dualEnabled() -> Bool {
+         return UserDefaults.standard.bool(forKey: Constants.Config.dual)
+    }
+    
     func getCurrentFont(multiplySizeBy: Double = 1) -> UIFont? {
         let fontName = UserDefaults.standard.bool(forKey: Constants.Config.font)
             ? Constants.Font.min

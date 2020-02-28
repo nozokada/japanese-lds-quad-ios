@@ -245,6 +245,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oHI-ld-dSJ">
                                         <rect key="frame" x="48" y="0.0" width="21.5" height="22"/>
                                         <state key="normal" image="backward" catalog="system"/>
+                                        <connections>
+                                            <action selector="slowerButton:" destination="AUS-pu-oiz" eventType="touchUpInside" id="IHT-ko-U0D"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uey-GC-yPi">
                                         <rect key="frame" x="96.5" y="0.0" width="21" height="22"/>
@@ -256,6 +259,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HQh-6m-qY8">
                                         <rect key="frame" x="144.5" y="0.0" width="21.5" height="22"/>
                                         <state key="normal" image="forward" catalog="system"/>
+                                        <connections>
+                                            <action selector="fasterButtonTapped:" destination="AUS-pu-oiz" eventType="touchUpInside" id="jGW-Y4-fWL"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IBR-UL-7Gh">
                                         <rect key="frame" x="193" y="0.0" width="21" height="22"/>
