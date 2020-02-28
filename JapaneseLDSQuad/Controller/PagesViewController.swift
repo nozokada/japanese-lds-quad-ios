@@ -39,7 +39,7 @@ class PagesViewController: UIPageViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updatePageContentView()
+        reload()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -113,9 +113,8 @@ class PagesViewController: UIPageViewController {
 extension PagesViewController: SettingsChangeDelegate {
     
     func reload() {
-        setCurrentRelativeOffset()
         updatePageContentView()
-        
+        setCurrentRelativeOffset()
     }
 }
 
