@@ -182,6 +182,7 @@ class SpeechViewController: UIViewController {
         if scripturesToSpeak == nil {
             delegate?.updateScripturesToSpeech()
         }
+        
         allowedToPlayNext = true
         currentSpokenVerseIndex += 1
         if currentSpokenVerseIndex < scripturesToSpeak.count {
@@ -196,6 +197,7 @@ class SpeechViewController: UIViewController {
         if scripturesToSpeak == nil {
              delegate?.updateScripturesToSpeech()
         }
+        
         allowedToPlayNext = true
         stop()
         currentSpokenVerseIndex -= 1
@@ -206,7 +208,9 @@ class SpeechViewController: UIViewController {
     }
     
     @IBAction func fasterButtonTapped(_ sender: Any) {
-        guard let voice = currentUtterance.voice else { return }
+        guard let utterance = currentUtterance,
+            let voice = utterance.voice else { return }
+        
         if speechSynthesizer.isSpeaking {
             currentSpeechRate += 0.05
             stop()
@@ -215,7 +219,9 @@ class SpeechViewController: UIViewController {
     }
     
     @IBAction func slowerButton(_ sender: Any) {
-        guard let voice = currentUtterance.voice else { return }
+        guard let utterance = currentUtterance,
+            let voice = utterance.voice else { return }
+        
         if speechSynthesizer.isSpeaking {
             currentSpeechRate -= 0.05
             stop()
