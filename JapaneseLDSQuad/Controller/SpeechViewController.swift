@@ -20,6 +20,9 @@ class SpeechViewController: UIViewController {
     @IBOutlet weak var slowerButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
     
+    var topY: CGFloat = 0
+    var isHidden = true
+    
     var scripturesToSpeak: Results<Scripture>!
     lazy var speechSynthesizer: AVSpeechSynthesizer = {
         let synthesizer = AVSpeechSynthesizer()
@@ -27,13 +30,11 @@ class SpeechViewController: UIViewController {
         return synthesizer
     }()
     var allowedToPlayNext = false
-    var currentSpokenVerseIndex = 0
-    var currentSpeechRate = AVSpeechUtteranceDefaultSpeechRate
+    var nextSpeechIndex = 0
     var currentUtterance: AVSpeechUtterance!
-    var remainingSpeechText = ""
-    
-    var topY: CGFloat = 0
-    var isHidden = true
+    var currentSpeechRate = AVSpeechUtteranceDefaultSpeechRate
+    var spokenText = ""
+    var remainingText = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,15 +62,6 @@ class SpeechViewController: UIViewController {
         blurEffectView.frame = view.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.insertSubview(blurEffectView, at: 0)
-    }
-    
-    func initScripturesToSpeech(chapterId: String, scriptures: Results<Scripture>) {
-        allowedToPlayNext = false
-        stop()
-        scripturesToSpeak = scriptures.filter(
-            "id BEGINSWITH '\(chapterId)' AND NOT verse IN {'title', 'counter', 'preface', 'intro', 'summary', 'date'}"
-        ).sorted(byKeyPath: "id")
-        currentSpokenVerseIndex = 0
     }
     
     func updateTopY() {
@@ -114,14 +106,39 @@ class SpeechViewController: UIViewController {
         }
     }
     
-    func play(text: String = "", language: String = Constants.LanguageCode.primarySpeech, withNumber: Bool = false) {
-        if !allowedToPlayNext { return }
+    func initScripturesToSpeech(chapterId: String, scriptures: Results<Scripture>) {
+        allowedToPlayNext = false
+        stop()
+        scripturesToSpeak = scriptures.filter(
+            "id BEGINSWITH '\(chapterId)' AND NOT verse IN {'title', 'counter', 'preface', 'intro', 'summary', 'date'}"
+        ).sorted(byKeyPath: "id")
+        nextSpeechIndex = 0
+    }
+    
+    func initUtterance(speechString: String, language: String) {
+        let newUtterance = AVSpeechUtterance(string: speechString)
+        newUtterance.voice = AVSpeechSynthesisVoice(language: language)
+        newUtterance.rate = currentSpeechRate
+        currentUtterance = newUtterance
+    }
+    
+    func play(text: String, in language: String) {
+        speak(text: text, in: language)
+        playOrPauseButton.setImage(UIImage(systemName: "pause"), for: .normal)
+    }
+    
+    func playNext(withNumber: Bool = false, in language: String = Constants.LanguageCode.primarySpeech) {
+        guard allowedToPlayNext else { return }
+        guard let scriptures = scripturesToSpeak else { return }
         
-        if text.isEmpty {
-            speakCurrentVerse(language: language, withNumber: withNumber)
-        } else {
-            speak(text: text, language: language)
+        if nextSpeechIndex < 0 || nextSpeechIndex >= scripturesToSpeak.count {
+            nextSpeechIndex = 0
         }
+        let scripture = scriptures[nextSpeechIndex]
+        let speechText = getScriptureSpeechText(scripture: scripture, withNumber: withNumber, in: language)
+        stop()
+        speak(text: speechText, in: language)
+        nextSpeechIndex += 1
         playOrPauseButton.setImage(UIImage(systemName: "pause"), for: .normal)
     }
     
@@ -140,28 +157,18 @@ class SpeechViewController: UIViewController {
         playOrPauseButton.setImage(UIImage(systemName: "play"), for: .normal)
     }
     
-    func speakCurrentVerse(language: String, withNumber: Bool) {
-        guard let scriptures = scripturesToSpeak else { return }
-        let scripture = scriptures[currentSpokenVerseIndex]
-        
+    func getScriptureSpeechText(scripture: Scripture, withNumber: Bool, in language: String) -> String {
         var speechText = withNumber ? "\(scripture.verse): " : ""
         speechText.append(language == Constants.LanguageCode.primarySpeech
             ? SpeechUtility.correctPrimaryLanguage(speechText: scripture.scripture_primary_raw)
             : SpeechUtility.correctSecondaryLanguage(speechText: scripture.scripture_secondary_raw))
         
-        speak(text: speechText, language: language)
+        return speechText
     }
     
-    func speak(text: String, language: String) {
+    func speak(text: String, in language: String) {
         initUtterance(speechString: text, language: language)
         speechSynthesizer.speak(currentUtterance)
-    }
-    
-    func initUtterance(speechString: String, language: String) {
-        let newUtterance = AVSpeechUtterance(string: speechString)
-        newUtterance.voice = AVSpeechSynthesisVoice(language: language)
-        newUtterance.rate = currentSpeechRate
-        currentUtterance = newUtterance
     }
     
     @IBAction func playButtonTapped(_ sender: Any) {
@@ -174,82 +181,86 @@ class SpeechViewController: UIViewController {
         } else {
             delegate?.updateScripturesToSpeech()
             allowedToPlayNext = true
-            play()
+            playNext()
         }
-    }
-    
-    @IBAction func nextButtonTapped(_ sender: Any) {
-        if scripturesToSpeak == nil {
-            delegate?.updateScripturesToSpeech()
-        }
-        
-        allowedToPlayNext = true
-        currentSpokenVerseIndex += 1
-        if currentSpokenVerseIndex < scripturesToSpeak.count {
-            stop()
-            play(withNumber: true)
-        } else {
-            currentSpokenVerseIndex -= 1
-        }
-    }
-    
-    @IBAction func backButtonTapped(_ sender: Any) {
-        if scripturesToSpeak == nil {
-             delegate?.updateScripturesToSpeech()
-        }
-        
-        allowedToPlayNext = true
-        stop()
-        currentSpokenVerseIndex -= 1
-        if currentSpokenVerseIndex < 0 {
-            currentSpokenVerseIndex += 1
-        }
-        play(withNumber: true)
     }
     
     @IBAction func fasterButtonTapped(_ sender: Any) {
         guard let utterance = currentUtterance,
             let voice = utterance.voice else { return }
         
-        if speechSynthesizer.isSpeaking {
-            currentSpeechRate += 0.05
-            stop()
-            play(text: remainingSpeechText, language: voice.language)
-        }
+        currentSpeechRate += 0.05
+        if remainingText.isEmpty { return }
+        stop()
+        play(text: remainingText, in: voice.language)
     }
     
     @IBAction func slowerButton(_ sender: Any) {
         guard let utterance = currentUtterance,
             let voice = utterance.voice else { return }
         
-        if speechSynthesizer.isSpeaking {
-            currentSpeechRate -= 0.05
-            stop()
-            play(text: remainingSpeechText, language: voice.language)
+        currentSpeechRate -= 0.05
+        if remainingText.isEmpty { return }
+        stop()
+        play(text: remainingText, in: voice.language)
+    }
+    
+    @IBAction func nextButtonTapped(_ sender: Any) {
+        if scripturesToSpeak == nil {
+            delegate?.updateScripturesToSpeech()
         }
+        allowedToPlayNext = true
+        playNext(withNumber: true)
+    }
+    
+    @IBAction func backButtonTapped(_ sender: Any) {
+        if scripturesToSpeak == nil {
+            delegate?.updateScripturesToSpeech()
+        }
+        allowedToPlayNext = true
+        
+        nextSpeechIndex -= 1
+        if currentUtterance.speakingPrimary && spokenText.count < 5 {
+            nextSpeechIndex -= 1
+        }
+        playNext(withNumber: true)
     }
 }
 
 extension SpeechViewController: AVSpeechSynthesizerDelegate {
     
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        if utterance.voice == AVSpeechSynthesisVoice(language: Constants.LanguageCode.primarySpeech)
-            && AppUtility.shared.dualEnabled() {
-            play(language: Constants.LanguageCode.secondarySpeech)
+        remainingText = ""
+        
+        if utterance.speakingPrimary && AppUtility.shared.dualEnabled() {
+            nextSpeechIndex -= 1
+            playNext(in: Constants.LanguageCode.secondarySpeech)
             return
         }
         
-        currentSpokenVerseIndex += 1
-        if currentSpokenVerseIndex < scripturesToSpeak.count {
-            play()
+        if nextSpeechIndex < scripturesToSpeak.count {
+            playNext()
         } else {
             stop()
-            currentSpokenVerseIndex = 0
+            nextSpeechIndex = 0
         }
     }
     
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
-        remainingSpeechText = String(utterance.speechString.dropFirst(characterRange.location))
-        debugPrint(remainingSpeechText)
+        remainingText = String(utterance.speechString.dropFirst(characterRange.location))
+        spokenText = String(utterance.speechString.prefix(characterRange.location))
+//        debugPrint("Spoken: \(spokenText)")
+//        debugPrint("Reamining: \(remainingText)")
+    }
+}
+
+extension AVSpeechUtterance {
+    
+    var speakingPrimary: Bool {
+        return voice?.language == Constants.LanguageCode.primarySpeech
+    }
+    
+    var speakingSecondary: Bool {
+        return voice?.language == Constants.LanguageCode.secondarySpeech
     }
 }

@@ -15,10 +15,10 @@ extension String {
     }
     
     var tagsRemoved: String {
-        return self.replacingOccurrences(of: Constants.RegexPattern.tags, with: "", options: .regularExpression)
+        return replacingOccurrences(of: Constants.RegexPattern.tags, with: "", options: .regularExpression)
     }
     
     var verseAfterColonRemoved: String {
-        return self.replacingOccurrences(of: "[：|:].*", with: "", options: .regularExpression)
+        return replacingOccurrences(of: "[：|:].*", with: "", options: .regularExpression)
     }
 }
