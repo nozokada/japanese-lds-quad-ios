@@ -27,8 +27,8 @@ class HighlightRegularTextLabel: UILabel {
     func customizeViews() {
         numberOfLines = 0
         lineBreakMode = .byWordWrapping
-        font = AppUtility.shared.getCurrentFont()
-        textColor = AppUtility.shared.getCurrentTextColor()
+        font = AppUtility.shared.getFont()
+        textColor = AppUtility.shared.getTextColor()
     }
     
     func update(text: String) {

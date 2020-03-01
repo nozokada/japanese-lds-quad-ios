@@ -65,7 +65,7 @@ class SearchViewController: UIViewController {
     }
     
     func updateTableBackgroundColor() {
-        tableView.backgroundColor = AppUtility.shared.getCurrentBackgroundColor()
+        tableView.backgroundColor = AppUtility.shared.getBackgroundColor()
     }
     
     func updateSearchBarStyle() {
@@ -127,7 +127,7 @@ extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let results = filteredResults, results.count > 0 else { return UITableViewCell() }
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: Constants.ReuseID.searchResultCell)
-        let cellColor = AppUtility.shared.getCurrentCellColor()
+        let cellColor = AppUtility.shared.getCellColor()
         
         tableView.backgroundColor = cellColor
         cell.backgroundColor = cellColor
@@ -139,13 +139,13 @@ extension SearchViewController: UITableViewDataSource {
         let cellTextLabel = builder.buildSearchResultText(scripture: scripture)
         
         cell.textLabel?.text = cellTextLabel
-        cell.textLabel?.font = AppUtility.shared.getCurrentFont()
-        cell.textLabel?.textColor = AppUtility.shared.getCurrentTextColor()
+        cell.textLabel?.font = AppUtility.shared.getFont()
+        cell.textLabel?.textColor = AppUtility.shared.getTextColor()
         
         if AppUtility.shared.dualEnabled {
             let cellDetailTextLabel = builder.buildSearchResultDetailText(scripture: scripture)
             cell.detailTextLabel?.text = cellDetailTextLabel
-            cell.detailTextLabel?.font = AppUtility.shared.getCurrentFont(multiplySizeBy: 0.6)
+            cell.detailTextLabel?.font = AppUtility.shared.getFont(multiplySizeBy: 0.6)
             cell.detailTextLabel?.textColor = .gray
         }
         

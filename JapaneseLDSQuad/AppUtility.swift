@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+import AVFoundation
 
 struct TargetScriptureData {
     
@@ -57,7 +58,7 @@ class AppUtility {
         return UserDefaults.standard.bool(forKey: Constants.Config.side)
     }
     
-    var fontSize: Double {
+    var fontSizeRate: Double {
         return UserDefaults.standard.double(forKey: Constants.Config.size)
     }
     
@@ -65,24 +66,28 @@ class AppUtility {
         return UserDefaults.standard.float(forKey: Constants.Config.rate)
     }
     
-    func getCurrentFont(multiplySizeBy: Float = 1) -> UIFont? {
+    func getFont(multiplySizeBy: Float = 1) -> UIFont? {
         let name = AppUtility.shared.alternativeFontEnabled
             ? Constants.Font.min
             : Constants.Font.kaku
-        let size = Constants.TextSize.regular * Float(fontSize) * multiplySizeBy
+        let size = Constants.TextSize.regular * Float(fontSizeRate) * multiplySizeBy
         return UIFont(name: name, size: CGFloat(size))
     }
     
-    func getCurrentTextColor() -> UIColor {
+    func getTextColor() -> UIColor {
         return nightModeEnabled ? Constants.TextColor.night : Constants.TextColor.day
     }
     
-    func getCurrentCellColor() -> UIColor {
+    func getCellColor() -> UIColor {
         return nightModeEnabled ? Constants.CellColor.night : Constants.CellColor.day
     }
     
-    func getCurrentBackgroundColor() -> UIColor {
+    func getBackgroundColor() -> UIColor {
         return nightModeEnabled ? Constants.BackgroundColor.night : Constants.BackgroundColor.day
+    }
+    
+    func getSpeechSpeed() -> Float {
+        return AVSpeechUtteranceDefaultSpeechRate * speechRate
     }
     
     func getChapterIdFromChapterNumber(bookId: String, chapter: Int) -> String {

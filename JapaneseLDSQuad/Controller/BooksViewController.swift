@@ -83,19 +83,19 @@ extension BooksViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: Constants.ReuseID.bookCell)
-        let cellColor = AppUtility.shared.getCurrentCellColor()
+        let cellColor = AppUtility.shared.getCellColor()
         let book = books[indexPath.row + groupedCellsOffset(section: indexPath.section)]
 
         tableView.backgroundColor = cellColor
         cell.backgroundColor = cellColor
         
         cell.textLabel?.text = book.name_primary
-        cell.textLabel?.font = AppUtility.shared.getCurrentFont()
-        cell.textLabel?.textColor = AppUtility.shared.getCurrentTextColor()
+        cell.textLabel?.font = AppUtility.shared.getFont()
+        cell.textLabel?.textColor = AppUtility.shared.getTextColor()
         
         if AppUtility.shared.dualEnabled {
             cell.detailTextLabel?.text = book.name_secondary
-            cell.detailTextLabel?.font = AppUtility.shared.getCurrentFont(multiplySizeBy: 0.6)
+            cell.detailTextLabel?.font = AppUtility.shared.getFont(multiplySizeBy: 0.6)
             cell.detailTextLabel?.textColor = .gray
         }
         

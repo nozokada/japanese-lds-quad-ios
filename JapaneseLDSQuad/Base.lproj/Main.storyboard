@@ -272,12 +272,20 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.0x" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJu-kZ-BDs">
+                                <rect key="frame" x="364" y="821.5" width="30" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="fGQ-qf-b1U" firstAttribute="bottom" secondItem="KJu-kZ-BDs" secondAttribute="bottom" constant="20" id="2l9-VD-XOl"/>
                             <constraint firstItem="fGQ-qf-b1U" firstAttribute="bottom" secondItem="heM-Hy-qRc" secondAttribute="bottom" constant="20" id="77S-cx-WsV"/>
                             <constraint firstItem="fGQ-qf-b1U" firstAttribute="trailing" secondItem="heM-Hy-qRc" secondAttribute="trailing" constant="100" id="RNw-TL-9PY"/>
                             <constraint firstItem="heM-Hy-qRc" firstAttribute="leading" secondItem="fGQ-qf-b1U" secondAttribute="leading" constant="100" id="brm-hB-zYL"/>
+                            <constraint firstItem="fGQ-qf-b1U" firstAttribute="trailing" secondItem="KJu-kZ-BDs" secondAttribute="trailing" constant="20" id="ilp-Hc-zrK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fGQ-qf-b1U"/>
                     </view>
@@ -287,6 +295,7 @@
                         <outlet property="nextButton" destination="IBR-UL-7Gh" id="bHk-2T-6Fe"/>
                         <outlet property="playOrPauseButton" destination="Uey-GC-yPi" id="txr-sV-Xng"/>
                         <outlet property="slowerButton" destination="oHI-ld-dSJ" id="eR2-jh-ZP3"/>
+                        <outlet property="speechRateLabel" destination="KJu-kZ-BDs" id="2Vn-46-kkw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9D0-KC-F7V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -56,7 +56,7 @@ class HighlightsViewController: UIViewController {
     }
     
     func updateCollectionBackgroundColor() {
-        collectionView?.backgroundColor = AppUtility.shared.getCurrentBackgroundColor()
+        collectionView?.backgroundColor = AppUtility.shared.getBackgroundColor()
     }
 }
 

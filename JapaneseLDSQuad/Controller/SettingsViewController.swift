@@ -40,10 +40,10 @@ class SettingsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        tableView.backgroundColor = AppUtility.shared.getCurrentBackgroundColor()
-        cell.backgroundColor = AppUtility.shared.getCurrentCellColor()
+        tableView.backgroundColor = AppUtility.shared.getBackgroundColor()
+        cell.backgroundColor = AppUtility.shared.getCellColor()
         
-        let fontColor = AppUtility.shared.getCurrentTextColor()
+        let fontColor = AppUtility.shared.getTextColor()
         alternativeFontLabel.textColor = fontColor
         nightModeLabel.textColor = fontColor
         dualModeSwitchLabel.textColor = fontColor
@@ -76,7 +76,7 @@ class SettingsViewController: UITableViewController {
     
     
     func setTextSizeStepperValue() {
-        textSizeStepper.value = AppUtility.shared.fontSize
+        textSizeStepper.value = AppUtility.shared.fontSizeRate
     }
     
     func setSideBySideModeSwitchState() {

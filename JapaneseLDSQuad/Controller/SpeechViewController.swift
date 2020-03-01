@@ -19,6 +19,7 @@ class SpeechViewController: UIViewController {
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var slowerButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var speechRateLabel: UILabel!
     
     var topY: CGFloat = 0
     var isHidden = true
@@ -32,12 +33,12 @@ class SpeechViewController: UIViewController {
     var allowedToPlayNext = false
     var nextSpeechIndex = 0
     var currentUtterance: AVSpeechUtterance!
-    var currentSpeechRate = AVSpeechUtteranceDefaultSpeechRate
     var spokenText = ""
     var remainingText = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setSpeechRateLabel(rate: AppUtility.shared.speechRate)
         prepareBackgroundView()
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture))
         view.addGestureRecognizer(gesture)
@@ -54,6 +55,10 @@ class SpeechViewController: UIViewController {
             }
             self.view.isHidden = false
         }
+    }
+    
+    func setSpeechRateLabel(rate: Float) {
+        speechRateLabel.text = "\(rate)x"
     }
     
     func prepareBackgroundView(){
@@ -118,8 +123,9 @@ class SpeechViewController: UIViewController {
     func initUtterance(speechString: String, language: String) {
         let newUtterance = AVSpeechUtterance(string: speechString)
         newUtterance.voice = AVSpeechSynthesisVoice(language: language)
-        newUtterance.rate = currentSpeechRate
+        newUtterance.rate = AppUtility.shared.getSpeechSpeed()
         currentUtterance = newUtterance
+        debugPrint(currentUtterance.rate)
     }
     
     func play(text: String, in language: String) {
@@ -171,6 +177,11 @@ class SpeechViewController: UIViewController {
         speechSynthesizer.speak(currentUtterance)
     }
     
+    func changeSpeechRate(rate: Float) {
+        UserDefaults.standard.set(rate, forKey: Constants.Config.rate)
+        setSpeechRateLabel(rate: rate)
+    }
+    
     @IBAction func playButtonTapped(_ sender: Any) {
         if speechSynthesizer.isPaused {
             allowedToPlayNext = true
@@ -189,7 +200,7 @@ class SpeechViewController: UIViewController {
         guard let utterance = currentUtterance,
             let voice = utterance.voice else { return }
         
-        currentSpeechRate += 0.0625
+        changeSpeechRate(rate: AppUtility.shared.speechRate + 0.25)
         if remainingText.isEmpty { return }
         stop()
         play(text: remainingText, in: voice.language)
@@ -198,8 +209,8 @@ class SpeechViewController: UIViewController {
     @IBAction func slowerButton(_ sender: Any) {
         guard let utterance = currentUtterance,
             let voice = utterance.voice else { return }
-        
-        currentSpeechRate -= 0.0625
+
+        changeSpeechRate(rate: AppUtility.shared.speechRate - 0.25)
         if remainingText.isEmpty { return }
         stop()
         play(text: remainingText, in: voice.language)
