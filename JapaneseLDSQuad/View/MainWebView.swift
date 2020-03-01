@@ -43,7 +43,7 @@ class MainWebView: WKWebView {
                 guard let scriptureLanguage = result as? String else { return }
                 guard let realm = try? Realm() else { return }
                 guard let scripture = realm.objects(Scripture.self).filter("id = '\(scriptureId)'").first else { return }
-                UIPasteboard.general.string = scriptureLanguage == Constants.LanguageCode.primary
+                UIPasteboard.general.string = scriptureLanguage == Constants.Language.primary
                     ? scripture.scripture_primary_raw
                     : scripture.scripture_secondary_raw
             }

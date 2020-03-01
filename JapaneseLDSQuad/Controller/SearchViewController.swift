@@ -69,7 +69,7 @@ class SearchViewController: UIViewController {
     }
     
     func updateSearchBarStyle() {
-        let nightModeEnabled = UserDefaults.standard.bool(forKey: Constants.Config.night)
+        let nightModeEnabled = AppUtility.shared.nightModeEnabled
         searchBar.barStyle = nightModeEnabled ? .black : .default
         searchResultsSegmentedControl.backgroundColor = nightModeEnabled
             ? Constants.BackgroundColor.nightSearchBar
@@ -142,7 +142,7 @@ extension SearchViewController: UITableViewDataSource {
         cell.textLabel?.font = AppUtility.shared.getCurrentFont()
         cell.textLabel?.textColor = AppUtility.shared.getCurrentTextColor()
         
-        if UserDefaults.standard.bool(forKey: Constants.Config.dual) {
+        if AppUtility.shared.dualEnabled {
             let cellDetailTextLabel = builder.buildSearchResultDetailText(scripture: scripture)
             cell.detailTextLabel?.text = cellDetailTextLabel
             cell.detailTextLabel?.font = AppUtility.shared.getCurrentFont(multiplySizeBy: 0.6)

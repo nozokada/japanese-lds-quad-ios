@@ -27,7 +27,7 @@ class HighlightCell: UICollectionViewCell {
     
     func update(highlight: HighlightedText) {
         customizeViews()
-        nameLabel.update(text: Locale.current.languageCode == Constants.LanguageCode.primary
+        nameLabel.update(text: Locale.current.languageCode == Constants.Language.primary
             ? "\(highlight.name_primary)"
             : "\(highlight.name_secondary)"
         )

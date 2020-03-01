@@ -65,11 +65,11 @@ extension ContentViewController: WKNavigationDelegate {
         switch requestType {
         case Bundle.main.bundleURL.lastPathComponent:
             decisionHandler(.allow)
-        case Constants.RequestType.bookmark:
+        case Constants.AnnotationType.bookmark:
             decisionHandler(.cancel)
             requestUrl.deleteLastPathComponent()
             toggleBookmark(verseId: requestUrl.lastPathComponent)
-        case Constants.RequestType.highlight:
+        case Constants.AnnotationType.highlight:
             decisionHandler(.cancel)
             requestUrl.deleteLastPathComponent()
             showNote(highlightedTextId: requestUrl.lastPathComponent)
@@ -145,14 +145,14 @@ extension ContentViewController: WKNavigationDelegate {
         return TargetScriptureData(book: book, chapter: chapter, verse: verse)
     }
     
-    func showInvalidSelectedRangeAlert() {
-        let alertTitle = "InvalidActionAlertTitle".localized
-        let alertMessage = "InvalidSelectedRangeAlertMessage".localized
-        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default)
-        alertController.addAction(okAction)
-        self.present(alertController, animated: true)
-    }
+//    func showInvalidSelectedRangeAlert() {
+//        let alertTitle = "InvalidActionAlertTitle".localized
+//        let alertMessage = "InvalidSelectedRangeAlertMessage".localized
+//        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+//        let okAction = UIAlertAction(title: "OK", style: .default)
+//        alertController.addAction(okAction)
+//        self.present(alertController, animated: true)
+//    }
 }
 
 extension ContentViewController: HighlightChangeDelegate {

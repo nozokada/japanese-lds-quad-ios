@@ -44,13 +44,13 @@ class HymnBuilder: ContentBuilder {
                     html += "<hr>"
                     html += "<div id='\(scripture.id)'"
                     html += bookmarked ? " class='bookmarked'>" : ">"
-                    html += "<div class='hymn-verse'><ol><span lang='\(Constants.LanguageCode.primary)'>\(scripture.scripture_primary)</span></ol></div>"
-                    html += "<div class='hymn-verse'><ol><span lang='\(Constants.LanguageCode.secondary)'>\(scripture.scripture_secondary)</span></ol></div>"
+                    html += "<div class='hymn-verse'><ol><span lang='\(Constants.Language.primary)'>\(scripture.scripture_primary)</span></ol></div>"
+                    html += "<div class='hymn-verse'><ol><span lang='\(Constants.Language.secondary)'>\(scripture.scripture_secondary)</span></ol></div>"
                 } else {
                     html += "<div id='\(scripture.id)'"
                     html += bookmarked ? " class='bookmarked'>" : ">"
                     let primaryScripture = scripture.scripture_primary
-                    html += "<div class='hymn-verse'><ol><span lang='\(Constants.LanguageCode.primary)'>\(primaryScripture)</span></ol></div>"
+                    html += "<div class='hymn-verse'><ol><span lang='\(Constants.Language.primary)'>\(primaryScripture)</span></ol></div>"
                 }
                 html += "</div>"
             }

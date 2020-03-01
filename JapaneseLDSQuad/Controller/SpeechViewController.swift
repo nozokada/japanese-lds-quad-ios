@@ -70,7 +70,7 @@ class SpeechViewController: UIViewController {
     
     func show(animated: Bool = true) {
         updateTopY()
-        UIView.animate(withDuration: animated ? Constants.Duration.slideUpViewAnimation : 0) {
+        UIView.animate(withDuration: animated ? Constants.Duration.slideViewAnimation : 0) {
             let frame = self.view.frame
             let y = self.topY + self.playOrPauseButton.frame.height + Constants.Size.speechViewButtonVerticalPadding * 2
             self.view.frame = CGRect(x: 0, y: y, width: frame.width, height: frame.height)
@@ -80,7 +80,7 @@ class SpeechViewController: UIViewController {
     
     func hide(animated: Bool = true) {
         updateTopY()
-        UIView.animate(withDuration: animated ? Constants.Duration.slideUpViewAnimation : 0) {
+        UIView.animate(withDuration: animated ? Constants.Duration.slideViewAnimation : 0) {
             let frame = self.view.frame
             let y = self.topY
             self.view.frame = CGRect(x: 0, y: y, width: frame.width, height: frame.height)
@@ -127,7 +127,7 @@ class SpeechViewController: UIViewController {
         playOrPauseButton.setImage(UIImage(systemName: "pause"), for: .normal)
     }
     
-    func playNext(withNumber: Bool = false, in language: String = Constants.LanguageCode.primarySpeech) {
+    func playNext(withNumber: Bool = false, in language: String = Constants.Language.primarySpeech) {
         guard allowedToPlayNext else { return }
         guard let scriptures = scripturesToSpeak else { return }
         
@@ -159,7 +159,7 @@ class SpeechViewController: UIViewController {
     
     func getScriptureSpeechText(scripture: Scripture, withNumber: Bool, in language: String) -> String {
         var speechText = withNumber ? "\(scripture.verse): " : ""
-        speechText.append(language == Constants.LanguageCode.primarySpeech
+        speechText.append(language == Constants.Language.primarySpeech
             ? SpeechUtility.correctPrimaryLanguage(speechText: scripture.scripture_primary_raw)
             : SpeechUtility.correctSecondaryLanguage(speechText: scripture.scripture_secondary_raw))
         
@@ -189,7 +189,7 @@ class SpeechViewController: UIViewController {
         guard let utterance = currentUtterance,
             let voice = utterance.voice else { return }
         
-        currentSpeechRate += 0.05
+        currentSpeechRate += 0.0625
         if remainingText.isEmpty { return }
         stop()
         play(text: remainingText, in: voice.language)
@@ -199,7 +199,7 @@ class SpeechViewController: UIViewController {
         guard let utterance = currentUtterance,
             let voice = utterance.voice else { return }
         
-        currentSpeechRate -= 0.05
+        currentSpeechRate -= 0.0625
         if remainingText.isEmpty { return }
         stop()
         play(text: remainingText, in: voice.language)
@@ -232,9 +232,9 @@ extension SpeechViewController: AVSpeechSynthesizerDelegate {
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         remainingText = ""
         
-        if utterance.speakingPrimary && AppUtility.shared.dualEnabled() {
+        if utterance.speakingPrimary && AppUtility.shared.dualEnabled {
             nextSpeechIndex -= 1
-            playNext(in: Constants.LanguageCode.secondarySpeech)
+            playNext(in: Constants.Language.secondarySpeech)
             return
         }
         
@@ -257,10 +257,10 @@ extension SpeechViewController: AVSpeechSynthesizerDelegate {
 extension AVSpeechUtterance {
     
     var speakingPrimary: Bool {
-        return voice?.language == Constants.LanguageCode.primarySpeech
+        return voice?.language == Constants.Language.primarySpeech
     }
     
     var speakingSecondary: Bool {
-        return voice?.language == Constants.LanguageCode.secondarySpeech
+        return voice?.language == Constants.Language.secondarySpeech
     }
 }

@@ -60,28 +60,28 @@ class SettingsViewController: UITableViewController {
     }
     
     func setAlternativeFontSwitchState() {
-        let state = UserDefaults.standard.bool(forKey: Constants.Config.font)
+        let state = AppUtility.shared.alternativeFontEnabled
         alternativeFontSwitch.setImage(state ? #imageLiteral(resourceName: "ToggleOn") : #imageLiteral(resourceName: "ToggleOff"), for: .normal)
     }
     
     func setNightModeSwitchState() {
-        let state = UserDefaults.standard.bool(forKey: Constants.Config.night)
+        let state = AppUtility.shared.nightModeEnabled
         nightModeSwitch.setImage(state ? #imageLiteral(resourceName: "ToggleOn") : #imageLiteral(resourceName: "ToggleOff"), for: .normal)
     }
     
     func setDualModeSwitchState() {
-        let state = UserDefaults.standard.bool(forKey: Constants.Config.dual)
+        let state = AppUtility.shared.dualEnabled
         dualModeSwitch.setImage(state ? #imageLiteral(resourceName: "ToggleOn") : #imageLiteral(resourceName: "ToggleOff"), for: .normal)
     }
     
     
     func setTextSizeStepperValue() {
-        textSizeStepper.value = UserDefaults.standard.double(forKey: Constants.Config.size)
+        textSizeStepper.value = AppUtility.shared.fontSize
     }
     
     func setSideBySideModeSwitchState() {
         if PurchaseManager.shared.isPurchased {
-            let currState = UserDefaults.standard.bool(forKey: Constants.Config.side)
+            let currState = AppUtility.shared.sideBySideEnabled
             sideBySideModeSwitch.setImage(currState ? #imageLiteral(resourceName: "ToggleOn") : #imageLiteral(resourceName: "ToggleOff"), for: .normal)
         } else {
             sideBySideModeSwitch.alpha = 0.5
@@ -103,14 +103,14 @@ class SettingsViewController: UITableViewController {
     }
     
     @IBAction func alternativeFontSwitchToggled(_ sender: Any) {
-        let state = UserDefaults.standard.bool(forKey: Constants.Config.font)
+        let state = AppUtility.shared.alternativeFontEnabled
         UserDefaults.standard.set(!state, forKey: Constants.Config.font)
         alternativeFontSwitch.setImage(state ? #imageLiteral(resourceName: "ToggleOff") : #imageLiteral(resourceName: "ToggleOn") , for: .normal)
         delegate?.reload()
     }
     
     @IBAction func nightModeSwitchToggled(_ sender: Any) {
-        let state = UserDefaults.standard.bool(forKey: Constants.Config.night)
+        let state = AppUtility.shared.nightModeEnabled
         UserDefaults.standard.set(!state, forKey: Constants.Config.night)
         nightModeSwitch.setImage(state ? #imageLiteral(resourceName: "ToggleOff") : #imageLiteral(resourceName: "ToggleOn") , for: .normal)
         delegate?.reload()
@@ -118,14 +118,14 @@ class SettingsViewController: UITableViewController {
     }
     
     @IBAction func dualModeSwitchToggled(_ sender: Any) {
-        let state = UserDefaults.standard.bool(forKey: Constants.Config.dual)
+        let state = AppUtility.shared.dualEnabled
         UserDefaults.standard.set(!state, forKey: Constants.Config.dual)
         dualModeSwitch.setImage(state ? #imageLiteral(resourceName: "ToggleOff") : #imageLiteral(resourceName: "ToggleOn") , for: .normal)
         delegate?.reload()
     }
     
     @IBAction func sideBySideModeSwitchToggled(_ sender: Any) {
-        let state = UserDefaults.standard.bool(forKey: Constants.Config.side)
+        let state = AppUtility.shared.sideBySideEnabled
         UserDefaults.standard.set(!state, forKey: Constants.Config.side)
         sideBySideModeSwitch.setImage(state ? #imageLiteral(resourceName: "ToggleOff") : #imageLiteral(resourceName: "ToggleOn") , for: .normal)
         delegate?.reload()

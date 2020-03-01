@@ -16,7 +16,7 @@ class HighlightsManager: AnnotationsManager {
     private func ApplyHighlightChangeToScripture(id: String, content: String, language: String) {
         if let scripture = getScripture(id: id) {
             try! realm.write {
-                if language == Constants.LanguageCode.primary {
+                if language == Constants.Language.primary {
                     scripture.scripture_primary = content
                 } else {
                     scripture.scripture_secondary = content
@@ -31,10 +31,10 @@ class HighlightsManager: AnnotationsManager {
         } else {
             if let scripture = realm.objects(Scripture.self).filter("id = '\(scriptureId)'").first {
                 let highlightedScripture = HighlightedScripture(id: scriptureId,
-                                                                scripturePrimary: language == Constants.LanguageCode.primary
+                                                                scripturePrimary: language == Constants.Language.primary
                                                                     ? scriptureContent
                                                                     : scripture.scripture_primary,
-                                                                scriptureSecondary: language == Constants.LanguageCode.secondary
+                                                                scriptureSecondary: language == Constants.Language.secondary
                                                                     ? scriptureContent
                                                                     : scripture.scripture_secondary,
                                                                 scripture: scripture,

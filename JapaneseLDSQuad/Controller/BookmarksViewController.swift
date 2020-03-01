@@ -101,7 +101,7 @@ extension BookmarksViewController: UITableViewDataSource {
         cell.textLabel?.numberOfLines = 0;
         cell.textLabel?.lineBreakMode = .byWordWrapping;
         
-        if UserDefaults.standard.bool(forKey: Constants.Config.dual) {
+        if AppUtility.shared.dualEnabled {
             let cellDetailTextLabel = bookmarks[indexPath.row].name_secondary
             cell.detailTextLabel?.text = cellDetailTextLabel
             cell.detailTextLabel?.font = AppUtility.shared.getCurrentFont(multiplySizeBy: 0.6)

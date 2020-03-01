@@ -46,10 +46,11 @@ struct Constants {
         static let dual = "dualEnabled"
         static let side = "sideBySideEnabled"
         static let size = "fontSize"
+        static let rate = "speechRate"
         static let pass = "passPurchased"
     }
     
-    struct LanguageCode {
+    struct Language {
         static let primary = "ja"
         static let secondary = "en"
         static let primarySpeech = "ja-JP"
@@ -72,33 +73,33 @@ struct Constants {
     }
     
     struct TextSize {
-        static let regular: Double = 20
+        static let regular: Float = 20
     }
     
     struct TextColor {
         static let day = UIColor.black
-        static let night = UIColor(red:0.73, green:0.73, blue:0.73, alpha:1.0)
+        static let night = UIColor(red: 0.73, green: 0.73, blue: 0.73, alpha: 1.0)
     }
     
     struct CellColor {
         static let day = UIColor.white
-        static let night = UIColor(red:0.13, green:0.13, blue:0.15, alpha:1.0)
+        static let night = UIColor(red: 0.13, green: 0.13, blue: 0.15, alpha: 1.0)
     }
     
     struct NavigationBarColor {
-        static let day = UIColor(red:0.26, green:0.28, blue:0.30, alpha:1.0)
-        static let night = UIColor(red:0.26, green:0.28, blue:0.30, alpha:1.0)
+        static let day = UIColor(red: 0.26, green: 0.28, blue: 0.30, alpha: 1.0)
+        static let night = UIColor(red: 0.26, green: 0.28, blue: 0.30, alpha: 1.0)
     }
     
     struct BackgroundColor {
         static let day = UIColor.white
-        static let night = UIColor(red:0.13, green:0.13, blue:0.15, alpha:1.0)
-        static let daySearchBar = UIColor(red:0.79, green:0.79, blue:0.81, alpha:1.0)
-        static let nightSearchBar = UIColor(red:0.20, green:0.20, blue:0.18, alpha:1.0)
+        static let night = UIColor(red: 0.13, green: 0.13, blue: 0.15, alpha: 1.0)
+        static let daySearchBar = UIColor(red: 0.79, green: 0.79, blue: 0.81, alpha: 1.0)
+        static let nightSearchBar = UIColor(red: 0.20, green: 0.20, blue: 0.18, alpha: 1.0)
     }
     
     struct Duration {
-        static let slideUpViewAnimation = 0.3
+        static let slideViewAnimation = 0.3
     }
     
     struct ChapterType {
@@ -113,7 +114,7 @@ struct Constants {
         static let main = "main"
     }
     
-    struct RequestType {
+    struct AnnotationType {
         static let bookmark = "bookmark"
         static let highlight = "highlight"
     }

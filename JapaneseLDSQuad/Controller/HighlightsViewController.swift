@@ -18,8 +18,6 @@ class HighlightsViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
-    let cellHorizontalPaddingSize: CGFloat = 6
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         realm = try! Realm()
@@ -101,7 +99,7 @@ extension HighlightsViewController: HighlightsViewLayoutDelegate {
     
     func collectionView(_ collectionView: UICollectionView, heightForLabelAt indexPath: IndexPath) -> CGFloat {
         let highlight = highlights[indexPath.item]
-        return getLabelHeight(text: Locale.current.languageCode == Constants.LanguageCode.primary
+        return getLabelHeight(text: Locale.current.languageCode == Constants.Language.primary
             ? "\(highlight.name_primary)"
             : "\(highlight.name_secondary)", labelType: HighlightRegularTextLabel.self)
             + getLabelHeight(text: highlight.text, labelType: HighlightSmallTextLabel.self)

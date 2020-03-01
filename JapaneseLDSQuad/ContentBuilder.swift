@@ -21,7 +21,7 @@ class ContentBuilder {
         realm = try! Realm()
         self.scriptures = scriptures
         self.numbered = numbered
-        dualEnabled = UserDefaults.standard.bool(forKey: Constants.Config.dual)
+        dualEnabled = AppUtility.shared.dualEnabled
     }
     
     func buildSearchResultText(scripture: Scripture) -> String {
@@ -101,13 +101,13 @@ class ContentBuilder {
                     html += targeted ? "targeted " : ""
                     html += bookmarked ? "bookmarked" : ""
                     html += "'>"
-                    html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/\(Constants.RequestType.bookmark)'>\(verseNumber)</a> <span lang='\(Constants.LanguageCode.primary)'>\(scripture.scripture_primary)</span></div>"
-                    html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/\(Constants.RequestType.bookmark)'>\(verseNumber)</a> <span lang='\(Constants.LanguageCode.secondary)'>\(scripture.scripture_secondary)</span></div>"
+                    html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verseNumber)</a> <span lang='\(Constants.Language.primary)'>\(scripture.scripture_primary)</span></div>"
+                    html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verseNumber)</a> <span lang='\(Constants.Language.secondary)'>\(scripture.scripture_secondary)</span></div>"
                 } else {
                     html += "<div id='\(scripture.id)'"
                     html += bookmarked ? " class='bookmarked'>" : ">"
                     let primaryScripture = scripture.scripture_primary
-                    html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/\(Constants.RequestType.bookmark)'>\(verseNumber)</a> <span lang='\(Constants.LanguageCode.primary)'>\(primaryScripture)</span></div>"
+                    html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verseNumber)</a> <span lang='\(Constants.Language.primary)'>\(primaryScripture)</span></div>"
                 }
                 html += "</div>"
             }
@@ -116,19 +116,19 @@ class ContentBuilder {
     }
     
     private func buildCSS() -> String {
-        let font = UserDefaults.standard.bool(forKey: Constants.Config.font)
+        let font = AppUtility.shared.alternativeFontEnabled
             ? Constants.Font.min
             : Constants.Font.kaku
-        let fontSize = UserDefaults.standard.double(forKey: Constants.Config.size)
+        let fontSize = AppUtility.shared.fontSize
         let paddingSize = sqrt(sqrt(fontSize))
-        let fontColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
+        let fontColor = AppUtility.shared.nightModeEnabled
             ? "rgb(186,186,186)"
             : "rgb(0,0,0)"
-        let backgroundColor = UserDefaults.standard.bool(forKey: Constants.Config.night)
+        let backgroundColor = AppUtility.shared.nightModeEnabled
             ? "rgb(33,34,37)"
             : "rgb(255,255,255)"
-        let sideBySideEnabled = UserDefaults.standard.bool(forKey: Constants.Config.dual)
-            && UserDefaults.standard.bool(forKey: Constants.Config.side)
+        let sideBySideEnabled = AppUtility.shared.dualEnabled
+            && AppUtility.shared.sideBySideEnabled
         
         let screenScale = Int(UIScreen.main.scale)
         let bookmarkImageFileName = screenScale > 1 ? "Bookmark Verse@\(screenScale)x" : "Bookmark Verse"

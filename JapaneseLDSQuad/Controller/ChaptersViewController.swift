@@ -85,7 +85,7 @@ extension ChaptersViewController: UITableViewDataSource {
         
         if targetBook.link.hasPrefix("gs") { return cell }
         
-        if UserDefaults.standard.bool(forKey: Constants.Config.dual) {
+        if AppUtility.shared.dualEnabled {
             var cellDetailTextLabel = counters[indexPath.row].scripture_secondary
             if let titles = titles {
                 cellDetailTextLabel += " \(titles[indexPath.row].scripture_secondary.tagsRemoved)"

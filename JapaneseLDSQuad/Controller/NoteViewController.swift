@@ -65,7 +65,7 @@ class NoteViewController: UIViewController {
     }
     
     func setTitleAndNote() {
-        noteViewTitleLabel.text = Locale.current.languageCode == Constants.LanguageCode.primary
+        noteViewTitleLabel.text = Locale.current.languageCode == Constants.Language.primary
             ? highlightedText?.name_primary
             : highlightedText?.name_secondary
         noteViewTitleLabel.sizeToFit()
@@ -94,7 +94,7 @@ class NoteViewController: UIViewController {
     func show(animated: Bool = true) {
         updateBottomY()
         adjustNoteTextViewHeight()
-        UIView.animate(withDuration: animated ? Constants.Duration.slideUpViewAnimation : 0) {
+        UIView.animate(withDuration: animated ? Constants.Duration.slideViewAnimation : 0) {
             let frame = self.view.frame
             let y = self.bottomY - frame.height / 3
             self.view.frame = CGRect(x: 0, y: y, width: frame.width, height: frame.height)
@@ -105,7 +105,7 @@ class NoteViewController: UIViewController {
     func showFull(animated: Bool = true) {
         updateBottomY()
         adjustNoteTextViewHeight()
-        UIView.animate(withDuration: animated ? Constants.Duration.slideUpViewAnimation : 0) {
+        UIView.animate(withDuration: animated ? Constants.Duration.slideViewAnimation : 0) {
             let frame = self.view.frame
             let y = self.bottomY - frame.height / 2
             self.view.frame = CGRect(x: 0, y: y, width: frame.width, height: frame.height)
@@ -116,7 +116,7 @@ class NoteViewController: UIViewController {
     func hide(animated: Bool = true) {
         updateBottomY()
         adjustNoteTextViewHeight()
-        UIView.animate(withDuration: animated ? Constants.Duration.slideUpViewAnimation : 0) {
+        UIView.animate(withDuration: animated ? Constants.Duration.slideViewAnimation : 0) {
             let frame = self.view.frame
             let y = self.bottomY
             self.view.frame = CGRect(x: 0, y: y, width: frame.width, height: frame.height)

@@ -41,34 +41,48 @@ class AppUtility {
     
     static let shared = AppUtility()
     
-    func dualEnabled() -> Bool {
+    var alternativeFontEnabled: Bool {
+        return UserDefaults.standard.bool(forKey: Constants.Config.font)
+    }
+    
+    var nightModeEnabled: Bool {
+        return UserDefaults.standard.bool(forKey: Constants.Config.night)
+    }
+    
+    var dualEnabled: Bool {
          return UserDefaults.standard.bool(forKey: Constants.Config.dual)
     }
     
-    func getCurrentFont(multiplySizeBy: Double = 1) -> UIFont? {
-        let fontName = UserDefaults.standard.bool(forKey: Constants.Config.font)
+    var sideBySideEnabled: Bool {
+        return UserDefaults.standard.bool(forKey: Constants.Config.side)
+    }
+    
+    var fontSize: Double {
+        return UserDefaults.standard.double(forKey: Constants.Config.size)
+    }
+    
+    var speechRate: Float {
+        return UserDefaults.standard.float(forKey: Constants.Config.rate)
+    }
+    
+    func getCurrentFont(multiplySizeBy: Float = 1) -> UIFont? {
+        let name = AppUtility.shared.alternativeFontEnabled
             ? Constants.Font.min
             : Constants.Font.kaku
-        let fontSize = Constants.TextSize.regular * UserDefaults.standard.double(forKey: Constants.Config.size) * multiplySizeBy
-        return UIFont(name: fontName, size: CGFloat(fontSize))
+        let size = Constants.TextSize.regular * Float(fontSize) * multiplySizeBy
+        return UIFont(name: name, size: CGFloat(size))
     }
     
     func getCurrentTextColor() -> UIColor {
-        return UserDefaults.standard.bool(forKey: Constants.Config.night)
-            ? Constants.TextColor.night
-            : Constants.TextColor.day
+        return nightModeEnabled ? Constants.TextColor.night : Constants.TextColor.day
     }
     
     func getCurrentCellColor() -> UIColor {
-        return UserDefaults.standard.bool(forKey: Constants.Config.night)
-            ? Constants.CellColor.night
-            : Constants.CellColor.day
+        return nightModeEnabled ? Constants.CellColor.night : Constants.CellColor.day
     }
     
     func getCurrentBackgroundColor() -> UIColor {
-        return UserDefaults.standard.bool(forKey: Constants.Config.night)
-            ? Constants.BackgroundColor.night
-            : Constants.BackgroundColor.day
+        return nightModeEnabled ? Constants.BackgroundColor.night : Constants.BackgroundColor.day
     }
     
     func getChapterIdFromChapterNumber(bookId: String, chapter: Int) -> String {

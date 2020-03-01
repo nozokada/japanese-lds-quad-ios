@@ -76,7 +76,7 @@ extension BooksViewController: UITableViewDataSource {
                 ? "standardWorksGroupedTableViewLabel".localized
                 : "resourcesGroupedTableViewLabel".localized
         }
-        return Locale.current.languageCode == Constants.LanguageCode.primary
+        return Locale.current.languageCode == Constants.Language.primary
             ? targetBook.name_primary
             : targetBook.name_secondary
     }
@@ -93,7 +93,7 @@ extension BooksViewController: UITableViewDataSource {
         cell.textLabel?.font = AppUtility.shared.getCurrentFont()
         cell.textLabel?.textColor = AppUtility.shared.getCurrentTextColor()
         
-        if UserDefaults.standard.bool(forKey: Constants.Config.dual) {
+        if AppUtility.shared.dualEnabled {
             cell.detailTextLabel?.text = book.name_secondary
             cell.detailTextLabel?.font = AppUtility.shared.getCurrentFont(multiplySizeBy: 0.6)
             cell.detailTextLabel?.textColor = .gray
