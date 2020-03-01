@@ -13,7 +13,7 @@ class BookmarksManager: AnnotationsManager {
     
     static let shared = BookmarksManager()
     
-    func addOrDeleteBookmark(id: String) {
+    func updateBookmark(id: String) {
         if let scripture = getScripture(id: id) {
             if let bookmarkToRemove = realm.objects(Bookmark.self).filter("id = '\(scripture.id)'").first {
                 try! realm.write {
