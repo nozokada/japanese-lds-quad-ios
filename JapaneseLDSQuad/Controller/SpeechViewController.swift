@@ -61,7 +61,7 @@ class SpeechViewController: UIViewController {
         speechRateLabel.text = "\(String(format: "%.1f", value))x"
     }
     
-    func prepareBackgroundView(){
+    func prepareBackgroundView() {
         let blurEffect = UIBlurEffect(style: .light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = view.bounds

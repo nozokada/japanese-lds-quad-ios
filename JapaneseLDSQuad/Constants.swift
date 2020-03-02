@@ -101,8 +101,8 @@ struct Constants {
     struct Rate {
         static let slideDurationInSec = 0.3
         static let speechRateMultiplierStep: Float = 0.1
-        static let speechRateMaximumMultiplier: Float = 1.5
-        static let speechRateMinimumMultiplier: Float = 0.5
+        static let speechRateMaximumMultiplier: Float = 1.6
+        static let speechRateMinimumMultiplier: Float = 0.4
     }
     
     struct ChapterType {
