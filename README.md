@@ -1,2 +1,2 @@
 # Japanese LDS Quad
-The bilingual LDS Standard Works iOS app for Japanese-speaking people
+The bilingual LDS standard works iOS app for Japanese-speaking people
