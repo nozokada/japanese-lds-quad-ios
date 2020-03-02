@@ -58,7 +58,7 @@ class SpeechViewController: UIViewController {
     }
     
     func setSpeechRateLabel(value: Float) {
-        speechRateLabel.text = "\(value)x"
+        speechRateLabel.text = "\(String(format: "%.1f", value))x"
     }
     
     func prepareBackgroundView(){
@@ -125,7 +125,6 @@ class SpeechViewController: UIViewController {
         newUtterance.voice = AVSpeechSynthesisVoice(language: language)
         newUtterance.rate = AppUtility.shared.getSpeechRate()
         currentUtterance = newUtterance
-        debugPrint(currentUtterance.rate)
     }
     
     func play(text: String, in language: String) {

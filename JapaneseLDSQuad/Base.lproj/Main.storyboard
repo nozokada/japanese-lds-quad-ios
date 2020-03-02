@@ -273,7 +273,7 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.0x" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJu-kZ-BDs">
-                                <rect key="frame" x="364" y="821.5" width="30" height="20.5"/>
+                                <rect key="frame" x="20" y="821.5" width="30" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -281,11 +281,11 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="fGQ-qf-b1U" firstAttribute="bottom" secondItem="KJu-kZ-BDs" secondAttribute="bottom" constant="20" id="2l9-VD-XOl"/>
                             <constraint firstItem="fGQ-qf-b1U" firstAttribute="bottom" secondItem="heM-Hy-qRc" secondAttribute="bottom" constant="20" id="77S-cx-WsV"/>
                             <constraint firstItem="fGQ-qf-b1U" firstAttribute="trailing" secondItem="heM-Hy-qRc" secondAttribute="trailing" constant="100" id="RNw-TL-9PY"/>
+                            <constraint firstItem="fGQ-qf-b1U" firstAttribute="bottom" secondItem="KJu-kZ-BDs" secondAttribute="bottom" constant="20" id="bel-9j-gqW"/>
                             <constraint firstItem="heM-Hy-qRc" firstAttribute="leading" secondItem="fGQ-qf-b1U" secondAttribute="leading" constant="100" id="brm-hB-zYL"/>
-                            <constraint firstItem="fGQ-qf-b1U" firstAttribute="trailing" secondItem="KJu-kZ-BDs" secondAttribute="trailing" constant="20" id="ilp-Hc-zrK"/>
+                            <constraint firstItem="KJu-kZ-BDs" firstAttribute="leading" secondItem="fGQ-qf-b1U" secondAttribute="leading" constant="20" id="wW3-9O-BoR"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fGQ-qf-b1U"/>
                     </view>
