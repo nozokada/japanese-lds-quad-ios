@@ -58,11 +58,11 @@ class AppUtility {
         return UserDefaults.standard.bool(forKey: Constants.Config.side)
     }
     
-    var fontSizeRate: Double {
+    var fontSizeMultiplier: Double {
         return UserDefaults.standard.double(forKey: Constants.Config.size)
     }
     
-    var speechRate: Float {
+    var speechRateMultiplier: Float {
         return UserDefaults.standard.float(forKey: Constants.Config.rate)
     }
     
@@ -70,8 +70,12 @@ class AppUtility {
         let name = AppUtility.shared.alternativeFontEnabled
             ? Constants.Font.min
             : Constants.Font.kaku
-        let size = Constants.TextSize.regular * Float(fontSizeRate) * multiplySizeBy
+        let size = Constants.TextSize.standard * Float(fontSizeMultiplier) * multiplySizeBy
         return UIFont(name: name, size: CGFloat(size))
+    }
+    
+    func getSpeechRate() -> Float {
+        return AVSpeechUtteranceDefaultSpeechRate * speechRateMultiplier
     }
     
     func getTextColor() -> UIColor {
@@ -84,10 +88,6 @@ class AppUtility {
     
     func getBackgroundColor() -> UIColor {
         return nightModeEnabled ? Constants.BackgroundColor.night : Constants.BackgroundColor.day
-    }
-    
-    func getSpeechSpeed() -> Float {
-        return AVSpeechUtteranceDefaultSpeechRate * speechRate
     }
     
     func getChapterIdFromChapterNumber(bookId: String, chapter: Int) -> String {

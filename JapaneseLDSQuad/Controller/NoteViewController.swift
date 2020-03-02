@@ -94,6 +94,7 @@ class NoteViewController: UIViewController {
     func show(animated: Bool = true) {
         updateBottomY()
         adjustNoteTextViewHeight()
+        
         UIView.animate(withDuration: animated ? Constants.Duration.slideViewAnimation : 0) {
             let frame = self.view.frame
             let y = self.bottomY - frame.height / 3
@@ -105,6 +106,7 @@ class NoteViewController: UIViewController {
     func showFull(animated: Bool = true) {
         updateBottomY()
         adjustNoteTextViewHeight()
+        
         UIView.animate(withDuration: animated ? Constants.Duration.slideViewAnimation : 0) {
             let frame = self.view.frame
             let y = self.bottomY - frame.height / 2
@@ -116,6 +118,7 @@ class NoteViewController: UIViewController {
     func hide(animated: Bool = true) {
         updateBottomY()
         adjustNoteTextViewHeight()
+        
         UIView.animate(withDuration: animated ? Constants.Duration.slideViewAnimation : 0) {
             let frame = self.view.frame
             let y = self.bottomY

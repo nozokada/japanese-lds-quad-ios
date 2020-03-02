@@ -76,7 +76,7 @@ class SettingsViewController: UITableViewController {
     
     
     func setTextSizeStepperValue() {
-        textSizeStepper.value = AppUtility.shared.fontSizeRate
+        textSizeStepper.value = AppUtility.shared.fontSizeMultiplier
     }
     
     func setSideBySideModeSwitchState() {

@@ -119,7 +119,7 @@ class ContentBuilder {
         let font = AppUtility.shared.alternativeFontEnabled
             ? Constants.Font.min
             : Constants.Font.kaku
-        let fontSize = AppUtility.shared.fontSizeRate
+        let fontSize = AppUtility.shared.fontSizeMultiplier
         let paddingSize = sqrt(sqrt(fontSize))
         let fontColor = AppUtility.shared.nightModeEnabled
             ? "rgb(186,186,186)"

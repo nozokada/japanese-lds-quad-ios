@@ -31,7 +31,7 @@ class BookmarksViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.estimatedRowHeight = CGFloat(Constants.TextSize.regular)
+        tableView.estimatedRowHeight = CGFloat(Constants.TextSize.standard)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = tableView.tableFooterView ?? UIView(frame: CGRect.zero)
         reload()

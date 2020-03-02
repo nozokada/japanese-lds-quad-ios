@@ -73,7 +73,7 @@ struct Constants {
     }
     
     struct TextSize {
-        static let regular: Float = 20
+        static let standard: Float = 20
     }
     
     struct TextColor {
