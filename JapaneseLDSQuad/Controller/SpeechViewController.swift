@@ -75,7 +75,7 @@ class SpeechViewController: UIViewController {
     
     func show(animated: Bool = true) {
         updateTopY()
-        UIView.animate(withDuration: animated ? Constants.Duration.slideViewAnimation : 0) {
+        UIView.animate(withDuration: animated ? Constants.Rate.slideDurationInSec : 0) {
             let frame = self.view.frame
             let y = self.topY + self.playOrPauseButton.frame.height + Constants.Size.speechViewButtonVerticalPadding * 2
             self.view.frame = CGRect(x: 0, y: y, width: frame.width, height: frame.height)
@@ -85,7 +85,7 @@ class SpeechViewController: UIViewController {
     
     func hide(animated: Bool = true) {
         updateTopY()
-        UIView.animate(withDuration: animated ? Constants.Duration.slideViewAnimation : 0) {
+        UIView.animate(withDuration: animated ? Constants.Rate.slideDurationInSec : 0) {
             let frame = self.view.frame
             let y = self.topY
             self.view.frame = CGRect(x: 0, y: y, width: frame.width, height: frame.height)
@@ -178,6 +178,10 @@ class SpeechViewController: UIViewController {
     
     func changeSpeechRateMultiplier(by value: Float) {
         let newValue = AppUtility.shared.speechRateMultiplier + value
+        if newValue < Constants.Rate.speechRateMinimumMultiplier
+            || newValue > Constants.Rate.speechRateMaximumMultiplier {
+            return
+        }
         UserDefaults.standard.set(newValue, forKey: Constants.Config.rate)
         setSpeechRateLabel(value: newValue)
     }
@@ -199,7 +203,7 @@ class SpeechViewController: UIViewController {
     @IBAction func fasterButtonTapped(_ sender: Any) {
         guard let utterance = currentUtterance else { return }
         
-        changeSpeechRateMultiplier(by: 0.1)
+        changeSpeechRateMultiplier(by: Constants.Rate.speechRateMultiplierStep)
         if remainingText.isEmpty { return }
         stop()
         play(text: remainingText, in: utterance.voice!.language)
@@ -208,7 +212,7 @@ class SpeechViewController: UIViewController {
     @IBAction func slowerButton(_ sender: Any) {
         guard let utterance = currentUtterance else { return }
 
-        changeSpeechRateMultiplier(by: -0.1)
+        changeSpeechRateMultiplier(by: -Constants.Rate.speechRateMultiplierStep)
         if remainingText.isEmpty { return }
         stop()
         play(text: remainingText, in: utterance.voice!.language)

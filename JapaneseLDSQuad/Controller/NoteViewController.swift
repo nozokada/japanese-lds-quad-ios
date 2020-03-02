@@ -95,7 +95,7 @@ class NoteViewController: UIViewController {
         updateBottomY()
         adjustNoteTextViewHeight()
         
-        UIView.animate(withDuration: animated ? Constants.Duration.slideViewAnimation : 0) {
+        UIView.animate(withDuration: animated ? Constants.Rate.slideDurationInSec : 0) {
             let frame = self.view.frame
             let y = self.bottomY - frame.height / 3
             self.view.frame = CGRect(x: 0, y: y, width: frame.width, height: frame.height)
@@ -107,7 +107,7 @@ class NoteViewController: UIViewController {
         updateBottomY()
         adjustNoteTextViewHeight()
         
-        UIView.animate(withDuration: animated ? Constants.Duration.slideViewAnimation : 0) {
+        UIView.animate(withDuration: animated ? Constants.Rate.slideDurationInSec : 0) {
             let frame = self.view.frame
             let y = self.bottomY - frame.height / 2
             self.view.frame = CGRect(x: 0, y: y, width: frame.width, height: frame.height)
@@ -119,7 +119,7 @@ class NoteViewController: UIViewController {
         updateBottomY()
         adjustNoteTextViewHeight()
         
-        UIView.animate(withDuration: animated ? Constants.Duration.slideViewAnimation : 0) {
+        UIView.animate(withDuration: animated ? Constants.Rate.slideDurationInSec : 0) {
             let frame = self.view.frame
             let y = self.bottomY
             self.view.frame = CGRect(x: 0, y: y, width: frame.width, height: frame.height)

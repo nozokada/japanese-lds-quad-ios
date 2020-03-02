@@ -98,8 +98,11 @@ struct Constants {
         static let nightSearchBar = UIColor(red: 0.20, green: 0.20, blue: 0.18, alpha: 1.0)
     }
     
-    struct Duration {
-        static let slideViewAnimation = 0.3
+    struct Rate {
+        static let slideDurationInSec = 0.3
+        static let speechRateMultiplierStep: Float = 0.1
+        static let speechRateMaximumMultiplier: Float = 1.5
+        static let speechRateMinimumMultiplier: Float = 0.5
     }
     
     struct ChapterType {
