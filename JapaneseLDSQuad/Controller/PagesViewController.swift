@@ -39,16 +39,12 @@ class PagesViewController: UIPageViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        reload()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+        updatePageContentView()
         addSpeechViewController()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewWillDisappear(animated)
         targetVerse = nil
         setCurrentRelativeOffset()
         updateScripturesToSpeech()
@@ -113,8 +109,8 @@ class PagesViewController: UIPageViewController {
 extension PagesViewController: SettingsChangeDelegate {
     
     func reload() {
-        updatePageContentView()
         setCurrentRelativeOffset()
+        updatePageContentView()
     }
 }
 
