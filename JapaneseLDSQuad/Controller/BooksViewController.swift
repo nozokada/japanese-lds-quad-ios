@@ -100,9 +100,9 @@ extension BooksViewController: UITableViewDataSource {
         }
         
         if Constants.PaidContent.books.contains(book.link) {
-            cell.isUserInteractionEnabled = PurchaseManager.shared.isPurchased
-            cell.textLabel?.isEnabled = PurchaseManager.shared.isPurchased
-            cell.detailTextLabel?.isEnabled = PurchaseManager.shared.isPurchased
+            cell.isUserInteractionEnabled = PurchaseManager.shared.allFeaturesUnlocked
+            cell.textLabel?.isEnabled = PurchaseManager.shared.allFeaturesUnlocked
+            cell.detailTextLabel?.isEnabled = PurchaseManager.shared.allFeaturesUnlocked
         }
         return cell
     }

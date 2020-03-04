@@ -224,6 +224,21 @@
             </objects>
             <point key="canvasLocation" x="1485.5072463768117" y="359.59821428571428"/>
         </scene>
+        <!--Purchase View Controller-->
+        <scene sceneID="Xhp-HA-MKp">
+            <objects>
+                <viewController id="psz-41-h5b" customClass="PurchaseViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pzv-dc-fnf">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="7nd-QE-QNf"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="98P-eM-fyN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3012" y="1039"/>
+        </scene>
         <!--Speech View Controller-->
         <scene sceneID="uWY-cb-npa">
             <objects>

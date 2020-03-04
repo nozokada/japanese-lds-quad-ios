@@ -56,6 +56,7 @@
 		D481DC3023F515AB00F166B7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D481DC3223F515AB00F166B7 /* InfoPlist.strings */; };
 		D481DC3523F6657B00F166B7 /* JavaScriptFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481DC3423F6657B00F166B7 /* JavaScriptFunctions.swift */; };
 		D481DC3723F678C300F166B7 /* MainWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D481DC3623F678C300F166B7 /* MainWebView.swift */; };
+		D4DE983B240F4C4100D87829 /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DE983A240F4C4100D87829 /* PurchaseViewController.swift */; };
 		D4DFE61923F4C0DE0055B6FB /* Images in Resources */ = {isa = PBXBuildFile; fileRef = D4DFE61823F4C0DE0055B6FB /* Images */; };
 		D4EBEFFD23F8EF4700275624 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EBEFFC23F8EF4700275624 /* SettingsViewController.swift */; };
 		D4EBF00123F906E200275624 /* SettingsChangeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EBF00023F906E200275624 /* SettingsChangeDelegate.swift */; };
@@ -147,6 +148,7 @@
 		D481DC3323F515B000F166B7 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D481DC3423F6657B00F166B7 /* JavaScriptFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaScriptFunctions.swift; sourceTree = "<group>"; };
 		D481DC3623F678C300F166B7 /* MainWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWebView.swift; sourceTree = "<group>"; };
+		D4DE983A240F4C4100D87829 /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
 		D4DFE61823F4C0DE0055B6FB /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
 		D4EBEFFC23F8EF4700275624 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		D4EBF00023F906E200275624 /* SettingsChangeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsChangeDelegate.swift; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 				D47EFBC523FE5B28001E213F /* NoteViewController.swift */,
 				D41EC6712404CF18001521D8 /* SpeechViewController.swift */,
 				D4EBEFFC23F8EF4700275624 /* SettingsViewController.swift */,
+				D4DE983A240F4C4100D87829 /* PurchaseViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -595,6 +598,7 @@
 				D41EC66E24034822001521D8 /* SpeechUtility.swift in Sources */,
 				D4212A2123E7BC02002CD60A /* BooksViewController.swift in Sources */,
 				D44FF28623EA91990014B30F /* MainIndicatorView.swift in Sources */,
+				D4DE983B240F4C4100D87829 /* PurchaseViewController.swift in Sources */,
 				D475CCFB23E9538300678A85 /* BookmarksManager.swift in Sources */,
 				D475CCF523E94EF700678A85 /* JavaScriptSnippets.swift in Sources */,
 				D475CCFD23E953F200678A85 /* HighlightsManager.swift in Sources */,

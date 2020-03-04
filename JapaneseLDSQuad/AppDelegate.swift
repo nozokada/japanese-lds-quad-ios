@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import StoreKit
 import RealmSwift
 import IQKeyboardManagerSwift
 
@@ -17,11 +18,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let currentSchemaVersion: UInt64 = 2
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         IQKeyboardManager.shared.enable = true
         configureUserDefaults()
         setUpRealm()
+        SKPaymentQueue.default().add(PurchaseManager.shared)
         return true
+    }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        SKPaymentQueue.default().remove(PurchaseManager.shared)
     }
 
     // MARK: UISceneSession Lifecycle

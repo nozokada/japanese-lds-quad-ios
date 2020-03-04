@@ -32,6 +32,10 @@ struct Constants {
         static let highlightCell = "highlightCell"
     }
     
+    struct ProductID {
+        static let allFeaturesPass = "com.nozokada.JapaneseLDSQuad.allFeaturesPass"
+    }
+    
     struct Count {
         static let sectionsInBooksView = 1
         static let sectionsInTopBooksView = 2

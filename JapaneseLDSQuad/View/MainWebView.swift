@@ -25,7 +25,7 @@ class MainWebView: WKWebView {
     }
     
     func setDefaultMenuItems() {
-        if PurchaseManager.shared.isPurchased {
+        if PurchaseManager.shared.allFeaturesUnlocked {
             let copyVerseMenuItem = UIMenuItem(title: "copyVerseMenuItemLabel".localized, action: #selector(copyVerseText))
             let highlightMenuItem = UIMenuItem(title: "highlightMenuItemLabel".localized, action: #selector(highlightText))
             UIMenuController.shared.menuItems = [copyVerseMenuItem, highlightMenuItem]
