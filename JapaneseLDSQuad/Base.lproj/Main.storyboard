@@ -227,17 +227,51 @@
         <!--Purchase View Controller-->
         <scene sceneID="Xhp-HA-MKp">
             <objects>
-                <viewController id="psz-41-h5b" customClass="PurchaseViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="purchase" id="psz-41-h5b" customClass="PurchaseViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pzv-dc-fnf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vpF-2M-UPj" customClass="MainButton" customModule="JapaneseLDSQuad" customModuleProvider="target">
+                                <rect key="frame" x="20" y="433" width="374" height="30"/>
+                                <state key="normal" title="購入する"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="オール機能パス" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E20-Sn-vy3">
+                                <rect key="frame" x="20" y="382" width="374" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="オール機能パスをお買い上げ頂くと、全ての機能が利用できるようになります" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xtj-kE-MS2">
+                                <rect key="frame" x="20" y="493" width="374" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="xtj-kE-MS2" firstAttribute="leading" secondItem="7nd-QE-QNf" secondAttribute="leading" constant="20" id="58Z-Vm-nzx"/>
+                            <constraint firstItem="vpF-2M-UPj" firstAttribute="leading" secondItem="7nd-QE-QNf" secondAttribute="leading" constant="20" id="72F-zi-lde"/>
+                            <constraint firstItem="vpF-2M-UPj" firstAttribute="centerY" secondItem="pzv-dc-fnf" secondAttribute="centerY" id="E4e-rQ-eNO"/>
+                            <constraint firstItem="7nd-QE-QNf" firstAttribute="trailing" secondItem="xtj-kE-MS2" secondAttribute="trailing" constant="20" id="In0-0N-Foo"/>
+                            <constraint firstItem="7nd-QE-QNf" firstAttribute="trailing" secondItem="E20-Sn-vy3" secondAttribute="trailing" constant="20" id="K4R-TQ-zJt"/>
+                            <constraint firstItem="E20-Sn-vy3" firstAttribute="leading" secondItem="7nd-QE-QNf" secondAttribute="leading" constant="20" id="Mzq-Jv-Jik"/>
+                            <constraint firstItem="xtj-kE-MS2" firstAttribute="top" secondItem="vpF-2M-UPj" secondAttribute="bottom" constant="30" id="ZRl-6c-Exi"/>
+                            <constraint firstItem="vpF-2M-UPj" firstAttribute="top" secondItem="E20-Sn-vy3" secondAttribute="bottom" constant="30" id="dRh-5J-Ky2"/>
+                            <constraint firstItem="7nd-QE-QNf" firstAttribute="trailing" secondItem="vpF-2M-UPj" secondAttribute="trailing" constant="20" id="g5Z-xz-7dQ"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="7nd-QE-QNf"/>
                     </view>
+                    <connections>
+                        <outlet property="allFeaturePassPurchaseButton" destination="vpF-2M-UPj" id="hvk-Yv-Oqw"/>
+                        <outlet property="allFeaturesPassDescriptionLabel" destination="xtj-kE-MS2" id="omA-2Y-xdT"/>
+                        <outlet property="allFeaturesPassTitleLabel" destination="E20-Sn-vy3" id="FtK-fE-8R2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="98P-eM-fyN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3012" y="1039"/>
+            <point key="canvasLocation" x="3011.594202898551" y="1038.6160714285713"/>
         </scene>
         <!--Speech View Controller-->
         <scene sceneID="uWY-cb-npa">

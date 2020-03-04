@@ -48,8 +48,6 @@
 "InvalidActionAlertTitle" = "Sorry!";
 "InvalidSelectedRangeAlertMessage" = "That operation is not supported where you selected";
 
-"purchaseViewTitleLabel" = "All Features Pass";
-"purchaseViewDescriptionLabel" = "Purchasing All Features Pass will give you unlimited access to all features\n\nThe following features will be added:\nJapanese/English Side by Side\nPassage Lookup\nHighlights\nText to Speech\nLinks to Bible verses in Bible Dictionary\nJoseph Smith Translation in Study Helps";
-"purchaseViewPurchaseButtonLabel" = "Purchase Pass";
-"purchaseViewRestoreButtonLabel" = "Restore Purchase";
-"purchaseViewCloseButtonLabel" = "Close";
+"allFeaturesDescriptionLabel" = "Purchasing All Features Pass will give you unlimited access to all features\n\nThe following features will be added:\nJapanese/English Side by Side\nPassage Lookup\nHighlights\nText to Speech\nLinks to Bible verses in Bible Dictionary\nJoseph Smith Translation in Study Helps";
+"allFeaturesPassPurchaseButtonLabel" = "Purchase";
+"allFeaturesPassRestoreButtonLabel" = "Restore";

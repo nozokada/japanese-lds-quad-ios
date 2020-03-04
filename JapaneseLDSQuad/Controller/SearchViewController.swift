@@ -150,9 +150,9 @@ extension SearchViewController: UITableViewDataSource {
         }
         
         if Constants.PaidContent.books.contains(scripture.parent_book.link) {
-            cell.isUserInteractionEnabled = PurchaseManager.shared.allFeaturesUnlocked
-            cell.textLabel?.isEnabled = PurchaseManager.shared.allFeaturesUnlocked
-            cell.detailTextLabel?.isEnabled = PurchaseManager.shared.allFeaturesUnlocked
+            cell.isUserInteractionEnabled = StoreObserver.shared.allFeaturesUnlocked
+            cell.textLabel?.isEnabled = StoreObserver.shared.allFeaturesUnlocked
+            cell.detailTextLabel?.isEnabled = StoreObserver.shared.allFeaturesUnlocked
         }
         return cell
     }

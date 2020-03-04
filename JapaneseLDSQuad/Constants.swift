@@ -22,6 +22,7 @@ struct Constants {
         static let notes = "notes"
         static let settings = "settings"
         static let speech = "speech"
+        static let purchase = "purchase"
     }
     
     struct ReuseID {

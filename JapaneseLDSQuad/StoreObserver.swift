@@ -1,5 +1,5 @@
 //
-//  PurchaseManager.swift
+//  StoreObserver.swift
 //  JapaneseLDSQuad
 //
 //  Created by Nozomi Okada on 2/4/20.
@@ -9,15 +9,24 @@
 import Foundation
 import StoreKit
 
-class PurchaseManager: NSObject {
+class StoreObserver: NSObject {
 
-    static var shared = PurchaseManager()
+    static var shared = StoreObserver()
+    
+    var isAuthorizedForPayments: Bool {
+        return SKPaymentQueue.canMakePayments()
+    }
     
     var allFeaturesUnlocked = true
     
     private override init() {
         super.init()
         allFeaturesUnlocked = UserDefaults.standard.bool(forKey: Constants.Config.pass)
+    }
+    
+    func enableAllFeatures(purchased: Bool) {
+        UserDefaults.standard.set(purchased, forKey: Constants.Config.pass)
+        allFeaturesUnlocked = purchased
     }
     
     func unlockProduct(withIdentifier productIdentifier: String) {
@@ -29,9 +38,13 @@ class PurchaseManager: NSObject {
         }
     }
     
-    func enableAllFeatures(purchased: Bool) {
-        UserDefaults.standard.set(purchased, forKey: Constants.Config.pass)
-        allFeaturesUnlocked = purchased
+    func buy(_ product: SKProduct) {
+        let payment = SKMutablePayment(product: product)
+        SKPaymentQueue.default().add(payment)
+    }
+    
+    func restore() {
+        SKPaymentQueue.default().restoreCompletedTransactions()
     }
     
     func handlePurchased(_ transaction: SKPaymentTransaction) {
@@ -62,7 +75,7 @@ class PurchaseManager: NSObject {
     }
 }
 
-extension PurchaseManager: SKPaymentTransactionObserver {
+extension StoreObserver: SKPaymentTransactionObserver {
     
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for transaction in transactions {

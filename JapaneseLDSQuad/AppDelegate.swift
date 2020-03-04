@@ -18,15 +18,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let currentSchemaVersion: UInt64 = 2
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        application.isIdleTimerDisabled = true
         IQKeyboardManager.shared.enable = true
         configureUserDefaults()
         setUpRealm()
-        SKPaymentQueue.default().add(PurchaseManager.shared)
+        SKPaymentQueue.default().add(StoreObserver.shared)
         return true
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
-        SKPaymentQueue.default().remove(PurchaseManager.shared)
+        SKPaymentQueue.default().remove(StoreObserver.shared)
     }
 
     // MARK: UISceneSession Lifecycle
@@ -44,10 +45,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func configureUserDefaults() {
-        UIApplication.shared.isIdleTimerDisabled = true
         UserDefaults.standard.register(defaults: [Constants.Config.font: false])
         UserDefaults.standard.register(defaults: [Constants.Config.night: false])
-        UserDefaults.standard.register(defaults: [Constants.Config.dual: true])
+        UserDefaults.standard.register(defaults: [Constants.Config.dual: false])
         UserDefaults.standard.register(defaults: [Constants.Config.side: false])
         UserDefaults.standard.register(defaults: [Constants.Config.size: 1.0])
         UserDefaults.standard.register(defaults: [Constants.Config.rate: 1.0])

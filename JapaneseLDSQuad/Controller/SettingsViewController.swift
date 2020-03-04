@@ -80,7 +80,7 @@ class SettingsViewController: UITableViewController {
     }
     
     func setSideBySideModeSwitchState() {
-        if PurchaseManager.shared.allFeaturesUnlocked {
+        if StoreObserver.shared.allFeaturesUnlocked {
             let currState = AppUtility.shared.sideBySideEnabled
             sideBySideModeSwitch.setImage(currState ? #imageLiteral(resourceName: "ToggleOn") : #imageLiteral(resourceName: "ToggleOff"), for: .normal)
         } else {

@@ -1,5 +1,5 @@
 //
-//  StringExtension.swift
+//  AppExtension.swift
 //  JapaneseLDSQuad
 //
 //  Created by Nozomi Okada on 2/3/20.
@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import StoreKit
 
 extension String {
     
@@ -20,5 +21,15 @@ extension String {
     
     var verseAfterColonRemoved: String {
         return replacingOccurrences(of: "[：|:].*", with: "", options: .regularExpression)
+    }
+}
+
+extension SKProduct {
+    
+    var regularPrice: String? {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.locale = priceLocale
+        return formatter.string(from: price)
     }
 }
