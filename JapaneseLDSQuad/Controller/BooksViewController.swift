@@ -99,7 +99,7 @@ extension BooksViewController: UITableViewDataSource {
             cell.detailTextLabel?.textColor = .gray
         }
         
-        if AppUtility.shared.isPaidContent(book: book) {
+        if AppUtility.shared.isPaid(book: book) {
             cell.textLabel?.isEnabled = StoreObserver.shared.allFeaturesUnlocked
             cell.detailTextLabel?.isEnabled = StoreObserver.shared.allFeaturesUnlocked
         }
@@ -119,7 +119,7 @@ extension BooksViewController: UITableViewDelegate {
         
         let selectedBook = books[indexPath.row + groupedCellsOffset(section: indexPath.section)]
         
-        if AppUtility.shared.isPaidContent(book: selectedBook) {
+        if AppUtility.shared.isPaid(book: selectedBook) {
             if !StoreObserver.shared.allFeaturesUnlocked {
                 presentPuchaseViewController()
                 return

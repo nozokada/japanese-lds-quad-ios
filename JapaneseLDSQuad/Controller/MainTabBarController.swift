@@ -8,14 +8,25 @@
 
 import UIKit
 
-class MainTabBarController: UITabBarController {
+class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        delegate = self
         tabBar.items?[0].title = "readTabBarItemTitle".localized
         tabBar.items?[1].title = "searchTabBarItemTitle".localized
         tabBar.items?[2].title = "bookmarksTabBarItemTitle".localized
         tabBar.items?[3].title = "highlightsTabBarItemTitle".localized
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        if let identifier = viewController.restorationIdentifier,
+            AppUtility.shared.isPaid(restorationIdentifider: identifier) {
+            if !StoreObserver.shared.allFeaturesUnlocked {
+                presentPuchaseViewController()
+                return false
+            }
+        }
+        return true
     }
 }

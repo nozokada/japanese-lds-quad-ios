@@ -25,6 +25,11 @@ struct Constants {
         static let purchase = "purchase"
     }
     
+    struct RestorationID {
+        static let highlights = "highlights"
+        static let login = "login"
+    }
+    
     struct ReuseID {
         static let bookCell = "bookCell"
         static let chapterCell = "chapterCell"

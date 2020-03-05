@@ -90,8 +90,12 @@ class AppUtility {
         return nightModeEnabled ? Constants.BackgroundColor.night : Constants.BackgroundColor.day
     }
     
-    func isPaidContent(book: Book) -> Bool {
+    func isPaid(book: Book) -> Bool {
         return Constants.PaidContent.books.contains(book.link)
+    }
+    
+    func isPaid(restorationIdentifider: String) -> Bool {
+        return [Constants.RestorationID.highlights].contains(restorationIdentifider)
     }
     
     func getChapterIdFromChapterNumber(bookId: String, chapter: Int) -> String {

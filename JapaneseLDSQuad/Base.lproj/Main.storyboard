@@ -827,7 +827,7 @@
         <!--Highlights-->
         <scene sceneID="Qcm-ng-gDF">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="W3d-yM-HqM" customClass="MainNavigationController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="highlights" automaticallyAdjustsScrollViewInsets="NO" id="W3d-yM-HqM" customClass="MainNavigationController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Highlights" image="pencil" catalog="system" id="K6G-Er-72L"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9rk-Z1-X3n" customClass="MainNavigationBar" customModule="JapaneseLDSQuad" customModuleProvider="target">
