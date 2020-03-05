@@ -27,6 +27,7 @@ class PurchaseViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var purchaseButton: MainButton!
+    @IBOutlet weak var restoreButton: MainButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +55,7 @@ class PurchaseViewController: UIViewController {
         titleLabel.text = allFeaturesPass?.localizedTitle
         let buttonTitle = "\("allFeaturesPassPurchaseButtonLabel".localized) \(allFeaturesPass?.regularPrice ?? "")"
         purchaseButton.setTitle(buttonTitle, for: .normal)
+        restoreButton.setTitle("allFeaturesPassRestoreButtonLabel".localized, for: .normal)
         descriptionLabel.text = "allFeaturesDescriptionLabel".localized
     }
     

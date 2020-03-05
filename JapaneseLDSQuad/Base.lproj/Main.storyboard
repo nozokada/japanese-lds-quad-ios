@@ -317,6 +317,7 @@
                         <outlet property="descriptionLabel" destination="xtj-kE-MS2" id="omA-2Y-xdT"/>
                         <outlet property="modalView" destination="PyN-VX-vVo" id="mWK-TB-Jsl"/>
                         <outlet property="purchaseButton" destination="vpF-2M-UPj" id="hvk-Yv-Oqw"/>
+                        <outlet property="restoreButton" destination="uoH-LR-4Gf" id="cok-7K-tL3"/>
                         <outlet property="titleLabel" destination="E20-Sn-vy3" id="FtK-fE-8R2"/>
                     </connections>
                 </viewController>
@@ -333,38 +334,38 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="27" translatesAutoresizingMaskIntoConstraints="NO" id="heM-Hy-qRc">
-                                <rect key="frame" x="100" y="810" width="214" height="32"/>
+                                <rect key="frame" x="100" y="820" width="214" height="22"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oHI-ld-dSJ">
-                                        <rect key="frame" x="0.0" y="0.0" width="21" height="32"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="21" height="22"/>
                                         <state key="normal" image="Slower"/>
                                         <connections>
                                             <action selector="slowerButton:" destination="AUS-pu-oiz" eventType="touchUpInside" id="IHT-ko-U0D"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BUu-7l-7ju">
-                                        <rect key="frame" x="48" y="0.0" width="21.5" height="32"/>
+                                        <rect key="frame" x="48" y="0.0" width="21.5" height="22"/>
                                         <state key="normal" image="Back"/>
                                         <connections>
                                             <action selector="backButtonTapped:" destination="AUS-pu-oiz" eventType="touchUpInside" id="eNi-7h-KF6"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uey-GC-yPi">
-                                        <rect key="frame" x="96.5" y="0.0" width="21" height="32"/>
+                                        <rect key="frame" x="96.5" y="0.0" width="21" height="22"/>
                                         <state key="normal" image="play" catalog="system"/>
                                         <connections>
                                             <action selector="playButtonTapped:" destination="AUS-pu-oiz" eventType="touchUpInside" id="ibJ-wk-jtZ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IBR-UL-7Gh">
-                                        <rect key="frame" x="144.5" y="0.0" width="21.5" height="32"/>
+                                        <rect key="frame" x="144.5" y="0.0" width="21.5" height="22"/>
                                         <state key="normal" image="Next"/>
                                         <connections>
                                             <action selector="nextButtonTapped:" destination="AUS-pu-oiz" eventType="touchUpInside" id="h5I-ii-aeO"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HQh-6m-qY8">
-                                        <rect key="frame" x="193" y="0.0" width="21" height="32"/>
+                                        <rect key="frame" x="193" y="0.0" width="21" height="22"/>
                                         <state key="normal" image="Faster"/>
                                         <connections>
                                             <action selector="fasterButtonTapped:" destination="AUS-pu-oiz" eventType="touchUpInside" id="jGW-Y4-fWL"/>
@@ -845,10 +846,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Back" width="16" height="16"/>
-        <image name="Faster" width="16" height="16"/>
+        <image name="Back" width="13" height="14"/>
+        <image name="Faster" width="17" height="19"/>
         <image name="Next" width="13" height="14"/>
-        <image name="Slower" width="16" height="16"/>
+        <image name="Slower" width="17" height="19"/>
         <image name="ToggleOn" width="73.5" height="48"/>
         <image name="book.fill" catalog="system" width="64" height="50"/>
         <image name="bookmark.fill" catalog="system" width="56" height="64"/>
