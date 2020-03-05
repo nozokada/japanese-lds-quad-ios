@@ -11,7 +11,7 @@ import StoreKit
 
 class PurchaseViewController: UIViewController {
     
-    var delegate: PurchaseChangeDelegate?
+    var delegate: PurchaseViewDelegate?
     
     let productIdentifiers = [Constants.ProductID.allFeaturesPass]
     

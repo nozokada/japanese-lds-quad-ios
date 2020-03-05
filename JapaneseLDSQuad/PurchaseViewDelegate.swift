@@ -8,13 +8,13 @@
 
 import UIKit
 
-protocol PurchaseChangeDelegate {
+protocol PurchaseViewDelegate {
     
     func presentPuchaseViewController()
 }
 
 
-extension UIViewController: PurchaseChangeDelegate {
+extension UIViewController: PurchaseViewDelegate {
     
     func presentPuchaseViewController() {
         if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.purchase) as? PurchaseViewController {
@@ -24,7 +24,7 @@ extension UIViewController: PurchaseChangeDelegate {
             
             if let settingsViewController = self as? SettingsViewController {
                 settingsViewController.dismiss(animated: true, completion: nil)
-                if let delegate = settingsViewController.delegate as? PurchaseChangeDelegate {
+                if let delegate = settingsViewController.delegate as? PurchaseViewDelegate {
                     delegate.presentPuchaseViewController()
                 }
             } else {

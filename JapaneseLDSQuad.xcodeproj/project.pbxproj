@@ -37,7 +37,7 @@
 		D44FF28823EC992A0014B30F /* ContentBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44FF28723EC992A0014B30F /* ContentBuilder.swift */; };
 		D44FF28C23ECAB8E0014B30F /* HymnBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44FF28B23ECAB8E0014B30F /* HymnBuilder.swift */; };
 		D44FF28E23ECB3460014B30F /* BibleDictionaryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44FF28D23ECB3460014B30F /* BibleDictionaryBuilder.swift */; };
-		D47156CA2410BEC5002732A8 /* PurchaseChangeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47156C92410BEC5002732A8 /* PurchaseChangeDelegate.swift */; };
+		D47156CA2410BEC5002732A8 /* PurchaseViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47156C92410BEC5002732A8 /* PurchaseViewDelegate.swift */; };
 		D475CCE023E8F2F300678A85 /* ChaptersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCDF23E8F2F300678A85 /* ChaptersViewController.swift */; };
 		D475CCE223E9293700678A85 /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCE123E9293700678A85 /* MainNavigationController.swift */; };
 		D475CCE523E92D5200678A85 /* MainNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCE423E92D5200678A85 /* MainNavigationBar.swift */; };
@@ -131,7 +131,7 @@
 		D44FF28723EC992A0014B30F /* ContentBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentBuilder.swift; sourceTree = "<group>"; };
 		D44FF28B23ECAB8E0014B30F /* HymnBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HymnBuilder.swift; sourceTree = "<group>"; };
 		D44FF28D23ECB3460014B30F /* BibleDictionaryBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleDictionaryBuilder.swift; sourceTree = "<group>"; };
-		D47156C92410BEC5002732A8 /* PurchaseChangeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseChangeDelegate.swift; sourceTree = "<group>"; };
+		D47156C92410BEC5002732A8 /* PurchaseViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewDelegate.swift; sourceTree = "<group>"; };
 		D475CCDF23E8F2F300678A85 /* ChaptersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaptersViewController.swift; sourceTree = "<group>"; };
 		D475CCE123E9293700678A85 /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		D475CCE423E92D5200678A85 /* MainNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationBar.swift; sourceTree = "<group>"; };
@@ -291,7 +291,7 @@
 				D41EC67324050876001521D8 /* HighlightChangeDelegate.swift */,
 				D41EC66924011328001521D8 /* ScripturesToSpeechDelegate.swift */,
 				D4EBF00023F906E200275624 /* SettingsViewDelegate.swift */,
-				D47156C92410BEC5002732A8 /* PurchaseChangeDelegate.swift */,
+				D47156C92410BEC5002732A8 /* PurchaseViewDelegate.swift */,
 				D4DE983E240F6F0600D87829 /* StoreManagerDelegate.swift */,
 				D475CCF623E9521200678A85 /* StoreObserver.swift */,
 				D4DE983C240F602200D87829 /* StoreManager.swift */,
@@ -590,7 +590,7 @@
 				D40B3E6C23E7F89500276662 /* BookmarksViewController.swift in Sources */,
 				D4DE983D240F602200D87829 /* StoreManager.swift in Sources */,
 				D40B3E7C23E896BA00276662 /* Constants.swift in Sources */,
-				D47156CA2410BEC5002732A8 /* PurchaseChangeDelegate.swift in Sources */,
+				D47156CA2410BEC5002732A8 /* PurchaseViewDelegate.swift in Sources */,
 				D4212A2323E7BC02002CD60A /* SearchViewController.swift in Sources */,
 				D40B3E7023E892F900276662 /* Book.swift in Sources */,
 				D47EFBC823FFBB9A001E213F /* MainButton.swift in Sources */,
