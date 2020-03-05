@@ -31,7 +31,7 @@ extension UIViewController {
         if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.settings) as? SettingsViewController {
             viewController.delegate = self as? SettingsChangeDelegate
             viewController.modalPresentationStyle = .popover
-            viewController.preferredContentSize = Constants.Size.settingsViewSize
+            viewController.preferredContentSize = Constants.Size.settingsViewDimension
             
             guard let controller = viewController.popoverPresentationController else { return }
             controller.barButtonItem = sender

@@ -75,7 +75,7 @@ struct Constants {
         static let highlightCellLabelHorizontalPadding: CGFloat = 8
         static let noteViewTitleVerticalPadding: CGFloat = 20
         static let speechViewButtonVerticalPadding: CGFloat = 20
-        static let settingsViewSize = CGSize(width: 300, height: 300)
+        static let settingsViewDimension = CGSize(width: 300, height: 300)
     }
     
     struct TextSize {
