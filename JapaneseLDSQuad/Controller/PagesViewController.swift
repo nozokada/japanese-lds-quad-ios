@@ -106,7 +106,7 @@ class PagesViewController: UIPageViewController {
 }
 
 
-extension PagesViewController: SettingsChangeDelegate {
+extension PagesViewController: SettingsViewDelegate {
     
     func reload() {
         setCurrentRelativeOffset()

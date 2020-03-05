@@ -173,7 +173,7 @@ class NoteViewController: UIViewController {
     }
 }
 
-extension NoteViewController: SettingsChangeDelegate {
+extension NoteViewController: SettingsViewDelegate {
     
     func reload() {
         setTitleAndNote()

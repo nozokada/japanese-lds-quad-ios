@@ -60,7 +60,7 @@ class HighlightsViewController: UIViewController {
     }
 }
 
-extension HighlightsViewController: SettingsChangeDelegate {
+extension HighlightsViewController: SettingsViewDelegate {
     
     func reload() {
         if let highlights = highlights {

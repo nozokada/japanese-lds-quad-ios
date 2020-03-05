@@ -45,7 +45,7 @@ class BooksViewController: UIViewController {
     }
 }
 
-extension BooksViewController: SettingsChangeDelegate {
+extension BooksViewController: SettingsViewDelegate {
 
     func reload() {
         tableView.reloadData()

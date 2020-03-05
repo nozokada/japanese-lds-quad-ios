@@ -89,7 +89,7 @@ class SearchViewController: UIViewController {
     }
 }
 
-extension SearchViewController: SettingsChangeDelegate {
+extension SearchViewController: SettingsViewDelegate {
 
     func reload() {
         if let results = results {

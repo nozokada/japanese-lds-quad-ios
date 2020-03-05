@@ -1,5 +1,5 @@
 //
-//  SettingsChangeDelegate.swift
+//  SettingsViewDelegate.swift
 //  JapaneseLDSQuad
 //
 //  Created by Nozomi Okada on 2/15/20.
@@ -8,12 +8,12 @@
 
 import UIKit
 
-@objc protocol SettingsChangeDelegate {
+@objc protocol SettingsViewDelegate {
     
     func reload()
 }
 
-extension SettingsChangeDelegate where Self: UIViewController {
+extension SettingsViewDelegate where Self: UIViewController {
     
     func setSettingsBarButton() {
         let settingsButton = UIBarButtonItem(image: UIImage(systemName: "ellipsis"), style: .plain, target: self, action: #selector(presentSettingsViewController(sender:)))
@@ -29,7 +29,7 @@ extension UIViewController {
     
     @objc func presentSettingsViewController(sender: UIBarButtonItem) {
         if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.settings) as? SettingsViewController {
-            viewController.delegate = self as? SettingsChangeDelegate
+            viewController.delegate = self as? SettingsViewDelegate
             viewController.modalPresentationStyle = .popover
             viewController.preferredContentSize = Constants.Size.settingsViewDimension
             

@@ -55,7 +55,7 @@ class ChaptersViewController: UIViewController {
     }
 }
 
-extension ChaptersViewController: SettingsChangeDelegate {
+extension ChaptersViewController: SettingsViewDelegate {
 
     func reload() {
         tableView.reloadData()

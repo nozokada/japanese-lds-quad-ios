@@ -52,7 +52,7 @@ class BookmarksViewController: UIViewController {
     }
 }
 
-extension BookmarksViewController: SettingsChangeDelegate {
+extension BookmarksViewController: SettingsViewDelegate {
 
     func reload() {
         noBookmarksLabel.isHidden = bookmarks.count > 0

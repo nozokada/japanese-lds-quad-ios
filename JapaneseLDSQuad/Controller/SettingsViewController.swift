@@ -11,7 +11,7 @@ import UIKit
 @IBDesignable
 class SettingsViewController: UITableViewController {
     
-    var delegate: SettingsChangeDelegate?
+    var delegate: SettingsViewDelegate?
     
     @IBOutlet weak var alternativeFontSwitch: UIButton!
     @IBOutlet weak var alternativeFontLabel: UILabel!
