@@ -19,17 +19,9 @@ extension UIViewController: PurchaseViewDelegate {
     func presentPuchaseViewController() {
         if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.purchase) as? PurchaseViewController {
             viewController.delegate = self
-            viewController.modalPresentationStyle = .overCurrentContext
+            viewController.modalPresentationStyle = .overFullScreen
             viewController.modalTransitionStyle = .crossDissolve
-            
-            if let settingsViewController = self as? SettingsViewController {
-                settingsViewController.dismiss(animated: true, completion: nil)
-                if let delegate = settingsViewController.delegate as? PurchaseViewDelegate {
-                    delegate.presentPuchaseViewController()
-                }
-            } else {
-                present(viewController, animated: true, completion: nil)
-            }
+            present(viewController, animated: true, completion: nil)
         }
     }
 }
