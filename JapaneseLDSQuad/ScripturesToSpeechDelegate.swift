@@ -25,21 +25,21 @@ extension ScripturesToSpeechDelegate where Self: UIViewController {
             navigationItem.rightBarButtonItem = speechButton
         }
     }
+}
+
+extension UIViewController {
     
     func addSpeechViewController() {
         guard let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.speech) as? SpeechViewController else { return }
         addChild(viewController)
         view.addSubview(viewController.view)
         viewController.didMove(toParent: self)
-        viewController.delegate = self
+        viewController.delegate = self as? ScripturesToSpeechDelegate
         
         let height = view.frame.height
         let width  = view.frame.width
         viewController.view.frame = CGRect(x: 0, y: 0 - view.frame.height, width: width, height: height)
     }
-}
-
-extension UIViewController: PurchaseChangeDelegate {
     
     @objc func presentSpeechViewController(sender: UIBarButtonItem) {
         if StoreObserver.shared.allFeaturesUnlocked {

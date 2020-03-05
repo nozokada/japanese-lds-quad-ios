@@ -80,14 +80,8 @@ class SettingsViewController: UITableViewController {
     }
     
     func setSideBySideModeSwitchState() {
-        if StoreObserver.shared.allFeaturesUnlocked {
-            let currState = AppUtility.shared.sideBySideEnabled
-            sideBySideModeSwitch.setImage(currState ? #imageLiteral(resourceName: "ToggleOn") : #imageLiteral(resourceName: "ToggleOff"), for: .normal)
-        } else {
-            sideBySideModeSwitch.alpha = 0.5
-            sideBySideModeSwitch.isEnabled = false
-            sideBySideModeSwitchLabel.alpha = 0.5
-        }
+        let currState = AppUtility.shared.sideBySideEnabled
+        sideBySideModeSwitch.setImage(currState ? #imageLiteral(resourceName: "ToggleOn") : #imageLiteral(resourceName: "ToggleOff"), for: .normal)
     }
     
     func setTextSizeStepperImages() {
@@ -125,6 +119,10 @@ class SettingsViewController: UITableViewController {
     }
     
     @IBAction func sideBySideModeSwitchToggled(_ sender: Any) {
+        if !StoreObserver.shared.allFeaturesUnlocked {
+            presentPuchaseViewController()
+            return
+        }
         let state = AppUtility.shared.sideBySideEnabled
         UserDefaults.standard.set(!state, forKey: Constants.Config.side)
         sideBySideModeSwitch.setImage(state ? #imageLiteral(resourceName: "ToggleOff") : #imageLiteral(resourceName: "ToggleOn") , for: .normal)
