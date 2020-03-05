@@ -31,6 +31,7 @@ extension UIViewController {
         if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.settings) as? SettingsViewController {
             viewController.delegate = self as? SettingsChangeDelegate
             viewController.modalPresentationStyle = .popover
+            viewController.preferredContentSize = Constants.Size.settingsViewSize
             
             guard let controller = viewController.popoverPresentationController else { return }
             controller.barButtonItem = sender
@@ -41,7 +42,7 @@ extension UIViewController {
 }
 
 extension UIViewController: UIPopoverPresentationControllerDelegate {
-    
+
     public func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }
