@@ -90,6 +90,10 @@ class AppUtility {
         return nightModeEnabled ? Constants.BackgroundColor.night : Constants.BackgroundColor.day
     }
     
+    func isPaidContent(book: Book) -> Bool {
+        return Constants.PaidContent.books.contains(book.link)
+    }
+    
     func getChapterIdFromChapterNumber(bookId: String, chapter: Int) -> String {
         return "\(bookId)\(String(chapter / 10, radix: 21).uppercased())\(String(chapter % 10))"
     }

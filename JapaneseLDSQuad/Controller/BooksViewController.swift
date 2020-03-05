@@ -99,8 +99,7 @@ extension BooksViewController: UITableViewDataSource {
             cell.detailTextLabel?.textColor = .gray
         }
         
-        if Constants.PaidContent.books.contains(book.link) {
-            cell.isUserInteractionEnabled = StoreObserver.shared.allFeaturesUnlocked
+        if AppUtility.shared.isPaidContent(book: book) {
             cell.textLabel?.isEnabled = StoreObserver.shared.allFeaturesUnlocked
             cell.detailTextLabel?.isEnabled = StoreObserver.shared.allFeaturesUnlocked
         }
@@ -116,7 +115,17 @@ extension BooksViewController: UITableViewDataSource {
 extension BooksViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         let selectedBook = books[indexPath.row + groupedCellsOffset(section: indexPath.section)]
+        
+        if AppUtility.shared.isPaidContent(book: selectedBook) {
+            if !StoreObserver.shared.allFeaturesUnlocked {
+                presentPuchaseViewController()
+                return
+            }
+        }
+        
         if selectedBook.child_books.count > 0 {
             if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.books) as? BooksViewController {
                 viewController.initTargetBook(targetBook: selectedBook)
@@ -135,6 +144,5 @@ extension BooksViewController: UITableViewDelegate {
                 navigationController?.pushViewController(viewController, animated: true)
             }
         }
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

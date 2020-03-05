@@ -104,12 +104,21 @@ extension SearchViewController: SettingsViewDelegate {
 extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let scripture = filteredResults[indexPath.row]
+        
+        if AppUtility.shared.isPaidContent(book: scripture.parent_book) {
+            if !StoreObserver.shared.allFeaturesUnlocked {
+                presentPuchaseViewController()
+                return
+            }
+        }
+        
         if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
-            let scripture = filteredResults[indexPath.row]
+            
             viewController.initData(scripture: scripture)
             navigationController?.pushViewController(viewController, animated: true)
         }
-        tableView.deselectRow(at: indexPath, animated: true)
         searchBar.resignFirstResponder()
     }
 }
@@ -149,8 +158,7 @@ extension SearchViewController: UITableViewDataSource {
             cell.detailTextLabel?.textColor = .gray
         }
         
-        if Constants.PaidContent.books.contains(scripture.parent_book.link) {
-            cell.isUserInteractionEnabled = StoreObserver.shared.allFeaturesUnlocked
+        if AppUtility.shared.isPaidContent(book: scripture.parent_book) {
             cell.textLabel?.isEnabled = StoreObserver.shared.allFeaturesUnlocked
             cell.detailTextLabel?.isEnabled = StoreObserver.shared.allFeaturesUnlocked
         }

@@ -101,11 +101,12 @@ extension ChaptersViewController: UITableViewDataSource {
 extension ChaptersViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
             viewController.initData(targetScriptureData: TargetScriptureData(book: targetBook, chapter: indexPath.row + 1))
             navigationController?.pushViewController(viewController, animated: true)
         }
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
