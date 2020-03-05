@@ -129,7 +129,7 @@ class SpeechViewController: UIViewController {
     
     func play(text: String, in language: String) {
         speak(text: text, in: language)
-        playOrPauseButton.setImage(UIImage(systemName: "pause"), for: .normal)
+        playOrPauseButton.setImage(UIImage(named: "Pause"), for: .normal)
     }
     
     func playNext(withNumber: Bool = false, in language: String = Constants.Language.primarySpeech) {
@@ -144,22 +144,22 @@ class SpeechViewController: UIViewController {
         stop()
         speak(text: speechText, in: language)
         nextSpeechIndex += 1
-        playOrPauseButton.setImage(UIImage(systemName: "pause"), for: .normal)
+        playOrPauseButton.setImage(UIImage(named: "Pause"), for: .normal)
     }
     
     func pause() {
         speechSynthesizer.pauseSpeaking(at: .immediate)
-        playOrPauseButton.setImage(UIImage(systemName: "play"), for: .normal)
+        playOrPauseButton.setImage(UIImage(named: "Play"), for: .normal)
     }
     
     func resume() {
         speechSynthesizer.continueSpeaking()
-        playOrPauseButton.setImage(UIImage(systemName: "pause"), for: .normal)
+        playOrPauseButton.setImage(UIImage(named: "Pause"), for: .normal)
     }
     
     func stop() {
         speechSynthesizer.stopSpeaking(at: .immediate)
-        playOrPauseButton.setImage(UIImage(systemName: "play"), for: .normal)
+        playOrPauseButton.setImage(UIImage(named: "Play"), for: .normal)
     }
     
     func getScriptureSpeechText(scripture: Scripture, withNumber: Bool, in language: String) -> String {

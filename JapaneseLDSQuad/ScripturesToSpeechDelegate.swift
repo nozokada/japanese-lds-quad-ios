@@ -18,7 +18,7 @@ protocol ScripturesToSpeechDelegate {
 extension ScripturesToSpeechDelegate where Self: UIViewController {
 
     func setSpeechBarButton() {
-        let speechButton = UIBarButtonItem(image: UIImage(systemName: "headphones"), style: .plain, target: self, action: #selector(presentSpeechViewController(sender:)))
+        let speechButton = UIBarButtonItem(image: UIImage(named: "Headphones"), style: .plain, target: self, action: #selector(presentSpeechViewController(sender:)))
         if let barButtonItems = navigationItem.rightBarButtonItems {
             navigationItem.rightBarButtonItems = barButtonItems + [speechButton]
         } else {
