@@ -232,41 +232,90 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vpF-2M-UPj" customClass="MainButton" customModule="JapaneseLDSQuad" customModuleProvider="target">
-                                <rect key="frame" x="20" y="433" width="374" height="30"/>
-                                <state key="normal" title="購入する"/>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="オール機能パス" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E20-Sn-vy3">
-                                <rect key="frame" x="20" y="382" width="374" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="オール機能パスをお買い上げ頂くと、全ての機能が利用できるようになります" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xtj-kE-MS2">
-                                <rect key="frame" x="20" y="493" width="374" height="41"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PyN-VX-vVo">
+                                <rect key="frame" x="50" y="144" width="314" height="618"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uoH-LR-4Gf" customClass="MainButton" customModule="JapaneseLDSQuad" customModuleProvider="target">
+                                        <rect key="frame" x="100" y="568" width="114" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="t2C-pq-ID4"/>
+                                        </constraints>
+                                        <state key="normal" title="購入を復元する"/>
+                                        <connections>
+                                            <action selector="restoreButtonTapped:" destination="psz-41-h5b" eventType="touchUpInside" id="krc-hM-hmw"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="購入" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E20-Sn-vy3">
+                                        <rect key="frame" x="20" y="62" width="274" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="INk-F2-MnW"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="オール機能パスをお買い上げ頂くと、全ての機能が利用できるようになります" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xtj-kE-MS2">
+                                        <rect key="frame" x="20" y="112" width="274" height="386"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SLF-zR-a1m">
+                                        <rect key="frame" x="276" y="20" width="18" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="22" id="YtX-Ty-651"/>
+                                        </constraints>
+                                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" image="xmark" catalog="system"/>
+                                        <connections>
+                                            <action selector="closeButtonTapped:" destination="psz-41-h5b" eventType="touchUpInside" id="MH3-2B-1ep"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vpF-2M-UPj" customClass="MainButton" customModule="JapaneseLDSQuad" customModuleProvider="target">
+                                        <rect key="frame" x="100" y="518" width="114" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="e0L-oN-LL1"/>
+                                        </constraints>
+                                        <state key="normal" title="購入する"/>
+                                        <connections>
+                                            <action selector="purchaseButtonTapped:" destination="psz-41-h5b" eventType="touchUpInside" id="Jk6-Gc-Z2T"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="uoH-LR-4Gf" secondAttribute="trailing" constant="100" id="1yO-5e-wdc"/>
+                                    <constraint firstAttribute="trailing" secondItem="vpF-2M-UPj" secondAttribute="trailing" constant="100" id="5UN-Q2-qHP"/>
+                                    <constraint firstAttribute="trailing" secondItem="SLF-zR-a1m" secondAttribute="trailing" constant="20" id="7h3-ZC-dL8"/>
+                                    <constraint firstAttribute="trailing" secondItem="xtj-kE-MS2" secondAttribute="trailing" constant="20" id="7qP-Av-afG"/>
+                                    <constraint firstItem="uoH-LR-4Gf" firstAttribute="top" secondItem="vpF-2M-UPj" secondAttribute="bottom" constant="20" id="Fgy-Bv-e6P"/>
+                                    <constraint firstAttribute="trailing" secondItem="E20-Sn-vy3" secondAttribute="trailing" constant="20" id="HbT-ZL-plh"/>
+                                    <constraint firstItem="SLF-zR-a1m" firstAttribute="top" secondItem="PyN-VX-vVo" secondAttribute="top" constant="20" id="I6q-bb-Akq"/>
+                                    <constraint firstItem="E20-Sn-vy3" firstAttribute="top" secondItem="SLF-zR-a1m" secondAttribute="bottom" constant="20" id="JLJ-Jw-ECN"/>
+                                    <constraint firstItem="uoH-LR-4Gf" firstAttribute="leading" secondItem="PyN-VX-vVo" secondAttribute="leading" constant="100" id="O7V-CR-TSG"/>
+                                    <constraint firstItem="xtj-kE-MS2" firstAttribute="leading" secondItem="PyN-VX-vVo" secondAttribute="leading" constant="20" id="aNe-Kp-HKY"/>
+                                    <constraint firstAttribute="bottom" secondItem="uoH-LR-4Gf" secondAttribute="bottom" constant="20" id="dQG-iA-YoP"/>
+                                    <constraint firstItem="xtj-kE-MS2" firstAttribute="top" secondItem="E20-Sn-vy3" secondAttribute="bottom" constant="20" id="drh-TI-uiM"/>
+                                    <constraint firstItem="vpF-2M-UPj" firstAttribute="top" secondItem="xtj-kE-MS2" secondAttribute="bottom" constant="20" id="hpr-eb-ye4"/>
+                                    <constraint firstItem="vpF-2M-UPj" firstAttribute="leading" secondItem="PyN-VX-vVo" secondAttribute="leading" constant="100" id="n6G-cS-jkc"/>
+                                    <constraint firstItem="E20-Sn-vy3" firstAttribute="leading" secondItem="PyN-VX-vVo" secondAttribute="leading" constant="20" id="tri-WL-uHc"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="xtj-kE-MS2" firstAttribute="leading" secondItem="7nd-QE-QNf" secondAttribute="leading" constant="20" id="58Z-Vm-nzx"/>
-                            <constraint firstItem="vpF-2M-UPj" firstAttribute="leading" secondItem="7nd-QE-QNf" secondAttribute="leading" constant="20" id="72F-zi-lde"/>
-                            <constraint firstItem="vpF-2M-UPj" firstAttribute="centerY" secondItem="pzv-dc-fnf" secondAttribute="centerY" id="E4e-rQ-eNO"/>
-                            <constraint firstItem="7nd-QE-QNf" firstAttribute="trailing" secondItem="xtj-kE-MS2" secondAttribute="trailing" constant="20" id="In0-0N-Foo"/>
-                            <constraint firstItem="7nd-QE-QNf" firstAttribute="trailing" secondItem="E20-Sn-vy3" secondAttribute="trailing" constant="20" id="K4R-TQ-zJt"/>
-                            <constraint firstItem="E20-Sn-vy3" firstAttribute="leading" secondItem="7nd-QE-QNf" secondAttribute="leading" constant="20" id="Mzq-Jv-Jik"/>
-                            <constraint firstItem="xtj-kE-MS2" firstAttribute="top" secondItem="vpF-2M-UPj" secondAttribute="bottom" constant="30" id="ZRl-6c-Exi"/>
-                            <constraint firstItem="vpF-2M-UPj" firstAttribute="top" secondItem="E20-Sn-vy3" secondAttribute="bottom" constant="30" id="dRh-5J-Ky2"/>
-                            <constraint firstItem="7nd-QE-QNf" firstAttribute="trailing" secondItem="vpF-2M-UPj" secondAttribute="trailing" constant="20" id="g5Z-xz-7dQ"/>
+                            <constraint firstItem="7nd-QE-QNf" firstAttribute="trailing" secondItem="PyN-VX-vVo" secondAttribute="trailing" constant="50" id="Gz1-jY-Bku"/>
+                            <constraint firstItem="PyN-VX-vVo" firstAttribute="leading" secondItem="7nd-QE-QNf" secondAttribute="leading" constant="50" id="Ljh-Ky-krb"/>
+                            <constraint firstItem="PyN-VX-vVo" firstAttribute="top" secondItem="7nd-QE-QNf" secondAttribute="top" constant="100" id="ZNq-Al-bxd"/>
+                            <constraint firstItem="7nd-QE-QNf" firstAttribute="bottom" secondItem="PyN-VX-vVo" secondAttribute="bottom" constant="100" id="gmk-O8-kZn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7nd-QE-QNf"/>
                     </view>
                     <connections>
-                        <outlet property="allFeaturePassPurchaseButton" destination="vpF-2M-UPj" id="hvk-Yv-Oqw"/>
-                        <outlet property="allFeaturesPassDescriptionLabel" destination="xtj-kE-MS2" id="omA-2Y-xdT"/>
-                        <outlet property="allFeaturesPassTitleLabel" destination="E20-Sn-vy3" id="FtK-fE-8R2"/>
+                        <outlet property="descriptionLabel" destination="xtj-kE-MS2" id="omA-2Y-xdT"/>
+                        <outlet property="modalView" destination="PyN-VX-vVo" id="mWK-TB-Jsl"/>
+                        <outlet property="purchaseButton" destination="vpF-2M-UPj" id="hvk-Yv-Oqw"/>
+                        <outlet property="titleLabel" destination="E20-Sn-vy3" id="FtK-fE-8R2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="98P-eM-fyN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -540,7 +589,6 @@
                             <outlet property="delegate" destination="Rqq-KP-cul" id="HMl-pg-uij"/>
                         </connections>
                     </tableView>
-                    <value key="contentSizeForViewInPopover" type="size" width="300" height="300"/>
                     <connections>
                         <outlet property="alternativeFontLabel" destination="o7w-8s-8aq" id="u4b-IV-l2e"/>
                         <outlet property="alternativeFontSwitch" destination="iB8-bb-szg" id="iTm-FL-h0V"/>
@@ -556,7 +604,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u77-yo-NcY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="0.0" y="-486.16071428571428"/>
+            <point key="canvasLocation" x="0.0" y="-698"/>
         </scene>
         <!--Read-->
         <scene sceneID="HWb-KW-YCZ">

@@ -11,6 +11,8 @@ import StoreKit
 
 class PurchaseViewController: UIViewController {
     
+    var delegate: PurchaseChangeDelegate?
+    
     let productIdentifiers = [Constants.ProductID.allFeaturesPass]
     
     var allFeaturesPassName: String!
@@ -20,9 +22,10 @@ class PurchaseViewController: UIViewController {
         return SKPaymentQueue.canMakePayments()
     }
     
-    @IBOutlet weak var allFeaturesPassTitleLabel: UILabel!
-    @IBOutlet weak var allFeaturesPassDescriptionLabel: UILabel!
-    @IBOutlet weak var allFeaturePassPurchaseButton: MainButton!
+    @IBOutlet weak var modalView: UIView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var purchaseButton: MainButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,11 +38,33 @@ class PurchaseViewController: UIViewController {
         reload()
     }
     
+    func prepareViews() {
+        modalView.layer.cornerRadius = 5
+        
+        let blurEffect = UIBlurEffect(style: .dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.insertSubview(blurEffectView, at: 0)
+    }
+    
     func reload() {
-        allFeaturesPassTitleLabel.text = allFeaturesPassName
+        titleLabel.text = allFeaturesPassName
         let buttonTitle = "\("allFeaturesPassPurchaseButtonLabel".localized) \(allFeaturesPassPrice ?? "")"
-        allFeaturePassPurchaseButton.setTitle(buttonTitle, for: .normal)
-        allFeaturesPassDescriptionLabel.text = "allFeaturesDescriptionLabel".localized
+        purchaseButton.setTitle(buttonTitle, for: .normal)
+        descriptionLabel.text = "allFeaturesDescriptionLabel".localized
+        prepareViews()
+    }
+    
+    @IBAction func purchaseButtonTapped(_ sender: Any) {
+    }
+    
+    
+    @IBAction func restoreButtonTapped(_ sender: Any) {
+    }
+    
+    @IBAction func closeButtonTapped(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
 }
 

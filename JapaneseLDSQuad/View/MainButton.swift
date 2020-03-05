@@ -11,8 +11,6 @@ import UIKit
 @IBDesignable
 class MainButton: UIButton {
 
-    let cornerRadius: CGFloat = 5
-
     override func awakeFromNib() {
         super.awakeFromNib()
         customizeView()
@@ -23,7 +21,7 @@ class MainButton: UIButton {
     }
     
     func customizeView() {
-        layer.cornerRadius = cornerRadius
+        layer.cornerRadius = 5
         backgroundColor = Constants.NavigationBarColor.day
         setTitleColor(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), for: .normal)
     }

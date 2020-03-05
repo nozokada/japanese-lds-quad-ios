@@ -6,7 +6,6 @@
 //  Copyright © 2020 nozokada. All rights reserved.
 //
 
-import Foundation
 import StoreKit
 
 class StoreObserver: NSObject {

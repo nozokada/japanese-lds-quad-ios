@@ -39,15 +39,18 @@ extension ScripturesToSpeechDelegate where Self: UIViewController {
     }
 }
 
-extension UIViewController {
+extension UIViewController: PurchaseChangeDelegate {
     
     @objc func presentSpeechViewController(sender: UIBarButtonItem) {
-        guard let speechViewController = getSpeechViewController() else { return }
- 
-        if speechViewController.isHidden {
-            speechViewController.show()
+        if StoreObserver.shared.allFeaturesUnlocked {
+            guard let speechViewController = getSpeechViewController() else { return }
+            if speechViewController.isHidden {
+                speechViewController.show()
+            } else {
+                speechViewController.hide()
+            }
         } else {
-            speechViewController.hide()
+            presentPuchaseViewController()
         }
     }
     
