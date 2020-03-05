@@ -29,23 +29,6 @@ class StoreManager: NSObject {
         productRequest.delegate = self
         productRequest.start()
     }
-    
-    func title(matchingIdentifier identifier: String) -> String? {
-        var title: String?
-        guard !availableProducts.isEmpty else { return nil }
-        
-        let result = availableProducts.filter({ (product: SKProduct) in product.productIdentifier == identifier })
-
-        if !result.isEmpty {
-            title = result.first!.localizedTitle
-        }
-        return title
-    }
-    
-    func title(matchingPaymentTransaction transaction: SKPaymentTransaction) -> String {
-        let title = self.title(matchingIdentifier: transaction.payment.productIdentifier)
-        return title ?? transaction.payment.productIdentifier
-    }
 }
 
 extension StoreManager: SKProductsRequestDelegate {
@@ -53,7 +36,19 @@ extension StoreManager: SKProductsRequestDelegate {
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         if !response.products.isEmpty {
             availableProducts = response.products
-            delegate?.storeManagerDidReceiveProducts(availableProducts)
+            DispatchQueue.main.async {
+                self.delegate?.storeManagerDidReceiveProducts(self.availableProducts)
+            }
         }
     }
 }
+
+extension StoreManager: SKRequestDelegate {
+    
+    func request(_ request: SKRequest, didFailWithError error: Error) {
+        DispatchQueue.main.async {
+            self.delegate?.storeManagerDidReceiveMessage(error.localizedDescription)
+        }
+    }
+}
+

@@ -42,7 +42,7 @@ extension UIViewController {
     }
     
     @objc func presentSpeechViewController(sender: UIBarButtonItem) {
-        if StoreObserver.shared.allFeaturesUnlocked {
+        if PurchaseManager.shared.allFeaturesUnlocked {
             guard let speechViewController = getSpeechViewController() else { return }
             if speechViewController.isHidden {
                 speechViewController.show()

@@ -156,4 +156,12 @@ class AppUtility {
         }
         return viewControllers
     }
+    
+    func alert(_ title: String, message: String) -> UIAlertController {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        let action = UIAlertAction(title: NSLocalizedString("OK", comment: ""),
+                                   style: .default, handler: nil)
+        alertController.addAction(action)
+        return alertController
+    }
 }

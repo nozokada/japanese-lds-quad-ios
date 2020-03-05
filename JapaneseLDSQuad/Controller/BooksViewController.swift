@@ -100,8 +100,8 @@ extension BooksViewController: UITableViewDataSource {
         }
         
         if AppUtility.shared.isPaid(book: book) {
-            cell.textLabel?.isEnabled = StoreObserver.shared.allFeaturesUnlocked
-            cell.detailTextLabel?.isEnabled = StoreObserver.shared.allFeaturesUnlocked
+            cell.textLabel?.isEnabled = PurchaseManager.shared.allFeaturesUnlocked
+            cell.detailTextLabel?.isEnabled = PurchaseManager.shared.allFeaturesUnlocked
         }
         return cell
     }
@@ -120,7 +120,7 @@ extension BooksViewController: UITableViewDelegate {
         let selectedBook = books[indexPath.row + groupedCellsOffset(section: indexPath.section)]
         
         if AppUtility.shared.isPaid(book: selectedBook) {
-            if !StoreObserver.shared.allFeaturesUnlocked {
+            if !PurchaseManager.shared.allFeaturesUnlocked {
                 presentPuchaseViewController()
                 return
             }

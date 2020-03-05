@@ -108,7 +108,7 @@ extension SearchViewController: UITableViewDelegate {
         let scripture = filteredResults[indexPath.row]
         
         if AppUtility.shared.isPaid(book: scripture.parent_book) {
-            if !StoreObserver.shared.allFeaturesUnlocked {
+            if !PurchaseManager.shared.allFeaturesUnlocked {
                 presentPuchaseViewController()
                 return
             }
@@ -159,8 +159,8 @@ extension SearchViewController: UITableViewDataSource {
         }
         
         if AppUtility.shared.isPaid(book: scripture.parent_book) {
-            cell.textLabel?.isEnabled = StoreObserver.shared.allFeaturesUnlocked
-            cell.detailTextLabel?.isEnabled = StoreObserver.shared.allFeaturesUnlocked
+            cell.textLabel?.isEnabled = PurchaseManager.shared.allFeaturesUnlocked
+            cell.detailTextLabel?.isEnabled = PurchaseManager.shared.allFeaturesUnlocked
         }
         return cell
     }

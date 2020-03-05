@@ -15,6 +15,7 @@ class PurchaseViewController: UIViewController {
     
     let productIdentifiers = [Constants.ProductID.allFeaturesPass]
     
+    var allFeaturesPass: SKProduct?
     var allFeaturesPassName: String!
     var allFeaturesPassPrice: String!
     
@@ -29,6 +30,8 @@ class PurchaseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        prepareBackgroundView()
+        StoreObserver.shared.delegate = self
         StoreManager.shared.delegate = self
         StoreManager.shared.startProductRequest(with: productIdentifiers)
     }
@@ -38,9 +41,8 @@ class PurchaseViewController: UIViewController {
         reload()
     }
     
-    func prepareViews() {
+    func prepareBackgroundView() {
         modalView.layer.cornerRadius = 5
-        
         let blurEffect = UIBlurEffect(style: .dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = view.bounds
@@ -49,18 +51,30 @@ class PurchaseViewController: UIViewController {
     }
     
     func reload() {
-        titleLabel.text = allFeaturesPassName
-        let buttonTitle = "\("allFeaturesPassPurchaseButtonLabel".localized) \(allFeaturesPassPrice ?? "")"
+        titleLabel.text = allFeaturesPass?.localizedTitle
+        let buttonTitle = "\("allFeaturesPassPurchaseButtonLabel".localized) \(allFeaturesPass?.regularPrice ?? "")"
         purchaseButton.setTitle(buttonTitle, for: .normal)
         descriptionLabel.text = "allFeaturesDescriptionLabel".localized
-        prepareViews()
+    }
+    
+    func alert(with title: String, message: String) {
+        let alertController = AppUtility.shared.alert(title, message: message)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func handleRestoredSucceededTransaction() {
+        debugPrint("Let the user know that restore succeeded")
     }
     
     @IBAction func purchaseButtonTapped(_ sender: Any) {
+        if let pass = allFeaturesPass {
+            StoreObserver.shared.buy(pass)
+        }
     }
     
     
     @IBAction func restoreButtonTapped(_ sender: Any) {
+        StoreObserver.shared.restore()
     }
     
     @IBAction func closeButtonTapped(_ sender: Any) {
@@ -71,11 +85,23 @@ class PurchaseViewController: UIViewController {
 extension PurchaseViewController: StoreManagerDelegate {
     
     func storeManagerDidReceiveProducts(_ products: [SKProduct]) {
-        let allFeaturesPass = products.first
-        allFeaturesPassName = allFeaturesPass?.localizedTitle
-        allFeaturesPassPrice = allFeaturesPass?.regularPrice
+        allFeaturesPass = products.first
         DispatchQueue.main.async {
             self.reload()
         }
+    }
+    
+    func storeManagerDidReceiveMessage(_ message: String) {
+        alert(with: "Product Request Status", message: message)
+    }
+}
+
+extension PurchaseViewController: StoreObserverDelegate {
+    func storeObserverRestoreDidSucceed() {
+        handleRestoredSucceededTransaction()
+    }
+    
+    func storeObserverDidReceiveMessage(_ message: String) {
+        alert(with: "Purchase Status", message: message)
     }
 }

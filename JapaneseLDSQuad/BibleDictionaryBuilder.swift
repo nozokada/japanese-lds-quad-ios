@@ -37,7 +37,7 @@ class BibleDictionaryBuilder: ContentBuilder {
                 let bookmarked = realm.objects(Bookmark.self).filter("id = '\(scripture.id)'").first != nil ? true : false
                 html += "<div id='\(scripture.id)'"
                 html += bookmarked ? " class='bookmarked'>" : ">"
-                let primaryScripture = StoreObserver.shared.allFeaturesUnlocked ? getGSWithBibleLinks(gsString: scripture.scripture_primary) : scripture.scripture_primary
+                let primaryScripture = PurchaseManager.shared.allFeaturesUnlocked ? getGSWithBibleLinks(gsString: scripture.scripture_primary) : scripture.scripture_primary
                 html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verse)</a> <span lang='\(Constants.Language.primary)'>\(primaryScripture)</span></div>"
                 html += "</div>"
             }

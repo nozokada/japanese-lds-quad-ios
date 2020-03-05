@@ -22,7 +22,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         if let identifier = viewController.restorationIdentifier,
             AppUtility.shared.isPaid(restorationIdentifider: identifier) {
-            if !StoreObserver.shared.allFeaturesUnlocked {
+            if !PurchaseManager.shared.allFeaturesUnlocked {
                 presentPuchaseViewController()
                 return false
             }

@@ -119,7 +119,7 @@ class SettingsViewController: UITableViewController {
     }
     
     @IBAction func sideBySideModeSwitchToggled(_ sender: Any) {
-        if !StoreObserver.shared.allFeaturesUnlocked {
+        if !PurchaseManager.shared.allFeaturesUnlocked {
             presentPuchaseViewController()
             return
         }
