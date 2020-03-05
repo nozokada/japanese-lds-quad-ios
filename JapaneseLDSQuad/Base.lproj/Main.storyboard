@@ -233,10 +233,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PyN-VX-vVo">
-                                <rect key="frame" x="50" y="144" width="314" height="618"/>
+                                <rect key="frame" x="22.5" y="315.5" width="369.5" height="265"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uoH-LR-4Gf" customClass="MainButton" customModule="JapaneseLDSQuad" customModuleProvider="target">
-                                        <rect key="frame" x="100" y="568" width="114" height="30"/>
+                                        <rect key="frame" x="100" y="215" width="169.5" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="t2C-pq-ID4"/>
                                         </constraints>
@@ -246,7 +246,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="購入" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E20-Sn-vy3">
-                                        <rect key="frame" x="20" y="62" width="274" height="30"/>
+                                        <rect key="frame" x="20" y="54" width="329.5" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="INk-F2-MnW"/>
                                         </constraints>
@@ -255,13 +255,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="オール機能パスをお買い上げ頂くと、全ての機能が利用できるようになります" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xtj-kE-MS2">
-                                        <rect key="frame" x="20" y="112" width="274" height="386"/>
+                                        <rect key="frame" x="20" y="104" width="329.5" height="41"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SLF-zR-a1m">
-                                        <rect key="frame" x="276" y="20" width="18" height="22"/>
+                                        <rect key="frame" x="331.5" y="20" width="18" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="22" id="YtX-Ty-651"/>
                                         </constraints>
@@ -272,7 +272,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vpF-2M-UPj" customClass="MainButton" customModule="JapaneseLDSQuad" customModuleProvider="target">
-                                        <rect key="frame" x="100" y="518" width="114" height="30"/>
+                                        <rect key="frame" x="100" y="165" width="169.5" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="e0L-oN-LL1"/>
                                         </constraints>
@@ -291,7 +291,7 @@
                                     <constraint firstItem="uoH-LR-4Gf" firstAttribute="top" secondItem="vpF-2M-UPj" secondAttribute="bottom" constant="20" id="Fgy-Bv-e6P"/>
                                     <constraint firstAttribute="trailing" secondItem="E20-Sn-vy3" secondAttribute="trailing" constant="20" id="HbT-ZL-plh"/>
                                     <constraint firstItem="SLF-zR-a1m" firstAttribute="top" secondItem="PyN-VX-vVo" secondAttribute="top" constant="20" id="I6q-bb-Akq"/>
-                                    <constraint firstItem="E20-Sn-vy3" firstAttribute="top" secondItem="SLF-zR-a1m" secondAttribute="bottom" constant="20" id="JLJ-Jw-ECN"/>
+                                    <constraint firstItem="E20-Sn-vy3" firstAttribute="top" secondItem="SLF-zR-a1m" secondAttribute="bottom" constant="12" id="JLJ-Jw-ECN"/>
                                     <constraint firstItem="uoH-LR-4Gf" firstAttribute="leading" secondItem="PyN-VX-vVo" secondAttribute="leading" constant="100" id="O7V-CR-TSG"/>
                                     <constraint firstItem="xtj-kE-MS2" firstAttribute="leading" secondItem="PyN-VX-vVo" secondAttribute="leading" constant="20" id="aNe-Kp-HKY"/>
                                     <constraint firstAttribute="bottom" secondItem="uoH-LR-4Gf" secondAttribute="bottom" constant="20" id="dQG-iA-YoP"/>
@@ -304,10 +304,12 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="7nd-QE-QNf" firstAttribute="trailing" secondItem="PyN-VX-vVo" secondAttribute="trailing" constant="50" id="Gz1-jY-Bku"/>
-                            <constraint firstItem="PyN-VX-vVo" firstAttribute="leading" secondItem="7nd-QE-QNf" secondAttribute="leading" constant="50" id="Ljh-Ky-krb"/>
-                            <constraint firstItem="PyN-VX-vVo" firstAttribute="top" secondItem="7nd-QE-QNf" secondAttribute="top" constant="100" id="ZNq-Al-bxd"/>
-                            <constraint firstItem="7nd-QE-QNf" firstAttribute="bottom" secondItem="PyN-VX-vVo" secondAttribute="bottom" constant="100" id="gmk-O8-kZn"/>
+                            <constraint firstItem="PyN-VX-vVo" firstAttribute="centerY" secondItem="pzv-dc-fnf" secondAttribute="centerY" id="Fz3-aq-oAz"/>
+                            <constraint firstItem="7nd-QE-QNf" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="PyN-VX-vVo" secondAttribute="trailing" constant="20" id="Gz1-jY-Bku"/>
+                            <constraint firstItem="PyN-VX-vVo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7nd-QE-QNf" secondAttribute="leading" constant="20" id="Ljh-Ky-krb"/>
+                            <constraint firstItem="PyN-VX-vVo" firstAttribute="centerX" secondItem="pzv-dc-fnf" secondAttribute="centerX" id="TY8-bb-CZf"/>
+                            <constraint firstItem="PyN-VX-vVo" firstAttribute="top" relation="greaterThanOrEqual" secondItem="7nd-QE-QNf" secondAttribute="top" constant="20" id="ZNq-Al-bxd"/>
+                            <constraint firstItem="7nd-QE-QNf" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="PyN-VX-vVo" secondAttribute="bottom" constant="20" id="gmk-O8-kZn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7nd-QE-QNf"/>
                     </view>
@@ -439,13 +441,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mincho Font" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7w-8s-8aq">
-                                                    <rect key="frame" x="32" y="11.5" width="95" height="21"/>
+                                                    <rect key="frame" x="36" y="11.5" width="95" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iB8-bb-szg">
-                                                    <rect key="frame" x="206.5" y="-2" width="73.5" height="48"/>
+                                                    <rect key="frame" x="320.5" y="-2" width="73.5" height="48"/>
                                                     <state key="normal" image="ToggleOn"/>
                                                     <connections>
                                                         <action selector="alternativeFontSwitchToggled:" destination="Rqq-KP-cul" eventType="touchUpInside" id="ZHf-EP-U8c"/>
@@ -470,13 +472,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Night Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DdA-Rb-Ujg">
-                                                    <rect key="frame" x="32" y="11.5" width="90" height="21"/>
+                                                    <rect key="frame" x="36" y="11.5" width="90" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Naj-oq-IUf">
-                                                    <rect key="frame" x="206.5" y="-2" width="73.5" height="48"/>
+                                                    <rect key="frame" x="320.5" y="-2" width="73.5" height="48"/>
                                                     <state key="normal" image="ToggleOn"/>
                                                     <connections>
                                                         <action selector="nightModeSwitchToggled:" destination="Rqq-KP-cul" eventType="touchUpInside" id="4zu-9e-HeL"/>
@@ -500,13 +502,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="English Enabled" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FkT-VA-tRC">
-                                                    <rect key="frame" x="32" y="11.5" width="121.5" height="21"/>
+                                                    <rect key="frame" x="36" y="11.5" width="121.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mrX-fI-AEM">
-                                                    <rect key="frame" x="206" y="-2" width="74" height="48"/>
+                                                    <rect key="frame" x="320" y="-2" width="74" height="48"/>
                                                     <state key="normal" image="ToggleOn"/>
                                                     <connections>
                                                         <action selector="dualModeSwitchToggled:" destination="Rqq-KP-cul" eventType="touchUpInside" id="Gu1-I9-rsN"/>
@@ -530,13 +532,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Side by Side" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sA4-Yh-snc">
-                                                    <rect key="frame" x="32" y="11.5" width="95" height="21"/>
+                                                    <rect key="frame" x="36" y="11.5" width="95" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5jB-qn-seR">
-                                                    <rect key="frame" x="206.5" y="-2" width="73.5" height="48"/>
+                                                    <rect key="frame" x="320.5" y="-2" width="73.5" height="48"/>
                                                     <state key="normal" image="ToggleOn"/>
                                                     <connections>
                                                         <action selector="sideBySideModeSwitchToggled:" destination="Rqq-KP-cul" eventType="touchUpInside" id="n2J-n2-Uyp"/>
@@ -560,13 +562,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text Size" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5pj-Or-IrA">
-                                                    <rect key="frame" x="32" y="11.5" width="69" height="21"/>
+                                                    <rect key="frame" x="36" y="11.5" width="69" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="0.75" maximumValue="2" stepValue="0.25" translatesAutoresizingMaskIntoConstraints="NO" id="31D-I1-jfp">
-                                                    <rect key="frame" x="186" y="6" width="94" height="32"/>
+                                                    <rect key="frame" x="300" y="6" width="94" height="32"/>
                                                     <connections>
                                                         <action selector="fontSizeStepperTapped:" destination="Rqq-KP-cul" eventType="valueChanged" id="Wii-to-hhh"/>
                                                     </connections>
