@@ -21,7 +21,7 @@ class ContentBuilder {
         realm = try! Realm()
         self.scriptures = scriptures
         self.numbered = numbered
-        dualEnabled = AppUtility.shared.dualEnabled
+        dualEnabled = Utilities.shared.dualEnabled
     }
     
     func buildSearchResultText(scripture: Scripture) -> String {
@@ -116,19 +116,19 @@ class ContentBuilder {
     }
     
     private func buildCSS() -> String {
-        let font = AppUtility.shared.alternativeFontEnabled
+        let font = Utilities.shared.alternativeFontEnabled
             ? Constants.Font.min
             : Constants.Font.kaku
-        let fontSize = AppUtility.shared.fontSizeMultiplier
+        let fontSize = Utilities.shared.fontSizeMultiplier
         let paddingSize = sqrt(sqrt(fontSize))
-        let fontColor = AppUtility.shared.nightModeEnabled
+        let fontColor = Utilities.shared.nightModeEnabled
             ? "rgb(186,186,186)"
             : "rgb(0,0,0)"
-        let backgroundColor = AppUtility.shared.nightModeEnabled
+        let backgroundColor = Utilities.shared.nightModeEnabled
             ? "rgb(33,34,37)"
             : "rgb(255,255,255)"
-        let sideBySideEnabled = AppUtility.shared.dualEnabled
-            && AppUtility.shared.sideBySideEnabled
+        let sideBySideEnabled = Utilities.shared.dualEnabled
+            && Utilities.shared.sideBySideEnabled
         
         let screenScale = Int(UIScreen.main.scale)
         let bookmarkImageFileName = screenScale > 1 ? "Bookmark Verse@\(screenScale)x" : "Bookmark Verse"

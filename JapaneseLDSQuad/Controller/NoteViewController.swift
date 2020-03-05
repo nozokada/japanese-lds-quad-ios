@@ -75,7 +75,7 @@ class NoteViewController: UIViewController {
             noteTextView.text = noteTextViewPlaceholder
             noteTextView.textColor = noteTextViewPlaceholderTextColor
         } else {
-            noteTextView.textColor = AppUtility.shared.getTextColor()
+            noteTextView.textColor = Utilities.shared.getTextColor()
         }
     }
     
@@ -177,8 +177,8 @@ extension NoteViewController: SettingsViewDelegate {
     
     func reload() {
         setTitleAndNote()
-        noteViewTitleLabel.textColor = AppUtility.shared.getTextColor()
-        noteTextView.backgroundColor = AppUtility.shared.getBackgroundColor()
+        noteViewTitleLabel.textColor = Utilities.shared.getTextColor()
+        noteTextView.backgroundColor = Utilities.shared.getBackgroundColor()
         view.backgroundColor = noteTextView.backgroundColor
     }
 }
@@ -190,7 +190,7 @@ extension NoteViewController: UITextViewDelegate {
         
         if textView.textColor == noteTextViewPlaceholderTextColor {
             textView.text = nil
-            textView.textColor = AppUtility.shared.getTextColor()
+            textView.textColor = Utilities.shared.getTextColor()
         }
     }
     

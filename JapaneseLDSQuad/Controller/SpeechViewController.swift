@@ -12,7 +12,7 @@ import AVFoundation
 
 class SpeechViewController: UIViewController {
     
-    var delegate: ScripturesToSpeechDelegate?
+    var delegate: SpeechViewDelegate?
 
     @IBOutlet weak var playOrPauseButton: UIButton!
     @IBOutlet weak var fasterButton: UIButton!
@@ -38,7 +38,7 @@ class SpeechViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setSpeechRateLabel(value: AppUtility.shared.speechRateMultiplier)
+        setSpeechRateLabel(value: Utilities.shared.speechRateMultiplier)
         prepareBackgroundView()
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture))
         view.addGestureRecognizer(gesture)
@@ -123,7 +123,7 @@ class SpeechViewController: UIViewController {
     func initUtterance(speechString: String, language: String) {
         let newUtterance = AVSpeechUtterance(string: speechString)
         newUtterance.voice = AVSpeechSynthesisVoice(language: language)
-        newUtterance.rate = AppUtility.shared.getSpeechRate()
+        newUtterance.rate = Utilities.shared.getSpeechRate()
         currentUtterance = newUtterance
     }
     
@@ -165,8 +165,8 @@ class SpeechViewController: UIViewController {
     func getScriptureSpeechText(scripture: Scripture, withNumber: Bool, in language: String) -> String {
         var speechText = withNumber ? "\(scripture.verse): " : ""
         speechText.append(language == Constants.Language.primarySpeech
-            ? SpeechUtility.correctPrimaryLanguage(speechText: scripture.scripture_primary_raw)
-            : SpeechUtility.correctSecondaryLanguage(speechText: scripture.scripture_secondary_raw))
+            ? SpeechUtilities.correctPrimaryLanguage(speechText: scripture.scripture_primary_raw)
+            : SpeechUtilities.correctSecondaryLanguage(speechText: scripture.scripture_secondary_raw))
         
         return speechText
     }
@@ -177,7 +177,7 @@ class SpeechViewController: UIViewController {
     }
     
     func changeSpeechRateMultiplier(by value: Float) {
-        let newValue = AppUtility.shared.speechRateMultiplier + value
+        let newValue = Utilities.shared.speechRateMultiplier + value
         if newValue < Constants.Rate.speechRateMinimumMultiplier
             || newValue > Constants.Rate.speechRateMaximumMultiplier {
             return
@@ -247,7 +247,7 @@ extension SpeechViewController: AVSpeechSynthesizerDelegate {
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         remainingText = ""
         
-        if utterance.speakingPrimary && AppUtility.shared.dualEnabled {
+        if utterance.speakingPrimary && Utilities.shared.dualEnabled {
             nextSpeechIndex -= 1
             playNext(in: Constants.Language.secondarySpeech)
             return

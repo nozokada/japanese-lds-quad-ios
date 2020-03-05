@@ -1,5 +1,5 @@
 //
-//  AppUtility.swift
+//  Utilities.swift
 //  JapaneseLDSQuad
 //
 //  Created by Nozomi Okada on 2/3/20.
@@ -10,37 +10,9 @@ import Foundation
 import RealmSwift
 import AVFoundation
 
-struct TargetScriptureData {
+class Utilities {
     
-    var book: Book
-    var chapter: Int
-    var verse: String?
-    
-    init(book: Book, chapter: Int, verse: String? = nil) {
-        self.book = book
-        self.chapter = chapter
-        self.verse = verse
-    }
-}
-
-struct ContentViewData {
-    
-    var index: Int
-    var builder: ContentBuilder
-    var chapterId: String
-    var verse: String?
-    
-    init(index: Int, builder: ContentBuilder, chapterId: String, verse: String?) {
-        self.index = index
-        self.builder = builder
-        self.chapterId = chapterId
-        self.verse = verse
-    }
-}
-
-class AppUtility {
-    
-    static let shared = AppUtility()
+    static let shared = Utilities()
     
     var alternativeFontEnabled: Bool {
         return UserDefaults.standard.bool(forKey: Constants.Config.font)
@@ -67,7 +39,7 @@ class AppUtility {
     }
     
     func getFont(multiplySizeBy: Float = 1) -> UIFont? {
-        let name = AppUtility.shared.alternativeFontEnabled
+        let name = Utilities.shared.alternativeFontEnabled
             ? Constants.Font.min
             : Constants.Font.kaku
         let size = Constants.TextSize.standard * Float(fontSizeMultiplier) * multiplySizeBy

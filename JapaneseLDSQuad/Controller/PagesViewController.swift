@@ -30,9 +30,9 @@ class PagesViewController: UIPageViewController {
         dataSource = self
         setSettingsBarButton()
         setSpeechBarButton()
-        contentType = AppUtility.shared.getContentType(targetBook: targetBook)
+        contentType = Utilities.shared.getContentType(targetBook: targetBook)
         scripturesInBook = targetBook.child_scriptures.sorted(byKeyPath: "id")
-        currentChapterIndex = AppUtility.shared.getChapterNumberFromScriptureId(id: targetChapterId) - 1
+        currentChapterIndex = Utilities.shared.getChapterNumberFromScriptureId(id: targetChapterId) - 1
         currentContentViewController = getViewControllerAt(index: currentChapterIndex)
         setTitle()
     }
@@ -53,7 +53,7 @@ class PagesViewController: UIPageViewController {
     func initData(targetScriptureData: TargetScriptureData) {
         targetBook = targetScriptureData.book
         targetBookName = targetScriptureData.book.name_primary
-        targetChapterId = AppUtility.shared.getChapterIdFromChapterNumber(bookId: targetBook.id, chapter: targetScriptureData.chapter)
+        targetChapterId = Utilities.shared.getChapterIdFromChapterNumber(bookId: targetBook.id, chapter: targetScriptureData.chapter)
         targetVerse = targetScriptureData.verse
     }
     
@@ -61,7 +61,7 @@ class PagesViewController: UIPageViewController {
         targetBook = scripture.parent_book
         targetVerse = scripture.verse
         targetBookName = targetBook.name_primary
-        targetChapterId = AppUtility.shared.getChapterIdFromScripture(scripture: scripture)
+        targetChapterId = Utilities.shared.getChapterIdFromScripture(scripture: scripture)
     }
     
     func updatePageContentView() {
@@ -72,9 +72,9 @@ class PagesViewController: UIPageViewController {
     }
     
     func getViewControllerAt(index: Int) -> ContentViewController? {
-        let chapterId = AppUtility.shared.getChapterIdFromChapterNumber(bookId: targetBook.id, chapter: index + 1)
+        let chapterId = Utilities.shared.getChapterIdFromChapterNumber(bookId: targetBook.id, chapter: index + 1)
         let scriptures = scripturesInBook.filter("id BEGINSWITH '\(chapterId)'").sorted(byKeyPath: "id")
-        let contentBuilder = AppUtility.shared.getContentBuilder(scriptures: scriptures, contentType: contentType)
+        let contentBuilder = Utilities.shared.getContentBuilder(scriptures: scriptures, contentType: contentType)
         if let contentViewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.content) as? ContentViewController {
             let contentViewData = ContentViewData(
                 index: index, builder: contentBuilder, chapterId: targetChapterId, verse: chapterId == targetChapterId ? targetVerse: nil)
@@ -114,7 +114,7 @@ extension PagesViewController: SettingsViewDelegate {
     }
 }
 
-extension PagesViewController: ScripturesToSpeechDelegate {
+extension PagesViewController: SpeechViewDelegate {
     
     func scroll() {
         // TODO: Implement the automatic scroll feature for Scriptures-to-Speech
@@ -140,7 +140,7 @@ extension PagesViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         if let currentViewController = viewController as? ContentViewController {
             let currentIndex = currentViewController.pageIndex
-            let lastChapter = AppUtility.shared.getChapterNumberFromScriptureId(id: (scripturesInBook.last?.id)!)
+            let lastChapter = Utilities.shared.getChapterNumberFromScriptureId(id: (scripturesInBook.last?.id)!)
             return currentIndex < lastChapter - 1 ? getViewControllerAt(index: currentIndex + 1) : nil
         }
         return nil
@@ -153,7 +153,7 @@ extension PagesViewController: UIPageViewControllerDelegate {
         if finished && completed {
             currentContentViewController = pageViewController.viewControllers?[0] as! ContentViewController?
             currentChapterIndex = currentContentViewController.pageIndex
-            targetChapterId = AppUtility.shared.getChapterIdFromChapterNumber(bookId: targetBook.id, chapter: currentChapterIndex + 1)
+            targetChapterId = Utilities.shared.getChapterIdFromChapterNumber(bookId: targetBook.id, chapter: currentChapterIndex + 1)
             setTitle()
         }
         targetVerse = nil

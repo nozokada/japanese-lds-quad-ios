@@ -48,7 +48,7 @@ class BookmarksViewController: UIViewController {
     }
     
     func updateTableBackgroundColor() {
-        tableView.backgroundColor = AppUtility.shared.getBackgroundColor()
+        tableView.backgroundColor = Utilities.shared.getBackgroundColor()
     }
 }
 
@@ -89,22 +89,22 @@ extension BookmarksViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: Constants.ReuseID.bookmarkCell)
-        let cellColor = AppUtility.shared.getCellColor()
+        let cellColor = Utilities.shared.getCellColor()
         
         tableView.backgroundColor = cellColor
         cell.backgroundColor = cellColor
         
         let bookmark = bookmarks[indexPath.row]
         cell.textLabel?.text = bookmark.name_primary
-        cell.textLabel?.font = AppUtility.shared.getFont()
-        cell.textLabel?.textColor = AppUtility.shared.getTextColor()
+        cell.textLabel?.font = Utilities.shared.getFont()
+        cell.textLabel?.textColor = Utilities.shared.getTextColor()
         cell.textLabel?.numberOfLines = 0;
         cell.textLabel?.lineBreakMode = .byWordWrapping;
         
-        if AppUtility.shared.dualEnabled {
+        if Utilities.shared.dualEnabled {
             let cellDetailTextLabel = bookmarks[indexPath.row].name_secondary
             cell.detailTextLabel?.text = cellDetailTextLabel
-            cell.detailTextLabel?.font = AppUtility.shared.getFont(multiplySizeBy: 0.6)
+            cell.detailTextLabel?.font = Utilities.shared.getFont(multiplySizeBy: 0.6)
             cell.detailTextLabel?.textColor = .gray
             cell.detailTextLabel?.numberOfLines = 0;
             cell.detailTextLabel?.lineBreakMode = .byWordWrapping;
@@ -117,7 +117,7 @@ extension BookmarksViewController: UITableViewDataSource {
         label.lineBreakMode = .byWordWrapping
         label.text = formatter.string(from: bookmark.date as Date)
         label.textColor = .gray
-        label.font = AppUtility.shared.getFont(multiplySizeBy: 0.5)
+        label.font = Utilities.shared.getFont(multiplySizeBy: 0.5)
         cell.accessoryView = label
         
         return cell

@@ -83,23 +83,23 @@ extension BooksViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: Constants.ReuseID.bookCell)
-        let cellColor = AppUtility.shared.getCellColor()
+        let cellColor = Utilities.shared.getCellColor()
         let book = books[indexPath.row + groupedCellsOffset(section: indexPath.section)]
 
         tableView.backgroundColor = cellColor
         cell.backgroundColor = cellColor
         
         cell.textLabel?.text = book.name_primary
-        cell.textLabel?.font = AppUtility.shared.getFont()
-        cell.textLabel?.textColor = AppUtility.shared.getTextColor()
+        cell.textLabel?.font = Utilities.shared.getFont()
+        cell.textLabel?.textColor = Utilities.shared.getTextColor()
         
-        if AppUtility.shared.dualEnabled {
+        if Utilities.shared.dualEnabled {
             cell.detailTextLabel?.text = book.name_secondary
-            cell.detailTextLabel?.font = AppUtility.shared.getFont(multiplySizeBy: 0.6)
+            cell.detailTextLabel?.font = Utilities.shared.getFont(multiplySizeBy: 0.6)
             cell.detailTextLabel?.textColor = .gray
         }
         
-        if AppUtility.shared.isPaid(book: book) {
+        if Utilities.shared.isPaid(book: book) {
             cell.textLabel?.isEnabled = PurchaseManager.shared.allFeaturesUnlocked
             cell.detailTextLabel?.isEnabled = PurchaseManager.shared.allFeaturesUnlocked
         }
@@ -119,7 +119,7 @@ extension BooksViewController: UITableViewDelegate {
         
         let selectedBook = books[indexPath.row + groupedCellsOffset(section: indexPath.section)]
         
-        if AppUtility.shared.isPaid(book: selectedBook) {
+        if Utilities.shared.isPaid(book: selectedBook) {
             if !PurchaseManager.shared.allFeaturesUnlocked {
                 presentPuchaseViewController()
                 return

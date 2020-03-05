@@ -21,7 +21,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         if let identifier = viewController.restorationIdentifier,
-            AppUtility.shared.isPaid(restorationIdentifider: identifier) {
+            Utilities.shared.isPaid(restorationIdentifider: identifier) {
             if !PurchaseManager.shared.allFeaturesUnlocked {
                 presentPuchaseViewController()
                 return false

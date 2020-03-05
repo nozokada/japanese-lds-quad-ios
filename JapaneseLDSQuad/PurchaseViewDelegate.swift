@@ -1,5 +1,5 @@
 //
-//  PurchaseChangeDelegate.swift
+//  PurchaseViewDelegate.swift
 //  JapaneseLDSQuad
 //
 //  Created by Nozomi Okada on 3/4/20.

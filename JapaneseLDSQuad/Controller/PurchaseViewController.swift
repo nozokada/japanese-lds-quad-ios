@@ -58,7 +58,7 @@ class PurchaseViewController: UIViewController {
     }
     
     func alert(with title: String, message: String) {
-        let alertController = AppUtility.shared.alert(title, message: message)
+        let alertController = Utilities.shared.alert(title, message: message)
         present(alertController, animated: true, completion: nil)
     }
     

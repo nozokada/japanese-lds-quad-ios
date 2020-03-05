@@ -40,10 +40,10 @@ class SettingsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        tableView.backgroundColor = AppUtility.shared.getBackgroundColor()
-        cell.backgroundColor = AppUtility.shared.getCellColor()
+        tableView.backgroundColor = Utilities.shared.getBackgroundColor()
+        cell.backgroundColor = Utilities.shared.getCellColor()
         
-        let fontColor = AppUtility.shared.getTextColor()
+        let fontColor = Utilities.shared.getTextColor()
         alternativeFontLabel.textColor = fontColor
         nightModeLabel.textColor = fontColor
         dualModeSwitchLabel.textColor = fontColor
@@ -60,27 +60,27 @@ class SettingsViewController: UITableViewController {
     }
     
     func setAlternativeFontSwitchState() {
-        let state = AppUtility.shared.alternativeFontEnabled
+        let state = Utilities.shared.alternativeFontEnabled
         alternativeFontSwitch.setImage(state ? #imageLiteral(resourceName: "ToggleOn") : #imageLiteral(resourceName: "ToggleOff"), for: .normal)
     }
     
     func setNightModeSwitchState() {
-        let state = AppUtility.shared.nightModeEnabled
+        let state = Utilities.shared.nightModeEnabled
         nightModeSwitch.setImage(state ? #imageLiteral(resourceName: "ToggleOn") : #imageLiteral(resourceName: "ToggleOff"), for: .normal)
     }
     
     func setDualModeSwitchState() {
-        let state = AppUtility.shared.dualEnabled
+        let state = Utilities.shared.dualEnabled
         dualModeSwitch.setImage(state ? #imageLiteral(resourceName: "ToggleOn") : #imageLiteral(resourceName: "ToggleOff"), for: .normal)
     }
     
     
     func setTextSizeStepperValue() {
-        textSizeStepper.value = AppUtility.shared.fontSizeMultiplier
+        textSizeStepper.value = Utilities.shared.fontSizeMultiplier
     }
     
     func setSideBySideModeSwitchState() {
-        let currState = AppUtility.shared.sideBySideEnabled
+        let currState = Utilities.shared.sideBySideEnabled
         sideBySideModeSwitch.setImage(currState ? #imageLiteral(resourceName: "ToggleOn") : #imageLiteral(resourceName: "ToggleOff"), for: .normal)
     }
     
@@ -97,14 +97,14 @@ class SettingsViewController: UITableViewController {
     }
     
     @IBAction func alternativeFontSwitchToggled(_ sender: Any) {
-        let state = AppUtility.shared.alternativeFontEnabled
+        let state = Utilities.shared.alternativeFontEnabled
         UserDefaults.standard.set(!state, forKey: Constants.Config.font)
         alternativeFontSwitch.setImage(state ? #imageLiteral(resourceName: "ToggleOff") : #imageLiteral(resourceName: "ToggleOn") , for: .normal)
         delegate?.reload()
     }
     
     @IBAction func nightModeSwitchToggled(_ sender: Any) {
-        let state = AppUtility.shared.nightModeEnabled
+        let state = Utilities.shared.nightModeEnabled
         UserDefaults.standard.set(!state, forKey: Constants.Config.night)
         nightModeSwitch.setImage(state ? #imageLiteral(resourceName: "ToggleOff") : #imageLiteral(resourceName: "ToggleOn") , for: .normal)
         delegate?.reload()
@@ -112,7 +112,7 @@ class SettingsViewController: UITableViewController {
     }
     
     @IBAction func dualModeSwitchToggled(_ sender: Any) {
-        let state = AppUtility.shared.dualEnabled
+        let state = Utilities.shared.dualEnabled
         UserDefaults.standard.set(!state, forKey: Constants.Config.dual)
         dualModeSwitch.setImage(state ? #imageLiteral(resourceName: "ToggleOff") : #imageLiteral(resourceName: "ToggleOn") , for: .normal)
         delegate?.reload()
@@ -123,7 +123,7 @@ class SettingsViewController: UITableViewController {
             presentPuchaseViewController()
             return
         }
-        let state = AppUtility.shared.sideBySideEnabled
+        let state = Utilities.shared.sideBySideEnabled
         UserDefaults.standard.set(!state, forKey: Constants.Config.side)
         sideBySideModeSwitch.setImage(state ? #imageLiteral(resourceName: "ToggleOff") : #imageLiteral(resourceName: "ToggleOn") , for: .normal)
         delegate?.reload()

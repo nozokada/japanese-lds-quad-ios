@@ -1,12 +1,12 @@
 //
-//  SpeechUtility.swift
+//  SpeechUtilities.swift
 //  JapaneseLDSQuad
 //
 //  Created by Nozomi Okada on 2/23/20.
 //  Copyright © 2020 nozokada. All rights reserved.
 //
 
-struct SpeechUtility {
+struct SpeechUtilities {
     
     static func correctPrimaryLanguage(speechText: String) -> String {
         var outputText = speechText

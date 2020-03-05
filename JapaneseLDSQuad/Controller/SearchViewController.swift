@@ -65,11 +65,11 @@ class SearchViewController: UIViewController {
     }
     
     func updateTableBackgroundColor() {
-        tableView.backgroundColor = AppUtility.shared.getBackgroundColor()
+        tableView.backgroundColor = Utilities.shared.getBackgroundColor()
     }
     
     func updateSearchBarStyle() {
-        let nightModeEnabled = AppUtility.shared.nightModeEnabled
+        let nightModeEnabled = Utilities.shared.nightModeEnabled
         searchBar.barStyle = nightModeEnabled ? .black : .default
         searchResultsSegmentedControl.backgroundColor = nightModeEnabled
             ? Constants.BackgroundColor.nightSearchBar
@@ -107,7 +107,7 @@ extension SearchViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         let scripture = filteredResults[indexPath.row]
         
-        if AppUtility.shared.isPaid(book: scripture.parent_book) {
+        if Utilities.shared.isPaid(book: scripture.parent_book) {
             if !PurchaseManager.shared.allFeaturesUnlocked {
                 presentPuchaseViewController()
                 return
@@ -136,29 +136,29 @@ extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let results = filteredResults, results.count > 0 else { return UITableViewCell() }
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: Constants.ReuseID.searchResultCell)
-        let cellColor = AppUtility.shared.getCellColor()
+        let cellColor = Utilities.shared.getCellColor()
         
         tableView.backgroundColor = cellColor
         cell.backgroundColor = cellColor
         
         let scripture = results[indexPath.row]
-        let contentType = AppUtility.shared.getContentType(targetBook: scripture.parent_book)
+        let contentType = Utilities.shared.getContentType(targetBook: scripture.parent_book)
         let scriptures = scripture.parent_book.child_scriptures.filter("chapter = \(scripture.chapter)")
-        let builder = AppUtility.shared.getContentBuilder(scriptures: scriptures, contentType: contentType)
+        let builder = Utilities.shared.getContentBuilder(scriptures: scriptures, contentType: contentType)
         let cellTextLabel = builder.buildSearchResultText(scripture: scripture)
         
         cell.textLabel?.text = cellTextLabel
-        cell.textLabel?.font = AppUtility.shared.getFont()
-        cell.textLabel?.textColor = AppUtility.shared.getTextColor()
+        cell.textLabel?.font = Utilities.shared.getFont()
+        cell.textLabel?.textColor = Utilities.shared.getTextColor()
         
-        if AppUtility.shared.dualEnabled {
+        if Utilities.shared.dualEnabled {
             let cellDetailTextLabel = builder.buildSearchResultDetailText(scripture: scripture)
             cell.detailTextLabel?.text = cellDetailTextLabel
-            cell.detailTextLabel?.font = AppUtility.shared.getFont(multiplySizeBy: 0.6)
+            cell.detailTextLabel?.font = Utilities.shared.getFont(multiplySizeBy: 0.6)
             cell.detailTextLabel?.textColor = .gray
         }
         
-        if AppUtility.shared.isPaid(book: scripture.parent_book) {
+        if Utilities.shared.isPaid(book: scripture.parent_book) {
             cell.textLabel?.isEnabled = PurchaseManager.shared.allFeaturesUnlocked
             cell.detailTextLabel?.isEnabled = PurchaseManager.shared.allFeaturesUnlocked
         }

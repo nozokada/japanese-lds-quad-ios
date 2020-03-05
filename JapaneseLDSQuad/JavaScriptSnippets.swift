@@ -1,5 +1,5 @@
 //
-//  JavaScriptFunctions.swift
+//  JavaScriptSnippets.swift
 //  JapaneseLDSQuad
 //
 //  Created by Nozomi Okada on 2/4/20.

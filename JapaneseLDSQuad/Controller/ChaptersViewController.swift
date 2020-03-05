@@ -70,7 +70,7 @@ extension ChaptersViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: Constants.ReuseID.chapterCell)
-        let cellColor = AppUtility.shared.getCellColor()
+        let cellColor = Utilities.shared.getCellColor()
         
         tableView.backgroundColor = cellColor
         cell.backgroundColor = cellColor
@@ -80,18 +80,18 @@ extension ChaptersViewController: UITableViewDataSource {
             cellTextLabel += " \(titles[indexPath.row].scripture_primary.tagsRemoved)"
         }
         cell.textLabel?.text = cellTextLabel
-        cell.textLabel?.font = AppUtility.shared.getFont()
-        cell.textLabel?.textColor = AppUtility.shared.getTextColor()
+        cell.textLabel?.font = Utilities.shared.getFont()
+        cell.textLabel?.textColor = Utilities.shared.getTextColor()
         
         if targetBook.link.hasPrefix("gs") { return cell }
         
-        if AppUtility.shared.dualEnabled {
+        if Utilities.shared.dualEnabled {
             var cellDetailTextLabel = counters[indexPath.row].scripture_secondary
             if let titles = titles {
                 cellDetailTextLabel += " \(titles[indexPath.row].scripture_secondary.tagsRemoved)"
             }
             cell.detailTextLabel?.text = cellDetailTextLabel
-            cell.detailTextLabel?.font = AppUtility.shared.getFont(multiplySizeBy: 0.6)
+            cell.detailTextLabel?.font = Utilities.shared.getFont(multiplySizeBy: 0.6)
             cell.detailTextLabel?.textColor = .gray
         }
         return cell

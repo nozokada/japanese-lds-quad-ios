@@ -27,7 +27,7 @@ class HighlightSmallTextLabel: UILabel {
     func customizeViews() {
         numberOfLines = 0
         lineBreakMode = .byWordWrapping
-        font = AppUtility.shared.getFont(multiplySizeBy: 0.6)
+        font = Utilities.shared.getFont(multiplySizeBy: 0.6)
         textColor = .gray
     }
     

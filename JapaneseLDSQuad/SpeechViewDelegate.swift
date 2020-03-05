@@ -1,5 +1,5 @@
 //
-//  TextToSpeechDelegate.swift
+//  SpeechViewDelegate.swift
 //  JapaneseLDSQuad
 //
 //  Created by Nozomi Okada on 2/22/20.
@@ -8,14 +8,14 @@
 
 import UIKit
 
-protocol ScripturesToSpeechDelegate {
+protocol SpeechViewDelegate {
     
     func scroll()
     
     func updateScripturesToSpeech()
 }
 
-extension ScripturesToSpeechDelegate where Self: UIViewController {
+extension SpeechViewDelegate where Self: UIViewController {
 
     func setSpeechBarButton() {
         let speechButton = UIBarButtonItem(image: UIImage(named: "Headphones"), style: .plain, target: self, action: #selector(presentSpeechViewController(sender:)))
@@ -34,7 +34,7 @@ extension UIViewController {
         addChild(viewController)
         view.addSubview(viewController.view)
         viewController.didMove(toParent: self)
-        viewController.delegate = self as? ScripturesToSpeechDelegate
+        viewController.delegate = self as? SpeechViewDelegate
         
         let height = view.frame.height
         let width  = view.frame.width
