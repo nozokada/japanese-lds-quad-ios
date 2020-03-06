@@ -14,6 +14,8 @@ class SearchViewController: UIViewController {
     var results: Results<Scripture>!
     var filteredResults: Results<Scripture>!
     var searchText = ""
+    var chapterText = ""
+    var verseText = ""
     var currentSegmentIndex = "1"
     var searchNoficationToken: NotificationToken? = nil
     var filterNotificationToken: NotificationToken? = nil
@@ -81,7 +83,9 @@ class SearchViewController: UIViewController {
     }
     
     func updateSearchBarPrompt() {
-        searchBar.prompt = "\(filteredResults.count) \("searchMatches".localized)"
+        searchBar.prompt = searchText.isEmpty && chapterText.isEmpty && verseText.isEmpty
+            ? nil
+            : "\(filteredResults.count) \("searchMatches".localized)"
     }
     
     func updatePassageLookupBarStyle() {
@@ -96,10 +100,12 @@ class SearchViewController: UIViewController {
     }
     
     @IBAction func chapterTextFieldEditingChanged(_ sender: Any) {
+        chapterText = chapterTextField.text ?? ""
         updateResults()
     }
     
     @IBAction func verseTextFieldEditingChanged(_ sender: Any) {
+        verseText = verseTextField.text ?? ""
         updateResults()
     }
     
@@ -209,8 +215,7 @@ extension SearchViewController: UISearchBarDelegate {
         showActivityIndicator()
         
         var searchQuery = ""
-        if let chapterText = chapterTextField.text, let verseText = verseTextField.text,
-            !chapterText.isEmpty || !verseText.isEmpty {
+        if !chapterText.isEmpty || !verseText.isEmpty {
             let searchQueryChapter = chapterText.isEmpty
                 ? "" : "chapter = \(chapterText) AND "
             let searchQueryVerse = verseText.isEmpty
