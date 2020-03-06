@@ -13,16 +13,18 @@ class SearchViewController: UIViewController {
     
     var results: Results<Scripture>!
     var filteredResults: Results<Scripture>!
-    var currentSearchText = ""
+    var searchText = ""
     var currentSegmentIndex = "1"
     var searchNoficationToken: NotificationToken? = nil
     var filterNotificationToken: NotificationToken? = nil
     
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var passageLookupBar: UIView!
     @IBOutlet weak var searchResultsSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var chapterTextField: UITextField!
+    @IBOutlet weak var verseTextField: UITextField!
     @IBOutlet weak var segmentedControlView: UIView!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var passageLookupBar: UIView!
     
     var noResultsLabel: UILabel!
     var spinner: MainIndicatorView!
@@ -79,9 +81,7 @@ class SearchViewController: UIViewController {
     }
     
     func updateSearchBarPrompt() {
-        searchBar.prompt = currentSearchText.isEmpty
-            ? nil
-            : "\(filteredResults.count) \("searchMatches".localized)"
+        searchBar.prompt = "\(filteredResults.count) \("searchMatches".localized)"
     }
     
     func updatePassageLookupBarStyle() {
@@ -93,7 +93,14 @@ class SearchViewController: UIViewController {
     
     @IBAction func searchSegmentControlValueChanged(_ sender: Any) {
         updateSegmentResults()
-        updateSearchBarPrompt()
+    }
+    
+    @IBAction func chapterTextFieldEditingChanged(_ sender: Any) {
+        updateResults()
+    }
+    
+    @IBAction func verseTextFieldEditingChanged(_ sender: Any) {
+        updateResults()
     }
     
     @IBAction func chapterTextFieldTapped(_ sender: Any) {
@@ -200,11 +207,24 @@ extension SearchViewController: UISearchBarDelegate {
     
     func updateResults() {
         showActivityIndicator()
-        let searchQueryPrimary = "scripture_primary_raw CONTAINS '\(currentSearchText)'"
-        let searchQuerySecondary = "scripture_secondary_raw CONTAINS[c] '\(currentSearchText)'"
+        
+        var searchQuery = ""
+        if let chapterText = chapterTextField.text, let verseText = verseTextField.text,
+            !chapterText.isEmpty || !verseText.isEmpty {
+            let searchQueryChapter = chapterText.isEmpty
+                ? "" : "chapter = \(chapterText) AND "
+            let searchQueryVerse = verseText.isEmpty
+                ? "id LIKE '??????'" : "verse = '\(verseText)'"
+            searchQuery += "\(searchQueryChapter) \(searchQueryVerse)"
+            searchQuery += searchText.isEmpty ? " OR " : " AND "
+        }
+        
+        let searchQueryPrimary = "scripture_primary_raw CONTAINS '\(searchText)'"
+        let searchQuerySecondary = "scripture_secondary_raw CONTAINS[c] '\(searchText)'"
+        searchQuery += "(\(searchQuerySecondary) OR \(searchQueryPrimary))"
         
         let realm = try! Realm()
-        results = realm.objects(Scripture.self).filter("\(searchQuerySecondary) OR \(searchQueryPrimary)")
+        results = realm.objects(Scripture.self).filter(searchQuery)
         searchNoficationToken = results.observe { _ in
             self.updateSegmentResults()
         }
@@ -225,7 +245,7 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        currentSearchText = searchText
+        self.searchText = searchText
         updateResults()
     }
     

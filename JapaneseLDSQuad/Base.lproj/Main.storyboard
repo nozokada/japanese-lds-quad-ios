@@ -205,6 +205,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                         <connections>
+                                            <action selector="chapterTextFieldEditingChanged:" destination="8rJ-Kc-sve" eventType="editingChanged" id="fqq-kI-C08"/>
                                             <action selector="chapterTextFieldTapped:" destination="8rJ-Kc-sve" eventType="touchDown" id="qcr-M4-0rX"/>
                                         </connections>
                                     </textField>
@@ -216,6 +217,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                         <connections>
+                                            <action selector="verseTextFieldEditingChanged:" destination="8rJ-Kc-sve" eventType="editingChanged" id="Wqe-I2-MxC"/>
                                             <action selector="verseTextFieldTapped:" destination="8rJ-Kc-sve" eventType="touchDown" id="Dk3-8M-spH"/>
                                         </connections>
                                     </textField>
@@ -250,11 +252,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="CuM-8z-AmE"/>
                     <connections>
+                        <outlet property="chapterTextField" destination="9jC-Vl-OTb" id="eTs-ze-dbC"/>
                         <outlet property="passageLookupBar" destination="37j-2N-Skc" id="q31-oS-B11"/>
                         <outlet property="searchBar" destination="rsi-b6-fDt" id="eEq-N9-VzY"/>
                         <outlet property="searchResultsSegmentedControl" destination="Apl-mt-2OM" id="SUK-iM-09H"/>
                         <outlet property="segmentedControlView" destination="797-ka-jGn" id="YDy-ab-81a"/>
                         <outlet property="tableView" destination="hTm-2w-wYS" id="ZRt-lD-lsc"/>
+                        <outlet property="verseTextField" destination="ayV-cV-3cZ" id="tqN-o5-FHg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
