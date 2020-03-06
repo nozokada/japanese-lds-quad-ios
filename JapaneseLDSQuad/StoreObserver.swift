@@ -33,18 +33,22 @@ class StoreObserver: NSObject {
         debugPrint("Handling succeeded purchase")
         let productIdentifier = transaction.payment.productIdentifier
         PurchaseManager.shared.unlockProduct(withIdentifier: productIdentifier)
+        DispatchQueue.main.async {
+            self.delegate?.storeObserverPurchaseDidSucceed()
+        }
         SKPaymentQueue.default().finishTransaction(transaction)
     }
     
     func handleFailed(_ transaction: SKPaymentTransaction) {
         debugPrint("Handling failed purchase")
-        var message = "Purchase of \(transaction.payment.productIdentifier) failed"
+        var message = "purchaseFailed".localized
         if let error = transaction.error {
             message += "\n\(error.localizedDescription)"
         }
-        
         if (transaction.error as? SKError)?.code != .paymentCancelled {
-            debugPrint(message)
+            DispatchQueue.main.async {
+                self.delegate?.storeObserverDidReceiveMessage(message)
+            }
         }
         SKPaymentQueue.default().finishTransaction(transaction)
     }
@@ -52,6 +56,9 @@ class StoreObserver: NSObject {
     func handleRestored(_ transaction: SKPaymentTransaction) {
         hasRestorablePurchases = true
         PurchaseManager.shared.unlockProduct(withIdentifier: transaction.payment.productIdentifier)
+        DispatchQueue.main.async {
+            self.delegate?.storeObserverRestoreDidSucceed()
+        }
         SKPaymentQueue.default().finishTransaction(transaction)
     }
 }
@@ -88,7 +95,7 @@ extension StoreObserver: SKPaymentTransactionObserver {
     func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
         if !hasRestorablePurchases {
             DispatchQueue.main.async {
-                self.delegate?.storeObserverDidReceiveMessage("There are no restorable purchases")
+                self.delegate?.storeObserverDidReceiveMessage("noRestorablePurchases".localized)
             }
         }
     }

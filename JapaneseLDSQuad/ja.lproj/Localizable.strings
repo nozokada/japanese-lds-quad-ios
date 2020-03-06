@@ -49,6 +49,15 @@
 "InvalidActionAlertTitle" = "申し訳ありません";
 "InvalidSelectedRangeAlertMessage" = "選択された範囲でその操作はサポートされていません";
 
+"allFeaturesPassTitleLabel" = "オール機能パス";
 "allFeaturesDescriptionLabel" = "お買い上げ頂くと、全ての機能が利用できるようになります\n\n日英横並び表示\n章と節で探す\n印とメモ\n機械音声読み上げ\n聖句ガイドの聖書へのリンク\n聖句ガイドの聖書のジョセフ・スミス訳";
 "allFeaturesPassPurchaseButtonLabel" = "購入する";
-"allFeaturesPassRestoreButtonLabel" = "復元する";
+"allFeaturesPassRestoreButtonLabel" = "購入を復元する";
+
+"productRequestStatus" = "製品リクエストの状況";
+"purchaseStatus" = "購入手続きの状況";
+"purchaseNotAllowed" = "アプリ内課金が許可されていません";
+"purchaseFailed" = "購入に失敗しました";
+"noRestorablePurchases" = "復元できる購入がありませんでした";
+"purchaseComplete" = "購入手続きが完了しました\nお買い上げありがとうございます";
+"restoreComplete" = "購入の復元が完了しました";

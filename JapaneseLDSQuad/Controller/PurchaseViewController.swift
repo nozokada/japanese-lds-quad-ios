@@ -19,10 +19,6 @@ class PurchaseViewController: UIViewController {
     var allFeaturesPassName: String!
     var allFeaturesPassPrice: String!
     
-    var isAuthorizedForPayments: Bool {
-        return SKPaymentQueue.canMakePayments()
-    }
-    
     @IBOutlet weak var modalView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
@@ -34,12 +30,12 @@ class PurchaseViewController: UIViewController {
         prepareBackgroundView()
         StoreObserver.shared.delegate = self
         StoreManager.shared.delegate = self
-        StoreManager.shared.startProductRequest(with: productIdentifiers)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         reload()
+        fetchProductInformation()
     }
     
     func prepareBackgroundView() {
@@ -52,20 +48,25 @@ class PurchaseViewController: UIViewController {
     }
     
     func reload() {
-        titleLabel.text = allFeaturesPass?.localizedTitle
+        titleLabel.text = allFeaturesPass?.localizedTitle ?? "allFeaturesPassTitleLabel".localized
         let buttonTitle = "\("allFeaturesPassPurchaseButtonLabel".localized) \(allFeaturesPass?.regularPrice ?? "")"
         purchaseButton.setTitle(buttonTitle, for: .normal)
         restoreButton.setTitle("allFeaturesPassRestoreButtonLabel".localized, for: .normal)
         descriptionLabel.text = "allFeaturesDescriptionLabel".localized
     }
     
-    func alert(with title: String, message: String) {
-        let alertController = Utilities.shared.alert(title, message: message)
-        present(alertController, animated: true, completion: nil)
+    func fetchProductInformation() {
+        if StoreObserver.shared.isAuthorizedForPayments {
+            StoreManager.shared.startProductRequest(with: productIdentifiers)
+        } else {
+            alert(with: "productRequestStatus".localized, message: "purchaseNotAllowed".localized, close: true)
+        }
     }
     
-    func handleRestoredSucceededTransaction() {
-        debugPrint("Let the user know that restore succeeded")
+    func alert(with title: String, message: String, close: Bool = false) {
+        let handler = close ? {(alert: UIAlertAction) in self.dismiss(animated: true, completion: nil) } : nil
+        let alertController = Utilities.shared.alert(title, message: message, handler: handler)
+        present(alertController, animated: true, completion: nil)
     }
     
     @IBAction func purchaseButtonTapped(_ sender: Any) {
@@ -73,7 +74,6 @@ class PurchaseViewController: UIViewController {
             StoreObserver.shared.buy(pass)
         }
     }
-    
     
     @IBAction func restoreButtonTapped(_ sender: Any) {
         StoreObserver.shared.restore()
@@ -94,16 +94,21 @@ extension PurchaseViewController: StoreManagerDelegate {
     }
     
     func storeManagerDidReceiveMessage(_ message: String) {
-        alert(with: "Product Request Status", message: message)
+        alert(with: "productRequestStatus".localized, message: message)
     }
 }
 
 extension PurchaseViewController: StoreObserverDelegate {
+    
+    func storeObserverPurchaseDidSucceed() {
+        alert(with: "productRequestStatus".localized, message: "purchaseComplete".localized, close: true)
+    }
+    
     func storeObserverRestoreDidSucceed() {
-        handleRestoredSucceededTransaction()
+        alert(with: "productRequestStatus".localized, message: "restoreComplete".localized, close: true)
     }
     
     func storeObserverDidReceiveMessage(_ message: String) {
-        alert(with: "Purchase Status", message: message)
+        alert(with: "purchaseStatus".localized, message: message)
     }
 }

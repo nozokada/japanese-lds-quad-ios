@@ -49,6 +49,15 @@
 "InvalidActionAlertTitle" = "Sorry!";
 "InvalidSelectedRangeAlertMessage" = "That operation is not supported where you selected";
 
+"allFeaturesPassTitleLabel" = "All Features Pass";
 "allFeaturesDescriptionLabel" = "will give you unlimited access to all features\n\nJapanese/English Side by Side\nPassage Lookup\nHighlights\nText to Speech\nLinks to Bible verses in Bible Dictionary\nJoseph Smith Translation in Study Helps";
 "allFeaturesPassPurchaseButtonLabel" = "Buy";
-"allFeaturesPassRestoreButtonLabel" = "Restore";
+"allFeaturesPassRestoreButtonLabel" = "Restore Purchase";
+
+"productRequestStatus" = "Product Request Status";
+"purchaseStatus" = "Purchase Status";
+"purchaseNotAllowed" = "In-App Purchases are not allowed";
+"purchaseFailed" = "Purchase failed";
+"noRestorablePurchases" = "There are no restorable purchases";
+"purchaseComplete" = "Purchase complete\nThank you for your purchase!";
+"restoreComplete" = "Restore complete!";

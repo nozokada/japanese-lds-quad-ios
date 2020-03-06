@@ -16,6 +16,8 @@ protocol StoreManagerDelegate {
 }
 
 protocol StoreObserverDelegate {
+    
+    func storeObserverPurchaseDidSucceed()
 
     func storeObserverRestoreDidSucceed()
 
