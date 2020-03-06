@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -261,12 +262,12 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SLF-zR-a1m">
-                                        <rect key="frame" x="331.5" y="20" width="18" height="22"/>
+                                        <rect key="frame" x="335.5" y="20" width="14" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="22" id="YtX-Ty-651"/>
                                         </constraints>
                                         <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" image="xmark" catalog="system"/>
+                                        <state key="normal" image="Xmark"/>
                                         <connections>
                                             <action selector="closeButtonTapped:" destination="psz-41-h5b" eventType="touchUpInside" id="MH3-2B-1ep"/>
                                         </connections>
@@ -352,7 +353,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uey-GC-yPi">
                                         <rect key="frame" x="96.5" y="0.0" width="21" height="22"/>
-                                        <state key="normal" image="play" catalog="system"/>
+                                        <state key="normal" image="Play"/>
                                         <connections>
                                             <action selector="playButtonTapped:" destination="AUS-pu-oiz" eventType="touchUpInside" id="ibJ-wk-jtZ"/>
                                         </connections>
@@ -441,8 +442,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mincho Font" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7w-8s-8aq">
-                                                    <rect key="frame" x="36" y="11.5" width="95" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="明朝体を使用" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o7w-8s-8aq">
+                                                    <rect key="frame" x="36" y="11.5" width="104" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -472,8 +473,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Night Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DdA-Rb-Ujg">
-                                                    <rect key="frame" x="36" y="11.5" width="90" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ナイトモード" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DdA-Rb-Ujg">
+                                                    <rect key="frame" x="36" y="11.5" width="104" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -502,8 +503,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="English Enabled" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FkT-VA-tRC">
-                                                    <rect key="frame" x="36" y="11.5" width="121.5" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="英訳を表示" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FkT-VA-tRC">
+                                                    <rect key="frame" x="36" y="11.5" width="87" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -532,8 +533,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Side by Side" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sA4-Yh-snc">
-                                                    <rect key="frame" x="36" y="11.5" width="95" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="日英横並び" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sA4-Yh-snc">
+                                                    <rect key="frame" x="36" y="11.5" width="87" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -562,8 +563,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text Size" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5pj-Or-IrA">
-                                                    <rect key="frame" x="36" y="11.5" width="69" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="文字のサイズ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5pj-Or-IrA">
+                                                    <rect key="frame" x="36" y="11.5" width="104" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -613,7 +614,7 @@
         <scene sceneID="HWb-KW-YCZ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5Hr-dn-jPU" customClass="MainNavigationController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Read" image="book.fill" catalog="system" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="Read" image="Read" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="LPC-xt-Irw" customClass="MainNavigationBar" customModule="JapaneseLDSQuad" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -632,7 +633,7 @@
         <scene sceneID="JGo-3Z-Iye">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VX4-bx-qvp" customClass="MainNavigationController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Search" image="Search" id="cPa-gy-q4n"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ce2-Og-oF2" customClass="MainNavigationBar" customModule="JapaneseLDSQuad" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -651,7 +652,7 @@
         <scene sceneID="Gaz-45-KqQ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2y5-Sl-xad" customClass="MainNavigationController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Bookmarks" image="bookmark.fill" catalog="system" id="woe-p4-W1f"/>
+                    <tabBarItem key="tabBarItem" title="Bookmarks" image="Bookmark" id="woe-p4-W1f"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2SY-TM-r5d" customClass="MainNavigationBar" customModule="JapaneseLDSQuad" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -761,17 +762,17 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aeM-aW-BwF">
-                                <rect key="frame" x="317" y="64" width="19.5" height="22"/>
+                                <rect key="frame" x="324" y="64" width="16" height="22"/>
                                 <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="trash" catalog="system"/>
+                                <state key="normal" image="Trash"/>
                                 <connections>
                                     <action selector="deleteButtonTapped:" destination="n05-c0-JaN" eventType="touchUpInside" id="s4A-h3-oRS"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="noe-sa-QWN">
-                                <rect key="frame" x="376.5" y="64" width="17.5" height="22"/>
+                                <rect key="frame" x="380" y="64" width="14" height="22"/>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" image="xmark" catalog="system"/>
+                                <state key="normal" image="Xmark"/>
                                 <connections>
                                     <action selector="closeButtonTapped:" destination="n05-c0-JaN" eventType="touchUpInside" id="K37-Iy-eQN"/>
                                 </connections>
@@ -829,7 +830,7 @@
         <scene sceneID="Qcm-ng-gDF">
             <objects>
                 <navigationController restorationIdentifier="highlights" automaticallyAdjustsScrollViewInsets="NO" id="W3d-yM-HqM" customClass="MainNavigationController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Highlights" image="pencil" catalog="system" id="K6G-Er-72L"/>
+                    <tabBarItem key="tabBarItem" title="Highlights" image="Pencil" id="K6G-Er-72L"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9rk-Z1-X3n" customClass="MainNavigationBar" customModule="JapaneseLDSQuad" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -847,16 +848,16 @@
     </scenes>
     <resources>
         <image name="Back" width="13" height="14"/>
+        <image name="Bookmark" width="14" height="18"/>
         <image name="Faster" width="17" height="19"/>
         <image name="Next" width="13" height="14"/>
+        <image name="Pencil" width="14" height="14"/>
+        <image name="Play" width="13" height="14"/>
+        <image name="Read" width="17" height="15"/>
+        <image name="Search" width="16" height="16"/>
         <image name="Slower" width="17" height="19"/>
         <image name="ToggleOn" width="73.5" height="48"/>
-        <image name="book.fill" catalog="system" width="64" height="50"/>
-        <image name="bookmark.fill" catalog="system" width="56" height="64"/>
-        <image name="magnifyingglass" catalog="system" width="64" height="56"/>
-        <image name="pencil" catalog="system" width="64" height="56"/>
-        <image name="play" catalog="system" width="60" height="64"/>
-        <image name="trash" catalog="system" width="60" height="64"/>
-        <image name="xmark" catalog="system" width="64" height="56"/>
+        <image name="Trash" width="16" height="19"/>
+        <image name="Xmark" width="14" height="14"/>
     </resources>
 </document>
