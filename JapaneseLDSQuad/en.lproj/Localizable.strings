@@ -15,7 +15,7 @@
 "standardWorksGroupedTableViewLabel" = "Standard Works";
 "resourcesGroupedTableViewLabel" = "Resources";
 
-"searchViewTitle" = "Keyword Search";
+"searchViewTitle" = "Search";
 "bookmarksViewTitle" = "Bookmarks";
 "highlightsViewTitle" = "Highlights";
 "PassageLookupViewTitle" = "Passage Lookup";

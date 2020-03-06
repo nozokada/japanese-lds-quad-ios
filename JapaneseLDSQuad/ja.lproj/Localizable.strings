@@ -15,7 +15,7 @@
 "standardWorksGroupedTableViewLabel" = "標準聖典";
 "resourcesGroupedTableViewLabel" = "その他";
 
-"searchViewTitle" = "キーワードで探す";
+"searchViewTitle" = "探す";
 "bookmarksViewTitle" = "ブックマーク";
 "highlightsViewTitle" = "印とメモ";
 "PassageLookupViewTitle" = "章と節で探す";

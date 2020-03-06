@@ -22,6 +22,7 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var searchResultsSegmentedControl: UISegmentedControl!
     @IBOutlet weak var segmentedControlView: UIView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var passageLookupBar: UIView!
     
     var noResultsLabel: UILabel!
     var spinner: MainIndicatorView!
@@ -83,9 +84,28 @@ class SearchViewController: UIViewController {
             : "\(filteredResults.count) \("searchMatches".localized)"
     }
     
+    func updatePassageLookupBarStyle() {
+        let nightModeEnabled = Utilities.shared.nightModeEnabled
+        passageLookupBar.backgroundColor = nightModeEnabled
+            ? Constants.BackgroundColor.nightSearchBar
+            : Constants.BackgroundColor.daySearchBar
+    }
+    
     @IBAction func searchSegmentControlValueChanged(_ sender: Any) {
         updateSegmentResults()
         updateSearchBarPrompt()
+    }
+    
+    @IBAction func chapterTextFieldTapped(_ sender: Any) {
+        if !PurchaseManager.shared.allFeaturesUnlocked {
+            presentPuchaseViewController()
+        }
+    }
+    
+    @IBAction func verseTextFieldTapped(_ sender: Any) {
+        if !PurchaseManager.shared.allFeaturesUnlocked {
+            presentPuchaseViewController()
+        }
     }
 }
 
@@ -96,6 +116,7 @@ extension SearchViewController: SettingsViewDelegate {
             noResultsLabel.isHidden = results.count > 0
         }
         updateSearchBarStyle()
+        updatePassageLookupBarStyle()
         updateTableBackgroundColor()
         tableView.reloadData()
     }
