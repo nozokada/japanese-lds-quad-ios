@@ -41,13 +41,14 @@
 "settingfontSizeStepperLabel" = "文字のサイズ";
 
 "copyTextMenuItemLabel" = "コピー";
-"copyVerseMenuItemLabel" = "節をコピー (ルビなし)";
+"copyVerseMenuItemLabel" = "ルビなしで節をコピー";
 "highlightMenuItemLabel" = "印を付ける";
 "noteEditMenuItemLabel" = "メモ";
 "unhighlightMenuItemLabel" = "印を消す";
 
 "InvalidActionAlertTitle" = "申し訳ありません";
-"InvalidSelectedRangeAlertMessage" = "選択された範囲でその操作はサポートされていません";
+"InvalidCopyRangeAlertMessage" = "コピーできない部分が選択されています";
+"InvalidHighlightRangeAlertMessage" = "印を付けることができない部分が選択されています";
 
 "allFeaturesPassTitleLabel" = "オール機能パス";
 "allFeaturesDescriptionLabel" = "お買い上げ頂くと、全ての機能が利用できるようになります\n\n日英横並び表示\n章と節で探す\n印とメモ\n機械音声読み上げ\n聖句ガイドの聖書へのリンク\n聖句ガイドの聖書のジョセフ・スミス訳";

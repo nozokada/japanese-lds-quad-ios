@@ -11,6 +11,8 @@ import RealmSwift
 
 class MainWebView: WKWebView {
     
+    var delegate: MainWebViewDelegate?
+    
     override func awakeFromNib() {
         setDefaultMenuItems()
     }
@@ -32,11 +34,14 @@ class MainWebView: WKWebView {
         }
     }
     
+    func alert(message: String) {
+        self.delegate?.alert(with: "InvalidActionAlertTitle".localized, message: message)
+    }
+    
     @objc func copyVerseText() {
         evaluateJavaScript(JavaScriptSnippets.getScriptureId()) { result, error in
-            guard let scriptureId = result as? String else { return }
-            if scriptureId.isEmpty {
-//                self.showInvalidSelectedRangeAlert()
+            guard let scriptureId = result as? String else {
+                self.alert(message: "InvalidCopyRangeAlertMessage".localized)
                 return
             }
             self.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguage()) { result, error in
@@ -53,15 +58,13 @@ class MainWebView: WKWebView {
     @objc func highlightText() {
         let highlightedTextId = Constants.Prefix.highlight + NSUUID().uuidString
         evaluateJavaScript(JavaScriptSnippets.getScriptureId()) { result, error in
-            guard let scriptureId = result as? String else { return }
-            if scriptureId.isEmpty {
-//                self.showInvalidSelectedRangeAlert()
+            guard let scriptureId = result as? String else {
+                self.alert( message: "InvalidHighlightRangeAlertMessage".localized)
                 return
             }
             self.evaluateJavaScript(JavaScriptSnippets.getTextToHighlight(textId: highlightedTextId)) { result, error in
-                guard let highlightedText = result as? String else { return }
-                if highlightedText.isEmpty {
-//                    self.showInvalidSelectedRangeAlert()
+                guard let highlightedText = result as? String else {
+                    self.alert(message:"InvalidHighlightRangeAlertMessage".localized)
                     return
                 }
                 self.evaluateJavaScript(JavaScriptSnippets.getScriptureContent()) { result, error in

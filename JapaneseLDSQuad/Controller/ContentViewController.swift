@@ -28,6 +28,7 @@ class ContentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         realm = try! Realm()
+        webView.delegate = self
         webView.navigationDelegate = self
         webView.evaluateJavaScript(JavaScriptFunctions.getAllFunctions(), completionHandler: nil)
         webView.loadHTMLString(htmlContent, baseURL: Bundle.main.bundleURL)
@@ -144,15 +145,14 @@ extension ContentViewController: WKNavigationDelegate {
         guard let book = realm.objects(Book.self).filter("link = '\(bookId)'").sorted(byKeyPath: "id").last else { return nil }
         return TargetScriptureData(book: book, chapter: chapter, verse: verse)
     }
+}
+
+extension ContentViewController: MainWebViewDelegate {
     
-//    func showInvalidSelectedRangeAlert() {
-//        let alertTitle = "InvalidActionAlertTitle".localized
-//        let alertMessage = "InvalidSelectedRangeAlertMessage".localized
-//        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
-//        let okAction = UIAlertAction(title: "OK", style: .default)
-//        alertController.addAction(okAction)
-//        self.present(alertController, animated: true)
-//    }
+    func alert(with title: String, message: String) {
+        let alertController = Utilities.shared.alert(title, message: message, handler: nil)
+        present(alertController, animated: true)
+    }
 }
 
 extension ContentViewController: HighlightChangeDelegate {

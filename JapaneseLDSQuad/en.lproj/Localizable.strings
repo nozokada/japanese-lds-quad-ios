@@ -47,7 +47,8 @@
 "unhighlightMenuItemLabel" = "Unhighlight";
 
 "InvalidActionAlertTitle" = "Sorry!";
-"InvalidSelectedRangeAlertMessage" = "That operation is not supported where you selected";
+"InvalidCopyRangeAlertMessage" = "Copying verse is not supported where you selected";
+"InvalidHighlightRangeAlertMessage" = "Highlighting is not supported where you selected";
 
 "allFeaturesPassTitleLabel" = "All Features Pass";
 "allFeaturesDescriptionLabel" = "will give you unlimited access to all features\n\nJapanese/English Side by Side\nPassage Lookup\nHighlights\nText to Speech\nLinks to Bible verses in Bible Dictionary\nJoseph Smith Translation in Study Helps";

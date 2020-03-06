@@ -8,6 +8,11 @@
 
 import StoreKit
 
+protocol MainWebViewDelegate {
+    
+    func alert(with title: String, message: String)
+}
+
 protocol StoreManagerDelegate {
     
     func storeManagerDidReceiveProducts(_ products: [SKProduct])
