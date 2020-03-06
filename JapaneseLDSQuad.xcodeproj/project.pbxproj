@@ -33,6 +33,7 @@
 		D4212A2B23E7BC02002CD60A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4212A2923E7BC02002CD60A /* LaunchScreen.storyboard */; };
 		D4212A3623E7BC03002CD60A /* JapaneseLDSQuadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4212A3523E7BC03002CD60A /* JapaneseLDSQuadTests.swift */; };
 		D4212A4123E7BC03002CD60A /* JapaneseLDSQuadUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4212A4023E7BC03002CD60A /* JapaneseLDSQuadUITests.swift */; };
+		D430AFF12412F0BC007E9666 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D430AFF02412F0BC007E9666 /* RealmManager.swift */; };
 		D44FF28623EA91990014B30F /* MainIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44FF28523EA91990014B30F /* MainIndicatorView.swift */; };
 		D44FF28823EC992A0014B30F /* ContentBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44FF28723EC992A0014B30F /* ContentBuilder.swift */; };
 		D44FF28C23ECAB8E0014B30F /* HymnBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44FF28B23ECAB8E0014B30F /* HymnBuilder.swift */; };
@@ -129,6 +130,7 @@
 		D4212A3C23E7BC03002CD60A /* JapaneseLDSQuadUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JapaneseLDSQuadUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4212A4023E7BC03002CD60A /* JapaneseLDSQuadUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JapaneseLDSQuadUITests.swift; sourceTree = "<group>"; };
 		D4212A4223E7BC03002CD60A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D430AFF02412F0BC007E9666 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		D44FF28523EA91990014B30F /* MainIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainIndicatorView.swift; sourceTree = "<group>"; };
 		D44FF28723EC992A0014B30F /* ContentBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentBuilder.swift; sourceTree = "<group>"; };
 		D44FF28B23ECAB8E0014B30F /* HymnBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HymnBuilder.swift; sourceTree = "<group>"; };
@@ -286,11 +288,7 @@
 				D40B3E7B23E896BA00276662 /* Constants.swift */,
 				D475CCEE23E9449600678A85 /* Utilities.swift */,
 				D41EC66D24034822001521D8 /* SpeechUtilities.swift */,
-				D481DC3423F6657B00F166B7 /* JavaScriptFunctions.swift */,
-				D475CCF423E94EF700678A85 /* JavaScriptSnippets.swift */,
-				D44FF28723EC992A0014B30F /* ContentBuilder.swift */,
-				D44FF28B23ECAB8E0014B30F /* HymnBuilder.swift */,
-				D44FF28D23ECB3460014B30F /* BibleDictionaryBuilder.swift */,
+				D430AFF02412F0BC007E9666 /* RealmManager.swift */,
 				D475CCF823E9534800678A85 /* AnnotationsManager.swift */,
 				D475CCFA23E9538300678A85 /* BookmarksManager.swift */,
 				D475CCFC23E953F200678A85 /* HighlightsManager.swift */,
@@ -301,6 +299,11 @@
 				D41EC66924011328001521D8 /* SpeechViewDelegate.swift */,
 				D4EBF00023F906E200275624 /* SettingsViewDelegate.swift */,
 				D47156C92410BEC5002732A8 /* PurchaseViewDelegate.swift */,
+				D44FF28723EC992A0014B30F /* ContentBuilder.swift */,
+				D44FF28B23ECAB8E0014B30F /* HymnBuilder.swift */,
+				D44FF28D23ECB3460014B30F /* BibleDictionaryBuilder.swift */,
+				D481DC3423F6657B00F166B7 /* JavaScriptFunctions.swift */,
+				D475CCF423E94EF700678A85 /* JavaScriptSnippets.swift */,
 				D40B3E6E23E892C600276662 /* Controller */,
 				D40B3E6D23E892B600276662 /* Model */,
 				D475CCE323E92D2600678A85 /* View */,
@@ -616,6 +619,7 @@
 				D4212A2123E7BC02002CD60A /* BooksViewController.swift in Sources */,
 				D44FF28623EA91990014B30F /* MainIndicatorView.swift in Sources */,
 				D47156CE2411BC11002732A8 /* PurchaseManager.swift in Sources */,
+				D430AFF12412F0BC007E9666 /* RealmManager.swift in Sources */,
 				D4DE983B240F4C4100D87829 /* PurchaseViewController.swift in Sources */,
 				D475CCFB23E9538300678A85 /* BookmarksManager.swift in Sources */,
 				D475CCF523E94EF700678A85 /* JavaScriptSnippets.swift in Sources */,

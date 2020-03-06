@@ -14,6 +14,10 @@ struct Constants {
         static let initialRealm = "init.realm"
     }
     
+    struct Version {
+        static let realmSchema: UInt64 = 2
+    }
+    
     struct StoryBoardID {
         static let books = "books"
         static let chapters = "chapters"
