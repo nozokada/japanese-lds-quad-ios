@@ -777,7 +777,7 @@
                                     <action selector="closeButtonTapped:" destination="n05-c0-JaN" eventType="touchUpInside" id="K37-Iy-eQN"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="ここはメモが表示されるTextViewです" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VwB-EE-2OB">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="メモはありません" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VwB-EE-2OB">
                                 <rect key="frame" x="20" y="102" width="374" height="300"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
@@ -789,7 +789,7 @@
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Kn-wn-pRg" customClass="MainButton" customModule="JapaneseLDSQuad" customModuleProvider="target">
                                 <rect key="frame" x="100" y="422" width="214" height="30"/>
-                                <state key="normal" title="Save"/>
+                                <state key="normal" title="メモを保存"/>
                                 <connections>
                                     <action selector="saveButtonTapped:" destination="n05-c0-JaN" eventType="touchUpInside" id="uDk-uI-BGy"/>
                                 </connections>
