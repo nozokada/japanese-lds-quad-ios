@@ -59,7 +59,7 @@ class MainWebView: WKWebView {
         let highlightedTextId = Constants.Prefix.highlight + NSUUID().uuidString
         evaluateJavaScript(JavaScriptSnippets.getScriptureId()) { result, error in
             guard let scriptureId = result as? String else {
-                self.alert( message: "InvalidHighlightRangeAlertMessage".localized)
+                self.alert(message: "InvalidHighlightRangeAlertMessage".localized)
                 return
             }
             self.evaluateJavaScript(JavaScriptSnippets.getTextToHighlight(textId: highlightedTextId)) { result, error in
