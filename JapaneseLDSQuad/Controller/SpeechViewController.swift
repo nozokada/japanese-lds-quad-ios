@@ -40,6 +40,12 @@ class SpeechViewController: UIViewController {
         super.viewDidLoad()
         setSpeechRateLabel(value: Utilities.shared.speechRateMultiplier)
         prepareBackgroundView()
+        setImage(for: playOrPauseButton, imageName: "Play")
+        setImage(for: nextButton, imageName: "Next")
+        setImage(for: fasterButton, imageName: "Faster")
+        setImage(for: backButton, imageName: "Back")
+        setImage(for: slowerButton, imageName: "Slower")
+        
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture))
         view.addGestureRecognizer(gesture)
     }
@@ -67,6 +73,13 @@ class SpeechViewController: UIViewController {
         blurEffectView.frame = view.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.insertSubview(blurEffectView, at: 0)
+    }
+    
+    func setImage(for button: UIButton, imageName: String) {
+        let image = UIImage(named: imageName)
+        let tintedImage = image?.withRenderingMode(.alwaysTemplate)
+        button.setImage(tintedImage, for: .normal)
+        button.tintColor = view.tintColor
     }
     
     func updateTopY() {
@@ -144,22 +157,22 @@ class SpeechViewController: UIViewController {
         stop()
         speak(text: speechText, in: language)
         nextSpeechIndex += 1
-        playOrPauseButton.setImage(UIImage(named: "Pause"), for: .normal)
+        setImage(for: playOrPauseButton, imageName: "Pause")
     }
     
     func pause() {
         speechSynthesizer.pauseSpeaking(at: .immediate)
-        playOrPauseButton.setImage(UIImage(named: "Play"), for: .normal)
+        setImage(for: playOrPauseButton, imageName: "Play")
     }
     
     func resume() {
         speechSynthesizer.continueSpeaking()
-        playOrPauseButton.setImage(UIImage(named: "Pause"), for: .normal)
+        setImage(for: playOrPauseButton, imageName: "Pause")
     }
     
     func stop() {
         speechSynthesizer.stopSpeaking(at: .immediate)
-        playOrPauseButton.setImage(UIImage(named: "Play"), for: .normal)
+        setImage(for: playOrPauseButton, imageName: "Play")
     }
     
     func getScriptureSpeechText(scripture: Scripture, withNumber: Bool, in language: String) -> String {
