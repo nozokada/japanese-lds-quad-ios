@@ -18,9 +18,8 @@
 "searchViewTitle" = "探す";
 "bookmarksViewTitle" = "ブックマーク";
 "highlightsViewTitle" = "印とメモ";
-"PassageLookupViewTitle" = "章と節で探す";
-"PassageLookupChapterTextFieldPlaceholder" = "章";
-"PassageLookupVerseTextFieldPlaceholder" = "節";
+"chapterTextFieldPlaceholder" = "章";
+"verseTextFieldPlaceholder" = "節";
 
 "noBookmarksLabel" = "ブックマークはありません\n\n節の数字をタップして追加してください\nセルを左にスワイプすると削除できます";
 

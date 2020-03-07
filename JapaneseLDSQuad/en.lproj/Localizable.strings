@@ -18,9 +18,8 @@
 "searchViewTitle" = "Search";
 "bookmarksViewTitle" = "Bookmarks";
 "highlightsViewTitle" = "Highlights";
-"PassageLookupViewTitle" = "Passage Lookup";
-"PassageLookupChapterTextFieldPlaceholder" = "Chapter";
-"PassageLookupVerseTextFieldPlaceholder" = "Verse";
+"chapterTextFieldPlaceholder" = "ch.";
+"verseTextFieldPlaceholder" = "v.";
 
 "noBookmarksLabel" = "There are no bookmarks\n\nTap a verse number to add\nSwipe left on cell to remove";
 

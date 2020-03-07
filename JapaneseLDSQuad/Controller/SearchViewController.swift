@@ -93,6 +93,8 @@ class SearchViewController: UIViewController {
         passageLookupBar.backgroundColor = nightModeEnabled
             ? Constants.BackgroundColor.nightSearchBar
             : Constants.BackgroundColor.daySearchBar
+        chapterTextField.placeholder = "chapterTextFieldPlaceholder".localized
+        verseTextField.placeholder = "verseTextFieldPlaceholder".localized
     }
     
     @IBAction func searchSegmentControlValueChanged(_ sender: Any) {
