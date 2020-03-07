@@ -33,8 +33,6 @@ class NoteViewController: UIViewController {
         super.viewDidLoad()
         realm = try! Realm()
         noteTextView.delegate = self
-        setImage(for: deleteButton, imageName: "Trash", color: .systemRed)
-        setImage(for: closeButton, imageName: "Xmark", color: .lightGray)
         saveButton.setTitle("noteSavedButtonLabel".localized, for: .normal)
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture))
         view.addGestureRecognizer(gesture)
@@ -79,13 +77,6 @@ class NoteViewController: UIViewController {
         } else {
             noteTextView.textColor = Utilities.shared.getTextColor()
         }
-    }
-    
-    func setImage(for button: UIButton, imageName: String, color: UIColor) {
-        let image = UIImage(named: imageName)
-        let tintedImage = image?.withRenderingMode(.alwaysTemplate)
-        button.setImage(tintedImage, for: .normal)
-        button.tintColor = color
     }
     
     func adjustNoteTextViewHeight() {
