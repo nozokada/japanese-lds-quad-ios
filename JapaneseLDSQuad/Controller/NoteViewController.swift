@@ -10,9 +10,7 @@ import UIKit
 import RealmSwift
 
 class NoteViewController: UIViewController {
-    
-    var realm: Realm!
-    
+        
     var delegate: HighlightChangeDelegate?
     
     @IBOutlet weak var noteViewTitleLabel: UILabel!
@@ -22,6 +20,7 @@ class NoteViewController: UIViewController {
     @IBOutlet weak var noteTextViewHeight: NSLayoutConstraint!
     @IBOutlet weak var saveButton: MainButton!
     
+    var realm: Realm!
     var highlightedText: HighlightedText?
     var bottomY: CGFloat = UIScreen.main.bounds.height
     var isHidden = true

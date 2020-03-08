@@ -32,9 +32,9 @@ class SearchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
-        searchBar.delegate = self
         setSettingsBarButton()
         navigationItem.title = "searchViewTitle".localized
         spinner = MainIndicatorView(parentView: view)

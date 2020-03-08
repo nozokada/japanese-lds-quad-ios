@@ -12,10 +12,10 @@ import RealmSwift
 class HighlightsViewController: UIViewController {
     
     var realm: Realm!
-    
     var highlights: Results<HighlightedText>!
     var noHighlightsLabel: UILabel!
 
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {

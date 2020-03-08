@@ -12,7 +12,6 @@ import RealmSwift
 class BookmarksViewController: UIViewController {
     
     var realm: Realm!
-    
     var bookmarks: Results<Bookmark>!
     var noBookmarksLabel: UILabel!
 
