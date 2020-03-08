@@ -121,7 +121,7 @@ extension BookmarksViewController: UITableViewDataSource {
         
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: cell.frame.width / 3, height: dateLabelHeight))
         label.text = formatter.string(from: bookmark.date as Date)
-        label.font = Utilities.shared.getFont(multiplySizeBy: 0.5)
+        label.font = Utilities.shared.getFont(multiplySizeBy: 0.6)
         label.textColor = .gray
         label.numberOfLines = 0
         
