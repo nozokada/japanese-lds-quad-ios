@@ -104,8 +104,10 @@ class ContentBuilder {
                     html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verseNumber)</a> <span lang='\(Constants.Language.primary)'>\(scripture.scripture_primary)</span></div>"
                     html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verseNumber)</a> <span lang='\(Constants.Language.secondary)'>\(scripture.scripture_secondary)</span></div>"
                 } else {
-                    html += "<div id='\(scripture.id)'"
-                    html += bookmarked ? " class='bookmarked'>" : ">"
+                    html += "<div id='\(scripture.id)' class='"
+                    html += targeted ? "targeted " : ""
+                    html += bookmarked ? " class='bookmarked" : ""
+                    html += "'>"
                     let primaryScripture = scripture.scripture_primary
                     html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verseNumber)</a> <span lang='\(Constants.Language.primary)'>\(primaryScripture)</span></div>"
                 }

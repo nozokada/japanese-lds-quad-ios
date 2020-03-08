@@ -45,7 +45,6 @@ class PagesViewController: UIPageViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        targetVerse = nil
         setCurrentRelativeOffset()
         updateScripturesToSpeech()
     }
@@ -69,6 +68,7 @@ class PagesViewController: UIPageViewController {
         setViewControllers(contentViewControllers, direction: .forward, animated: false, completion: nil)
         currentContentViewController = viewControllers?.last as? ContentViewController
         currentContentViewController.relativeOffset = currentRelativeOffset
+        targetVerse = nil
     }
     
     func getViewControllerAt(index: Int) -> ContentViewController? {
@@ -77,7 +77,7 @@ class PagesViewController: UIPageViewController {
         let contentBuilder = Utilities.shared.getContentBuilder(scriptures: scriptures, contentType: contentType)
         if let contentViewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.content) as? ContentViewController {
             let contentViewData = ContentViewData(
-                index: index, builder: contentBuilder, chapterId: targetChapterId, verse: chapterId == targetChapterId ? targetVerse: nil)
+                index: index, builder: contentBuilder, chapterId: targetChapterId, verse: chapterId == targetChapterId ? targetVerse : nil)
             contentViewController.initData(contentViewData: contentViewData)
             return contentViewController
         }
@@ -156,7 +156,6 @@ extension PagesViewController: UIPageViewControllerDelegate {
             targetChapterId = Utilities.shared.getChapterIdFromChapterNumber(bookId: targetBook.id, chapter: currentChapterIndex + 1)
             setTitle()
         }
-        targetVerse = nil
         updateScripturesToSpeech()
     }
 }
