@@ -66,6 +66,10 @@ class PurchaseViewController: UIViewController {
     func alert(with title: String, message: String, close: Bool = false) {
         let handler = close ? {(alert: UIAlertAction) in self.dismiss(animated: true, completion: nil) } : nil
         let alertController = Utilities.shared.alert(title, message: message, handler: handler)
+        let popoverController = alertController.popoverPresentationController
+        popoverController?.sourceView = view
+        popoverController?.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.maxY, width: 0, height: 0)
+        popoverController?.permittedArrowDirections = []
         present(alertController, animated: true, completion: nil)
     }
     
@@ -94,7 +98,7 @@ extension PurchaseViewController: StoreManagerDelegate {
     }
     
     func storeManagerDidReceiveMessage(_ message: String) {
-        alert(with: "productRequestStatus".localized, message: message)
+        alert(with: "productRequestStatus".localized, message: message, close: true)
     }
 }
 

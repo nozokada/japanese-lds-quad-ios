@@ -21,11 +21,10 @@ class SearchViewController: UIViewController {
     var filterNotificationToken: NotificationToken? = nil
     
     @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var passageLookupBar: UIView!
-    @IBOutlet weak var searchResultsSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var passageLookupView: UIView!
     @IBOutlet weak var chapterTextField: UITextField!
     @IBOutlet weak var verseTextField: UITextField!
-    @IBOutlet weak var segmentedControlView: UIView!
+    @IBOutlet weak var searchResultCountLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
     var noResultsLabel: UILabel!
@@ -76,29 +75,18 @@ class SearchViewController: UIViewController {
     func updateSearchBarStyle() {
         let nightModeEnabled = Utilities.shared.nightModeEnabled
         searchBar.barStyle = nightModeEnabled ? .black : .default
-        searchResultsSegmentedControl.backgroundColor = nightModeEnabled
-            ? Constants.BackgroundColor.nightSearchBar
-            : Constants.BackgroundColor.daySearchBar
-        segmentedControlView.backgroundColor = searchResultsSegmentedControl.backgroundColor
     }
     
-    func updateSearchBarPrompt() {
-        searchBar.prompt = searchText.isEmpty && chapterText.isEmpty && verseText.isEmpty
-            ? nil
+    func updateSearchResultCount() {
+        searchResultCountLabel.text = searchText.isEmpty && chapterText.isEmpty && verseText.isEmpty
+            ? ""
             : "\(filteredResults.count) \("searchMatches".localized)"
     }
     
-    func updatePassageLookupBarStyle() {
-        let nightModeEnabled = Utilities.shared.nightModeEnabled
-        passageLookupBar.backgroundColor = nightModeEnabled
-            ? Constants.BackgroundColor.nightSearchBar
-            : Constants.BackgroundColor.daySearchBar
+    func updatePassageLookupView() {
+        passageLookupView.backgroundColor = Utilities.shared.getBackgroundColor()
         chapterTextField.placeholder = "chapterTextFieldPlaceholder".localized
         verseTextField.placeholder = "verseTextFieldPlaceholder".localized
-    }
-    
-    @IBAction func searchSegmentControlValueChanged(_ sender: Any) {
-        updateSegmentResults()
     }
     
     @IBAction func chapterTextFieldEditingChanged(_ sender: Any) {
@@ -111,13 +99,13 @@ class SearchViewController: UIViewController {
         updateResults()
     }
     
-    @IBAction func chapterTextFieldTapped(_ sender: Any) {
+    @IBAction func chapterTextFieldTouchedDown(_ sender: Any) {
         if !PurchaseManager.shared.allFeaturesUnlocked {
             presentPuchaseViewController()
         }
     }
     
-    @IBAction func verseTextFieldTapped(_ sender: Any) {
+    @IBAction func verseTextFieldTouchedDown(_ sender: Any) {
         if !PurchaseManager.shared.allFeaturesUnlocked {
             presentPuchaseViewController()
         }
@@ -131,7 +119,8 @@ extension SearchViewController: SettingsViewDelegate {
             noResultsLabel.isHidden = results.count > 0
         }
         updateSearchBarStyle()
-        updatePassageLookupBarStyle()
+        updatePassageLookupView()
+        updateSearchResultCount()
         updateTableBackgroundColor()
         tableView.reloadData()
     }
@@ -239,14 +228,14 @@ extension SearchViewController: UISearchBarDelegate {
     
     func updateSegmentResults() {
         guard let results = results else { return }
-        let selectedSegmentIndex = searchResultsSegmentedControl.selectedSegmentIndex
-        let filterQuery = selectedSegmentIndex != searchResultsSegmentedControl.numberOfSegments - 1
+        let selectedSegmentIndex = searchBar.selectedScopeButtonIndex
+        let filterQuery = selectedSegmentIndex != searchBar.scopeButtonTitles!.count - 1
             ? "parent_book.parent_book.id = '\(selectedSegmentIndex + 1)'"
             : "NOT parent_book.parent_book.id IN {'1', '2', '3', '4', '5'}"
         filteredResults = results.filter(filterQuery)
         filterNotificationToken = filteredResults.observe { _ in
             self.reload()
-            self.updateSearchBarPrompt()
+            self.updateSearchResultCount()
             self.hideActivityIndicator()
         }
     }
@@ -262,5 +251,9 @@ extension SearchViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        updateSegmentResults()
     }
 }

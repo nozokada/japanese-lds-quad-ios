@@ -160,75 +160,69 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="rsi-b6-fDt">
-                                <rect key="frame" x="0.0" y="88" width="268" height="56"/>
+                            <searchBar contentMode="redraw" showsScopeBar="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rsi-b6-fDt">
+                                <rect key="frame" x="0.0" y="88" width="414" height="103"/>
+                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <scopeButtonTitles>
+                                    <string>旧約聖書</string>
+                                    <string>新約聖書</string>
+                                    <string>モルモン書</string>
+                                    <string>教義と聖約</string>
+                                    <string>高価な真珠</string>
+                                    <string>その他</string>
+                                </scopeButtonTitles>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hTm-2w-wYS">
-                                <rect key="frame" x="0.0" y="144" width="414" height="638"/>
+                                <rect key="frame" x="0.0" y="237" width="414" height="576"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="797-ka-jGn">
-                                <rect key="frame" x="0.0" y="782" width="414" height="31"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pbd-Jy-a1b">
+                                <rect key="frame" x="0.0" y="191" width="414" height="46"/>
                                 <subviews>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Apl-mt-2OM">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="32"/>
-                                        <segments>
-                                            <segment title="旧約聖書"/>
-                                            <segment title="新約聖書"/>
-                                            <segment title="モルモン書"/>
-                                            <segment title="教義と聖約"/>
-                                            <segment title="高価な真珠"/>
-                                            <segment title="その他"/>
-                                        </segments>
-                                        <connections>
-                                            <action selector="searchSegmentControlValueChanged:" destination="8rJ-Kc-sve" eventType="valueChanged" id="D1w-gc-cUG"/>
-                                        </connections>
-                                    </segmentedControl>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <constraints>
-                                    <constraint firstItem="Apl-mt-2OM" firstAttribute="top" secondItem="797-ka-jGn" secondAttribute="top" id="CSy-ye-UsN"/>
-                                    <constraint firstItem="Apl-mt-2OM" firstAttribute="leading" secondItem="797-ka-jGn" secondAttribute="leading" id="kCs-Pn-kGY"/>
-                                    <constraint firstAttribute="trailing" secondItem="Apl-mt-2OM" secondAttribute="trailing" id="pwm-uB-k5x"/>
-                                    <constraint firstAttribute="bottom" secondItem="Apl-mt-2OM" secondAttribute="bottom" id="z7U-Ax-Maa"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="37j-2N-Skc">
-                                <rect key="frame" x="268" y="88" width="146" height="56"/>
-                                <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="章" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9jC-Vl-OTb">
-                                        <rect key="frame" x="8" y="11" width="50" height="34"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xuT-L3-krQ">
+                                        <rect key="frame" x="352" y="8" width="42" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="qIx-cC-E1Y"/>
+                                            <constraint firstAttribute="width" constant="42" id="WjV-Ia-CPL"/>
+                                            <constraint firstAttribute="height" constant="30" id="pPD-TA-USE"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                         <connections>
-                                            <action selector="chapterTextFieldEditingChanged:" destination="8rJ-Kc-sve" eventType="editingChanged" id="fqq-kI-C08"/>
-                                            <action selector="chapterTextFieldTapped:" destination="8rJ-Kc-sve" eventType="touchDown" id="qcr-M4-0rX"/>
+                                            <action selector="verseTextFieldEditingChanged:" destination="8rJ-Kc-sve" eventType="editingChanged" id="4gg-Bt-EqT"/>
+                                            <action selector="verseTextFieldTouchedDown:" destination="8rJ-Kc-sve" eventType="touchDown" id="nvd-yx-NdM"/>
                                         </connections>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="節" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ayV-cV-3cZ">
-                                        <rect key="frame" x="88" y="11" width="50" height="34"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dR9-NQ-HvP">
+                                        <rect key="frame" x="290" y="8" width="42" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="Xyg-SD-HIF"/>
+                                            <constraint firstAttribute="height" constant="30" id="JXh-8T-PZd"/>
+                                            <constraint firstAttribute="width" constant="42" id="XLq-2b-1AZ"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                         <connections>
-                                            <action selector="verseTextFieldEditingChanged:" destination="8rJ-Kc-sve" eventType="editingChanged" id="Wqe-I2-MxC"/>
-                                            <action selector="verseTextFieldTapped:" destination="8rJ-Kc-sve" eventType="touchDown" id="Dk3-8M-spH"/>
+                                            <action selector="chapterTextFieldEditingChanged:" destination="8rJ-Kc-sve" eventType="editingChanged" id="eW3-x1-V9j"/>
+                                            <action selector="chapterTextFieldTouchedDown:" destination="8rJ-Kc-sve" eventType="touchDown" id="eJ8-aD-RY2"/>
                                         </connections>
                                     </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100件の聖句が一致しました" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d6O-R8-S7D">
+                                        <rect key="frame" x="20" y="14" width="193.5" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstItem="ayV-cV-3cZ" firstAttribute="leading" secondItem="9jC-Vl-OTb" secondAttribute="trailing" constant="30" id="8TP-gs-yGH"/>
-                                    <constraint firstAttribute="trailing" secondItem="ayV-cV-3cZ" secondAttribute="trailing" constant="8" id="9qr-Ca-gGG"/>
-                                    <constraint firstItem="9jC-Vl-OTb" firstAttribute="leading" secondItem="37j-2N-Skc" secondAttribute="leading" constant="8" id="Xnq-U8-AJa"/>
-                                    <constraint firstItem="9jC-Vl-OTb" firstAttribute="centerY" secondItem="37j-2N-Skc" secondAttribute="centerY" id="YxH-xN-mYJ"/>
-                                    <constraint firstItem="ayV-cV-3cZ" firstAttribute="centerY" secondItem="37j-2N-Skc" secondAttribute="centerY" id="vdf-Va-9lu"/>
+                                    <constraint firstItem="xuT-L3-krQ" firstAttribute="centerY" secondItem="dR9-NQ-HvP" secondAttribute="centerY" id="1i3-iz-Ga4"/>
+                                    <constraint firstAttribute="trailing" secondItem="xuT-L3-krQ" secondAttribute="trailing" constant="20" id="2wj-7E-9lr"/>
+                                    <constraint firstItem="xuT-L3-krQ" firstAttribute="top" secondItem="Pbd-Jy-a1b" secondAttribute="top" constant="8" id="8F3-g7-CZp"/>
+                                    <constraint firstItem="d6O-R8-S7D" firstAttribute="centerY" secondItem="Pbd-Jy-a1b" secondAttribute="centerY" id="8iC-E9-PTv"/>
+                                    <constraint firstItem="d6O-R8-S7D" firstAttribute="leading" secondItem="Pbd-Jy-a1b" secondAttribute="leading" constant="20" id="QnG-FQ-p4C"/>
+                                    <constraint firstItem="dR9-NQ-HvP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="d6O-R8-S7D" secondAttribute="trailing" constant="8" symbolic="YES" id="Rtd-sn-4Co"/>
+                                    <constraint firstAttribute="bottom" secondItem="xuT-L3-krQ" secondAttribute="bottom" constant="8" id="fYD-73-hCs"/>
+                                    <constraint firstItem="xuT-L3-krQ" firstAttribute="leading" secondItem="dR9-NQ-HvP" secondAttribute="trailing" constant="20" id="hCi-H8-JYr"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -236,29 +230,25 @@
                         <constraints>
                             <constraint firstItem="rsi-b6-fDt" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" id="1qA-gW-wHc"/>
                             <constraint firstItem="rsi-b6-fDt" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" id="7VV-XO-b4U"/>
-                            <constraint firstItem="797-ka-jGn" firstAttribute="top" secondItem="hTm-2w-wYS" secondAttribute="bottom" id="Drk-aR-hds"/>
+                            <constraint firstItem="O1u-W8-tvY" firstAttribute="bottom" secondItem="hTm-2w-wYS" secondAttribute="bottom" id="GWJ-vd-amk"/>
                             <constraint firstItem="hTm-2w-wYS" firstAttribute="trailing" secondItem="O1u-W8-tvY" secondAttribute="trailing" id="HJC-ve-ZXS"/>
+                            <constraint firstItem="Pbd-Jy-a1b" firstAttribute="trailing" secondItem="O1u-W8-tvY" secondAttribute="trailing" id="Ip5-CI-PsY"/>
                             <constraint firstItem="hTm-2w-wYS" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" id="K6u-UV-Q5W"/>
-                            <constraint firstItem="hTm-2w-wYS" firstAttribute="top" secondItem="rsi-b6-fDt" secondAttribute="bottom" id="Uit-PY-eHq"/>
-                            <constraint firstItem="O1u-W8-tvY" firstAttribute="bottom" secondItem="797-ka-jGn" secondAttribute="bottom" id="XZ5-pe-LgK"/>
-                            <constraint firstItem="37j-2N-Skc" firstAttribute="trailing" secondItem="O1u-W8-tvY" secondAttribute="trailing" id="a1U-BF-1pt"/>
-                            <constraint firstItem="hTm-2w-wYS" firstAttribute="top" secondItem="37j-2N-Skc" secondAttribute="bottom" id="inR-Nc-1PP"/>
-                            <constraint firstItem="37j-2N-Skc" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" id="qpt-5a-Dme"/>
-                            <constraint firstItem="O1u-W8-tvY" firstAttribute="trailing" secondItem="797-ka-jGn" secondAttribute="trailing" id="sYp-0b-75x"/>
-                            <constraint firstItem="797-ka-jGn" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" id="syX-RM-Nm4"/>
-                            <constraint firstItem="37j-2N-Skc" firstAttribute="leading" secondItem="rsi-b6-fDt" secondAttribute="trailing" id="uFs-u7-gAp"/>
+                            <constraint firstItem="hTm-2w-wYS" firstAttribute="top" secondItem="Pbd-Jy-a1b" secondAttribute="bottom" id="aKE-Up-U3p"/>
+                            <constraint firstItem="O1u-W8-tvY" firstAttribute="trailing" secondItem="rsi-b6-fDt" secondAttribute="trailing" id="dJ0-zO-aS2"/>
+                            <constraint firstItem="Pbd-Jy-a1b" firstAttribute="top" secondItem="rsi-b6-fDt" secondAttribute="bottom" id="uv4-J0-v4s"/>
+                            <constraint firstItem="Pbd-Jy-a1b" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" id="wUa-1u-gHD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
                     <navigationItem key="navigationItem" id="CuM-8z-AmE"/>
                     <connections>
-                        <outlet property="chapterTextField" destination="9jC-Vl-OTb" id="eTs-ze-dbC"/>
-                        <outlet property="passageLookupBar" destination="37j-2N-Skc" id="q31-oS-B11"/>
+                        <outlet property="chapterTextField" destination="dR9-NQ-HvP" id="3F3-0c-eCc"/>
+                        <outlet property="passageLookupView" destination="Pbd-Jy-a1b" id="UOc-ay-LMT"/>
                         <outlet property="searchBar" destination="rsi-b6-fDt" id="eEq-N9-VzY"/>
-                        <outlet property="searchResultsSegmentedControl" destination="Apl-mt-2OM" id="SUK-iM-09H"/>
-                        <outlet property="segmentedControlView" destination="797-ka-jGn" id="YDy-ab-81a"/>
+                        <outlet property="searchResultCountLabel" destination="d6O-R8-S7D" id="btL-MS-4na"/>
                         <outlet property="tableView" destination="hTm-2w-wYS" id="ZRt-lD-lsc"/>
-                        <outlet property="verseTextField" destination="ayV-cV-3cZ" id="tqN-o5-FHg"/>
+                        <outlet property="verseTextField" destination="xuT-L3-krQ" id="lN5-ey-xtW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
@@ -630,6 +620,7 @@
                                                 </label>
                                                 <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="0.75" maximumValue="2" stepValue="0.25" translatesAutoresizingMaskIntoConstraints="NO" id="31D-I1-jfp">
                                                     <rect key="frame" x="300" y="6" width="94" height="32"/>
+                                                    <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <connections>
                                                         <action selector="fontSizeStepperTapped:" destination="Rqq-KP-cul" eventType="valueChanged" id="Wii-to-hhh"/>
                                                     </connections>
