@@ -315,21 +315,23 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="uoH-LR-4Gf" secondAttribute="trailing" constant="100" id="1yO-5e-wdc"/>
-                                    <constraint firstAttribute="trailing" secondItem="vpF-2M-UPj" secondAttribute="trailing" constant="100" id="5UN-Q2-qHP"/>
+                                    <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="uoH-LR-4Gf" secondAttribute="trailing" constant="100" id="1yO-5e-wdc"/>
+                                    <constraint firstItem="vpF-2M-UPj" firstAttribute="centerX" secondItem="PyN-VX-vVo" secondAttribute="centerX" id="4RT-mA-Osd"/>
+                                    <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="vpF-2M-UPj" secondAttribute="trailing" constant="100" id="5UN-Q2-qHP"/>
                                     <constraint firstAttribute="trailing" secondItem="SLF-zR-a1m" secondAttribute="trailing" constant="20" id="7h3-ZC-dL8"/>
                                     <constraint firstAttribute="trailing" secondItem="xtj-kE-MS2" secondAttribute="trailing" constant="20" id="7qP-Av-afG"/>
                                     <constraint firstItem="uoH-LR-4Gf" firstAttribute="top" secondItem="vpF-2M-UPj" secondAttribute="bottom" constant="20" id="Fgy-Bv-e6P"/>
                                     <constraint firstAttribute="trailing" secondItem="E20-Sn-vy3" secondAttribute="trailing" constant="20" id="HbT-ZL-plh"/>
                                     <constraint firstItem="SLF-zR-a1m" firstAttribute="top" secondItem="PyN-VX-vVo" secondAttribute="top" constant="20" id="I6q-bb-Akq"/>
                                     <constraint firstItem="E20-Sn-vy3" firstAttribute="top" secondItem="SLF-zR-a1m" secondAttribute="bottom" constant="12" id="JLJ-Jw-ECN"/>
-                                    <constraint firstItem="uoH-LR-4Gf" firstAttribute="leading" secondItem="PyN-VX-vVo" secondAttribute="leading" constant="100" id="O7V-CR-TSG"/>
+                                    <constraint firstItem="uoH-LR-4Gf" firstAttribute="leading" relation="lessThanOrEqual" secondItem="PyN-VX-vVo" secondAttribute="leading" constant="100" id="O7V-CR-TSG"/>
                                     <constraint firstItem="xtj-kE-MS2" firstAttribute="leading" secondItem="PyN-VX-vVo" secondAttribute="leading" constant="20" id="aNe-Kp-HKY"/>
                                     <constraint firstAttribute="bottom" secondItem="uoH-LR-4Gf" secondAttribute="bottom" constant="20" id="dQG-iA-YoP"/>
                                     <constraint firstItem="xtj-kE-MS2" firstAttribute="top" secondItem="E20-Sn-vy3" secondAttribute="bottom" constant="20" id="drh-TI-uiM"/>
                                     <constraint firstItem="vpF-2M-UPj" firstAttribute="top" secondItem="xtj-kE-MS2" secondAttribute="bottom" constant="20" id="hpr-eb-ye4"/>
-                                    <constraint firstItem="vpF-2M-UPj" firstAttribute="leading" secondItem="PyN-VX-vVo" secondAttribute="leading" constant="100" id="n6G-cS-jkc"/>
+                                    <constraint firstItem="vpF-2M-UPj" firstAttribute="leading" relation="lessThanOrEqual" secondItem="PyN-VX-vVo" secondAttribute="leading" constant="100" id="n6G-cS-jkc"/>
                                     <constraint firstItem="E20-Sn-vy3" firstAttribute="leading" secondItem="PyN-VX-vVo" secondAttribute="leading" constant="20" id="tri-WL-uHc"/>
+                                    <constraint firstItem="uoH-LR-4Gf" firstAttribute="centerX" secondItem="PyN-VX-vVo" secondAttribute="centerX" id="z5G-zi-xVJ"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -855,13 +857,13 @@
                             <constraint firstItem="v7F-bW-jwN" firstAttribute="trailing" secondItem="VwB-EE-2OB" secondAttribute="trailing" constant="20" id="9S9-Cm-0Zm"/>
                             <constraint firstItem="VwB-EE-2OB" firstAttribute="leading" secondItem="v7F-bW-jwN" secondAttribute="leading" constant="20" id="CA6-BN-gbk"/>
                             <constraint firstItem="noe-sa-QWN" firstAttribute="centerY" secondItem="SAs-Ap-UA3" secondAttribute="centerY" id="Dw0-I0-wfK"/>
-                            <constraint firstItem="7Kn-wn-pRg" firstAttribute="leading" secondItem="v7F-bW-jwN" secondAttribute="leading" constant="100" id="IFH-6V-ZXl"/>
+                            <constraint firstItem="7Kn-wn-pRg" firstAttribute="leading" relation="lessThanOrEqual" secondItem="v7F-bW-jwN" secondAttribute="leading" constant="100" id="IFH-6V-ZXl"/>
                             <constraint firstItem="aeM-aW-BwF" firstAttribute="top" secondItem="v7F-bW-jwN" secondAttribute="top" constant="20" id="L6T-Ue-f3u"/>
                             <constraint firstItem="aeM-aW-BwF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="SAs-Ap-UA3" secondAttribute="trailing" constant="8" symbolic="YES" id="LqT-gi-nu3"/>
                             <constraint firstItem="SAs-Ap-UA3" firstAttribute="top" secondItem="v7F-bW-jwN" secondAttribute="top" constant="20" id="OyO-P2-O4Y"/>
                             <constraint firstItem="VwB-EE-2OB" firstAttribute="top" secondItem="noe-sa-QWN" secondAttribute="bottom" constant="16" id="bvn-ft-Uc5"/>
                             <constraint firstItem="aeM-aW-BwF" firstAttribute="centerY" secondItem="SAs-Ap-UA3" secondAttribute="centerY" id="olV-dD-92v"/>
-                            <constraint firstItem="v7F-bW-jwN" firstAttribute="trailing" secondItem="7Kn-wn-pRg" secondAttribute="trailing" constant="100" id="omy-ol-lSF"/>
+                            <constraint firstItem="v7F-bW-jwN" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="7Kn-wn-pRg" secondAttribute="trailing" constant="100" id="omy-ol-lSF"/>
                             <constraint firstItem="SAs-Ap-UA3" firstAttribute="leading" secondItem="v7F-bW-jwN" secondAttribute="leading" constant="20" id="zvh-aV-da7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="v7F-bW-jwN"/>
