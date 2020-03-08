@@ -106,12 +106,13 @@ extension HighlightsViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
         if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
             let highlight = results[indexPath.row]
             viewController.initData(scripture: highlight.highlighted_scripture.scripture)
             navigationController?.pushViewController(viewController, animated: true)
         }
-        collectionView.deselectItem(at: indexPath, animated: true)
+        searchBar.resignFirstResponder()
     }
 }
 
@@ -141,6 +142,13 @@ extension HighlightsViewController: HighlightsViewLayoutDelegate {
         if let layout = collectionView?.collectionViewLayout as? HighlightsViewLayout {
             layout.clearCache()
         }
+    }
+}
+
+extension HighlightsViewController: UIScrollViewDelegate {
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        searchBar.resignFirstResponder()
     }
 }
 
