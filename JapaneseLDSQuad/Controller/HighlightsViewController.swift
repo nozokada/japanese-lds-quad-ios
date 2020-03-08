@@ -61,6 +61,17 @@ class HighlightsViewController: UIViewController {
         return label
     }
     
+    func updateNoHighlightsMessageLabel() {
+        if let highlights = results {
+            noHighlightsLabel.isHidden = highlights.count > 0
+            if !searchText.isEmpty {
+                noHighlightsLabel.text = "noHighlightResultsLabel".localized
+            } else {
+                noHighlightsLabel.text = "noHighlightsLabel".localized
+            }
+        }
+    }
+    
     func updateCollectionBackgroundColor() {
         collectionView?.backgroundColor = Utilities.shared.getBackgroundColor()
     }
@@ -73,9 +84,7 @@ class HighlightsViewController: UIViewController {
 extension HighlightsViewController: SettingsViewDelegate {
     
     func reload() {
-        if let highlights = results {
-            noHighlightsLabel.isHidden = highlights.count > 0
-        }
+        updateNoHighlightsMessageLabel()
         updateSearchBarStyle()
         updateCollectionBackgroundColor()
         clearLayoutCache()
