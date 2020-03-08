@@ -11,6 +11,8 @@ import StoreKit
 protocol MainWebViewDelegate {
     
     func alert(with title: String, message: String)
+    
+    func showPurchaseViewController()
 }
 
 protocol StoreManagerDelegate {

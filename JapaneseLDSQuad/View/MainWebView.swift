@@ -14,7 +14,7 @@ class MainWebView: WKWebView {
     var delegate: MainWebViewDelegate?
     
     override func awakeFromNib() {
-        setDefaultMenuItems()
+        setCustomMenuItems()
     }
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
@@ -26,12 +26,10 @@ class MainWebView: WKWebView {
         }
     }
     
-    func setDefaultMenuItems() {
-        if PurchaseManager.shared.allFeaturesUnlocked {
-            let copyVerseMenuItem = UIMenuItem(title: "copyVerseMenuItemLabel".localized, action: #selector(copyVerseText))
-            let highlightMenuItem = UIMenuItem(title: "highlightMenuItemLabel".localized, action: #selector(highlightText))
-            UIMenuController.shared.menuItems = [copyVerseMenuItem, highlightMenuItem]
-        }
+    func setCustomMenuItems() {
+        let copyVerseMenuItem = UIMenuItem(title: "copyVerseMenuItemLabel".localized, action: #selector(copyVerseText))
+        let highlightMenuItem = UIMenuItem(title: "highlightMenuItemLabel".localized, action: #selector(highlightText))
+        UIMenuController.shared.menuItems = [copyVerseMenuItem, highlightMenuItem]
     }
     
     func alert(message: String) {
@@ -39,6 +37,11 @@ class MainWebView: WKWebView {
     }
     
     @objc func copyVerseText() {
+        if !PurchaseManager.shared.allFeaturesUnlocked {
+            delegate?.showPurchaseViewController()
+            return
+        }
+        
         evaluateJavaScript(JavaScriptSnippets.getScriptureId()) { result, error in
             guard let scriptureId = result as? String else {
                 self.alert(message: "InvalidCopyRangeAlertMessage".localized)
@@ -56,6 +59,11 @@ class MainWebView: WKWebView {
     }
     
     @objc func highlightText() {
+        if !PurchaseManager.shared.allFeaturesUnlocked {
+            delegate?.showPurchaseViewController()
+            return
+        }
+        
         let highlightedTextId = Constants.Prefix.highlight + NSUUID().uuidString
         evaluateJavaScript(JavaScriptSnippets.getScriptureId()) { result, error in
             guard let scriptureId = result as? String else {

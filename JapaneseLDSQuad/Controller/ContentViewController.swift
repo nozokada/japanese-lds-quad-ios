@@ -153,6 +153,10 @@ extension ContentViewController: MainWebViewDelegate {
         let alertController = Utilities.shared.alert(title, message: message, handler: nil)
         present(alertController, animated: true)
     }
+    
+    func showPurchaseViewController() {
+        presentPuchaseViewController()
+    }
 }
 
 extension ContentViewController: HighlightChangeDelegate {
