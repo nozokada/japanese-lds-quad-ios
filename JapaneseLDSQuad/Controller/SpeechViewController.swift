@@ -270,8 +270,6 @@ extension SpeechViewController: AVSpeechSynthesizerDelegate {
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
         remainingText = String(utterance.speechString.dropFirst(characterRange.location))
         spokenText = String(utterance.speechString.prefix(characterRange.location))
-//        debugPrint("Spoken: \(spokenText)")
-//        debugPrint("Reamining: \(remainingText)")
     }
 }
 

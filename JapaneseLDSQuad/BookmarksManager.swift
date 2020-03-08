@@ -18,7 +18,10 @@ class BookmarksManager: AnnotationsManager {
             if let bookmarkToRemove = realm.objects(Bookmark.self).filter("id = '\(scripture.id)'").first {
                 try! realm.write {
                     realm.delete(bookmarkToRemove)
+                    #if Debug
                     debugPrint("Deleted bookmark for scripture \(scripture.id) successfully")
+                    #endif
+                    
                 }
             }
             else {
@@ -29,7 +32,9 @@ class BookmarksManager: AnnotationsManager {
                                              date: NSDate())
                 try! realm.write {
                     realm.add(bookmarkToAdd)
+                    #if Debug
                     debugPrint("Added bookmark for scripture \(scripture.id) successfully")
+                    #endif
                 }
             }
         }
