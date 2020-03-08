@@ -33,7 +33,7 @@ class MainWebView: WKWebView {
     }
     
     func alert(message: String) {
-        self.delegate?.alert(with: "InvalidActionAlertTitle".localized, message: message)
+        self.delegate?.showAlert(with: "InvalidActionAlertTitle".localized, message: message)
     }
     
     @objc func copyVerseText() {

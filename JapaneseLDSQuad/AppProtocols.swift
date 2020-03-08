@@ -10,7 +10,7 @@ import StoreKit
 
 protocol MainWebViewDelegate {
     
-    func alert(with title: String, message: String)
+    func showAlert(with title: String, message: String)
     
     func showPurchaseViewController()
 }

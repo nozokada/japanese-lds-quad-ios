@@ -248,8 +248,8 @@
 				D4EBF00223FA508C00275624 /* HighlightsViewController.swift */,
 				D47EFBC523FE5B28001E213F /* NoteViewController.swift */,
 				D41EC6712404CF18001521D8 /* SpeechViewController.swift */,
-				D4EBEFFC23F8EF4700275624 /* SettingsViewController.swift */,
 				D4DE983A240F4C4100D87829 /* PurchaseViewController.swift */,
+				D4EBEFFC23F8EF4700275624 /* SettingsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -843,7 +843,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = EPF2DMU2WE;
 				INFOPLIST_FILE = JapaneseLDSQuad/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -865,7 +865,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = EPF2DMU2WE;
 				INFOPLIST_FILE = JapaneseLDSQuad/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
