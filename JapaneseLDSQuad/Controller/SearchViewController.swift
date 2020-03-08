@@ -73,8 +73,7 @@ class SearchViewController: UIViewController {
     }
     
     func updateSearchBarStyle() {
-        let nightModeEnabled = Utilities.shared.nightModeEnabled
-        searchBar.barStyle = nightModeEnabled ? .black : .default
+        searchBar.barStyle = Utilities.shared.nightModeEnabled ? .black : .default
     }
     
     func updateSearchResultCount() {

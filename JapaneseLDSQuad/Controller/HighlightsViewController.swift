@@ -12,15 +12,20 @@ import RealmSwift
 class HighlightsViewController: UIViewController {
     
     var realm: Realm!
-    var highlights: Results<HighlightedText>!
-    var noHighlightsLabel: UILabel!
+    var results: Results<HighlightedText>!
+    var searchText = ""
+    var searchNoficationToken: NotificationToken? = nil
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var collectionView: UICollectionView!
     
+    var noHighlightsLabel: UILabel!
+    var spinner: MainIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         realm = try! Realm()
+        searchBar.delegate = self
         collectionView.dataSource = self
         collectionView.delegate = self
         if let layout = collectionView?.collectionViewLayout as? HighlightsViewLayout {
@@ -28,8 +33,9 @@ class HighlightsViewController: UIViewController {
         }
         setSettingsBarButton()
         navigationItem.title = "highlightsViewTitle".localized
+        spinner = MainIndicatorView(parentView: view)
         noHighlightsLabel = getNoHighlightsMessageLabel()
-        highlights = realm.objects(HighlightedText.self).sorted(byKeyPath: "date")
+        results = realm.objects(HighlightedText.self).sorted(byKeyPath: "date")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,14 +64,19 @@ class HighlightsViewController: UIViewController {
     func updateCollectionBackgroundColor() {
         collectionView?.backgroundColor = Utilities.shared.getBackgroundColor()
     }
+    
+    func updateSearchBarStyle() {
+        searchBar.barStyle = Utilities.shared.nightModeEnabled ? .black : .default
+    }
 }
 
 extension HighlightsViewController: SettingsViewDelegate {
     
     func reload() {
-        if let highlights = highlights {
+        if let highlights = results {
             noHighlightsLabel.isHidden = highlights.count > 0
         }
+        updateSearchBarStyle()
         updateCollectionBackgroundColor()
         clearLayoutCache()
         collectionView.reloadData()
@@ -75,19 +86,19 @@ extension HighlightsViewController: SettingsViewDelegate {
 extension HighlightsViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return highlights.count
+        return results.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.ReuseID.highlightCell, for: indexPath) as? HighlightCell else { return HighlightCell() }
-        cell.update(highlight: highlights[indexPath.row])
+        cell.update(highlight: results[indexPath.row])
         cell.layoutIfNeeded()
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
-            let highlight = highlights[indexPath.row]
+            let highlight = results[indexPath.row]
             viewController.initData(scripture: highlight.highlighted_scripture.scripture)
             navigationController?.pushViewController(viewController, animated: true)
         }
@@ -98,7 +109,7 @@ extension HighlightsViewController: UICollectionViewDataSource, UICollectionView
 extension HighlightsViewController: HighlightsViewLayoutDelegate {
     
     func collectionView(_ collectionView: UICollectionView, heightForLabelAt indexPath: IndexPath) -> CGFloat {
-        let highlight = highlights[indexPath.item]
+        let highlight = results[indexPath.item]
         return getLabelHeight(text: Locale.current.languageCode == Constants.Language.primary
             ? "\(highlight.name_primary)"
             : "\(highlight.name_secondary)", labelType: HighlightRegularTextLabel.self)
@@ -121,5 +132,35 @@ extension HighlightsViewController: HighlightsViewLayoutDelegate {
         if let layout = collectionView?.collectionViewLayout as? HighlightsViewLayout {
             layout.clearCache()
         }
+    }
+}
+
+extension HighlightsViewController: UISearchBarDelegate {
+    
+    func updateResults() {
+        if !searchText.isEmpty {
+            let nameQuery = "name_primary CONTAINS '\(searchText)' OR name_secondary CONTAINS '\(searchText)'"
+            let noteQuery = "note CONTAINS '\(searchText)'"
+            let searchQuery = "\(nameQuery) OR \(noteQuery)"
+            results = realm.objects(HighlightedText.self).filter(searchQuery)
+        } else {
+            results = realm.objects(HighlightedText.self).sorted(byKeyPath: "date")
+        }
+        searchNoficationToken = results.observe { _ in
+            self.reload()
+        }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.searchText = searchText
+        updateResults()
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }
