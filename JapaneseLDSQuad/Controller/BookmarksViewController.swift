@@ -14,7 +14,7 @@ class BookmarksViewController: UIViewController {
     var realm: Realm!
     var bookmarks: Results<Bookmark>!
     var noBookmarksLabel: UILabel!
-
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -97,26 +97,34 @@ extension BookmarksViewController: UITableViewDataSource {
         cell.textLabel?.text = bookmark.name_primary
         cell.textLabel?.font = Utilities.shared.getFont()
         cell.textLabel?.textColor = Utilities.shared.getTextColor()
-        cell.textLabel?.numberOfLines = 0;
-        cell.textLabel?.lineBreakMode = .byWordWrapping;
+        cell.textLabel?.numberOfLines = 0
         
         if Utilities.shared.dualEnabled {
             let cellDetailTextLabel = bookmarks[indexPath.row].name_secondary
             cell.detailTextLabel?.text = cellDetailTextLabel
             cell.detailTextLabel?.font = Utilities.shared.getFont(multiplySizeBy: 0.6)
             cell.detailTextLabel?.textColor = .gray
-            cell.detailTextLabel?.numberOfLines = 0;
-            cell.detailTextLabel?.lineBreakMode = .byWordWrapping;
+            cell.detailTextLabel?.numberOfLines = 0
+        }
+        cell.layoutIfNeeded()
+        
+        var dateLabelHeight = CGFloat.zero
+        if let textLabelHeight = cell.textLabel?.frame.height {
+            dateLabelHeight += textLabelHeight
+        }
+        if let detailTextLabelHeight = cell.detailTextLabel?.frame.height {
+            dateLabelHeight += detailTextLabelHeight
         }
         
         let formatter = DateFormatter()
-        formatter.setLocalizedDateFormatFromTemplate("yMMMdE jms")
-        let label = UILabel.init(frame: CGRect(x: 0, y: 0, width: 100, height: 20))
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
+        formatter.setLocalizedDateFormatFromTemplate("yMMMdE jm")
+        
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: cell.frame.width / 3, height: dateLabelHeight))
         label.text = formatter.string(from: bookmark.date as Date)
-        label.textColor = .gray
         label.font = Utilities.shared.getFont(multiplySizeBy: 0.5)
+        label.textColor = .gray
+        label.numberOfLines = 0
+        
         cell.accessoryView = label
         
         return cell
