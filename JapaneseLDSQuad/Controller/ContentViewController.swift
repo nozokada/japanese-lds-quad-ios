@@ -150,7 +150,7 @@ extension ContentViewController: WKNavigationDelegate {
 extension ContentViewController: MainWebViewDelegate {
     
     func showAlert(with title: String, message: String) {
-        let alertController = Utilities.shared.alert(title, message: message, handler: nil)
+        let alertController = Utilities.shared.alert(view: view, title: title, message: message, handler: nil)
         present(alertController, animated: true)
     }
     

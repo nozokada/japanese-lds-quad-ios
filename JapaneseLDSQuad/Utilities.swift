@@ -129,11 +129,17 @@ class Utilities {
         return viewControllers
     }
     
-    func alert(_ title: String, message: String, handler: ((UIAlertAction) -> ())?) -> UIAlertController {
+    func alert(view: UIView, title: String, message: String, handler: ((UIAlertAction) -> ())?) -> UIAlertController {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         let action = UIAlertAction(title: NSLocalizedString("OK", comment: ""),
                                    style: .default, handler: handler)
         alertController.addAction(action)
+        
+        let popoverController = alertController.popoverPresentationController
+        popoverController?.sourceView = view
+        popoverController?.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.maxY, width: 0, height: 0)
+        popoverController?.permittedArrowDirections = []
+        
         return alertController
     }
 }
