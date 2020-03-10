@@ -139,7 +139,6 @@ extension SearchViewController: UITableViewDelegate {
         }
         
         if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
-            
             viewController.initData(scripture: scripture)
             navigationController?.pushViewController(viewController, animated: true)
         }

@@ -26,8 +26,8 @@ class HighlightsViewController: UIViewController {
         super.viewDidLoad()
         realm = try! Realm()
         searchBar.delegate = self
-        collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.dataSource = self
         if let layout = collectionView?.collectionViewLayout as? HighlightsViewLayout {
             layout.delegate = self
         }
