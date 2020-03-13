@@ -28,7 +28,7 @@ class RealmManager {
         _ = try! Realm()
     }
     
-    func getRealmMigrationConfig(realmFileURL: URL) -> Realm.Configuration {
+    fileprivate func getRealmMigrationConfig(realmFileURL: URL) -> Realm.Configuration {
         return Realm.Configuration(
             fileURL: realmFileURL,
             schemaVersion: currentSchemaVersion,
@@ -50,7 +50,7 @@ class RealmManager {
         })
     }
     
-    func createNewRealmFile(existingRealm: Realm?) {
+    fileprivate func createNewRealmFile(existingRealm: Realm?) {
         let defaultRealmDirectoryURL = defaultRealmFileURL.deletingLastPathComponent()
         let newRealmURL = defaultRealmDirectoryURL.appendingPathComponent(Constants.File.initialRealm)
         copyBundleRealmFile(to: newRealmURL)
@@ -74,7 +74,7 @@ class RealmManager {
         }
     }
     
-    func copyBundleRealmFile(to newRealmURL: URL) {
+    fileprivate func copyBundleRealmFile(to newRealmURL: URL) {
         if let bundleURL = Bundle.main.url(forResource: "JLQ", withExtension: "realm") {
             do {
                 try FileManager.default.copyItem(at: bundleURL, to: newRealmURL)
@@ -86,7 +86,7 @@ class RealmManager {
         }
     }
     
-    func copyUserDataToNewRealmFile(from realmToCopy: Realm, to newRealmURL: URL) {
+    fileprivate func copyUserDataToNewRealmFile(from realmToCopy: Realm, to newRealmURL: URL) {
         let bookmarksToCopy = realmToCopy.objects(Bookmark.self).sorted(byKeyPath: "date")
         let highlightedScripturesToCopy = realmToCopy.objects(HighlightedScripture.self).sorted(byKeyPath: "date")
         let highlightedTextsToCopy = realmToCopy.objects(HighlightedText.self).sorted(byKeyPath: "date")
@@ -100,7 +100,7 @@ class RealmManager {
         }
     }
     
-    func copyUserBookmarks(to realm: Realm, bookmarks: Results<Bookmark>) {
+    fileprivate func copyUserBookmarks(to realm: Realm, bookmarks: Results<Bookmark>) {
         for bookmarkToCopy in bookmarks {
             let bookmark = Bookmark(id: bookmarkToCopy.id,
                                     namePrimary: bookmarkToCopy.name_primary,
@@ -111,7 +111,7 @@ class RealmManager {
         }
     }
     
-    func copyUserHighlightedScriptures(to realm: Realm, highlightedScriptures: Results<HighlightedScripture>) {
+    fileprivate func copyUserHighlightedScriptures(to realm: Realm, highlightedScriptures: Results<HighlightedScripture>) {
         for highlightedScriptureToCopy in highlightedScriptures {
             if let scripture = realm.objects(Scripture.self).filter("id = '\(highlightedScriptureToCopy.id)'").first {
                 scripture.scripture_primary = highlightedScriptureToCopy.scripture_primary
@@ -126,7 +126,7 @@ class RealmManager {
         }
     }
     
-    func copyUserHighlightedText(to realm: Realm, highlightedTexts: Results<HighlightedText>) {
+    fileprivate func copyUserHighlightedText(to realm: Realm, highlightedTexts: Results<HighlightedText>) {
         for highlightedTextToCopy in highlightedTexts {
             let highlightedText = HighlightedText(id: highlightedTextToCopy.id,
                                                   namePrimary: highlightedTextToCopy.name_primary,

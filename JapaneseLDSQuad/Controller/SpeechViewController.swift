@@ -58,25 +58,13 @@ class SpeechViewController: UIViewController {
         }
     }
     
-    func setSpeechRateLabel(value: Float) {
-        speechRateLabel.text = "\(String(format: "%.1f", value))x"
-    }
-    
-    func prepareBackgroundView() {
-        let blurEffect = UIBlurEffect(style: .light)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = view.bounds
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.insertSubview(blurEffectView, at: 0)
-    }
-    
-    func updateImage(for button: UIButton, imageName: String) {
-        let image = UIImage(named: imageName)
-        button.setImage(image, for: .normal)
-    }
-    
-    func updateTopY() {
-        topY = 0 - view.frame.height
+    func initScripturesToSpeech(chapterId: String, scriptures: Results<Scripture>) {
+        allowedToPlayNext = false
+        stop()
+        scripturesToSpeak = scriptures.filter(
+            "id BEGINSWITH '\(chapterId)' AND NOT verse IN {'title', 'counter', 'preface', 'intro', 'summary', 'date'}"
+        ).sorted(byKeyPath: "id")
+        nextSpeechIndex = 0
     }
     
     func show(animated: Bool = true) {
@@ -99,6 +87,27 @@ class SpeechViewController: UIViewController {
         isHidden = true
     }
     
+    fileprivate func setSpeechRateLabel(value: Float) {
+        speechRateLabel.text = "\(String(format: "%.1f", value))x"
+    }
+    
+    fileprivate func prepareBackgroundView() {
+        let blurEffect = UIBlurEffect(style: .light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.insertSubview(blurEffectView, at: 0)
+    }
+    
+    fileprivate func updateImage(for button: UIButton, imageName: String) {
+        let image = UIImage(named: imageName)
+        button.setImage(image, for: .normal)
+    }
+    
+    fileprivate func updateTopY() {
+        topY = 0 - view.frame.height
+    }
+    
     @objc func panGesture(recognizer: UIPanGestureRecognizer) {
         let translation = recognizer.translation(in: view)
         let frame = view.frame
@@ -117,28 +126,19 @@ class SpeechViewController: UIViewController {
         }
     }
     
-    func initScripturesToSpeech(chapterId: String, scriptures: Results<Scripture>) {
-        allowedToPlayNext = false
-        stop()
-        scripturesToSpeak = scriptures.filter(
-            "id BEGINSWITH '\(chapterId)' AND NOT verse IN {'title', 'counter', 'preface', 'intro', 'summary', 'date'}"
-        ).sorted(byKeyPath: "id")
-        nextSpeechIndex = 0
-    }
-    
-    func initUtterance(speechString: String, language: String) {
+    fileprivate func initUtterance(speechString: String, language: String) {
         let newUtterance = AVSpeechUtterance(string: speechString)
         newUtterance.voice = AVSpeechSynthesisVoice(language: language)
         newUtterance.rate = Utilities.shared.getSpeechRate()
         currentUtterance = newUtterance
     }
     
-    func play(text: String, in language: String) {
+    fileprivate func play(text: String, in language: String) {
         speak(text: text, in: language)
         playOrPauseButton.setImage(UIImage(named: "Pause"), for: .normal)
     }
     
-    func playNext(withNumber: Bool = false, in language: String = Constants.Language.primarySpeech) {
+    fileprivate func playNext(withNumber: Bool = false, in language: String = Constants.Language.primarySpeech) {
         guard allowedToPlayNext else { return }
         guard let scriptures = scripturesToSpeak else { return }
         
@@ -153,22 +153,22 @@ class SpeechViewController: UIViewController {
         updateImage(for: playOrPauseButton, imageName: "Pause")
     }
     
-    func pause() {
+    fileprivate func pause() {
         speechSynthesizer.pauseSpeaking(at: .immediate)
         updateImage(for: playOrPauseButton, imageName: "Play")
     }
     
-    func resume() {
+    fileprivate func resume() {
         speechSynthesizer.continueSpeaking()
         updateImage(for: playOrPauseButton, imageName: "Pause")
     }
     
-    func stop() {
+    fileprivate func stop() {
         speechSynthesizer.stopSpeaking(at: .immediate)
         updateImage(for: playOrPauseButton, imageName: "Play")
     }
     
-    func getScriptureSpeechText(scripture: Scripture, withNumber: Bool, in language: String) -> String {
+    fileprivate func getScriptureSpeechText(scripture: Scripture, withNumber: Bool, in language: String) -> String {
         var speechText = withNumber ? "\(scripture.verse): " : ""
         speechText.append(language == Constants.Language.primarySpeech
             ? SpeechUtilities.correctPrimaryLanguage(speechText: scripture.scripture_primary_raw)
@@ -177,12 +177,12 @@ class SpeechViewController: UIViewController {
         return speechText
     }
     
-    func speak(text: String, in language: String) {
+    fileprivate func speak(text: String, in language: String) {
         initUtterance(speechString: text, language: language)
         speechSynthesizer.speak(currentUtterance)
     }
     
-    func changeSpeechRateMultiplier(by value: Float) {
+    fileprivate func changeSpeechRateMultiplier(by value: Float) {
         let newValue = Utilities.shared.speechRateMultiplier + value
         if newValue < Constants.Rate.speechRateMinimumMultiplier
             || newValue > Constants.Rate.speechRateMaximumMultiplier {
@@ -270,16 +270,5 @@ extension SpeechViewController: AVSpeechSynthesizerDelegate {
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
         remainingText = String(utterance.speechString.dropFirst(characterRange.location))
         spokenText = String(utterance.speechString.prefix(characterRange.location))
-    }
-}
-
-extension AVSpeechUtterance {
-    
-    var speakingPrimary: Bool {
-        return voice?.language == Constants.Language.primarySpeech
-    }
-    
-    var speakingSecondary: Bool {
-        return voice?.language == Constants.Language.secondarySpeech
     }
 }

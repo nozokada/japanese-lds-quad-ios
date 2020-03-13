@@ -47,12 +47,12 @@ class ContentViewController: UIViewController {
         htmlContent = contentViewData.builder.buildContent(targetVerse: targetVerse)
     }
     
-    func showActivityIndicator() {
+    fileprivate func showActivityIndicator() {
         spinner = MainIndicatorView(parentView: view)
         spinner.startAnimating()
     }
     
-    func hideActivityIndicator() {
+    fileprivate func hideActivityIndicator() {
         spinner.stopAnimating()
     }
 }
@@ -101,23 +101,23 @@ extension ContentViewController: WKNavigationDelegate {
         }
     }
     
-    func spotlightTargetVerses() {
+    fileprivate func spotlightTargetVerses() {
         webView.evaluateJavaScript(JavaScriptSnippets.SpotlightTargetVerses(), completionHandler: nil)
     }
     
-    func toggleBookmark(verseId: String) {
+    fileprivate func toggleBookmark(verseId: String) {
         BookmarksManager.shared.updateBookmark(id: verseId)
         webView.evaluateJavaScript(JavaScriptSnippets.toggleBookmarkStatus(verseId: verseId), completionHandler: nil)
     }
     
-    func showNote(highlightedTextId: String) {
+    fileprivate func showNote(highlightedTextId: String) {
         if let noteViewController = getNoteViewController() {
             noteViewController.initHighlightedText(id: highlightedTextId)
             noteViewController.show()
         }
     }
     
-    func presentAnotherContent(path: [String]) {
+    fileprivate func presentAnotherContent(path: [String]) {
         guard let targetScriptureData = createTargetScriptureDataFromPath(path: path) else { return }
         if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
             viewController.initData(targetScriptureData: targetScriptureData)
@@ -132,7 +132,7 @@ extension ContentViewController: WKNavigationDelegate {
         }
     }
     
-    func createTargetScriptureDataFromPath(path: [String]) -> TargetScriptureData? {
+    fileprivate func createTargetScriptureDataFromPath(path: [String]) -> TargetScriptureData? {
         guard var bookId = path.first else { return nil }
         var chapter = path.count > 1 ? Int(path[1]) ?? 1 : 1
         var verse = path.count > 2 ? path[2].components(separatedBy: CharacterSet.punctuationCharacters).first! : nil

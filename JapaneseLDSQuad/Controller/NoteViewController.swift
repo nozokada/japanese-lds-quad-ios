@@ -63,33 +63,6 @@ class NoteViewController: UIViewController {
         setTitleAndNote()
     }
     
-    func setTitleAndNote() {
-        noteViewTitleLabel.text = Locale.current.languageCode == Constants.Language.primary
-            ? highlightedText?.name_primary
-            : highlightedText?.name_secondary
-        noteViewTitleLabel.sizeToFit()
-        
-        noteTextView.text = highlightedText?.note
-        if noteTextView.text.isEmpty {
-            noteTextView.text = noteTextViewPlaceholder
-            noteTextView.textColor = noteTextViewPlaceholderTextColor
-        } else {
-            noteTextView.textColor = Utilities.shared.getTextColor()
-        }
-    }
-    
-    func adjustNoteTextViewHeight() {
-        noteTextViewHeight.constant = view.frame.height / 3
-            - noteViewTitleLabel.frame.height
-            - Constants.Size.noteViewTitleVerticalPadding * 2
-    }
-    
-    func updateBottomY() {
-        if let superview = view.superview {
-            bottomY = superview.frame.maxY
-        }
-    }
-    
     func show(animated: Bool = true) {
         updateBottomY()
         adjustNoteTextViewHeight()
@@ -124,6 +97,33 @@ class NoteViewController: UIViewController {
             self.view.frame = CGRect(x: 0, y: y, width: frame.width, height: frame.height)
         }
         isHidden = true
+    }
+    
+    fileprivate func setTitleAndNote() {
+        noteViewTitleLabel.text = Locale.current.languageCode == Constants.Language.primary
+            ? highlightedText?.name_primary
+            : highlightedText?.name_secondary
+        noteViewTitleLabel.sizeToFit()
+        
+        noteTextView.text = highlightedText?.note
+        if noteTextView.text.isEmpty {
+            noteTextView.text = noteTextViewPlaceholder
+            noteTextView.textColor = noteTextViewPlaceholderTextColor
+        } else {
+            noteTextView.textColor = Utilities.shared.getTextColor()
+        }
+    }
+    
+    fileprivate func adjustNoteTextViewHeight() {
+        noteTextViewHeight.constant = view.frame.height / 3
+            - noteViewTitleLabel.frame.height
+            - Constants.Size.noteViewTitleVerticalPadding * 2
+    }
+    
+    fileprivate func updateBottomY() {
+        if let superview = view.superview {
+            bottomY = superview.frame.maxY
+        }
     }
     
     @objc func panGesture(recognizer: UIPanGestureRecognizer) {

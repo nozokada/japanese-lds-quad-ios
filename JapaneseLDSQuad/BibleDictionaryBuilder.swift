@@ -45,7 +45,7 @@ class BibleDictionaryBuilder: ContentBuilder {
         return html
     }
 
-    private func getGSWithBibleLinks(gsString: String) -> String {
+    fileprivate func getGSWithBibleLinks(gsString: String) -> String {
         let regex = try! NSRegularExpression(pattern: Constants.RegexPattern.passage)
         let matchResults = regex.matches(in: gsString, range: NSMakeRange(0, gsString.count))
         var target = gsString as NSString

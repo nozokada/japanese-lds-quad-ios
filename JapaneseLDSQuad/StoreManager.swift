@@ -23,7 +23,7 @@ class StoreManager: NSObject {
         fetchProducts(matchingIdentifiers: identifiers)
     }
     
-    func fetchProducts(matchingIdentifiers identifiers: [String]) {
+    fileprivate func fetchProducts(matchingIdentifiers identifiers: [String]) {
         let productIdentifiers = Set(identifiers)
         productRequest = SKProductsRequest(productIdentifiers: productIdentifiers)
         productRequest.delegate = self

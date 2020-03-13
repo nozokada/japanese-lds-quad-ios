@@ -19,11 +19,6 @@ class PurchaseManager: NSObject {
         allFeaturesUnlocked = UserDefaults.standard.bool(forKey: Constants.Config.pass)
     }
     
-    func enableAllFeatures() {
-        UserDefaults.standard.set(true, forKey: Constants.Config.pass)
-        allFeaturesUnlocked = true
-    }
-    
     func unlockProduct(withIdentifier productIdentifier: String) {
         switch productIdentifier {
         case Constants.ProductID.allFeaturesPass:
@@ -31,5 +26,10 @@ class PurchaseManager: NSObject {
         default:
             break
         }
+    }
+    
+    fileprivate func enableAllFeatures() {
+        UserDefaults.standard.set(true, forKey: Constants.Config.pass)
+        allFeaturesUnlocked = true
     }
 }

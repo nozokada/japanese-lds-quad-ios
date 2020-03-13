@@ -51,7 +51,7 @@ class SettingsViewController: UITableViewController {
         textSizeStepperLabel.textColor = fontColor
     }
     
-    func setLabelsText() {
+    fileprivate func setLabelsText() {
         alternativeFontLabel.text = "settingMinchoFontLabel".localized
         nightModeLabel.text = "settingNightModeLabel".localized
         dualModeSwitchLabel.text = "settingDualSwitchLabel".localized
@@ -59,32 +59,32 @@ class SettingsViewController: UITableViewController {
         textSizeStepperLabel.text = "settingfontSizeStepperLabel".localized
     }
     
-    func setAlternativeFontSwitchState() {
+    fileprivate func setAlternativeFontSwitchState() {
         let state = Utilities.shared.alternativeFontEnabled
         alternativeFontSwitch.setImage(state ? #imageLiteral(resourceName: "ToggleOn") : #imageLiteral(resourceName: "ToggleOff"), for: .normal)
     }
     
-    func setNightModeSwitchState() {
+    fileprivate func setNightModeSwitchState() {
         let state = Utilities.shared.nightModeEnabled
         nightModeSwitch.setImage(state ? #imageLiteral(resourceName: "ToggleOn") : #imageLiteral(resourceName: "ToggleOff"), for: .normal)
     }
     
-    func setDualModeSwitchState() {
+    fileprivate func setDualModeSwitchState() {
         let state = Utilities.shared.dualEnabled
         dualModeSwitch.setImage(state ? #imageLiteral(resourceName: "ToggleOn") : #imageLiteral(resourceName: "ToggleOff"), for: .normal)
     }
     
     
-    func setTextSizeStepperValue() {
+    fileprivate func setTextSizeStepperValue() {
         textSizeStepper.value = Utilities.shared.fontSizeMultiplier
     }
     
-    func setSideBySideModeSwitchState() {
+    fileprivate func setSideBySideModeSwitchState() {
         let currState = Utilities.shared.sideBySideEnabled
         sideBySideModeSwitch.setImage(currState ? #imageLiteral(resourceName: "ToggleOn") : #imageLiteral(resourceName: "ToggleOff"), for: .normal)
     }
     
-    func setTextSizeStepperImages() {
+    fileprivate func setTextSizeStepperImages() {
         textSizeStepper.setIncrementImage(#imageLiteral(resourceName: "TextSizePlus"), for: .normal)
         textSizeStepper.setIncrementImage(#imageLiteral(resourceName: "TextSizeActivePlus"), for: .highlighted)
         textSizeStepper.setIncrementImage(#imageLiteral(resourceName: "TextSizeDisabledPlus"), for: .disabled)

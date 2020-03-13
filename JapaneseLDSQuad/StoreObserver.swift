@@ -29,7 +29,7 @@ class StoreObserver: NSObject {
         SKPaymentQueue.default().restoreCompletedTransactions()
     }
     
-    func handlePurchased(_ transaction: SKPaymentTransaction) {
+    fileprivate func handlePurchased(_ transaction: SKPaymentTransaction) {
         #if Debug
         debugPrint("Handling succeeded purchase")
         #endif
@@ -41,7 +41,7 @@ class StoreObserver: NSObject {
         SKPaymentQueue.default().finishTransaction(transaction)
     }
     
-    func handleFailed(_ transaction: SKPaymentTransaction) {
+    fileprivate func handleFailed(_ transaction: SKPaymentTransaction) {
         #if Debug
         debugPrint("Handling failed purchase")
         #endif
@@ -57,7 +57,7 @@ class StoreObserver: NSObject {
         SKPaymentQueue.default().finishTransaction(transaction)
     }
     
-    func handleRestored(_ transaction: SKPaymentTransaction) {
+    fileprivate func handleRestored(_ transaction: SKPaymentTransaction) {
         hasRestorablePurchases = true
         PurchaseManager.shared.unlockProduct(withIdentifier: transaction.payment.productIdentifier)
         DispatchQueue.main.async {

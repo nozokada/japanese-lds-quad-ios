@@ -63,28 +63,7 @@ class PagesViewController: UIPageViewController {
         targetChapterId = Utilities.shared.getChapterIdFromScripture(scripture: scripture)
     }
     
-    func updatePageContentView() {
-        guard let contentViewControllers = [getViewControllerAt(index: currentChapterIndex)] as? [UIViewController] else { return }
-        setViewControllers(contentViewControllers, direction: .forward, animated: false, completion: nil)
-        currentContentViewController = viewControllers?.last as? ContentViewController
-        currentContentViewController.relativeOffset = currentRelativeOffset
-        targetVerse = nil
-    }
-    
-    func getViewControllerAt(index: Int) -> ContentViewController? {
-        let chapterId = Utilities.shared.getChapterIdFromChapterNumber(bookId: targetBook.id, chapter: index + 1)
-        let scriptures = scripturesInBook.filter("id BEGINSWITH '\(chapterId)'").sorted(byKeyPath: "id")
-        let contentBuilder = Utilities.shared.getContentBuilder(scriptures: scriptures, contentType: contentType)
-        if let contentViewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.content) as? ContentViewController {
-            let contentViewData = ContentViewData(
-                index: index, builder: contentBuilder, chapterId: targetChapterId, verse: chapterId == targetChapterId ? targetVerse : nil)
-            contentViewController.initData(contentViewData: contentViewData)
-            return contentViewController
-        }
-        return nil
-    }
-    
-    func setTitle() {
+    fileprivate func setTitle() {
         guard let chapterId = targetChapterId else { return }
         switch contentType {
         case Constants.ContentType.aux:
@@ -98,7 +77,28 @@ class PagesViewController: UIPageViewController {
         }
     }
     
-    func setCurrentRelativeOffset() {
+    fileprivate func updatePageContentView() {
+        guard let contentViewControllers = [getViewControllerAt(index: currentChapterIndex)] as? [UIViewController] else { return }
+        setViewControllers(contentViewControllers, direction: .forward, animated: false, completion: nil)
+        currentContentViewController = viewControllers?.last as? ContentViewController
+        currentContentViewController.relativeOffset = currentRelativeOffset
+        targetVerse = nil
+    }
+    
+    fileprivate func getViewControllerAt(index: Int) -> ContentViewController? {
+        let chapterId = Utilities.shared.getChapterIdFromChapterNumber(bookId: targetBook.id, chapter: index + 1)
+        let scriptures = scripturesInBook.filter("id BEGINSWITH '\(chapterId)'").sorted(byKeyPath: "id")
+        let contentBuilder = Utilities.shared.getContentBuilder(scriptures: scriptures, contentType: contentType)
+        if let contentViewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.content) as? ContentViewController {
+            let contentViewData = ContentViewData(
+                index: index, builder: contentBuilder, chapterId: targetChapterId, verse: chapterId == targetChapterId ? targetVerse : nil)
+            contentViewController.initData(contentViewData: contentViewData)
+            return contentViewController
+        }
+        return nil
+    }
+    
+    fileprivate func setCurrentRelativeOffset() {
         let offset = currentContentViewController.webView.scrollView.contentOffset.y
         let height = currentContentViewController.webView.scrollView.contentSize.height
         currentRelativeOffset = offset / height

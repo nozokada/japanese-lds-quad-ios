@@ -36,7 +36,7 @@ class BookmarksViewController: UIViewController {
         reload()
     }
     
-    func getNoBookmarksMessageLabel() -> UILabel {
+    fileprivate func getNoBookmarksMessageLabel() -> UILabel {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
         label.numberOfLines = 4
         label.text = "noBookmarksLabel".localized
@@ -46,7 +46,7 @@ class BookmarksViewController: UIViewController {
         return label
     }
     
-    func updateTableBackgroundColor() {
+    fileprivate func updateTableBackgroundColor() {
         tableView.backgroundColor = Utilities.shared.getBackgroundColor()
     }
 }

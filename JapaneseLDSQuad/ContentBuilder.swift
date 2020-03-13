@@ -117,7 +117,7 @@ class ContentBuilder {
         return html
     }
     
-    private func buildCSS() -> String {
+    fileprivate func buildCSS() -> String {
         let font = Utilities.shared.alternativeFontEnabled
             ? Constants.Font.min
             : Constants.Font.kaku

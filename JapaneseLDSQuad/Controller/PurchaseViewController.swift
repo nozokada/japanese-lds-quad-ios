@@ -38,7 +38,7 @@ class PurchaseViewController: UIViewController {
         fetchProductInformation()
     }
     
-    func prepareBackgroundView() {
+    fileprivate func prepareBackgroundView() {
         modalView.layer.cornerRadius = 5
         let blurEffect = UIBlurEffect(style: .dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -47,7 +47,7 @@ class PurchaseViewController: UIViewController {
         view.insertSubview(blurEffectView, at: 0)
     }
     
-    func reload() {
+    fileprivate func reload() {
         titleLabel.text = allFeaturesPass?.localizedTitle ?? "allFeaturesPassTitleLabel".localized
         let buttonTitle = "\("allFeaturesPassPurchaseButtonLabel".localized) \(allFeaturesPass?.regularPrice ?? "")"
         purchaseButton.setTitle(buttonTitle, for: .normal)
@@ -55,7 +55,7 @@ class PurchaseViewController: UIViewController {
         descriptionLabel.text = "allFeaturesDescriptionLabel".localized
     }
     
-    func fetchProductInformation() {
+    fileprivate func fetchProductInformation() {
         if StoreObserver.shared.isAuthorizedForPayments {
             StoreManager.shared.startProductRequest(with: productIdentifiers)
         } else {
@@ -63,7 +63,7 @@ class PurchaseViewController: UIViewController {
         }
     }
     
-    func alert(with title: String, message: String, close: Bool = false) {
+    fileprivate func alert(with title: String, message: String, close: Bool = false) {
         let handler = close ? {(alert: UIAlertAction) in self.dismiss(animated: true, completion: nil) } : nil
         let alertController = Utilities.shared.alert(view: view, title: title, message: message, handler: handler)
         present(alertController, animated: true, completion: nil)

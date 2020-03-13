@@ -45,7 +45,7 @@ class ChaptersViewController: UIViewController {
         targetBookName = targetBook.name_primary
     }
     
-    func getChapterType() -> String {
+    fileprivate func getChapterType() -> String {
         if targetBook.link.hasPrefix("gs")
             || targetBook.link.hasPrefix("jst")
             || targetBook.link.hasPrefix("hymns") {

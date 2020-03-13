@@ -9,6 +9,7 @@
 import UIKit
 
 protocol HighlightsViewLayoutDelegate: AnyObject {
+    
   func collectionView(_ collectionView: UICollectionView, heightForLabelAt indexPath: IndexPath) -> CGFloat
 }
 

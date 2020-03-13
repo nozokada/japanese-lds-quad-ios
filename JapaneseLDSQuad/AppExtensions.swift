@@ -6,6 +6,7 @@
 //  Copyright © 2020 nozokada. All rights reserved.
 //
 
+import AVFoundation
 import StoreKit
 
 extension String {
@@ -20,6 +21,17 @@ extension String {
     
     var verseAfterColonRemoved: String {
         return replacingOccurrences(of: "[：|:].*", with: "", options: .regularExpression)
+    }
+}
+
+extension AVSpeechUtterance {
+    
+    var speakingPrimary: Bool {
+        return voice?.language == Constants.Language.primarySpeech
+    }
+    
+    var speakingSecondary: Bool {
+        return voice?.language == Constants.Language.secondarySpeech
     }
 }
 

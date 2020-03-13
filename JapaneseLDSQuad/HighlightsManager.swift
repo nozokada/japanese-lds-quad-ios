@@ -13,18 +13,6 @@ class HighlightsManager: AnnotationsManager {
     
     static let shared = HighlightsManager()
     
-    private func ApplyHighlightChangeToScripture(id: String, content: String, language: String) {
-        if let scripture = getScripture(id: id) {
-            try! realm.write {
-                if language == Constants.Language.primary {
-                    scripture.scripture_primary = content
-                } else {
-                    scripture.scripture_secondary = content
-                }
-            }
-        }
-    }
-    
     func addHighlight(textId: String, textContent: String, scriptureId: String, scriptureContent: String, language: String) {
         if let existingHighlightedScripture = realm.objects(HighlightedScripture.self).filter("id = '\(scriptureId)'").first {
             addHighlightedText(id: textId, content: textContent, scripture: existingHighlightedScripture)
@@ -83,7 +71,19 @@ class HighlightsManager: AnnotationsManager {
         }
     }
     
-    private func removeHighlightedText(highlightedTextToRemove: HighlightedText) {
+    fileprivate func ApplyHighlightChangeToScripture(id: String, content: String, language: String) {
+        if let scripture = getScripture(id: id) {
+            try! realm.write {
+                if language == Constants.Language.primary {
+                    scripture.scripture_primary = content
+                } else {
+                    scripture.scripture_secondary = content
+                }
+            }
+        }
+    }
+    
+    fileprivate func removeHighlightedText(highlightedTextToRemove: HighlightedText) {
         try! realm.write {
             realm.delete(highlightedTextToRemove)
             #if Debug

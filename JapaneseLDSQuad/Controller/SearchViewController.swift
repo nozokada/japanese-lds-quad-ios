@@ -49,16 +49,16 @@ class SearchViewController: UIViewController {
         reload()
     }
     
-    func showActivityIndicator() {
+    fileprivate func showActivityIndicator() {
         noResultsLabel.isHidden = true
         spinner.startAnimating()
     }
     
-    func hideActivityIndicator() {
+    fileprivate func hideActivityIndicator() {
         spinner.stopAnimating()
     }
     
-    func getNoResultsMessageLabel() -> UILabel {
+    fileprivate func getNoResultsMessageLabel() -> UILabel {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
         label.numberOfLines = 4
         label.text = "noSearchResultsLabel".localized
@@ -68,21 +68,21 @@ class SearchViewController: UIViewController {
         return label
     }
     
-    func updateTableBackgroundColor() {
+    fileprivate func updateTableBackgroundColor() {
         tableView.backgroundColor = Utilities.shared.getBackgroundColor()
     }
     
-    func updateSearchBarStyle() {
+    fileprivate func updateSearchBarStyle() {
         searchBar.barStyle = Utilities.shared.nightModeEnabled ? .black : .default
     }
     
-    func updateSearchResultCount() {
+    fileprivate func updateSearchResultCount() {
         searchResultCountLabel.text = searchText.isEmpty && chapterText.isEmpty && verseText.isEmpty
             ? ""
             : "\(filteredResults.count) \("searchMatches".localized)"
     }
     
-    func updatePassageLookupView() {
+    fileprivate func updatePassageLookupView() {
         passageLookupView.backgroundColor = Utilities.shared.getBackgroundColor()
         chapterTextField.placeholder = "chapterTextFieldPlaceholder".localized
         verseTextField.placeholder = "verseTextFieldPlaceholder".localized
@@ -200,7 +200,7 @@ extension SearchViewController: UIScrollViewDelegate {
 
 extension SearchViewController: UISearchBarDelegate {
     
-    func updateResults() {
+    fileprivate func updateResults() {
         showActivityIndicator()
         
         var searchQuery = ""
@@ -224,7 +224,7 @@ extension SearchViewController: UISearchBarDelegate {
         }
     }
     
-    func updateSegmentResults() {
+    fileprivate func updateSegmentResults() {
         guard let results = results else { return }
         let selectedSegmentIndex = searchBar.selectedScopeButtonIndex
         let filterQuery = selectedSegmentIndex != searchBar.scopeButtonTitles!.count - 1
@@ -243,15 +243,15 @@ extension SearchViewController: UISearchBarDelegate {
         updateResults()
     }
     
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        updateSegmentResults()
+    }
+    
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        updateSegmentResults()
     }
 }

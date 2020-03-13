@@ -51,7 +51,7 @@ class HighlightsViewController: UIViewController {
         }
     }
     
-    func getNoHighlightsMessageLabel() -> UILabel {
+    fileprivate func getNoHighlightsMessageLabel() -> UILabel {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: collectionView.bounds.size.width, height: collectionView.bounds.size.height))
         label.numberOfLines = 4
         label.text = "noHighlightsLabel".localized
@@ -61,7 +61,7 @@ class HighlightsViewController: UIViewController {
         return label
     }
     
-    func updateNoHighlightsMessageLabel() {
+    fileprivate func updateNoHighlightsMessageLabel() {
         if let highlights = results {
             noHighlightsLabel.isHidden = highlights.count > 0
             if !searchText.isEmpty {
@@ -72,11 +72,11 @@ class HighlightsViewController: UIViewController {
         }
     }
     
-    func updateCollectionBackgroundColor() {
+    fileprivate func updateCollectionBackgroundColor() {
         collectionView?.backgroundColor = Utilities.shared.getBackgroundColor()
     }
     
-    func updateSearchBarStyle() {
+    fileprivate func updateSearchBarStyle() {
         searchBar.barStyle = Utilities.shared.nightModeEnabled ? .black : .default
     }
 }
@@ -128,7 +128,7 @@ extension HighlightsViewController: HighlightsViewLayoutDelegate {
             + Constants.Size.highlightCellLabelVerticalPadding
     }
     
-    func getLabelHeight(text: String, labelType: UILabel.Type) -> CGFloat {
+    fileprivate func getLabelHeight(text: String, labelType: UILabel.Type) -> CGFloat {
         let labelWidth = collectionView.collectionViewLayout.collectionViewContentSize.width / CGFloat(Constants.Count.columnsForHighlightsView)
             - Constants.Size.highlightCellPadding * 2
             - Constants.Size.highlightCellLabelHorizontalPadding * 2
@@ -138,7 +138,7 @@ extension HighlightsViewController: HighlightsViewLayoutDelegate {
         return label.frame.height + Constants.Size.highlightCellLabelVerticalPadding
     }
     
-    func clearLayoutCache() {
+    fileprivate func clearLayoutCache() {
         if let layout = collectionView?.collectionViewLayout as? HighlightsViewLayout {
             layout.clearCache()
         }
@@ -154,7 +154,7 @@ extension HighlightsViewController: UIScrollViewDelegate {
 
 extension HighlightsViewController: UISearchBarDelegate {
     
-    func updateResults() {
+    fileprivate func updateResults() {
         if !searchText.isEmpty {
             let nameQuery = "name_primary CONTAINS '\(searchText)' OR name_secondary CONTAINS '\(searchText)'"
             let noteQuery = "note CONTAINS '\(searchText)'"
