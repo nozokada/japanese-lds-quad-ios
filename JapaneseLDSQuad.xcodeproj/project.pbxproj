@@ -70,6 +70,7 @@
 		D4EBF00523FA562D00275624 /* HighlightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EBF00423FA562D00275624 /* HighlightCell.swift */; };
 		D4EBF00723FA726200275624 /* HighlightRegularTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EBF00623FA726200275624 /* HighlightRegularTextLabel.swift */; };
 		D4EBF00923FBA56B00275624 /* HighlightsViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EBF00823FBA56B00275624 /* HighlightsViewLayout.swift */; };
+		D4F9C6062421C4AC00F3910E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F9C6052421C4AC00F3910E /* ProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -168,6 +169,7 @@
 		D4EBF00423FA562D00275624 /* HighlightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightCell.swift; sourceTree = "<group>"; };
 		D4EBF00623FA726200275624 /* HighlightRegularTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightRegularTextLabel.swift; sourceTree = "<group>"; };
 		D4EBF00823FBA56B00275624 /* HighlightsViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightsViewLayout.swift; sourceTree = "<group>"; };
+		D4F9C6052421C4AC00F3910E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		F24AEA88112E18282C759158 /* Pods-JapaneseLDSQuad.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JapaneseLDSQuad.debug.xcconfig"; path = "Target Support Files/Pods-JapaneseLDSQuad/Pods-JapaneseLDSQuad.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -250,6 +252,7 @@
 				D41EC6712404CF18001521D8 /* SpeechViewController.swift */,
 				D4DE983A240F4C4100D87829 /* PurchaseViewController.swift */,
 				D4EBEFFC23F8EF4700275624 /* SettingsViewController.swift */,
+				D4F9C6052421C4AC00F3910E /* ProfileViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -606,6 +609,7 @@
 				D41EC67424050876001521D8 /* HighlightChangeDelegate.swift in Sources */,
 				D475CCEB23E934F200678A85 /* ContentViewController.swift in Sources */,
 				D475CCE223E9293700678A85 /* MainNavigationController.swift in Sources */,
+				D4F9C6062421C4AC00F3910E /* ProfileViewController.swift in Sources */,
 				D475CCF923E9534800678A85 /* AnnotationsManager.swift in Sources */,
 				D4EBEFFD23F8EF4700275624 /* SettingsViewController.swift in Sources */,
 				D475CCE523E92D5200678A85 /* MainNavigationBar.swift in Sources */,
