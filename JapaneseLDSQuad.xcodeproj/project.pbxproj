@@ -71,6 +71,7 @@
 		D4EBF00723FA726200275624 /* HighlightRegularTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EBF00623FA726200275624 /* HighlightRegularTextLabel.swift */; };
 		D4EBF00923FBA56B00275624 /* HighlightsViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EBF00823FBA56B00275624 /* HighlightsViewLayout.swift */; };
 		D4F9C6062421C4AC00F3910E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F9C6052421C4AC00F3910E /* ProfileViewController.swift */; };
+		D4F9C6082421C72600F3910E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D4F9C6072421C72500F3910E /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -170,6 +171,7 @@
 		D4EBF00623FA726200275624 /* HighlightRegularTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightRegularTextLabel.swift; sourceTree = "<group>"; };
 		D4EBF00823FBA56B00275624 /* HighlightsViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightsViewLayout.swift; sourceTree = "<group>"; };
 		D4F9C6052421C4AC00F3910E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		D4F9C6072421C72500F3910E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F24AEA88112E18282C759158 /* Pods-JapaneseLDSQuad.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JapaneseLDSQuad.debug.xcconfig"; path = "Target Support Files/Pods-JapaneseLDSQuad/Pods-JapaneseLDSQuad.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -313,6 +315,7 @@
 				D4212A2423E7BC02002CD60A /* Main.storyboard */,
 				D4212A2923E7BC02002CD60A /* LaunchScreen.storyboard */,
 				D4212A2C23E7BC02002CD60A /* Info.plist */,
+				D4F9C6072421C72500F3910E /* GoogleService-Info.plist */,
 				D40B3E9523E8E1B400276662 /* Localizable.strings */,
 				D481DC3223F515AB00F166B7 /* InfoPlist.strings */,
 				D4DFE61823F4C0DE0055B6FB /* Images */,
@@ -466,6 +469,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D40B3E9323E8E1B400276662 /* Localizable.strings in Resources */,
+				D4F9C6082421C72600F3910E /* GoogleService-Info.plist in Resources */,
 				D481DC3023F515AB00F166B7 /* InfoPlist.strings in Resources */,
 				D4212A2B23E7BC02002CD60A /* LaunchScreen.storyboard in Resources */,
 				D4DFE61923F4C0DE0055B6FB /* Images in Resources */,
