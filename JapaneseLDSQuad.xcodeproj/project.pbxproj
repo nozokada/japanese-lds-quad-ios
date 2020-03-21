@@ -10,6 +10,7 @@
 		02BE677974D70AF963DBB597 /* Pods_JapaneseLDSQuadTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 834A4BDF9547AD8900D05100 /* Pods_JapaneseLDSQuadTests.framework */; };
 		2823B2C2E536200F4A8FEF0C /* Pods_JapaneseLDSQuad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ECEDEF8BAC9BC195B84BE19 /* Pods_JapaneseLDSQuad.framework */; };
 		5970B9E5A84ECB5D56E9BC60 /* Pods_JapaneseLDSQuad_JapaneseLDSQuadUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494B9A96C68C50ECB05714B4 /* Pods_JapaneseLDSQuad_JapaneseLDSQuadUITests.framework */; };
+		D402AD5C2426C4A2003A781B /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D402AD5B2426C4A2003A781B /* AuthenticationManager.swift */; };
 		D40B3E6C23E7F89500276662 /* BookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40B3E6B23E7F89500276662 /* BookmarksViewController.swift */; };
 		D40B3E7023E892F900276662 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40B3E6F23E892F900276662 /* Book.swift */; };
 		D40B3E7223E8932900276662 /* Scripture.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40B3E7123E8932900276662 /* Scripture.swift */; };
@@ -100,6 +101,7 @@
 		99AE6B2931AB2955F42F7CD5 /* Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests.release.xcconfig"; path = "Target Support Files/Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests/Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests.release.xcconfig"; sourceTree = "<group>"; };
 		B82BA37907BAA4E42C240009 /* Pods-JapaneseLDSQuadTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JapaneseLDSQuadTests.debug.xcconfig"; path = "Target Support Files/Pods-JapaneseLDSQuadTests/Pods-JapaneseLDSQuadTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B8D10CC9B7EA018F16C1F2A5 /* Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests.debug.xcconfig"; path = "Target Support Files/Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests/Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		D402AD5B2426C4A2003A781B /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		D40B3E6B23E7F89500276662 /* BookmarksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewController.swift; sourceTree = "<group>"; };
 		D40B3E6F23E892F900276662 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		D40B3E7123E8932900276662 /* Scripture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scripture.swift; sourceTree = "<group>"; };
@@ -226,6 +228,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D402AD5A2426C44F003A781B /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				D430AFF02412F0BC007E9666 /* RealmManager.swift */,
+				D402AD5B2426C4A2003A781B /* AuthenticationManager.swift */,
+				D475CCF823E9534800678A85 /* AnnotationsManager.swift */,
+				D475CCFC23E953F200678A85 /* HighlightsManager.swift */,
+				D475CCFA23E9538300678A85 /* BookmarksManager.swift */,
+				D47156CD2411BC11002732A8 /* PurchaseManager.swift */,
+				D4DE983C240F602200D87829 /* StoreManager.swift */,
+				D475CCF623E9521200678A85 /* StoreObserver.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		D40B3E6D23E892B600276662 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -293,13 +310,6 @@
 				D40B3E7B23E896BA00276662 /* Constants.swift */,
 				D475CCEE23E9449600678A85 /* Utilities.swift */,
 				D41EC66D24034822001521D8 /* SpeechUtilities.swift */,
-				D430AFF02412F0BC007E9666 /* RealmManager.swift */,
-				D475CCF823E9534800678A85 /* AnnotationsManager.swift */,
-				D475CCFA23E9538300678A85 /* BookmarksManager.swift */,
-				D475CCFC23E953F200678A85 /* HighlightsManager.swift */,
-				D47156CD2411BC11002732A8 /* PurchaseManager.swift */,
-				D475CCF623E9521200678A85 /* StoreObserver.swift */,
-				D4DE983C240F602200D87829 /* StoreManager.swift */,
 				D41EC67324050876001521D8 /* HighlightChangeDelegate.swift */,
 				D41EC66924011328001521D8 /* SpeechViewDelegate.swift */,
 				D4EBF00023F906E200275624 /* SettingsViewDelegate.swift */,
@@ -309,6 +319,7 @@
 				D44FF28D23ECB3460014B30F /* BibleDictionaryBuilder.swift */,
 				D481DC3423F6657B00F166B7 /* JavaScriptFunctions.swift */,
 				D475CCF423E94EF700678A85 /* JavaScriptSnippets.swift */,
+				D402AD5A2426C44F003A781B /* Manager */,
 				D40B3E6E23E892C600276662 /* Controller */,
 				D40B3E6D23E892B600276662 /* Model */,
 				D475CCE323E92D2600678A85 /* View */,
@@ -617,6 +628,7 @@
 				D475CCF923E9534800678A85 /* AnnotationsManager.swift in Sources */,
 				D4EBEFFD23F8EF4700275624 /* SettingsViewController.swift in Sources */,
 				D475CCE523E92D5200678A85 /* MainNavigationBar.swift in Sources */,
+				D402AD5C2426C4A2003A781B /* AuthenticationManager.swift in Sources */,
 				D41EC66A24011328001521D8 /* SpeechViewDelegate.swift in Sources */,
 				D40B3E7223E8932900276662 /* Scripture.swift in Sources */,
 				D4EBF00123F906E200275624 /* SettingsViewDelegate.swift in Sources */,
