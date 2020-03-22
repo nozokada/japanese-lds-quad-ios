@@ -12,5 +12,12 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "loginViewTitle".localized
+    }
+    
+    @IBAction func signupButtonTapped(_ sender: Any) {
+        if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.signup) {
+            navigationController?.pushViewController(viewController, animated: true)
+        }
     }
 }

@@ -28,6 +28,7 @@ struct Constants {
         static let speech = "speech"
         static let purchase = "purchase"
         static let login = "login"
+        static let signup = "signup"
     }
     
     struct RestorationID {
