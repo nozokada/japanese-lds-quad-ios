@@ -12,7 +12,7 @@ class SignupViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "signupViewTitle".localized
+        navigationItem.title = "signupViewTitle".localized
     }
     
     @IBAction func cancelButtonTapped(_ sender: Any) {

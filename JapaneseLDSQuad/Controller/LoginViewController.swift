@@ -12,7 +12,7 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "loginViewTitle".localized
+        navigationItem.title = "loginViewTitle".localized
     }
     
     @IBAction func signupButtonTapped(_ sender: Any) {
