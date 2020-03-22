@@ -22,7 +22,7 @@
 "chapterTextFieldPlaceholder" = "章";
 "verseTextFieldPlaceholder" = "節";
 "profileViewTitle" = "プロフィール";
-"loginViewTitle" = "ログイン";
+"loginViewTitle" = "ログインする";
 "signupViewTitle" = "アカウントを作成する";
 
 "noBookmarksLabel" = "ブックマークはありません\n\n節の数字をタップして追加してください\nセルを左にスワイプすると削除できます";

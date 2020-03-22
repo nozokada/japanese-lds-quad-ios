@@ -15,7 +15,7 @@ class ProfileViewController: UIViewController {
         
         if !AuthenticationManager.shared.isAutheticated {
             if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.login) {
-                navigationController?.viewControllers = [viewController]
+                navigationController?.setViewControllers([viewController], animated: true)
             }
         }
     }
