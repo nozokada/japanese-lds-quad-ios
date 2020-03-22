@@ -10,6 +10,7 @@
 "searchTabBarItemTitle" = "Search";
 "bookmarksTabBarItemTitle" = "Bookmarks";
 "highlightsTabBarItemTitle" = "Highlights";
+"accountTabBarItemTitle" = "Account";
 
 "rootViewTitle" = "Scriptures";
 "standardWorksGroupedTableViewLabel" = "Standard Works";

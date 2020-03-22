@@ -11,6 +11,7 @@
 		2823B2C2E536200F4A8FEF0C /* Pods_JapaneseLDSQuad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ECEDEF8BAC9BC195B84BE19 /* Pods_JapaneseLDSQuad.framework */; };
 		5970B9E5A84ECB5D56E9BC60 /* Pods_JapaneseLDSQuad_JapaneseLDSQuadUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 494B9A96C68C50ECB05714B4 /* Pods_JapaneseLDSQuad_JapaneseLDSQuadUITests.framework */; };
 		D402AD5C2426C4A2003A781B /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D402AD5B2426C4A2003A781B /* AuthenticationManager.swift */; };
+		D402AD5E2426C6B8003A781B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D402AD5D2426C6B8003A781B /* LoginViewController.swift */; };
 		D40B3E6C23E7F89500276662 /* BookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40B3E6B23E7F89500276662 /* BookmarksViewController.swift */; };
 		D40B3E7023E892F900276662 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40B3E6F23E892F900276662 /* Book.swift */; };
 		D40B3E7223E8932900276662 /* Scripture.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40B3E7123E8932900276662 /* Scripture.swift */; };
@@ -102,6 +103,7 @@
 		B82BA37907BAA4E42C240009 /* Pods-JapaneseLDSQuadTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JapaneseLDSQuadTests.debug.xcconfig"; path = "Target Support Files/Pods-JapaneseLDSQuadTests/Pods-JapaneseLDSQuadTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B8D10CC9B7EA018F16C1F2A5 /* Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests.debug.xcconfig"; path = "Target Support Files/Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests/Pods-JapaneseLDSQuad-JapaneseLDSQuadUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D402AD5B2426C4A2003A781B /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		D402AD5D2426C6B8003A781B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D40B3E6B23E7F89500276662 /* BookmarksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewController.swift; sourceTree = "<group>"; };
 		D40B3E6F23E892F900276662 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		D40B3E7123E8932900276662 /* Scripture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scripture.swift; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 				D4DE983A240F4C4100D87829 /* PurchaseViewController.swift */,
 				D4EBEFFC23F8EF4700275624 /* SettingsViewController.swift */,
 				D4F9C6052421C4AC00F3910E /* ProfileViewController.swift */,
+				D402AD5D2426C6B8003A781B /* LoginViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -614,6 +617,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D402AD5E2426C6B8003A781B /* LoginViewController.swift in Sources */,
 				D40B3E6C23E7F89500276662 /* BookmarksViewController.swift in Sources */,
 				D4DE983D240F602200D87829 /* StoreManager.swift in Sources */,
 				D40B3E7C23E896BA00276662 /* Constants.swift in Sources */,

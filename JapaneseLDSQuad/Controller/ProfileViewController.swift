@@ -12,7 +12,11 @@ class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        if !AuthenticationManager.shared.isAutheticated {
+            if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.login) {
+                navigationController?.viewControllers = [viewController]
+            }
+        }
     }
 }

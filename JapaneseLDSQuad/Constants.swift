@@ -27,11 +27,11 @@ struct Constants {
         static let settings = "settings"
         static let speech = "speech"
         static let purchase = "purchase"
+        static let login = "login"
     }
     
     struct RestorationID {
         static let highlights = "highlights"
-        static let login = "login"
     }
     
     struct ReuseID {

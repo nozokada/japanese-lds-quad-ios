@@ -7,9 +7,13 @@
 //
 
 import Foundation
+import Firebase
 
 class AuthenticationManager {
     
     static let shared = AuthenticationManager()
     
+    var isAutheticated: Bool {
+        return Auth.auth().currentUser != nil
+    }
 }
