@@ -66,3 +66,7 @@
 "noRestorablePurchases" = "復元できる購入がありませんでした";
 "purchaseComplete" = "購入手続きが完了しました\nお買い上げありがとうございます";
 "restoreComplete" = "購入の復元が完了しました";
+
+"fillAllFields" = "すべての項目に記入してください";
+"loginError" = "ログインエラー";
+"signupError" = "アカウント作成エラー";

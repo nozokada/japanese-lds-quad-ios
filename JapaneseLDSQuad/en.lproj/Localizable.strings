@@ -66,3 +66,7 @@
 "noRestorablePurchases" = "There are no restorable purchases";
 "purchaseComplete" = "Purchase complete\nThank you for your purchase!";
 "restoreComplete" = "Restore complete!";
+
+"fillAllFields" = "Please fill in all fields";
+"loginError" = "Login Error";
+"signupError" = "Signup Error";

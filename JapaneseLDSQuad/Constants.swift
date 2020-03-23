@@ -47,6 +47,15 @@ struct Constants {
         static let allFeaturesPass = "com.nozokada.JapaneseLDSQuad.allFeaturesPass"
     }
     
+    struct CollectionName {
+        static let users = "users"
+    }
+    
+    struct FieldName {
+        static let username = "username"
+        static let createdTimestamp = "createdTimestamp"
+    }
+    
     struct Count {
         static let sectionsInBooksView = 1
         static let sectionsInTopBooksView = 2
