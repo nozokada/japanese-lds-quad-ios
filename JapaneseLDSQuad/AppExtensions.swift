@@ -8,6 +8,7 @@
 
 import AVFoundation
 import StoreKit
+import Firebase
 
 extension String {
     

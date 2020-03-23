@@ -76,7 +76,7 @@ extension BooksViewController: UITableViewDataSource {
                 ? "standardWorksGroupedTableViewLabel".localized
                 : "resourcesGroupedTableViewLabel".localized
         }
-        return Locale.current.languageCode == Constants.Language.primary
+        return Utilities.shared.getLanguage() == Constants.Language.primary
             ? targetBook.name_primary
             : targetBook.name_secondary
     }

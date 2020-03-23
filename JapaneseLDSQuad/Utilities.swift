@@ -70,6 +70,10 @@ class Utilities {
         return [Constants.RestorationID.highlights].contains(restorationIdentifider)
     }
     
+    func getLanguage() -> String? {
+        return Locale.current.languageCode
+    }
+    
     func getChapterIdFromChapterNumber(bookId: String, chapter: Int) -> String {
         return "\(bookId)\(String(chapter / 10, radix: 21).uppercased())\(String(chapter % 10))"
     }
