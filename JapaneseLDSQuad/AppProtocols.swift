@@ -30,3 +30,10 @@ protocol StoreObserverDelegate {
 
     func storeObserverDidReceiveMessage(_ message: String)
 }
+
+protocol AuthenticationManagerDelegate {
+    
+    func authenticationManagerDidSucceed()
+    
+    func authenticationManagerDidReceiveMessage(_ message: String)
+}

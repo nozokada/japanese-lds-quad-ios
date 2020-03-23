@@ -7,16 +7,33 @@
 //
 
 import UIKit
+import Firebase
 
 class ProfileViewController: UIViewController {
 
+    @IBOutlet weak var logoutButton: MainButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if !AuthenticationManager.shared.isAutheticated {
-            if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.login) {
-                navigationController?.setViewControllers([viewController], animated: true)
-            }
+            presentLoginViewController()
+        }
+    }
+    
+    fileprivate func presentLoginViewController() {
+        if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.login) {
+            navigationController?.setViewControllers([viewController], animated: false)
+        }
+    }
+    
+    @IBAction func logoutButtonTapped(_ sender: Any) {
+        do {
+            try Auth.auth().signOut()
+            presentLoginViewController()
+        }
+        catch let error as NSError {
+            debugPrint(error.localizedDescription)
         }
     }
 }

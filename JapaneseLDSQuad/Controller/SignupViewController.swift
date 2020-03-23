@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SignupViewController: UIViewController {
 
@@ -17,11 +18,12 @@ class SignupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        AuthenticationManager.shared.delegate = self
         navigationItem.title = "signupViewTitle".localized
     }
     
     fileprivate func alert(message: String, close: Bool = false) {
-        let title = "singupError".localized
+        let title = "signupError".localized
         let alertController = Utilities.shared.alert(view: view, title: title, message: message, handler: nil)
         present(alertController, animated: true, completion: nil)
     }
@@ -30,23 +32,29 @@ class SignupViewController: UIViewController {
         guard let email = emailTextField.text, !email.isEmpty,
             let password = passwordTextField.text, !password.isEmpty,
             let username = usernameTextField.text, !username.isEmpty else {
-                self.alert(message: "fillAllFields".localized)
+                alert(message: "fillAllFields".localized)
                 return
         }
         createAccountButton.disable()
-        AuthenticationManager.shared.createUser(email: email, password: password, username: username) { success, error in
-            if success {
-                self.navigationController?.popToRootViewController(animated: true)
-            } else {
-                if let error = error {
-                    self.alert(message: error.localizedDescription)
-                }
-            }
-            self.createAccountButton.enable()
-        }
+        AuthenticationManager.shared.createUser(email: email, password: password, username: username)
     }
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
         navigationController?.popToRootViewController(animated: true)
+    }
+}
+
+extension SignupViewController: AuthenticationManagerDelegate {
+    
+    func authenticationManagerDidSucceed() {
+        createAccountButton.enable()
+        if let viewController = navigationController?.viewControllers.first as? AuthenticationManagerDelegate {
+            viewController.authenticationManagerDidSucceed()
+        }
+    }
+    
+    func authenticationManagerDidReceiveMessage(_ message: String) {
+        createAccountButton.enable()
+        alert(message: message)
     }
 }

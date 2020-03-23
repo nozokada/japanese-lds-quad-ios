@@ -653,27 +653,33 @@
         <!--Profile View Controller-->
         <scene sceneID="v4v-9l-zYX">
             <objects>
-                <viewController id="jDN-fL-7r4" customClass="ProfileViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="profile" id="jDN-fL-7r4" customClass="ProfileViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aPE-Mx-tp8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is ProfileViewController" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8k2-4S-SuX">
-                                <rect key="frame" x="80.666666666666686" y="395.66666666666669" width="214" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tyl-XI-0u5" customClass="MainButton" customModule="JapaneseLDSQuad" customModuleProvider="target">
+                                <rect key="frame" x="100" y="386" width="175" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="P3B-hW-A4b"/>
+                                </constraints>
+                                <state key="normal" title="ログアウト"/>
+                                <connections>
+                                    <action selector="logoutButtonTapped:" destination="jDN-fL-7r4" eventType="touchUpInside" id="FcR-BN-Qlu"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="8k2-4S-SuX" firstAttribute="centerY" secondItem="aPE-Mx-tp8" secondAttribute="centerY" id="DzN-bb-xjt"/>
-                            <constraint firstItem="8k2-4S-SuX" firstAttribute="centerX" secondItem="aPE-Mx-tp8" secondAttribute="centerX" id="u0V-II-ecx"/>
+                            <constraint firstItem="tyl-XI-0u5" firstAttribute="centerY" secondItem="aPE-Mx-tp8" secondAttribute="centerY" id="KVD-Ta-UmF"/>
+                            <constraint firstItem="qoi-7Q-C7u" firstAttribute="trailing" secondItem="tyl-XI-0u5" secondAttribute="trailing" constant="100" id="fhW-oU-9P3"/>
+                            <constraint firstItem="tyl-XI-0u5" firstAttribute="leading" secondItem="qoi-7Q-C7u" secondAttribute="leading" constant="100" id="qWr-wf-K3y"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qoi-7Q-C7u"/>
                     </view>
                     <navigationItem key="navigationItem" id="1nA-k4-vt2"/>
                     <connections>
+                        <outlet property="logoutButton" destination="tyl-XI-0u5" id="aiH-Pq-yAK"/>
                         <segue destination="b6A-Oo-dWt" kind="show" id="viA-fR-PTO"/>
                     </connections>
                 </viewController>

@@ -11,17 +11,21 @@ import Firebase
 
 class AuthenticationManager {
     
+    var delegate: AuthenticationManagerDelegate?
+    
     static let shared = AuthenticationManager()
     
     var isAutheticated: Bool {
         return Auth.auth().currentUser != nil
     }
     
-    func createUser(email: String, password: String, username: String, completion: @escaping (Bool, Error?) -> ()) {
+    func createUser(email: String, password: String, username: String) {
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             guard let user = authResult?.user else {
                 debugPrint("Failed to create authentication")
-                completion(false, error)
+                if let error = error {
+                    self.handleAuthError(error)
+                }
                 return
             }
             let changeRequest = user.createProfileChangeRequest()
@@ -38,22 +42,31 @@ class AuthenticationManager {
             ]) { error in
                 if let error = error {
                     debugPrint("Failed to create user")
-                    completion(false, error)
+                    self.handleAuthError(error)
                 } else {
-                    completion(true, nil)
+                    self.delegate?.authenticationManagerDidSucceed()
                 }
             }
         }
     }
     
-    func signIn(email: String, password: String, completion: @escaping (Bool, Error?) -> ()) {
+    func signIn(email: String, password: String) {
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             if let error = error {
                 debugPrint("Failed to sign in")
-                completion(false, error)
+                self.handleAuthError(error)
             } else {
-                completion(true, nil)
+                self.delegate?.authenticationManagerDidSucceed()
             }
         }
+    }
+    
+    fileprivate func handleAuthError(_ error: Error) {
+        let error = error as NSError
+        var message = error.localizedDescription
+        if let authErrorCode = AuthErrorCode(rawValue: error.code) {
+            message = authErrorCode.getDescription(error: error)
+        }
+        self.delegate?.authenticationManagerDidReceiveMessage(message)
     }
 }
