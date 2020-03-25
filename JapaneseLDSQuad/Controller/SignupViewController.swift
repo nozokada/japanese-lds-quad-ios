@@ -18,8 +18,12 @@ class SignupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        AuthenticationManager.shared.delegate = self
         navigationItem.title = "signupViewTitle".localized
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        AuthenticationManager.shared.delegate = self
     }
     
     fileprivate func alert(message: String, close: Bool = false) {
