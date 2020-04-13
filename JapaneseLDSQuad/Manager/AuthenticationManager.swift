@@ -19,6 +19,10 @@ class AuthenticationManager {
         return Auth.auth().currentUser != nil
     }
     
+    var currentUser: User? {
+        return Auth.auth().currentUser
+    }
+    
     func createUser(email: String, password: String, username: String) {
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             guard let user = authResult?.user else {
