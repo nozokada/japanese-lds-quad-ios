@@ -687,7 +687,7 @@
             </objects>
             <point key="canvasLocation" x="1485.5999999999999" y="-1015.2709359605911"/>
         </scene>
-        <!--ログイン-->
+        <!--ログインする-->
         <scene sceneID="hf6-u9-Dyq">
             <objects>
                 <viewController storyboardIdentifier="login" id="b6A-Oo-dWt" customClass="LoginViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
@@ -756,7 +756,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ht6-se-MAu"/>
                     </view>
-                    <navigationItem key="navigationItem" title="ログイン" id="kBh-cO-VGL"/>
+                    <navigationItem key="navigationItem" title="ログインする" id="kBh-cO-VGL"/>
                     <connections>
                         <outlet property="emailTextField" destination="E7e-H5-QdN" id="RXE-G5-QnH"/>
                         <outlet property="loginButton" destination="g13-k6-SqF" id="021-bf-cwh"/>
