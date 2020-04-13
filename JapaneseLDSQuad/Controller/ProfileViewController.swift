@@ -13,12 +13,15 @@ class ProfileViewController: UIViewController {
 
     @IBOutlet weak var logoutButton: MainButton!
     
+    var user: User?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if !AuthenticationManager.shared.isAutheticated {
+        guard let user = AuthenticationManager.shared.currentUser else {
             presentLoginViewController()
+            return
         }
+        self.user = user
     }
     
     fileprivate func presentLoginViewController() {
@@ -28,12 +31,6 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func logoutButtonTapped(_ sender: Any) {
-        do {
-            try Auth.auth().signOut()
-            presentLoginViewController()
-        }
-        catch let error as NSError {
-            debugPrint(error.localizedDescription)
-        }
+        AuthenticationManager.shared.signOut(completion: self.presentLoginViewController)
     }
 }

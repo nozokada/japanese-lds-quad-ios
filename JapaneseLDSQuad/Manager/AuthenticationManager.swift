@@ -15,10 +15,6 @@ class AuthenticationManager {
     
     static let shared = AuthenticationManager()
     
-    var isAutheticated: Bool {
-        return Auth.auth().currentUser != nil
-    }
-    
     var currentUser: User? {
         return Auth.auth().currentUser
     }
@@ -62,6 +58,16 @@ class AuthenticationManager {
             } else {
                 self.delegate?.authenticationManagerDidSucceed()
             }
+        }
+    }
+    
+    func signOut(completion: @escaping () -> ()) {
+        do {
+            try Auth.auth().signOut()
+            completion()
+        }
+        catch let error as NSError {
+            handleAuthError(error)
         }
     }
     
