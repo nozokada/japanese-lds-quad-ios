@@ -42,7 +42,7 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func logoutButtonTapped(_ sender: Any) {
-        AuthenticationManager.shared.signOut(completion: self.presentLoginViewController)
+        AuthenticationManager.shared.signOut(completion: presentLoginViewController)
     }
 }
 
