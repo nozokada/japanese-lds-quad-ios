@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         initUserDefaults()
         RealmManager.shared.setUpRealm()
-        FirestoreManager.shared.getData()
+        FirestoreManager.shared.syncData()
         SKPaymentQueue.default().add(StoreObserver.shared)
         return true
     }

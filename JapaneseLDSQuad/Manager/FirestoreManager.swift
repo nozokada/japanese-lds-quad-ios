@@ -18,11 +18,14 @@ class FirestoreManager {
     let highlightedScripturesCollection = Firestore.firestore().collection("highlighted_scriptures")
     let highlightedTextsCollection = Firestore.firestore().collection("highlighted_texts")
     
-    func getData() {
+    func syncData() {
         guard let user = AuthenticationManager.shared.currentUser else {
             return
         }
         getBookmarks(userId: user.uid)
+        getHighlightedScriptures(userId: user.uid)
+        getHighlightedTexts(userId: user.uid)
+        
         UserDefaults.standard.set(Date(), forKey: Constants.Config.synced)
         print(Utilities.shared.lastSyncedDate)
     }
