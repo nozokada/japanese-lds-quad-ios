@@ -24,6 +24,17 @@ class ProfileViewController: UIViewController {
         self.user = user
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        AuthenticationManager.shared.delegate = self
+    }
+    
+    fileprivate func alert(message: String, close: Bool = false) {
+        let title = "logoutError".localized
+        let alertController = Utilities.shared.alert(view: view, title: title, message: message, handler: nil)
+        present(alertController, animated: true, completion: nil)
+    }
+    
     fileprivate func presentLoginViewController() {
         if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.login) {
             navigationController?.setViewControllers([viewController], animated: false)
@@ -32,5 +43,15 @@ class ProfileViewController: UIViewController {
     
     @IBAction func logoutButtonTapped(_ sender: Any) {
         AuthenticationManager.shared.signOut(completion: self.presentLoginViewController)
+    }
+}
+
+extension ProfileViewController: AuthenticationManagerDelegate {
+    
+    func authenticationManagerDidSucceed() {
+    }
+    
+    func authenticationManagerDidReceiveMessage(_ message: String) {
+        alert(message: message)
     }
 }

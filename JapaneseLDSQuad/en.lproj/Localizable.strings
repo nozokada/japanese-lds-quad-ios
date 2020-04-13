@@ -70,3 +70,4 @@
 "fillAllFields" = "Please fill in all fields";
 "loginError" = "Login Error";
 "signupError" = "Signup Error";
+"logoutError" = "Logout Error";

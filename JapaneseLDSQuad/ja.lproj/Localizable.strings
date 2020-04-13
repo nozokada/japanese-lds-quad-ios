@@ -70,3 +70,4 @@
 "fillAllFields" = "すべての項目に記入してください";
 "loginError" = "ログインエラー";
 "signupError" = "アカウント作成エラー";
+"logoutError" = "ログアアウトエラー";
