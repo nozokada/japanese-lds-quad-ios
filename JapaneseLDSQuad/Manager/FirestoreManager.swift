@@ -23,7 +23,8 @@ class FirestoreManager {
             return
         }
         getBookmarks(userId: user.uid)
-            
+        UserDefaults.standard.set(Date(), forKey: Constants.Config.synced)
+        print(Utilities.shared.lastSyncedDate)
     }
     
     fileprivate func getBookmarks(userId: String) {
@@ -41,6 +42,7 @@ class FirestoreManager {
     fileprivate func getHighlightedScriptures(userId: String) {
         let query = highlightedScripturesCollection.whereField("userId", isEqualTo: userId)
         getDocuments(query: query) { documents, error in
+            print("Highlighted scriptures were downloaded")
             if let documents = documents {
                 for document in documents {
                     print("\(document.documentID) => \(document.data())")
@@ -52,6 +54,7 @@ class FirestoreManager {
     fileprivate func getHighlightedTexts(userId: String) {
         let query = highlightedTextsCollection.whereField("userId", isEqualTo: userId)
         getDocuments(query: query) { documents, error in
+            print("Highlighted texts were downloaded")
             if let documents = documents {
                 for document in documents {
                     print("\(document.documentID) => \(document.data())")
