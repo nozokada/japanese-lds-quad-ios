@@ -30,8 +30,8 @@ class StoreObserver: NSObject {
     }
     
     fileprivate func handlePurchased(_ transaction: SKPaymentTransaction) {
-        #if Debug
-        debugPrint("Handling succeeded purchase")
+        #if DEBUG
+        print("Handling succeeded purchase")
         #endif
         let productIdentifier = transaction.payment.productIdentifier
         PurchaseManager.shared.unlockProduct(withIdentifier: productIdentifier)
@@ -42,8 +42,8 @@ class StoreObserver: NSObject {
     }
     
     fileprivate func handleFailed(_ transaction: SKPaymentTransaction) {
-        #if Debug
-        debugPrint("Handling failed purchase")
+        #if DEBUG
+        print("Handling failed purchase")
         #endif
         var message = "purchaseFailed".localized
         if let error = transaction.error {
@@ -84,8 +84,8 @@ extension StoreObserver: SKPaymentTransactionObserver {
     
     func paymentQueue(_ queue: SKPaymentQueue, removedTransactions transactions: [SKPaymentTransaction]) {
         for transaction in transactions {
-            #if Debug
-            debugPrint("\(transaction.payment.productIdentifier) was removed from the queue")
+            #if DEBUG
+            print("\(transaction.payment.productIdentifier) was removed from the queue")
             #endif
         }
     }

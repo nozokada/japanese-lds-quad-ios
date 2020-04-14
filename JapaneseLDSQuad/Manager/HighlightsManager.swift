@@ -29,8 +29,8 @@ class HighlightsManager: AnnotationsManager {
                                                                 date: NSDate())
                 try! realm.write {
                     realm.add(highlightedScripture)
-                    #if Debug
-                    debugPrint("Added highlighted scripture \(scripture.id) successfully")
+                    #if DEBUG
+                    print("Added highlighted scripture \(scripture.id) successfully")
                     #endif
                 }
                 addHighlightedText(id: textId, content: textContent, scripture: highlightedScripture)
@@ -49,8 +49,8 @@ class HighlightsManager: AnnotationsManager {
                                               date: NSDate())
         try! realm.write {
             realm.add(highlightedText)
-            #if Debug
-            debugPrint("Added highlighted text for scripture \(scripture.id) successfully")
+            #if DEBUG
+            print("Added highlighted text for scripture \(scripture.id) successfully")
             #endif
         }
     }
@@ -63,8 +63,8 @@ class HighlightsManager: AnnotationsManager {
             if highlightedScripture.highlighted_texts.count == 0 {
                 try! realm.write {
                     realm.delete(highlightedScripture)
-                    #if Debug
-                    debugPrint("Removed highlighted scripture successfully")
+                    #if DEBUG
+                    print("Removed highlighted scripture successfully")
                     #endif
                 }
             }
@@ -86,8 +86,8 @@ class HighlightsManager: AnnotationsManager {
     fileprivate func removeHighlightedText(highlightedTextToRemove: HighlightedText) {
         try! realm.write {
             realm.delete(highlightedTextToRemove)
-            #if Debug
-            debugPrint("Removed highlighted text for scripture successfully")
+            #if DEBUG
+            print("Removed highlighted text for scripture successfully")
             #endif
         }
     }

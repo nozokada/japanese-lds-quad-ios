@@ -18,13 +18,13 @@ class FirestoreManager {
     let bookmarksCollection = Firestore.firestore().collection("bookmarks")
     let highlightedScripturesCollection = Firestore.firestore().collection("highlighted_scriptures")
     let highlightedTextsCollection = Firestore.firestore().collection("highlighted_texts")
-    
+        
     func addBookmark(bookmark: Bookmark) {
         guard let user = AuthenticationManager.shared.currentUser else {
             return
         }
-        
-        usersCollection.document(user.uid).collection("bookmarks").document(bookmark.id).setData([
+        let bookmarksCollectionRef = usersCollection.document(user.uid).collection("bookmarks")
+        bookmarksCollectionRef.document(bookmark.id).setData([
             "createdAt": bookmark.date as NSDate,
         ]) { error in
             if let error = error {
@@ -39,8 +39,8 @@ class FirestoreManager {
         guard let user = AuthenticationManager.shared.currentUser else {
             return
         }
-        
-        usersCollection.document(user.uid).collection("bookmarks").document(bookmarkId).delete() { error in
+        let bookmarksCollectionRef = usersCollection.document(user.uid).collection("bookmarks")
+        bookmarksCollectionRef.document(bookmarkId).delete() { error in
             if let error = error {
                 print("Error removing document: \(error)")
             } else {

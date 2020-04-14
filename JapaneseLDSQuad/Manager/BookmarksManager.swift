@@ -18,8 +18,8 @@ class BookmarksManager: AnnotationsManager {
             if let bookmarkToRemove = realm.objects(Bookmark.self).filter("id = '\(scripture.id)'").first {
                 try! realm.write {
                     realm.delete(bookmarkToRemove)
-                    #if Debug
-                    debugPrint("Deleted bookmark for scripture \(scripture.id) successfully")
+                    #if DEBUG
+                    print("Deleted bookmark for scripture \(scripture.id) successfully")
                     #endif
                 }
                 FirestoreManager.shared.deleteBookmark(bookmarkId: id)
@@ -32,8 +32,8 @@ class BookmarksManager: AnnotationsManager {
                                              date: NSDate())
                 try! realm.write {
                     realm.add(bookmarkToAdd)
-                    #if Debug
-                    debugPrint("Added bookmark for scripture \(scripture.id) successfully")
+                    #if DEBUG
+                    print("Added bookmark for scripture \(scripture.id) successfully")
                     #endif
                 }
                 FirestoreManager.shared.addBookmark(bookmark: bookmarkToAdd)

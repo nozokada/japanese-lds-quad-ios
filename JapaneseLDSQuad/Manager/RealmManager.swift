@@ -59,8 +59,8 @@ class RealmManager {
             do {
                 try FileManager.default.removeItem(at: defaultRealmFileURL)
             } catch {
-                #if Debug
-                debugPrint("Failed to remove old default Realm file")
+                #if DEBUG
+                print("Failed to remove old default Realm file")
                 #endif
             }
         }
@@ -68,8 +68,8 @@ class RealmManager {
         do {
             try FileManager.default.moveItem(at: newRealmURL, to: defaultRealmFileURL)
         } catch {
-            #if Debug
-            debugPrint("Failed to rename new Realm file")
+            #if DEBUG
+            print("Failed to rename new Realm file")
             #endif
         }
     }
@@ -79,8 +79,8 @@ class RealmManager {
             do {
                 try FileManager.default.copyItem(at: bundleURL, to: newRealmURL)
             } catch {
-                #if Debug
-                debugPrint("Failed to copy Realm file from bundle")
+                #if DEBUG
+                print("Failed to copy Realm file from bundle")
                 #endif
             }
         }

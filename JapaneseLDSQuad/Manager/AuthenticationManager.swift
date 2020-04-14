@@ -22,7 +22,9 @@ class AuthenticationManager {
     func createUser(email: String, password: String, username: String) {
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             guard let user = authResult?.user else {
-                debugPrint("Failed to create authentication")
+                #if DEBUG
+                print("Failed to create authentication")
+                #endif
                 if let error = error {
                     self.handleAuthError(error)
                 }
@@ -32,7 +34,9 @@ class AuthenticationManager {
             changeRequest.displayName = username
             changeRequest.commitChanges() { error in
                 if let _ = error {
-                    debugPrint("Failed to change user display name")
+                    #if DEBUG
+                    print("Failed to change user display name")
+                    #endif
                 }
             }
             
@@ -41,7 +45,9 @@ class AuthenticationManager {
                 Constants.FieldName.createdTimestamp : FieldValue.serverTimestamp()
             ]) { error in
                 if let error = error {
-                    debugPrint("Failed to create user")
+                    #if DEBUG
+                    print("Failed to create user")
+                    #endif
                     self.handleAuthError(error)
                 } else {
                     self.delegate?.authenticationManagerDidSucceed()
@@ -53,7 +59,9 @@ class AuthenticationManager {
     func signIn(email: String, password: String) {
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             if let error = error {
-                debugPrint("Failed to sign in")
+                #if DEBUG
+                print("Failed to sign in")
+                #endif
                 self.handleAuthError(error)
             } else {
                 self.delegate?.authenticationManagerDidSucceed()
