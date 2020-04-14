@@ -14,9 +14,40 @@ class FirestoreManager {
     
     static let shared = FirestoreManager()
     
+    let usersCollection = Firestore.firestore().collection("users")
     let bookmarksCollection = Firestore.firestore().collection("bookmarks")
     let highlightedScripturesCollection = Firestore.firestore().collection("highlighted_scriptures")
     let highlightedTextsCollection = Firestore.firestore().collection("highlighted_texts")
+    
+    func addBookmark(bookmark: Bookmark) {
+        guard let user = AuthenticationManager.shared.currentUser else {
+            return
+        }
+        
+        usersCollection.document(user.uid).collection("bookmarks").document(bookmark.id).setData([
+            "createdAt": bookmark.date as NSDate,
+        ]) { error in
+            if let error = error {
+                print("Error writing document: \(error)")
+            } else {
+                print("Document successfully written!")
+            }
+        }
+    }
+    
+    func deleteBookmark(bookmarkId: String) {
+        guard let user = AuthenticationManager.shared.currentUser else {
+            return
+        }
+        
+        usersCollection.document(user.uid).collection("bookmarks").document(bookmarkId).delete() { error in
+            if let error = error {
+                print("Error removing document: \(error)")
+            } else {
+                print("Document successfully removed!")
+            }
+        }
+    }
     
     func syncData() {
         guard let user = AuthenticationManager.shared.currentUser else {

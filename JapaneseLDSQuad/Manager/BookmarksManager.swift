@@ -21,8 +21,8 @@ class BookmarksManager: AnnotationsManager {
                     #if Debug
                     debugPrint("Deleted bookmark for scripture \(scripture.id) successfully")
                     #endif
-                    
                 }
+                FirestoreManager.shared.deleteBookmark(bookmarkId: id)
             }
             else {
                 let bookmarkToAdd = Bookmark(id: scripture.id,
@@ -36,6 +36,7 @@ class BookmarksManager: AnnotationsManager {
                     debugPrint("Added bookmark for scripture \(scripture.id) successfully")
                     #endif
                 }
+                FirestoreManager.shared.addBookmark(bookmark: bookmarkToAdd)
             }
         }
     }
