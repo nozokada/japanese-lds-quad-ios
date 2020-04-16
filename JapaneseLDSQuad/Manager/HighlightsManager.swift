@@ -9,9 +9,11 @@
 import UIKit
 import RealmSwift
 
-class HighlightsManager: AnnotationsManager {
+class HighlightsManager {
     
     static let shared = HighlightsManager()
+    
+    lazy var realm = try! Realm()
     
     func addHighlight(textId: String, textContent: String, scriptureId: String, scriptureContent: String, language: String) {
         if let existingHighlightedScripture = realm.objects(HighlightedScripture.self).filter("id = '\(scriptureId)'").first {
@@ -41,8 +43,8 @@ class HighlightsManager: AnnotationsManager {
     
     private func addHighlightedText(id: String, content: String, scripture: HighlightedScripture) {
         let highlightedText = HighlightedText(id: id,
-                                              namePrimary: generateTitlePrimary(scripture: scripture.scripture),
-                                              nameSecondary: generateTitleSecondary(scripture: scripture.scripture),
+                                              namePrimary: Utilities.shared.generateTitlePrimary(scripture: scripture.scripture),
+                                              nameSecondary: Utilities.shared.generateTitleSecondary(scripture: scripture.scripture),
                                               text: content,
                                               note: "",
                                               highlightedScripture: scripture,
@@ -72,7 +74,7 @@ class HighlightsManager: AnnotationsManager {
     }
     
     fileprivate func ApplyHighlightChangeToScripture(id: String, content: String, language: String) {
-        if let scripture = getScripture(id: id) {
+        if let scripture = Utilities.shared.getScripture(id: id) {
             try! realm.write {
                 if language == Constants.Language.primary {
                     scripture.scripture_primary = content

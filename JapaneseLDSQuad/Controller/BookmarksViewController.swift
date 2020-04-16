@@ -22,6 +22,7 @@ class BookmarksViewController: UIViewController {
         realm = try! Realm()
         tableView.delegate = self
         tableView.dataSource = self
+        FirestoreManager.shared.delegate = self
         setSettingsBarButton()
         navigationItem.title = "bookmarksViewTitle".localized
         noBookmarksLabel = getNoBookmarksMessageLabel()
@@ -60,6 +61,12 @@ extension BookmarksViewController: SettingsViewDelegate {
     }
 }
 
+extension BookmarksViewController: FirestoreManagerDelegate {
+    func firestoreManagerDidSync() {
+        reload()
+    }
+}
+
 extension BookmarksViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -80,7 +87,7 @@ extension BookmarksViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            BookmarksManager.shared.updateBookmark(id: bookmarks[indexPath.row].id)
+            BookmarksManager.shared.update(id: bookmarks[indexPath.row].id)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             noBookmarksLabel.isHidden = bookmarks.count > 0
         }

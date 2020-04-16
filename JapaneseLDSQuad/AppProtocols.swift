@@ -37,3 +37,8 @@ protocol AuthenticationManagerDelegate {
     
     func authenticationManagerDidReceiveMessage(_ message: String)
 }
+
+protocol FirestoreManagerDelegate {
+    
+    func firestoreManagerDidSync()
+}

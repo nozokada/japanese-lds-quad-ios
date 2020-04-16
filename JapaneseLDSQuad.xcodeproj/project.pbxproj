@@ -56,7 +56,6 @@
 		D475CCEF23E9449600678A85 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCEE23E9449600678A85 /* Utilities.swift */; };
 		D475CCF523E94EF700678A85 /* JavaScriptSnippets.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCF423E94EF700678A85 /* JavaScriptSnippets.swift */; };
 		D475CCF723E9521200678A85 /* StoreObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCF623E9521200678A85 /* StoreObserver.swift */; };
-		D475CCF923E9534800678A85 /* AnnotationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCF823E9534800678A85 /* AnnotationsManager.swift */; };
 		D475CCFB23E9538300678A85 /* BookmarksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCFA23E9538300678A85 /* BookmarksManager.swift */; };
 		D475CCFD23E953F200678A85 /* HighlightsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D475CCFC23E953F200678A85 /* HighlightsManager.swift */; };
 		D47EFBC423FE4579001E213F /* HighlightSmallTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47EFBC323FE4579001E213F /* HighlightSmallTextLabel.swift */; };
@@ -159,7 +158,6 @@
 		D475CCEE23E9449600678A85 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		D475CCF423E94EF700678A85 /* JavaScriptSnippets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaScriptSnippets.swift; sourceTree = "<group>"; };
 		D475CCF623E9521200678A85 /* StoreObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreObserver.swift; sourceTree = "<group>"; };
-		D475CCF823E9534800678A85 /* AnnotationsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationsManager.swift; sourceTree = "<group>"; };
 		D475CCFA23E9538300678A85 /* BookmarksManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksManager.swift; sourceTree = "<group>"; };
 		D475CCFC23E953F200678A85 /* HighlightsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightsManager.swift; sourceTree = "<group>"; };
 		D47EFBC323FE4579001E213F /* HighlightSmallTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightSmallTextLabel.swift; sourceTree = "<group>"; };
@@ -240,7 +238,6 @@
 				D430AFF02412F0BC007E9666 /* RealmManager.swift */,
 				D45D07BF24441BE90042406E /* FirestoreManager.swift */,
 				D402AD5B2426C4A2003A781B /* AuthenticationManager.swift */,
-				D475CCF823E9534800678A85 /* AnnotationsManager.swift */,
 				D475CCFC23E953F200678A85 /* HighlightsManager.swift */,
 				D475CCFA23E9538300678A85 /* BookmarksManager.swift */,
 				D47156CD2411BC11002732A8 /* PurchaseManager.swift */,
@@ -636,7 +633,6 @@
 				D475CCEB23E934F200678A85 /* ContentViewController.swift in Sources */,
 				D475CCE223E9293700678A85 /* MainNavigationController.swift in Sources */,
 				D4F9C6062421C4AC00F3910E /* ProfileViewController.swift in Sources */,
-				D475CCF923E9534800678A85 /* AnnotationsManager.swift in Sources */,
 				D4EBEFFD23F8EF4700275624 /* SettingsViewController.swift in Sources */,
 				D45D07C024441BE90042406E /* FirestoreManager.swift in Sources */,
 				D475CCE523E92D5200678A85 /* MainNavigationBar.swift in Sources */,

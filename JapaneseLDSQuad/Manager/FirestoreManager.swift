@@ -12,38 +12,40 @@ import Firebase
 
 class FirestoreManager {
     
+    var delegate: FirestoreManagerDelegate?
+    
     static let shared = FirestoreManager()
     
     let usersCollection = Firestore.firestore().collection(Constants.CollectionName.users)
         
-    func addBookmark(bookmark: Bookmark) {
+    func addBookmark(_ bookmark: Bookmark) {
         guard let user = AuthenticationManager.shared.currentUser else {
             return
         }
         let collectionName = Constants.CollectionName.bookmarks
         let bookmarksCollectionRef = usersCollection.document(user.uid).collection(collectionName)
         bookmarksCollectionRef.document(bookmark.id).setData([
-            "createdAt": bookmark.date as NSDate,
+            "createdAt": bookmark.date as Date,
         ]) { error in
             if let error = error {
                 print("Error writing document: \(error)")
             } else {
-                print("Document successfully written!")
+                print("Bookmark was successfully added to Firestore")
             }
         }
     }
     
-    func deleteBookmark(bookmarkId: String) {
+    func deleteBookmark(id: String) {
         guard let user = AuthenticationManager.shared.currentUser else {
             return
         }
         let collectionName = Constants.CollectionName.bookmarks
         let bookmarksCollectionRef = usersCollection.document(user.uid).collection(collectionName)
-        bookmarksCollectionRef.document(bookmarkId).delete() { error in
+        bookmarksCollectionRef.document(id).delete() { error in
             if let error = error {
                 print("Error removing document: \(error)")
             } else {
-                print("Document successfully removed!")
+                print("Bookmark was successfully removed from Firestore")
             }
         }
     }
@@ -52,23 +54,46 @@ class FirestoreManager {
         guard let user = AuthenticationManager.shared.currentUser else {
             return
         }
-        syncBookmarks(userId: user.uid)
-        syncHighlightedScriptures(userId: user.uid)
-        syncHighlightedTexts(userId: user.uid)
         
-        UserDefaults.standard.set(Date(), forKey: Constants.Config.synced)
-        print(Utilities.shared.lastSyncedDate)
+        if Utilities.shared.lastFetchedDate == Date.distantPast {
+            print("Do full sync")
+            updateLastFetchedDate()
+        } else {
+            print("Do incremental sync")
+        }
+        syncBookmarks(userId: user.uid)
+//        syncHighlightedScriptures(userId: user.uid)
+//        syncHighlightedTexts(userId: user.uid)
+    }
+    
+    fileprivate func updateLastFetchedDate() {
+        UserDefaults.standard.set(Date(), forKey: Constants.Config.fetched)
+        print("Data was updated at \(Utilities.shared.lastFetchedDate)")
     }
     
     fileprivate func syncBookmarks(userId: String) {
         let collectionName = Constants.CollectionName.bookmarks
-        let bookmarksCollectionRef = usersCollection.document(userId).collection(collectionName)
-        getDocuments(query: bookmarksCollectionRef) { documents, error in
-            print("Bookmarks were downloaded")
-            if let documents = documents {
-                for document in documents {
-                    print("\(document.documentID) => \(document.data())")
+        usersCollection.document(userId).collection(collectionName).addSnapshotListener() { querySnapshot, error in
+            guard let snapshot = querySnapshot else {
+                return
+            }
+            
+            let source = snapshot.metadata.hasPendingWrites ? "<Local>" : "<Server>"
+            print(source)
+            
+            snapshot.documentChanges.forEach { diff in
+                let id = diff.document.documentID
+                if (diff.type == .removed) {
+                    print("Detected bookmark \(diff.document.documentID) was removed from Firestore")
+                    let _ = BookmarksManager.shared.delete(bookmarkId: id)
                 }
+                if (diff.type == .added) {
+                    print("Detected bookmark \(diff.document.documentID) was added to Firestore")
+                    let createdTimestamp = diff.document.data()["createdAt"] as! Timestamp
+                    let createdAt = createdTimestamp.dateValue() as NSDate
+                    let _ = BookmarksManager.shared.add(scriptureId: id, createdAt: createdAt)
+                }
+                self.delegate?.firestoreManagerDidSync()
             }
         }
     }

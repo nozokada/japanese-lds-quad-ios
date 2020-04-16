@@ -14,6 +14,8 @@ class Utilities {
     
     static let shared = Utilities()
     
+    lazy var realm = try! Realm()
+    
     var alternativeFontEnabled: Bool {
         return UserDefaults.standard.bool(forKey: Constants.Config.font)
     }
@@ -38,8 +40,8 @@ class Utilities {
         return UserDefaults.standard.float(forKey: Constants.Config.rate)
     }
     
-    var lastSyncedDate: Date {
-        return UserDefaults.standard.object(forKey: Constants.Config.synced) as! Date
+    var lastFetchedDate: Date {
+        return UserDefaults.standard.object(forKey: Constants.Config.fetched) as! Date
     }
     
     func getFont(multiplySizeBy: Float = 1) -> UIFont? {
@@ -89,6 +91,32 @@ class Utilities {
     func getChapterNumberFromScriptureId(id: String) -> Int {
         let chapter = id.prefix(4).suffix(2)
         return Int(String(chapter.first!), radix: 21)! * 10 + Int(String(chapter.last!))!
+    }
+    
+    func getScripture(id: String) -> Scripture? {
+        if let scripture = realm.objects(Scripture.self).filter("id = '\(id)'").first {
+            return scripture
+        }
+        return nil
+    }
+    
+    func generateTitlePrimary(scripture: Scripture) -> String {
+        if scripture.parent_book.link.hasPrefix("gs") || scripture.parent_book.link.hasPrefix("jst") {
+            if let title = Utilities.shared.getScripture(id: "\(scripture.id.prefix(4))title") {
+                return "\(title.scripture_primary.tagsRemoved.verseAfterColonRemoved) : \(scripture.verse)"
+            }
+        }
+        return "\(scripture.parent_book.name_primary) \(scripture.chapter) : \(scripture.verse)"
+    }
+    
+    func generateTitleSecondary(scripture: Scripture) -> String {
+        if scripture.parent_book.link.hasPrefix("gs") || scripture.parent_book.link.hasPrefix("jst") {
+            if let title = Utilities.shared.getScripture(id: "\(scripture.id.prefix(4))title") {
+                let titleSecondary = title.scripture_secondary.isEmpty ? title.scripture_primary : title.scripture_secondary
+                return "\(titleSecondary.tagsRemoved.verseAfterColonRemoved) : \(scripture.verse)"
+            }
+        }
+        return "\(scripture.parent_book.name_secondary) \(scripture.chapter) : \(scripture.verse)"
     }
     
     func getContentType(targetBook: Book) -> String {
