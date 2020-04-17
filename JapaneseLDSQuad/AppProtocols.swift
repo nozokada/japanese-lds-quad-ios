@@ -40,5 +40,5 @@ protocol AuthenticationManagerDelegate {
 
 protocol FirestoreManagerDelegate {
     
-    func firestoreManagerDidSync()
+    func firestoreManagerDidSyncBookmarks()
 }

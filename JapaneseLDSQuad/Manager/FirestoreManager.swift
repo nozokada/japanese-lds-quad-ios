@@ -30,7 +30,7 @@ class FirestoreManager {
             if let error = error {
                 print("Error writing document: \(error)")
             } else {
-                print("Bookmark was successfully added to Firestore")
+                print("Bookmark \(bookmark.id) was successfully added to Firestore")
             }
         }
     }
@@ -45,7 +45,7 @@ class FirestoreManager {
             if let error = error {
                 print("Error removing document: \(error)")
             } else {
-                print("Bookmark was successfully removed from Firestore")
+                print("Bookmark \(id) was successfully removed from Firestore")
             }
         }
     }
@@ -84,17 +84,17 @@ class FirestoreManager {
             snapshot.documentChanges.forEach { diff in
                 let id = diff.document.documentID
                 if (diff.type == .removed) {
-                    print("Detected bookmark \(diff.document.documentID) was removed from Firestore")
+                    print("Bookmark \(diff.document.documentID) was removed from Firestore")
                     let _ = BookmarksManager.shared.delete(bookmarkId: id)
                 }
-                if (diff.type == .added) {
-                    print("Detected bookmark \(diff.document.documentID) was added to Firestore")
+                if (diff.type == .added || diff.type == .modified) {
+                    print("Bookmark \(diff.document.documentID) was added or modified in Firestore")
                     let createdTimestamp = diff.document.data()["createdAt"] as! Timestamp
-                    let createdAt = createdTimestamp.dateValue() as NSDate
-                    let _ = BookmarksManager.shared.add(scriptureId: id, createdAt: createdAt)
+                    let createdAt = createdTimestamp.dateValue()
+                    BookmarksManager.shared.add(scriptureId: id, createdAt: createdAt)
                 }
-                self.delegate?.firestoreManagerDidSync()
             }
+            self.delegate?.firestoreManagerDidSyncBookmarks()
         }
     }
     

@@ -94,10 +94,11 @@ class Utilities {
     }
     
     func getScripture(id: String) -> Scripture? {
-        if let scripture = realm.objects(Scripture.self).filter("id = '\(id)'").first {
-            return scripture
-        }
-        return nil
+        return realm.object(ofType: Scripture.self, forPrimaryKey: id)
+    }
+    
+    func getBookmark(id: String) -> Bookmark? {
+        return realm.object(ofType: Bookmark.self, forPrimaryKey: id)
     }
     
     func generateTitlePrimary(scripture: Scripture) -> String {

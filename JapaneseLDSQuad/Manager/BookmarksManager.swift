@@ -15,57 +15,51 @@ class BookmarksManager {
     
     lazy var realm = try! Realm()
     
-    func exists(scriptureId: String) -> Bookmark? {
-        return realm.object(ofType: Bookmark.self, forPrimaryKey: scriptureId)
-    }
-    
-    func add(scriptureId: String, createdAt: NSDate = NSDate()) -> Bookmark? {
-        if let _ = exists(scriptureId: scriptureId) {
-            print("Bookmark \(scriptureId) already exists")
-            return nil
-        }
-        
+    func add(scriptureId: String, createdAt: Date = Date(), completion: ((Bookmark) -> ())? = nil) {
         guard let scripture = Utilities.shared.getScripture(id: scriptureId) else {
-            return nil
+            return
+        }
+        if let bookmark = Utilities.shared.getBookmark(id: scriptureId) {
+            if bookmark.date as Date >= createdAt {
+                print("Bookmark \(bookmark.id) already exists")
+                return
+            }
+            let _ = delete(bookmarkId: bookmark.id)
         }
         let bookmarkToAdd = Bookmark(
             id: scripture.id,
             namePrimary: Utilities.shared.generateTitlePrimary(scripture: scripture),
             nameSecondary: Utilities.shared.generateTitleSecondary(scripture: scripture),
             scripture: scripture,
-            date: createdAt
+            date: createdAt as NSDate
         )
         try! realm.write {
             realm.add(bookmarkToAdd)
         }
         #if DEBUG
-        print("Added bookmark for scripture \(scriptureId) successfully")
+        print("Bookmark \(scriptureId) was added successfully")
         #endif
-        return bookmarkToAdd
+        completion?(bookmarkToAdd)
     }
     
-    func delete(bookmarkId: String) -> Bool {
-        guard let bookmarkToRemove = exists(scriptureId: bookmarkId) else {
-            print("Bookmark \(bookmarkId) was already removed")
+    func delete(bookmarkId: String, completion: ((String) -> ())? = nil) -> Bool {
+        guard let bookmarkToRemove = Utilities.shared.getBookmark(id: bookmarkId) else {
+            print("Bookmark \(bookmarkId) was already deleted")
             return false
         }
-        
         try! realm.write {
             realm.delete(bookmarkToRemove)
         }
         #if DEBUG
-        print("Deleted bookmark \(bookmarkId) successfully")
+        print("Bookmark \(bookmarkId) was deleted successfully")
         #endif
+        completion?(bookmarkId)
         return true
     }
     
     func update(id: String) {
-        if delete(bookmarkId: id) {
-            FirestoreManager.shared.deleteBookmark(id: id)
-            return
-        }
-        if let bookmark = add(scriptureId: id) {
-            FirestoreManager.shared.addBookmark(bookmark)
+        if !delete(bookmarkId: id, completion: FirestoreManager.shared.deleteBookmark) {
+            add(scriptureId: id, completion:FirestoreManager.shared.addBookmark)
         }
     }
 }
