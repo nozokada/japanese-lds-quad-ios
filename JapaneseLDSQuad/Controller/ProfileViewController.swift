@@ -9,9 +9,10 @@
 import UIKit
 import Firebase
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UITableViewController {
 
     @IBOutlet weak var logoutButton: MainButton!
+    @IBOutlet weak var syncSwitch: UIButton!
     
     var user: User?
     
@@ -22,11 +23,17 @@ class ProfileViewController: UIViewController {
             return
         }
         self.user = user
+        setSyncSwitchState()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         AuthenticationManager.shared.delegate = self
+    }
+    
+    fileprivate func setSyncSwitchState() {
+        let state = FirestoreManager.shared.syncEnabled
+        syncSwitch.setImage(state ? #imageLiteral(resourceName: "ToggleOn") : #imageLiteral(resourceName: "ToggleOff"), for: .normal)
     }
     
     fileprivate func alert(message: String, close: Bool = false) {
@@ -39,6 +46,11 @@ class ProfileViewController: UIViewController {
         if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.login) {
             navigationController?.setViewControllers([viewController], animated: false)
         }
+    }
+    
+    @IBAction func syncSwitchToggled(_ sender: Any) {
+        let state = FirestoreManager.shared.syncEnabled
+        UserDefaults.standard.set(!state, forKey: Constants.Config.sync)
     }
     
     @IBAction func logoutButtonTapped(_ sender: Any) {

@@ -74,14 +74,13 @@ class SettingsViewController: UITableViewController {
         dualModeSwitch.setImage(state ? #imageLiteral(resourceName: "ToggleOn") : #imageLiteral(resourceName: "ToggleOff"), for: .normal)
     }
     
-    
     fileprivate func setTextSizeStepperValue() {
         textSizeStepper.value = Utilities.shared.fontSizeMultiplier
     }
     
     fileprivate func setSideBySideModeSwitchState() {
-        let currState = Utilities.shared.sideBySideEnabled
-        sideBySideModeSwitch.setImage(currState ? #imageLiteral(resourceName: "ToggleOn") : #imageLiteral(resourceName: "ToggleOff"), for: .normal)
+        let state = Utilities.shared.sideBySideEnabled
+        sideBySideModeSwitch.setImage(state ? #imageLiteral(resourceName: "ToggleOn") : #imageLiteral(resourceName: "ToggleOff"), for: .normal)
     }
     
     fileprivate func setTextSizeStepperImages() {
