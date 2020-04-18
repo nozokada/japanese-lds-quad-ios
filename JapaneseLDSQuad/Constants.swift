@@ -75,8 +75,9 @@ struct Constants {
         static let side = "sideBySideEnabled"
         static let size = "fontSize"
         static let rate = "speechRate"
-        static let fetched = "lastFetchedAt"
+        static let sync = "syncEnabled"
         static let pass = "passPurchased"
+        static let fetched = "lastFetchedAt"
     }
     
     struct Language {

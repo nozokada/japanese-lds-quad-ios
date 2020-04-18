@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         initUserDefaults()
         RealmManager.shared.setUpRealm()
         FirestoreManager.shared.syncData()
+//        PurchaseManager.shared.unlockProduct(withIdentifier: Constants.ProductID.allFeaturesPass)
         SKPaymentQueue.default().add(StoreObserver.shared)
         return true
     }
@@ -54,6 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserDefaults.standard.register(defaults: [Constants.Config.size: 1.0])
         UserDefaults.standard.register(defaults: [Constants.Config.rate: 1.0])
         UserDefaults.standard.register(defaults: [Constants.Config.pass: false])
+        UserDefaults.standard.register(defaults: [Constants.Config.sync: false])
         UserDefaults.standard.register(defaults: [Constants.Config.fetched: Date.distantPast])
     }
 }

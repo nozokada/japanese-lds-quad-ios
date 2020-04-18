@@ -12,11 +12,8 @@ class PurchaseManager: NSObject {
     
     static let shared = PurchaseManager()
     
-    var allFeaturesUnlocked = false
-    
-    private override init() {
-        super.init()
-        allFeaturesUnlocked = UserDefaults.standard.bool(forKey: Constants.Config.pass)
+    var allFeaturesUnlocked: Bool {
+        return UserDefaults.standard.bool(forKey: Constants.Config.pass)
     }
     
     func unlockProduct(withIdentifier productIdentifier: String) {
@@ -30,6 +27,5 @@ class PurchaseManager: NSObject {
     
     fileprivate func enableAllFeatures() {
         UserDefaults.standard.set(true, forKey: Constants.Config.pass)
-        allFeaturesUnlocked = true
     }
 }

@@ -17,6 +17,14 @@ class FirestoreManager {
     static let shared = FirestoreManager()
     
     let usersCollection = Firestore.firestore().collection(Constants.CollectionName.users)
+    
+    var syncEnabled: Bool {
+        return UserDefaults.standard.bool(forKey: Constants.Config.sync)
+    }
+    
+    func enableSync() {
+        UserDefaults.standard.set(true, forKey: Constants.Config.sync)
+    }
         
     func addBookmark(_ bookmark: Bookmark) {
         guard let user = AuthenticationManager.shared.currentUser else {
