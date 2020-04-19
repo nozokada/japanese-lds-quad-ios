@@ -13,52 +13,30 @@ import Firebase
 class FirestoreManager {
     
     var delegate: FirestoreManagerDelegate?
+    var bookmarkLstener: ListenerRegistration?
     
     static let shared = FirestoreManager()
     
     let usersCollection = Firestore.firestore().collection(Constants.CollectionName.users)
     
     var syncEnabled: Bool {
-        return UserDefaults.standard.bool(forKey: Constants.Config.sync)
-    }
-    
-    func enableSync() {
-        UserDefaults.standard.set(true, forKey: Constants.Config.sync)
-    }
-        
-    func addBookmark(_ bookmark: Bookmark) {
-        guard let user = AuthenticationManager.shared.currentUser else {
-            return
+        get {
+            return UserDefaults.standard.bool(forKey: Constants.Config.sync)
         }
-        let collectionName = Constants.CollectionName.bookmarks
-        let bookmarksCollectionRef = usersCollection.document(user.uid).collection(collectionName)
-        bookmarksCollectionRef.document(bookmark.id).setData([
-            "createdAt": bookmark.date as Date,
-        ]) { error in
-            if let error = error {
-                print("Error writing document: \(error)")
-            } else {
-                print("Bookmark \(bookmark.id) was successfully added to Firestore")
-            }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Constants.Config.sync)
         }
     }
     
-    func deleteBookmark(id: String) {
-        guard let user = AuthenticationManager.shared.currentUser else {
-            return
-        }
-        let collectionName = Constants.CollectionName.bookmarks
-        let bookmarksCollectionRef = usersCollection.document(user.uid).collection(collectionName)
-        bookmarksCollectionRef.document(id).delete() { error in
-            if let error = error {
-                print("Error removing document: \(error)")
-            } else {
-                print("Bookmark \(id) was successfully removed from Firestore")
-            }
+    func sync() {
+        if syncEnabled {
+            startSync()
+        } else {
+            stopSync()
         }
     }
     
-    func syncData() {
+    fileprivate func startSync() {
         guard let user = AuthenticationManager.shared.currentUser else {
             return
         }
@@ -74,14 +52,13 @@ class FirestoreManager {
 //        syncHighlightedTexts(userId: user.uid)
     }
     
-    fileprivate func updateLastFetchedDate() {
-        UserDefaults.standard.set(Date(), forKey: Constants.Config.fetched)
-        print("Data was updated at \(Utilities.shared.lastFetchedDate)")
+    fileprivate func stopSync() {
+        bookmarkLstener?.remove()
     }
     
     fileprivate func syncBookmarks(userId: String) {
         let collectionName = Constants.CollectionName.bookmarks
-        usersCollection.document(userId).collection(collectionName).addSnapshotListener() { querySnapshot, error in
+        bookmarkLstener = usersCollection.document(userId).collection(collectionName).addSnapshotListener() { querySnapshot, error in
             guard let snapshot = querySnapshot else {
                 return
             }
@@ -141,5 +118,42 @@ class FirestoreManager {
             }
             completion(documents, nil)
         }
+    }
+    
+    func addBookmark(_ bookmark: Bookmark) {
+        guard let user = AuthenticationManager.shared.currentUser else {
+            return
+        }
+        let collectionName = Constants.CollectionName.bookmarks
+        let bookmarksCollectionRef = usersCollection.document(user.uid).collection(collectionName)
+        bookmarksCollectionRef.document(bookmark.id).setData([
+            "createdAt": bookmark.date as Date,
+        ]) { error in
+            if let error = error {
+                print("Error writing document: \(error)")
+            } else {
+                print("Bookmark \(bookmark.id) was successfully added to Firestore")
+            }
+        }
+    }
+    
+    func deleteBookmark(id: String) {
+        guard let user = AuthenticationManager.shared.currentUser else {
+            return
+        }
+        let collectionName = Constants.CollectionName.bookmarks
+        let bookmarksCollectionRef = usersCollection.document(user.uid).collection(collectionName)
+        bookmarksCollectionRef.document(id).delete() { error in
+            if let error = error {
+                print("Error removing document: \(error)")
+            } else {
+                print("Bookmark \(id) was successfully removed from Firestore")
+            }
+        }
+    }
+    
+    fileprivate func updateLastFetchedDate() {
+        UserDefaults.standard.set(Date(), forKey: Constants.Config.fetched)
+        print("Data was updated at \(Utilities.shared.lastFetchedDate)")
     }
 }
