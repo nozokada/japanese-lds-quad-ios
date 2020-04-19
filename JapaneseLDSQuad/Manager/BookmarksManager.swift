@@ -15,6 +15,14 @@ class BookmarksManager {
     
     lazy var realm = try! Realm()
     
+    func get(bookmarkId: String) -> Bookmark? {
+        return realm.object(ofType: Bookmark.self, forPrimaryKey: bookmarkId)
+    }
+    
+    func getAll(sortBy: String = "date", ascending: Bool = false) -> Results<Bookmark> {
+        return realm.objects(Bookmark.self).sorted(byKeyPath: sortBy, ascending: ascending)
+    }
+    
     func add(scriptureId: String, createdAt: Date = Date(), completion: ((Bookmark) -> ())? = nil) {
         guard let scripture = Utilities.shared.getScripture(id: scriptureId) else {
             return
@@ -43,7 +51,7 @@ class BookmarksManager {
     }
     
     func delete(bookmarkId: String, completion: ((String) -> ())? = nil) -> Bool {
-        guard let bookmarkToRemove = Utilities.shared.getBookmark(id: bookmarkId) else {
+        guard let bookmarkToRemove = get(bookmarkId: bookmarkId) else {
             print("Bookmark \(bookmarkId) was already deleted")
             return false
         }

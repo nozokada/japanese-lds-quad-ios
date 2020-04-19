@@ -26,7 +26,7 @@ class BookmarksViewController: UIViewController {
         setSettingsBarButton()
         navigationItem.title = "bookmarksViewTitle".localized
         noBookmarksLabel = getNoBookmarksMessageLabel()
-        bookmarks = realm.objects(Bookmark.self).sorted(byKeyPath: "date")
+        bookmarks = BookmarksManager.shared.getAll()
     }
     
     override func viewWillAppear(_ animated: Bool) {

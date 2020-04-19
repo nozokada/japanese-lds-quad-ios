@@ -78,7 +78,12 @@ class FirestoreManager {
                 }
             }
             self.delegate?.firestoreManagerDidFetchBookmarks()
+            self.updateLastSyncedDate()
         }
+    }
+    
+    fileprivate func pushBookmarks(userId: String) {
+        let bookmarks = BookmarksManager.shared.getAll()
     }
     
 //    fileprivate func syncHighlightedScriptures(userId: String) {
