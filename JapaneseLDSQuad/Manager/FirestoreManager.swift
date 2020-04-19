@@ -13,7 +13,7 @@ import Firebase
 class FirestoreManager {
     
     var delegate: FirestoreManagerDelegate?
-    var bookmarkLstener: ListenerRegistration?
+    var bookmarkListener: ListenerRegistration?
     
     static let shared = FirestoreManager()
     
@@ -41,24 +41,22 @@ class FirestoreManager {
             return
         }
         
-        if Utilities.shared.lastFetchedDate == Date.distantPast {
+        if Utilities.shared.lastSyncedDate == Date.distantPast {
             print("Do full sync")
-            updateLastFetchedDate()
+            updateLastSyncedDate()
         } else {
             print("Do incremental sync")
         }
-        syncBookmarks(userId: user.uid)
-//        syncHighlightedScriptures(userId: user.uid)
-//        syncHighlightedTexts(userId: user.uid)
+        fetchBookmarks(userId: user.uid)
     }
     
     fileprivate func stopSync() {
-        bookmarkLstener?.remove()
+        bookmarkListener?.remove()
     }
     
-    fileprivate func syncBookmarks(userId: String) {
+    fileprivate func fetchBookmarks(userId: String) {
         let collectionName = Constants.CollectionName.bookmarks
-        bookmarkLstener = usersCollection.document(userId).collection(collectionName).addSnapshotListener() { querySnapshot, error in
+        bookmarkListener = usersCollection.document(userId).collection(collectionName).addSnapshotListener() { querySnapshot, error in
             guard let snapshot = querySnapshot else {
                 return
             }
@@ -79,46 +77,46 @@ class FirestoreManager {
                     BookmarksManager.shared.add(scriptureId: id, createdAt: createdAt)
                 }
             }
-            self.delegate?.firestoreManagerDidSyncBookmarks()
+            self.delegate?.firestoreManagerDidFetchBookmarks()
         }
     }
     
-    fileprivate func syncHighlightedScriptures(userId: String) {
-        let collectionName = Constants.CollectionName.highlightedScriptures
-        let highlightedScripturesCollectionRef = usersCollection.document(userId).collection(collectionName)
-        getDocuments(query: highlightedScripturesCollectionRef) { documents, error in
-            print("Highlighted scriptures were downloaded")
-            if let documents = documents {
-                for document in documents {
-                    print("\(document.documentID) => \(document.data())")
-                }
-            }
-        }
-    }
-    
-    fileprivate func syncHighlightedTexts(userId: String) {
-        let collectionName = Constants.CollectionName.highlightedTexts
-        let highlightedTextsCollectionRef = usersCollection.document(userId).collection(collectionName)
-        getDocuments(query: highlightedTextsCollectionRef) { documents, error in
-            print("Highlighted texts were downloaded")
-            if let documents = documents {
-                for document in documents {
-                    print("\(document.documentID) => \(document.data())")
-                }
-            }
-        }
-    }
-    
-    fileprivate func getDocuments(query: Query, completion: @escaping ([DocumentSnapshot]?, Error?) -> ()) {
-        query.getDocuments() { querySnapshot, error in
-            guard let documents = querySnapshot?.documents else {
-                print("Failed to get spot top photo")
-                completion(nil, error)
-                return
-            }
-            completion(documents, nil)
-        }
-    }
+//    fileprivate func syncHighlightedScriptures(userId: String) {
+//        let collectionName = Constants.CollectionName.highlightedScriptures
+//        let highlightedScripturesCollectionRef = usersCollection.document(userId).collection(collectionName)
+//        getDocuments(query: highlightedScripturesCollectionRef) { documents, error in
+//            print("Highlighted scriptures were downloaded")
+//            if let documents = documents {
+//                for document in documents {
+//                    print("\(document.documentID) => \(document.data())")
+//                }
+//            }
+//        }
+//    }
+//
+//    fileprivate func syncHighlightedTexts(userId: String) {
+//        let collectionName = Constants.CollectionName.highlightedTexts
+//        let highlightedTextsCollectionRef = usersCollection.document(userId).collection(collectionName)
+//        getDocuments(query: highlightedTextsCollectionRef) { documents, error in
+//            print("Highlighted texts were downloaded")
+//            if let documents = documents {
+//                for document in documents {
+//                    print("\(document.documentID) => \(document.data())")
+//                }
+//            }
+//        }
+//    }
+//
+//    fileprivate func getDocuments(query: Query, completion: @escaping ([DocumentSnapshot]?, Error?) -> ()) {
+//        query.getDocuments() { querySnapshot, error in
+//            guard let documents = querySnapshot?.documents else {
+//                print("Failed to get spot top photo")
+//                completion(nil, error)
+//                return
+//            }
+//            completion(documents, nil)
+//        }
+//    }
     
     func addBookmark(_ bookmark: Bookmark) {
         guard let user = AuthenticationManager.shared.currentUser else {
@@ -152,8 +150,8 @@ class FirestoreManager {
         }
     }
     
-    fileprivate func updateLastFetchedDate() {
-        UserDefaults.standard.set(Date(), forKey: Constants.Config.fetched)
-        print("Data was updated at \(Utilities.shared.lastFetchedDate)")
+    fileprivate func updateLastSyncedDate() {
+        UserDefaults.standard.set(Date(), forKey: Constants.Config.lastSynced)
+        print("Data was synced at \(Utilities.shared.lastSyncedDate)")
     }
 }

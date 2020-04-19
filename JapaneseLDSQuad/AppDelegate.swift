@@ -56,6 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserDefaults.standard.register(defaults: [Constants.Config.rate: 1.0])
         UserDefaults.standard.register(defaults: [Constants.Config.pass: false])
         UserDefaults.standard.register(defaults: [Constants.Config.sync: false])
-        UserDefaults.standard.register(defaults: [Constants.Config.fetched: Date.distantPast])
+        UserDefaults.standard.register(defaults: [Constants.Config.lastSynced: Date.distantPast])
     }
 }

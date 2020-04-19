@@ -40,8 +40,8 @@ class Utilities {
         return UserDefaults.standard.float(forKey: Constants.Config.rate)
     }
     
-    var lastFetchedDate: Date {
-        return UserDefaults.standard.object(forKey: Constants.Config.fetched) as! Date
+    var lastSyncedDate: Date {
+        return UserDefaults.standard.object(forKey: Constants.Config.lastSynced) as! Date
     }
     
     func getFont(multiplySizeBy: Float = 1) -> UIFont? {
