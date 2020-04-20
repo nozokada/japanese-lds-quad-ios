@@ -34,7 +34,7 @@ class BibleDictionaryBuilder: ContentBuilder {
         for scripture in scriptures {
             if scripture.id.count == 6 {
                 if scripture.verse == targetVerse { html += "<a id='anchor'></a>" }
-                let bookmarked = realm.objects(Bookmark.self).filter("id = '\(scripture.id)'").first != nil ? true : false
+                let bookmarked = BookmarksManager.shared.get(bookmarkId: scripture.id) != nil ? true : false
                 html += "<div id='\(scripture.id)'"
                 html += bookmarked ? " class='bookmarked'>" : ">"
                 let primaryScripture = PurchaseManager.shared.allFeaturesUnlocked ? getGSWithBibleLinks(gsString: scripture.scripture_primary) : scripture.scripture_primary

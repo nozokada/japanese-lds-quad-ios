@@ -27,8 +27,8 @@ class BookmarksManager {
         guard let scripture = Utilities.shared.getScripture(id: scriptureId) else {
             return
         }
-        if let bookmark = Utilities.shared.getBookmark(id: scriptureId) {
-            if bookmark.date as Date >= createdAt {
+        if let bookmark = get(bookmarkId: scriptureId) {
+            if bookmark.date.timeIntervalSince1970 >= createdAt.timeIntervalSince1970 {
                 print("Bookmark \(bookmark.id) already exists")
                 return
             }
@@ -52,7 +52,7 @@ class BookmarksManager {
     
     func delete(bookmarkId: String, completion: ((String) -> ())? = nil) -> Bool {
         guard let bookmarkToRemove = get(bookmarkId: bookmarkId) else {
-            print("Bookmark \(bookmarkId) was already deleted")
+            print("Bookmark \(bookmarkId) does not exist")
             return false
         }
         try! realm.write {

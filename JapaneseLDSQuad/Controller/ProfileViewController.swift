@@ -51,8 +51,11 @@ class ProfileViewController: UITableViewController {
     @IBAction func syncSwitchToggled(_ sender: Any) {
         let state = FirestoreManager.shared.syncEnabled
         syncSwitch.setImage(state ? #imageLiteral(resourceName: "ToggleOff") : #imageLiteral(resourceName: "ToggleOn") , for: .normal)
-        FirestoreManager.shared.syncEnabled = !state
-        FirestoreManager.shared.sync()
+        if !state {
+            FirestoreManager.shared.enableSync()
+        } else {
+            FirestoreManager.shared.disableSync()
+        }
     }
     
     @IBAction func logoutButtonTapped(_ sender: Any) {

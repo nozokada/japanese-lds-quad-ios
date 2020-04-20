@@ -97,10 +97,6 @@ class Utilities {
         return realm.object(ofType: Scripture.self, forPrimaryKey: id)
     }
     
-    func getBookmark(id: String) -> Bookmark? {
-        return realm.object(ofType: Bookmark.self, forPrimaryKey: id)
-    }
-    
     func generateTitlePrimary(scripture: Scripture) -> String {
         if scripture.parent_book.link.hasPrefix("gs") || scripture.parent_book.link.hasPrefix("jst") {
             if let title = Utilities.shared.getScripture(id: "\(scripture.id.prefix(4))title") {
