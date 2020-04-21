@@ -11,7 +11,10 @@ import Firebase
 
 class ProfileViewController: UITableViewController {
 
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var logoutButton: MainButton!
+    @IBOutlet weak var syncSwitchLabel: UILabel!
     @IBOutlet weak var syncSwitch: UIButton!
     
     var user: User?
@@ -23,12 +26,15 @@ class ProfileViewController: UITableViewController {
             return
         }
         self.user = user
+        usernameLabel.text = user.displayName
+        emailLabel.text = user.email
         setSyncSwitchState()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         AuthenticationManager.shared.delegate = self
+        tableView.tableFooterView = UIView()
     }
     
     fileprivate func setSyncSwitchState() {
@@ -48,6 +54,14 @@ class ProfileViewController: UITableViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        tableView.backgroundColor = Utilities.shared.getBackgroundColor()
+        cell.backgroundColor = Utilities.shared.getCellColor()
+        let fontColor = Utilities.shared.getTextColor()
+        usernameLabel.textColor = fontColor
+        syncSwitchLabel.textColor = fontColor
+    }
+    
     @IBAction func syncSwitchToggled(_ sender: Any) {
         let state = FirestoreManager.shared.syncEnabled
         syncSwitch.setImage(state ? #imageLiteral(resourceName: "ToggleOff") : #imageLiteral(resourceName: "ToggleOn") , for: .normal)
@@ -60,6 +74,13 @@ class ProfileViewController: UITableViewController {
     
     @IBAction func logoutButtonTapped(_ sender: Any) {
         AuthenticationManager.shared.signOut(completion: presentLoginViewController)
+    }
+}
+
+extension ProfileViewController: SettingsViewDelegate {
+    
+    func reload() {
+        tableView.reloadData()
     }
 }
 
