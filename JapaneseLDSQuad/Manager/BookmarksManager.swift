@@ -29,7 +29,9 @@ class BookmarksManager {
         }
         if let bookmark = get(bookmarkId: scriptureId) {
             if bookmark.date.timeIntervalSince1970 >= createdAt.timeIntervalSince1970 {
-                print("Bookmark \(bookmark.id) already exists")
+                #if DEBUG
+                print("Bookmark \(bookmark.name_primary) (\(bookmark.id)) already exists")
+                #endif
                 return
             }
             let _ = delete(bookmarkId: bookmark.id)
@@ -45,14 +47,16 @@ class BookmarksManager {
             realm.add(bookmarkToAdd)
         }
         #if DEBUG
-        print("Bookmark \(scriptureId) was added successfully")
+        print("Bookmark \(bookmarkToAdd.name_primary) (\(bookmarkToAdd.id)) was added successfully")
         #endif
         completion?(bookmarkToAdd)
     }
     
     func delete(bookmarkId: String, completion: ((String) -> ())? = nil) -> Bool {
         guard let bookmarkToRemove = get(bookmarkId: bookmarkId) else {
+            #if DEBUG
             print("Bookmark \(bookmarkId) does not exist")
+            #endif
             return false
         }
         try! realm.write {

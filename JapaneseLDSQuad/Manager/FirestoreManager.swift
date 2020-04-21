@@ -69,11 +69,15 @@ class FirestoreManager {
             snapshot.documentChanges.forEach { diff in
                 let id = diff.document.documentID
                 if (diff.type == .removed) {
+                    #if DEBUG
                     print("Bookmark \(diff.document.documentID) was removed from Firestore")
+                    #endif
                     let _ = self.bookmarksManager.delete(bookmarkId: id)
                 }
                 if (diff.type == .added || diff.type == .modified) {
+                    #if DEBUG
                     print("Bookmark \(diff.document.documentID) was added or modified in Firestore")
+                    #endif
                     let createdTimestamp = diff.document.data()["createdAt"] as! Timestamp
                     let createdAt = createdTimestamp.dateValue()
                     self.bookmarksManager.add(scriptureId: id, createdAt: createdAt)
@@ -91,10 +95,11 @@ class FirestoreManager {
         }
         backupRequired = false
         let lastSyncedAt = Utilities.shared.lastSyncedDate
-        let bookmarks = bookmarksManager.getAll()
-        for bookmark in bookmarks {
+        for bookmark in bookmarksManager.getAll() {
             if bookmark.date.timeIntervalSince1970 > lastSyncedAt.timeIntervalSince1970 {
-                print("Backing up \(bookmark.name_primary)")
+                #if DEBUG
+                print("Backing up bookmark \(bookmark.name_primary) (\(bookmark.id))")
+                #endif
                 addBookmark(bookmark)
             }
         }
@@ -147,9 +152,11 @@ class FirestoreManager {
             "createdAt": bookmark.date as Date,
         ]) { error in
             if let error = error {
-                print("Error writing document: \(error)")
+                print("Error writing bookmark document: \(error)")
             } else {
-                print("Bookmark \(bookmark.name_primary) was successfully added to Firestore")
+                #if DEBUG
+                print("Bookmark \(bookmark.name_primary) (\(bookmark.id)) was successfully added to Firestore")
+                #endif
             }
         }
     }
@@ -162,9 +169,11 @@ class FirestoreManager {
         let bookmarksCollectionRef = usersCollection.document(user.uid).collection(collectionName)
         bookmarksCollectionRef.document(id).delete() { error in
             if let error = error {
-                print("Error removing document: \(error)")
+                print("Error removing bookmark document: \(error)")
             } else {
+                #if DEBUG
                 print("Bookmark \(id) was successfully removed from Firestore")
+                #endif
             }
         }
     }
