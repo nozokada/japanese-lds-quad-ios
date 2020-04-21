@@ -63,8 +63,10 @@ class FirestoreManager {
             if snapshot.metadata.hasPendingWrites {
                 return
             }
-            let source = snapshot.metadata.hasPendingWrites ? "<Local>" : "<Server>"
-            print(source)
+            
+            #if DEBUG
+            print("Server changes for bookmarks were detected")
+            #endif
             
             snapshot.documentChanges.forEach { diff in
                 let id = diff.document.documentID
