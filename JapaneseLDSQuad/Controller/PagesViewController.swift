@@ -33,7 +33,7 @@ class PagesViewController: UIPageViewController {
         contentType = Utilities.shared.getContentType(targetBook: targetBook)
         scripturesInBook = targetBook.child_scriptures.sorted(byKeyPath: "id")
         currentChapterIndex = Utilities.shared.getChapterNumberFromScriptureId(id: targetChapterId) - 1
-        currentContentViewController = getViewControllerAt(index: currentChapterIndex)
+//        currentContentViewController = getViewControllerAt(index: currentChapterIndex)
         setTitle()
     }
     

@@ -9,6 +9,7 @@
 import UIKit
 import StoreKit
 import IQKeyboardManagerSwift
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,9 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         application.isIdleTimerDisabled = true
         IQKeyboardManager.shared.enable = true
+        FirebaseApp.configure()
         
         initUserDefaults()
         RealmManager.shared.setUpRealm()
+        FirestoreManager.shared.configure()
+//        PurchaseManager.shared.unlockProduct(withIdentifier: Constants.ProductID.allFeaturesPass)
         SKPaymentQueue.default().add(StoreObserver.shared)
         return true
     }
@@ -51,5 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserDefaults.standard.register(defaults: [Constants.Config.size: 1.0])
         UserDefaults.standard.register(defaults: [Constants.Config.rate: 1.0])
         UserDefaults.standard.register(defaults: [Constants.Config.pass: false])
+        UserDefaults.standard.register(defaults: [Constants.Config.sync: false])
+        UserDefaults.standard.register(defaults: [Constants.Config.lastSynced: Date.distantPast])
     }
 }

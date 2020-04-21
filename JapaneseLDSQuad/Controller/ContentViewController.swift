@@ -106,7 +106,7 @@ extension ContentViewController: WKNavigationDelegate {
     }
     
     fileprivate func toggleBookmark(verseId: String) {
-        BookmarksManager.shared.updateBookmark(id: verseId)
+        BookmarksManager.shared.update(id: verseId)
         webView.evaluateJavaScript(JavaScriptSnippets.toggleBookmarkStatus(verseId: verseId), completionHandler: nil)
     }
     

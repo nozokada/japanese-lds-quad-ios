@@ -10,6 +10,7 @@
 "searchTabBarItemTitle" = "Search";
 "bookmarksTabBarItemTitle" = "Bookmarks";
 "highlightsTabBarItemTitle" = "Highlights";
+"profileTabBarItemTitle" = "Account";
 
 "rootViewTitle" = "Scriptures";
 "standardWorksGroupedTableViewLabel" = "Standard Works";
@@ -20,6 +21,9 @@
 "highlightsViewTitle" = "Highlights";
 "chapterTextFieldPlaceholder" = "ch.";
 "verseTextFieldPlaceholder" = "v.";
+"profileViewTitle" = "Profile";
+"loginViewTitle" = "Login";
+"signupViewTitle" = "Create Account";
 
 "noBookmarksLabel" = "There are no bookmarks\n\nTap a verse number to add\nSwipe left on cell to remove";
 
@@ -62,3 +66,8 @@
 "noRestorablePurchases" = "There are no restorable purchases";
 "purchaseComplete" = "Purchase complete\nThank you for your purchase!";
 "restoreComplete" = "Restore complete!";
+
+"fillAllFields" = "Please fill in all fields";
+"loginError" = "Login Error";
+"signupError" = "Signup Error";
+"logoutError" = "Logout Error";

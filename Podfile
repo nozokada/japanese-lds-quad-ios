@@ -8,6 +8,8 @@ target 'JapaneseLDSQuad' do
   # Pods for JapaneseLDSQuad
   pod 'RealmSwift'
   pod 'IQKeyboardManagerSwift'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Firestore'
 
   target 'JapaneseLDSQuadTests' do
     inherit! :search_paths

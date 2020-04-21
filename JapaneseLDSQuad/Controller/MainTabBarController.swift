@@ -17,6 +17,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         tabBar.items?[1].title = "searchTabBarItemTitle".localized
         tabBar.items?[2].title = "bookmarksTabBarItemTitle".localized
         tabBar.items?[3].title = "highlightsTabBarItemTitle".localized
+        tabBar.items?[4].title = "profileTabBarItemTitle".localized
     }
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {

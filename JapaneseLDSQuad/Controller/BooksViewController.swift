@@ -23,7 +23,7 @@ class BooksViewController: UIViewController {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-        setSettingsBarButton()
+        setSettingsBarButton() 
         realm = try! Realm()
         targetBook = targetBook ?? realm.objects(Book.self).filter("id = '0'").first
         targetBookName = targetBookName ?? "rootViewTitle".localized
@@ -76,7 +76,7 @@ extension BooksViewController: UITableViewDataSource {
                 ? "standardWorksGroupedTableViewLabel".localized
                 : "resourcesGroupedTableViewLabel".localized
         }
-        return Locale.current.languageCode == Constants.Language.primary
+        return Utilities.shared.getLanguage() == Constants.Language.primary
             ? targetBook.name_primary
             : targetBook.name_secondary
     }

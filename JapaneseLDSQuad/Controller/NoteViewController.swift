@@ -100,7 +100,7 @@ class NoteViewController: UIViewController {
     }
     
     fileprivate func setTitleAndNote() {
-        noteViewTitleLabel.text = Locale.current.languageCode == Constants.Language.primary
+        noteViewTitleLabel.text = Utilities.shared.getLanguage() == Constants.Language.primary
             ? highlightedText?.name_primary
             : highlightedText?.name_secondary
         noteViewTitleLabel.sizeToFit()

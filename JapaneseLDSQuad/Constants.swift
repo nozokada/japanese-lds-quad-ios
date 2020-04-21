@@ -27,11 +27,13 @@ struct Constants {
         static let settings = "settings"
         static let speech = "speech"
         static let purchase = "purchase"
+        static let profile = "profile"
+        static let login = "login"
+        static let signup = "signup"
     }
     
     struct RestorationID {
         static let highlights = "highlights"
-        static let login = "login"
     }
     
     struct ReuseID {
@@ -44,6 +46,18 @@ struct Constants {
     
     struct ProductID {
         static let allFeaturesPass = "com.nozokada.JapaneseLDSQuad.allFeaturesPass"
+    }
+    
+    struct CollectionName {
+        static let users = "users"
+        static let bookmarks = "bookmarks"
+        static let highlightedScriptures = "highlighted_scriptures"
+        static let highlightedTexts = "highlighted_texts"
+    }
+    
+    struct FieldName {
+        static let username = "username"
+        static let createdTimestamp = "createdTimestamp"
     }
     
     struct Count {
@@ -62,6 +76,8 @@ struct Constants {
         static let size = "fontSize"
         static let rate = "speechRate"
         static let pass = "passPurchased"
+        static let sync = "syncEnabled"
+        static let lastSynced = "lastSyncedAt"
     }
     
     struct Language {

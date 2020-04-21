@@ -92,7 +92,7 @@ class ContentBuilder {
             let verseNumber = numbered ? scripture.verse : ""
             if scripture.id.count == 6 {
                 let targeted = scripture.verse == targetVerse
-                let bookmarked = realm.objects(Bookmark.self).filter("id = '\(scripture.id)'").first != nil ? true : false
+                let bookmarked = BookmarksManager.shared.get(bookmarkId: scripture.id) != nil ? true : false
                 
                 if targeted { html += "<a id='anchor'></a>" }
                 if dualEnabled && !scripture.scripture_secondary.isEmpty {
@@ -106,7 +106,7 @@ class ContentBuilder {
                 } else {
                     html += "<div id='\(scripture.id)' class='"
                     html += targeted ? "targeted " : ""
-                    html += bookmarked ? " class='bookmarked" : ""
+                    html += bookmarked ? "bookmarked" : ""
                     html += "'>"
                     let primaryScripture = scripture.scripture_primary
                     html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verseNumber)</a> <span lang='\(Constants.Language.primary)'>\(primaryScripture)</span></div>"
