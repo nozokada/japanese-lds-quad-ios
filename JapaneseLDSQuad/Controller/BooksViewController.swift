@@ -23,7 +23,7 @@ class BooksViewController: UIViewController {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-        setSettingsBarButton()
+        setSettingsBarButton() 
         realm = try! Realm()
         targetBook = targetBook ?? realm.objects(Book.self).filter("id = '0'").first
         targetBookName = targetBookName ?? "rootViewTitle".localized

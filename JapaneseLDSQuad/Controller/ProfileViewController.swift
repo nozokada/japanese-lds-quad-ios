@@ -26,6 +26,7 @@ class ProfileViewController: UITableViewController {
             return
         }
         self.user = user
+        setSettingsBarButton()
         usernameLabel.text = user.displayName
         emailLabel.text = user.email
         setSyncSwitchState()
