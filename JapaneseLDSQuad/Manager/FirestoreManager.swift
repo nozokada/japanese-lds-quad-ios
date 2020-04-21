@@ -65,7 +65,7 @@ class FirestoreManager {
             }
             
             #if DEBUG
-            print("Server changes for bookmarks were detected")
+            print("------ Server changes for bookmarks were detected ------")
             #endif
             
             snapshot.documentChanges.forEach { diff in
@@ -88,6 +88,10 @@ class FirestoreManager {
             self.delegate?.firestoreManagerDidFetchBookmarks()
             self.backupBookmarks(userId: userId)
             self.updateLastSyncedDate()
+            
+            #if DEBUG
+            print("--- Server changes for bookmarks were applied ---")
+            #endif
         }
     }
     
