@@ -69,20 +69,23 @@ class FirestoreManager {
             #endif
             
             snapshot.documentChanges.forEach { diff in
-                let id = diff.document.documentID
-                if (diff.type == .removed) {
+                let document = diff.document
+                switch diff.type {
+                case .added:
                     #if DEBUG
-                    print("Bookmark \(diff.document.documentID) was removed from Firestore")
+                    print("Bookmark \(document.documentID) was added to Firestore")
                     #endif
-                    let _ = self.bookmarksManager.delete(bookmarkId: id)
-                }
-                if (diff.type == .added || diff.type == .modified) {
+                    self.addLocalBookmark(document: document)
+                case .modified:
                     #if DEBUG
-                    print("Bookmark \(diff.document.documentID) was added or modified in Firestore")
+                    print("Bookmark \(document.documentID) was modified in Firestore")
                     #endif
-                    let createdTimestamp = diff.document.data()["createdAt"] as! Timestamp
-                    let createdAt = createdTimestamp.dateValue()
-                    self.bookmarksManager.add(scriptureId: id, createdAt: createdAt)
+                    self.addLocalBookmark(document: document)
+                case .removed:
+                    #if DEBUG
+                    print("Bookmark \(document.documentID) was deleted from Firestore")
+                    #endif
+                    self.deleteLocalBookmark(document: document)
                 }
             }
             self.delegate?.firestoreManagerDidFetchBookmarks()
@@ -90,9 +93,19 @@ class FirestoreManager {
             self.updateLastSyncedDate()
             
             #if DEBUG
-            print("--- Server changes for bookmarks were applied ---")
+            print("------ Server changes for bookmarks were applied ------")
             #endif
         }
+    }
+    
+    fileprivate func addLocalBookmark(document: QueryDocumentSnapshot) {
+        let createdTimestamp = document.data()["createdAt"] as! Timestamp
+        let createdAt = createdTimestamp.dateValue()
+        self.bookmarksManager.add(scriptureId: document.documentID, createdAt: createdAt)
+    }
+    
+    fileprivate func deleteLocalBookmark(document: QueryDocumentSnapshot) {
+        let _ = self.bookmarksManager.delete(bookmarkId: document.documentID)
     }
     
     fileprivate func backupBookmarks(userId: String) {
@@ -106,7 +119,7 @@ class FirestoreManager {
                 #if DEBUG
                 print("Backing up bookmark \(bookmark.name_primary) (\(bookmark.id))")
                 #endif
-                addBookmark(bookmark)
+                addServerBookmark(bookmark)
             }
         }
     }
@@ -148,7 +161,7 @@ class FirestoreManager {
 //        }
 //    }
     
-    func addBookmark(_ bookmark: Bookmark) {
+    func addServerBookmark(_ bookmark: Bookmark) {
         guard let user = AuthenticationManager.shared.currentUser, syncEnabled else {
             return
         }
@@ -167,7 +180,7 @@ class FirestoreManager {
         }
     }
     
-    func deleteBookmark(id: String) {
+    func deleteServerBookmark(id: String) {
         guard let user = AuthenticationManager.shared.currentUser, syncEnabled else {
             return
         }

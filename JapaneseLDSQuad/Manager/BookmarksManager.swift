@@ -70,8 +70,8 @@ class BookmarksManager {
     }
     
     func update(id: String) {
-        if !delete(bookmarkId: id, completion: FirestoreManager.shared.deleteBookmark) {
-            add(scriptureId: id, completion:FirestoreManager.shared.addBookmark)
+        if !delete(bookmarkId: id, completion: FirestoreManager.shared.deleteServerBookmark) {
+            add(scriptureId: id, completion: FirestoreManager.shared.addServerBookmark)
         }
     }
 }
