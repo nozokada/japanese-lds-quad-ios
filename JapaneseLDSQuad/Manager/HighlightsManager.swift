@@ -27,8 +27,7 @@ class HighlightsManager {
         guard let scripture = Utilities.shared.getScripture(id: scriptureId) else {
             return
         }
-        let highlightedScripture = get(scriptureId: scriptureId)
-            ?? create(scripture: scripture, scriptureContent: scriptureContent, language: language)
+        let highlightedScripture = get(scriptureId: scriptureId) ?? create(scripture: scripture)
         
         createHighlight(id: textId, content: textContent, scripture: highlightedScripture)
         applyHighlightChanges(id: scriptureId, content: scriptureContent, language: language)
@@ -50,15 +49,9 @@ class HighlightsManager {
         }
     }
     
-    fileprivate func create(scripture: Scripture, scriptureContent: String, language: String, sync: Bool = false) -> HighlightedScripture {
-        let highlightedScripture =  HighlightedScripture(
+    fileprivate func create(scripture: Scripture, sync: Bool = false) -> HighlightedScripture {
+        let highlightedScripture = HighlightedScripture(
             id: scripture.id,
-            scripturePrimary: language == Constants.Language.primary
-                ? scriptureContent
-                : scripture.scripture_primary,
-            scriptureSecondary: language == Constants.Language.secondary
-                ? scriptureContent
-                : scripture.scripture_secondary,
             scripture: scripture,
             date: NSDate()
         )
@@ -68,7 +61,6 @@ class HighlightsManager {
             print("Added highlighted scripture \(scripture.id) successfully")
             #endif
         }
-        FirestoreManager.shared.addHighlightedScripture(highlightedScripture)
         return highlightedScripture
     }
     

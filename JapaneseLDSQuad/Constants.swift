@@ -15,7 +15,7 @@ struct Constants {
     }
     
     struct Version {
-        static let realmSchema: UInt64 = 2
+        static let realmSchema: UInt64 = 3
     }
     
     struct StoryBoardID {
