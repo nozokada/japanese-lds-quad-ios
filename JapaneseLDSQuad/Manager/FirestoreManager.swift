@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import RealmSwift
 import Firebase
 
 class FirestoreManager {
@@ -19,6 +18,7 @@ class FirestoreManager {
     
     var backupRequired = Utilities.shared.lastSyncedDate == Date.distantPast
     let bookmarksManager = BookmarksManager.shared
+    let highlightsManager = HighlightsManager.shared
     let usersCollection = Firestore.firestore().collection(Constants.CollectionName.users)
     
     var syncEnabled: Bool {
@@ -101,11 +101,11 @@ class FirestoreManager {
     fileprivate func addLocalBookmark(document: QueryDocumentSnapshot) {
         let createdTimestamp = document.data()["createdAt"] as! Timestamp
         let createdAt = createdTimestamp.dateValue()
-        self.bookmarksManager.add(scriptureId: document.documentID, createdAt: createdAt)
+        bookmarksManager.import(scriptureId: document.documentID, createdAt: createdAt)
     }
     
     fileprivate func deleteLocalBookmark(document: QueryDocumentSnapshot) {
-        let _ = self.bookmarksManager.delete(bookmarkId: document.documentID)
+        let _ = bookmarksManager.remove(bookmarkId: document.documentID)
     }
     
     fileprivate func backupBookmarks(userId: String) {
