@@ -15,33 +15,64 @@ class HighlightsManager {
     
     lazy var realm = try! Realm()
     
-    func addHighlight(textId: String, textContent: String, scriptureId: String, scriptureContent: String, language: String) {
-        if let existingHighlightedScripture = realm.objects(HighlightedScripture.self).filter("id = '\(scriptureId)'").first {
-            addHighlightedText(id: textId, content: textContent, scripture: existingHighlightedScripture)
-        } else {
-            if let scripture = realm.objects(Scripture.self).filter("id = '\(scriptureId)'").first {
-                let highlightedScripture = HighlightedScripture(id: scriptureId,
-                                                                scripturePrimary: language == Constants.Language.primary
-                                                                    ? scriptureContent
-                                                                    : scripture.scripture_primary,
-                                                                scriptureSecondary: language == Constants.Language.secondary
-                                                                    ? scriptureContent
-                                                                    : scripture.scripture_secondary,
-                                                                scripture: scripture,
-                                                                date: NSDate())
-                try! realm.write {
-                    realm.add(highlightedScripture)
-                    #if DEBUG
-                    print("Added highlighted scripture \(scripture.id) successfully")
-                    #endif
-                }
-                addHighlightedText(id: textId, content: textContent, scripture: highlightedScripture)
-            }
-        }
-        ApplyHighlightChangeToScripture(id: scriptureId, content: scriptureContent, language: language)
+    func get(scriptureId: String) -> HighlightedScripture? {
+        return realm.object(ofType: HighlightedScripture.self, forPrimaryKey: scriptureId)
     }
     
-    private func addHighlightedText(id: String, content: String, scripture: HighlightedScripture) {
+    func getAll(sortBy: String = "date", ascending: Bool = false) -> Results<HighlightedScripture> {
+        return realm.objects(HighlightedScripture.self).sorted(byKeyPath: sortBy, ascending: ascending)
+    }
+    
+    func add(textId: String, textContent: String, scriptureId: String, scriptureContent: String, language: String) {
+        guard let scripture = Utilities.shared.getScripture(id: scriptureId) else {
+            return
+        }
+        let highlightedScripture = get(scriptureId: scriptureId)
+            ?? create(scripture: scripture, scriptureContent: scriptureContent, language: language)
+        
+        createHighlight(id: textId, content: textContent, scripture: highlightedScripture)
+        applyHighlightChanges(id: scriptureId, content: scriptureContent, language: language)
+    }
+    
+    func remove(id: String, content: String, language: String) {
+        if let highlightedText = realm.objects(HighlightedText.self).filter("id = '\(id)'").first {
+            let highlightedScripture = highlightedText.highlighted_scripture!
+            deleteHighlight(highlightedTextToRemove: highlightedText)
+            applyHighlightChanges(id: highlightedScripture.id, content: content, language: language)
+            if highlightedScripture.highlighted_texts.count == 0 {
+                try! realm.write {
+                    realm.delete(highlightedScripture)
+                    #if DEBUG
+                    print("Removed highlighted scripture successfully")
+                    #endif
+                }
+            }
+        }
+    }
+    
+    fileprivate func create(scripture: Scripture, scriptureContent: String, language: String, sync: Bool = false) -> HighlightedScripture {
+        let highlightedScripture =  HighlightedScripture(
+            id: scripture.id,
+            scripturePrimary: language == Constants.Language.primary
+                ? scriptureContent
+                : scripture.scripture_primary,
+            scriptureSecondary: language == Constants.Language.secondary
+                ? scriptureContent
+                : scripture.scripture_secondary,
+            scripture: scripture,
+            date: NSDate()
+        )
+        try! realm.write {
+            realm.add(highlightedScripture)
+            #if DEBUG
+            print("Added highlighted scripture \(scripture.id) successfully")
+            #endif
+        }
+        FirestoreManager.shared.addHighlightedScripture(highlightedScripture)
+        return highlightedScripture
+    }
+    
+    fileprivate func createHighlight(id: String, content: String, scripture: HighlightedScripture) {
         let highlightedText = HighlightedText(id: id,
                                               namePrimary: Utilities.shared.generateTitlePrimary(scripture: scripture.scripture),
                                               nameSecondary: Utilities.shared.generateTitleSecondary(scripture: scripture.scripture),
@@ -57,23 +88,7 @@ class HighlightsManager {
         }
     }
     
-    func removeHighlight(id: String, content: String, language: String) {
-        if let highlightedText = realm.objects(HighlightedText.self).filter("id = '\(id)'").first {
-            let highlightedScripture = highlightedText.highlighted_scripture!
-            removeHighlightedText(highlightedTextToRemove: highlightedText)
-            ApplyHighlightChangeToScripture(id: highlightedScripture.id, content: content, language: language)
-            if highlightedScripture.highlighted_texts.count == 0 {
-                try! realm.write {
-                    realm.delete(highlightedScripture)
-                    #if DEBUG
-                    print("Removed highlighted scripture successfully")
-                    #endif
-                }
-            }
-        }
-    }
-    
-    fileprivate func ApplyHighlightChangeToScripture(id: String, content: String, language: String) {
+    fileprivate func applyHighlightChanges(id: String, content: String, language: String) {
         if let scripture = Utilities.shared.getScripture(id: id) {
             try! realm.write {
                 if language == Constants.Language.primary {
@@ -85,7 +100,7 @@ class HighlightsManager {
         }
     }
     
-    fileprivate func removeHighlightedText(highlightedTextToRemove: HighlightedText) {
+    fileprivate func deleteHighlight(highlightedTextToRemove: HighlightedText) {
         try! realm.write {
             realm.delete(highlightedTextToRemove)
             #if DEBUG
