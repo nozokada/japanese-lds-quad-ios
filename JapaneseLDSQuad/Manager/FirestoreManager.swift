@@ -83,14 +83,18 @@ class FirestoreManager {
         }
     }
     
-    func addHighlightedScripture(_ scripture: HighlightedScripture) {
+    func addHighlight(_ scripture: HighlightedScripture) {
         guard let user = AuthenticationManager.shared.currentUser, syncEnabled else {
             return
         }
-        let collectionName = Constants.CollectionName.highlightedScriptures
+        let collectionName = Constants.CollectionName.highlights
         let highlightedScripturesCollectionRef = usersCollection.document(user.uid).collection(collectionName)
         highlightedScripturesCollectionRef.document(scripture.id).setData([
-            "modifiedAt": scripture.date as Date,
+            "content": [
+                "primary": scripture.scripture.scripture_primary,
+                "secondary": scripture.scripture.scripture_secondary,
+            ],
+            "createdAt": scripture.date as Date,
         ]) { error in
             if let error = error {
                 print("Error writing highlighted scripture document: \(error)")
