@@ -47,6 +47,67 @@ class FirestoreManager {
         backupRequired = true
     }
     
+    func addBookmark(_ bookmark: Bookmark) {
+        guard let user = AuthenticationManager.shared.currentUser, syncEnabled else {
+            return
+        }
+        let collectionName = Constants.CollectionName.bookmarks
+        let bookmarksCollectionRef = usersCollection.document(user.uid).collection(collectionName)
+        bookmarksCollectionRef.document(bookmark.id).setData([
+            "createdAt": bookmark.date as Date,
+        ]) { error in
+            if let error = error {
+                print("Error writing bookmark document: \(error)")
+            } else {
+                #if DEBUG
+                print("Bookmark \(bookmark.name_primary) (\(bookmark.id)) was successfully added to Firestore")
+                #endif
+            }
+        }
+    }
+    
+    func removeBookmark(id: String) {
+        guard let user = AuthenticationManager.shared.currentUser, syncEnabled else {
+            return
+        }
+        let collectionName = Constants.CollectionName.bookmarks
+        let bookmarksCollectionRef = usersCollection.document(user.uid).collection(collectionName)
+        bookmarksCollectionRef.document(id).delete() { error in
+            if let error = error {
+                print("Error removing bookmark document: \(error)")
+            } else {
+                #if DEBUG
+                print("Bookmark \(id) was successfully removed from Firestore")
+                #endif
+            }
+        }
+    }
+    
+    func addHighlightedScripture(_ scripture: HighlightedScripture) {
+        guard let user = AuthenticationManager.shared.currentUser, syncEnabled else {
+            return
+        }
+        let collectionName = Constants.CollectionName.highlightedScriptures
+        let highlightedScripturesCollectionRef = usersCollection.document(user.uid).collection(collectionName)
+        highlightedScripturesCollectionRef.document(scripture.id).setData([
+            "modifiedAt": scripture.date as Date,
+        ]) { error in
+            if let error = error {
+                print("Error writing highlighted scripture document: \(error)")
+            } else {
+                #if DEBUG
+                let namePrimary = Utilities.shared.generateTitlePrimary(scripture: scripture.scripture)
+                print("Highlighted scripture \(namePrimary) (\(scripture.id)) was successfully added to Firestore")
+                #endif
+            }
+        }
+    }
+    
+    fileprivate func updateLastSyncedDate() {
+        UserDefaults.standard.set(Date(), forKey: Constants.Config.lastSynced)
+        print("Data was synced at \(Utilities.shared.lastSyncedDate)")
+    }
+    
     fileprivate func startSync() {
         guard let user = AuthenticationManager.shared.currentUser else {
             return
@@ -70,22 +131,24 @@ class FirestoreManager {
             
             snapshot.documentChanges.forEach { diff in
                 let document = diff.document
+                let id = document.documentID
+                let createdTimestamp = document.data()["createdAt"] as! Timestamp
                 switch diff.type {
                 case .added:
                     #if DEBUG
                     print("Bookmark \(document.documentID) was added to Firestore")
                     #endif
-                    self.addLocalBookmark(document: document)
+                    self.bookmarksManager.syncAdd(scriptureId: id, createdAt: createdTimestamp.dateValue())
                 case .modified:
                     #if DEBUG
                     print("Bookmark \(document.documentID) was modified in Firestore")
                     #endif
-                    self.addLocalBookmark(document: document)
+                    self.bookmarksManager.syncAdd(scriptureId: id, createdAt: createdTimestamp.dateValue())
                 case .removed:
                     #if DEBUG
                     print("Bookmark \(document.documentID) was deleted from Firestore")
                     #endif
-                    self.deleteLocalBookmark(document: document)
+                    self.bookmarksManager.syncRemove(bookmarkId: id)
                 }
             }
             self.delegate?.firestoreManagerDidFetchBookmarks()
@@ -96,16 +159,6 @@ class FirestoreManager {
             print("------ Server changes for bookmarks were applied ------")
             #endif
         }
-    }
-    
-    fileprivate func addLocalBookmark(document: QueryDocumentSnapshot) {
-        let createdTimestamp = document.data()["createdAt"] as! Timestamp
-        let createdAt = createdTimestamp.dateValue()
-        bookmarksManager.import(scriptureId: document.documentID, createdAt: createdAt)
-    }
-    
-    fileprivate func deleteLocalBookmark(document: QueryDocumentSnapshot) {
-        let _ = bookmarksManager.remove(bookmarkId: document.documentID)
     }
     
     fileprivate func backupBookmarks(userId: String) {
@@ -119,7 +172,7 @@ class FirestoreManager {
                 #if DEBUG
                 print("Backing up bookmark \(bookmark.name_primary) (\(bookmark.id))")
                 #endif
-                addServerBookmark(bookmark)
+                addBookmark(bookmark)
             }
         }
     }
@@ -160,45 +213,4 @@ class FirestoreManager {
 //            completion(documents, nil)
 //        }
 //    }
-    
-    func addServerBookmark(_ bookmark: Bookmark) {
-        guard let user = AuthenticationManager.shared.currentUser, syncEnabled else {
-            return
-        }
-        let collectionName = Constants.CollectionName.bookmarks
-        let bookmarksCollectionRef = usersCollection.document(user.uid).collection(collectionName)
-        bookmarksCollectionRef.document(bookmark.id).setData([
-            "createdAt": bookmark.date as Date,
-        ]) { error in
-            if let error = error {
-                print("Error writing bookmark document: \(error)")
-            } else {
-                #if DEBUG
-                print("Bookmark \(bookmark.name_primary) (\(bookmark.id)) was successfully added to Firestore")
-                #endif
-            }
-        }
-    }
-    
-    func deleteServerBookmark(id: String) {
-        guard let user = AuthenticationManager.shared.currentUser, syncEnabled else {
-            return
-        }
-        let collectionName = Constants.CollectionName.bookmarks
-        let bookmarksCollectionRef = usersCollection.document(user.uid).collection(collectionName)
-        bookmarksCollectionRef.document(id).delete() { error in
-            if let error = error {
-                print("Error removing bookmark document: \(error)")
-            } else {
-                #if DEBUG
-                print("Bookmark \(id) was successfully removed from Firestore")
-                #endif
-            }
-        }
-    }
-    
-    fileprivate func updateLastSyncedDate() {
-        UserDefaults.standard.set(Date(), forKey: Constants.Config.lastSynced)
-        print("Data was synced at \(Utilities.shared.lastSyncedDate)")
-    }
 }
