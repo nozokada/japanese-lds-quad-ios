@@ -101,7 +101,7 @@ class BookmarksManager {
         print("Bookmark \(id) was deleted successfully")
         #endif
         if sync {
-            FirestoreManager.shared.removeBookmark(id: bookmark.id)
+            FirestoreManager.shared.removeBookmark(id: id)
         }
     }
 }
