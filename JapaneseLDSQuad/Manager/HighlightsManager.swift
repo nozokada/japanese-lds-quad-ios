@@ -28,25 +28,24 @@ class HighlightsManager {
             return
         }
         let highlightedScripture = get(scriptureId: scriptureId) ?? create(scripture: scripture)
-        createHighlight(id: textId, content: textContent, scripture: highlightedScripture)
+        createHighlight(id: textId, content: textContent, scripture: highlightedScripture, sync: true)
         applyHighlightChanges(highlightedScripture: highlightedScripture, content: scriptureContent, language: language)
-        FirestoreManager.shared.addHighlight(highlightedScripture)
     }
     
     func remove(id: String, content: String, language: String) {
-        guard let highlightedText = realm.object(ofType: HighlightedText.self, forPrimaryKey: id),
-            let highlightedScripture = highlightedText.highlighted_scripture else {
+        guard let highlight = realm.object(ofType: HighlightedText.self, forPrimaryKey: id),
+            let highlightedScripture = highlight.highlighted_scripture else {
             return
         }
-        deleteHighlight(highlightedTextToRemove: highlightedText)
+        deleteHighlight(highlight: highlight, sync: true)
         applyHighlightChanges(highlightedScripture: highlightedScripture, content: content, language: language)
         if highlightedScripture.highlighted_texts.count == 0 {
             try! realm.write {
                 realm.delete(highlightedScripture)
-                #if DEBUG
-                print("Removed highlighted scripture successfully")
-                #endif
             }
+            #if DEBUG
+            print("Highlighted scripture was removed successfully")
+            #endif
         }
     }
     
@@ -59,34 +58,43 @@ class HighlightsManager {
         try! realm.write {
             realm.add(highlightedScripture)
             #if DEBUG
-            print("Added highlighted scripture \(scripture.id) successfully")
+            print("Highlighted scripture \(scripture.id) was added successfully")
             #endif
         }
         return highlightedScripture
     }
     
-    fileprivate func createHighlight(id: String, content: String, scripture: HighlightedScripture) {
-        let highlightedText = HighlightedText(id: id,
-                                              namePrimary: Utilities.shared.generateTitlePrimary(scripture: scripture.scripture),
-                                              nameSecondary: Utilities.shared.generateTitleSecondary(scripture: scripture.scripture),
-                                              text: content,
-                                              note: "",
-                                              highlightedScripture: scripture,
-                                              date: NSDate())
+    fileprivate func createHighlight(id: String, content: String, scripture: HighlightedScripture, sync: Bool = false) {
+        let highlight = HighlightedText(
+            id: id,
+            namePrimary: Utilities.shared.generateTitlePrimary(scripture: scripture.scripture),
+            nameSecondary: Utilities.shared.generateTitleSecondary(scripture: scripture.scripture),
+            text: content,
+            note: "",
+            highlightedScripture: scripture,
+            date: NSDate()
+        )
         try! realm.write {
-            realm.add(highlightedText)
-            #if DEBUG
-            print("Added highlighted text for scripture \(scripture.id) successfully")
-            #endif
+            realm.add(highlight)
+        }
+        #if DEBUG
+        print("Highlight for \(highlight.name_primary) was added successfully")
+        #endif
+        if sync {
+            FirestoreManager.shared.addHighlight(highlight)
         }
     }
     
-    fileprivate func deleteHighlight(highlightedTextToRemove: HighlightedText) {
+    fileprivate func deleteHighlight(highlight: HighlightedText, sync: Bool = false) {
+        let id = highlight.id
         try! realm.write {
-            realm.delete(highlightedTextToRemove)
-            #if DEBUG
-            print("Removed highlighted text for scripture successfully")
-            #endif
+            realm.delete(highlight)
+        }
+        #if DEBUG
+        print("Highlight \(id) was deleted successfully")
+        #endif
+        if sync {
+            FirestoreManager.shared.removeHighlight(id: id)
         }
     }
     

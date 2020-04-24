@@ -83,25 +83,39 @@ class FirestoreManager {
         }
     }
     
-    func addHighlight(_ scripture: HighlightedScripture) {
+    func addHighlight(_ highlight: HighlightedText) {
         guard let user = AuthenticationManager.shared.currentUser, syncEnabled else {
             return
         }
         let collectionName = Constants.CollectionName.highlights
         let highlightedScripturesCollectionRef = usersCollection.document(user.uid).collection(collectionName)
-        highlightedScripturesCollectionRef.document(scripture.id).setData([
-            "content": [
-                "primary": scripture.scripture.scripture_primary,
-                "secondary": scripture.scripture.scripture_secondary,
-            ],
-            "createdAt": scripture.date as Date,
+        highlightedScripturesCollectionRef.document(highlight.id).setData([
+            "text": highlight.text,
+            "note": highlight.note,
+            "createdAt": highlight.date as Date,
         ]) { error in
             if let error = error {
-                print("Error writing highlighted scripture document: \(error)")
+                print("Error writing highlight document: \(error)")
             } else {
                 #if DEBUG
-                let namePrimary = Utilities.shared.generateTitlePrimary(scripture: scripture.scripture)
-                print("Highlighted scripture \(namePrimary) (\(scripture.id)) was successfully added to Firestore")
+                print("Highlight \(highlight.name_primary) (\(highlight.id)) was successfully added to Firestore")
+                #endif
+            }
+        }
+    }
+    
+    func removeHighlight(id: String) {
+        guard let user = AuthenticationManager.shared.currentUser, syncEnabled else {
+            return
+        }
+        let collectionName = Constants.CollectionName.highlights
+        let highlightedScripturesCollectionRef = usersCollection.document(user.uid).collection(collectionName)
+        highlightedScripturesCollectionRef.document(id).delete() { error in
+            if let error = error {
+                print("Error removing highlight document: \(error)")
+            } else {
+                #if DEBUG
+                print("Highlight \(id) was successfully removed from Firestore")
                 #endif
             }
         }
