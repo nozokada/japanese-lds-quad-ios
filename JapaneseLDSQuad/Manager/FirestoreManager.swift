@@ -51,8 +51,8 @@ class FirestoreManager {
         guard let user = AuthenticationManager.shared.currentUser, syncEnabled else {
             return
         }
-        let collectionName = Constants.CollectionName.bookmarks
-        let bookmarksCollectionRef = usersCollection.document(user.uid).collection(collectionName)
+        let userDocument = usersCollection.document(user.uid)
+        let bookmarksCollectionRef = userDocument.collection(Constants.CollectionName.bookmarks)
         bookmarksCollectionRef.document(bookmark.id).setData([
             "createdAt": bookmark.date as Date,
         ]) { error in
@@ -70,8 +70,8 @@ class FirestoreManager {
         guard let user = AuthenticationManager.shared.currentUser, syncEnabled else {
             return
         }
-        let collectionName = Constants.CollectionName.bookmarks
-        let bookmarksRef = usersCollection.document(user.uid).collection(collectionName)
+        let userDocument = usersCollection.document(user.uid)
+        let bookmarksRef = userDocument.collection(Constants.CollectionName.bookmarks)
         bookmarksRef.document(id).delete() { error in
             if let error = error {
                 print("Error removing bookmark document: \(error)")
@@ -111,8 +111,8 @@ class FirestoreManager {
         guard let user = AuthenticationManager.shared.currentUser else {
             return
         }
-        let collectionName = Constants.CollectionName.customScriptures
-        let customScripturesRef = usersCollection.document(user.uid).collection(collectionName)
+        let userDocument = usersCollection.document(user.uid)
+        let customScripturesRef = userDocument.collection(Constants.CollectionName.customScriptures)
         customScripturesRef.document(scripture.id).setData([
             "content": [
                 "primary": scripture.scripture.scripture_primary,
@@ -135,8 +135,8 @@ class FirestoreManager {
         guard let user = AuthenticationManager.shared.currentUser, syncEnabled else {
             return
         }
-        let collectionName = Constants.CollectionName.highlights
-        let highlightedScripturesCollectionRef = usersCollection.document(user.uid).collection(collectionName)
+        let userDocument = usersCollection.document(user.uid)
+        let highlightedScripturesCollectionRef = userDocument.collection(Constants.CollectionName.highlights)
         highlightedScripturesCollectionRef.document(id).delete() { error in
             if let error = error {
                 print("Error removing highlight document: \(error)")
@@ -161,8 +161,8 @@ class FirestoreManager {
     }
     
     fileprivate func syncBookmarks(userId: String) {
-        let collectionName = Constants.CollectionName.bookmarks
-        bookmarksListener = usersCollection.document(userId).collection(collectionName).addSnapshotListener() { querySnapshot, error in
+        let userDocument = usersCollection.document(userId)
+        bookmarksListener = userDocument.collection(Constants.CollectionName.bookmarks).addSnapshotListener() { querySnapshot, error in
             guard let snapshot = querySnapshot else {
                 return
             }
@@ -221,41 +221,4 @@ class FirestoreManager {
             }
         }
     }
-    
-//    fileprivate func syncHighlightedScriptures(userId: String) {
-//        let collectionName = Constants.CollectionName.highlightedScriptures
-//        let highlightedScripturesCollectionRef = usersCollection.document(userId).collection(collectionName)
-//        getDocuments(query: highlightedScripturesCollectionRef) { documents, error in
-//            print("Highlighted scriptures were downloaded")
-//            if let documents = documents {
-//                for document in documents {
-//                    print("\(document.documentID) => \(document.data())")
-//                }
-//            }
-//        }
-//    }
-//
-//    fileprivate func syncHighlightedTexts(userId: String) {
-//        let collectionName = Constants.CollectionName.highlightedTexts
-//        let highlightedTextsCollectionRef = usersCollection.document(userId).collection(collectionName)
-//        getDocuments(query: highlightedTextsCollectionRef) { documents, error in
-//            print("Highlighted texts were downloaded")
-//            if let documents = documents {
-//                for document in documents {
-//                    print("\(document.documentID) => \(document.data())")
-//                }
-//            }
-//        }
-//    }
-//
-//    fileprivate func getDocuments(query: Query, completion: @escaping ([DocumentSnapshot]?, Error?) -> ()) {
-//        query.getDocuments() { querySnapshot, error in
-//            guard let documents = querySnapshot?.documents else {
-//                print("Failed to get spot top photo")
-//                completion(nil, error)
-//                return
-//            }
-//            completion(documents, nil)
-//        }
-//    }
 }
