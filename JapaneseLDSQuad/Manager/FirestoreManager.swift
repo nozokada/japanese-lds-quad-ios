@@ -60,7 +60,7 @@ class FirestoreManager {
                 print("Error writing bookmark document: \(error)")
             } else {
                 #if DEBUG
-                print("Bookmark \(bookmark.name_primary) (\(bookmark.id)) was successfully added to Firestore")
+                print("Bookmark \(bookmark.id) (for \(bookmark.name_primary)) was successfully added to Firestore")
                 #endif
             }
         }
@@ -71,8 +71,8 @@ class FirestoreManager {
             return
         }
         let collectionName = Constants.CollectionName.bookmarks
-        let bookmarksCollectionRef = usersCollection.document(user.uid).collection(collectionName)
-        bookmarksCollectionRef.document(id).delete() { error in
+        let bookmarksRef = usersCollection.document(user.uid).collection(collectionName)
+        bookmarksRef.document(id).delete() { error in
             if let error = error {
                 print("Error removing bookmark document: \(error)")
             } else {
@@ -87,19 +87,46 @@ class FirestoreManager {
         guard let user = AuthenticationManager.shared.currentUser, syncEnabled else {
             return
         }
-        let collectionName = Constants.CollectionName.highlights
-        let highlightedScripturesCollectionRef = usersCollection.document(user.uid).collection(collectionName)
-        highlightedScripturesCollectionRef.document(highlight.id).setData([
+        let userDocument = usersCollection.document(user.uid)
+        let customScripturesRef = userDocument.collection(Constants.CollectionName.customScriptures)
+        let highlightsRef = userDocument.collection(Constants.CollectionName.highlights)
+        
+        highlightsRef.document(highlight.id).setData([
             "text": highlight.text,
             "note": highlight.note,
-            "createdAt": highlight.date as Date,
+            "customScripture": customScripturesRef.document(highlight.highlighted_scripture.id),
+            "modifiedAt": highlight.date as Date,
         ]) { error in
             if let error = error {
                 print("Error writing highlight document: \(error)")
             } else {
                 #if DEBUG
-                print("Highlight \(highlight.name_primary) (\(highlight.id)) was successfully added to Firestore")
+                print("Highlight \(highlight.id) (for \(highlight.name_primary)) was successfully added to Firestore")
                 #endif
+            }
+        }
+    }
+    
+    func addCustomScripture(_ scripture: HighlightedScripture, completion: (() -> ())? = nil) {
+        guard let user = AuthenticationManager.shared.currentUser else {
+            return
+        }
+        let collectionName = Constants.CollectionName.customScriptures
+        let customScripturesRef = usersCollection.document(user.uid).collection(collectionName)
+        customScripturesRef.document(scripture.id).setData([
+            "content": [
+                "primary": scripture.scripture.scripture_primary,
+                "secondary": scripture.scripture.scripture_secondary,
+            ],
+            "modifiedAt": scripture.date as Date,
+        ]) { error in
+            if let error = error {
+                print("Error writing custom scripture document: \(error)")
+            } else {
+                #if DEBUG
+                print("Custom scripture \(scripture.id) was successfully added to Firestore")
+                #endif
+                completion?()
             }
         }
     }

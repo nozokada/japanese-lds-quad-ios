@@ -52,6 +52,7 @@ struct Constants {
         static let users = "users"
         static let bookmarks = "bookmarks"
         static let highlights = "highlights"
+        static let customScriptures = "customScriptures"
     }
     
     struct FieldName {
