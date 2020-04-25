@@ -52,8 +52,8 @@ class FirestoreManager {
             return
         }
         let userDocument = usersCollection.document(user.uid)
-        let bookmarksCollectionRef = userDocument.collection(Constants.CollectionName.bookmarks)
-        bookmarksCollectionRef.document(bookmark.id).setData([
+        let bookmarksRef = userDocument.collection(Constants.CollectionName.bookmarks)
+        bookmarksRef.document(bookmark.id).setData([
             "createdAt": bookmark.date as Date,
         ]) { error in
             if let error = error {
@@ -136,13 +136,30 @@ class FirestoreManager {
             return
         }
         let userDocument = usersCollection.document(user.uid)
-        let highlightedScripturesCollectionRef = userDocument.collection(Constants.CollectionName.highlights)
-        highlightedScripturesCollectionRef.document(id).delete() { error in
+        let highlightsRef = userDocument.collection(Constants.CollectionName.highlights)
+        highlightsRef.document(id).delete() { error in
             if let error = error {
                 print("Error removing highlight document: \(error)")
             } else {
                 #if DEBUG
                 print("Highlight \(id) was successfully removed from Firestore")
+                #endif
+            }
+        }
+    }
+    
+    func removeCustomScripture(id: String) {
+        guard let user = AuthenticationManager.shared.currentUser, syncEnabled else {
+            return
+        }
+        let userDocument = usersCollection.document(user.uid)
+        let customScripturesRef = userDocument.collection(Constants.CollectionName.customScriptures)
+        customScripturesRef.document(id).delete() { error in
+            if let error = error {
+                print("Error removing highlight document: \(error)")
+            } else {
+                #if DEBUG
+                print("Custom scripture \(id) was successfully removed from Firestore")
                 #endif
             }
         }
