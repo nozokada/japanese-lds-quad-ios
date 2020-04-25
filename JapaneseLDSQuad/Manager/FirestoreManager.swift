@@ -156,7 +156,7 @@ class FirestoreManager {
         let customScripturesRef = userDocument.collection(Constants.CollectionName.customScriptures)
         customScripturesRef.document(id).delete() { error in
             if let error = error {
-                print("Error removing highlight document: \(error)")
+                print("Error removing custom scripture document: \(error)")
             } else {
                 #if DEBUG
                 print("Custom scripture \(id) was successfully removed from Firestore")
