@@ -36,7 +36,7 @@ class BookmarksManager {
         if let bookmark = get(bookmarkId: scriptureId) {
             if bookmark.date.timeIntervalSince1970 >= createdAt.timeIntervalSince1970 {
                 #if DEBUG
-                print("Bookmark \(bookmark.name_primary) (\(bookmark.id)) already exists")
+                print("Bookmark \(bookmark.id) (for \(bookmark.name_primary)) already exists")
                 #endif
                 return
             }
@@ -85,7 +85,7 @@ class BookmarksManager {
             realm.add(bookmark)
         }
         #if DEBUG
-        print("Bookmark \(bookmark.name_primary) (\(bookmark.id)) was added successfully")
+        print("Bookmark \(bookmark.id) (for \(bookmark.name_primary)) was added successfully")
         #endif
         if sync {
             FirestoreManager.shared.addBookmark(bookmark)
@@ -94,11 +94,12 @@ class BookmarksManager {
     
     fileprivate func delete(_ bookmark: Bookmark, sync: Bool = false) {
         let id = bookmark.id
+        let name = bookmark.name_primary
         try! realm.write {
             realm.delete(bookmark)
         }
         #if DEBUG
-        print("Bookmark \(id) was deleted successfully")
+        print("Bookmark \(id) (for \(name)) was deleted successfully")
         #endif
         if sync {
             FirestoreManager.shared.removeBookmark(id: id)
