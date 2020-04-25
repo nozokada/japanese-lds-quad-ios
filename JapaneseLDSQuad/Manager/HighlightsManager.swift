@@ -28,7 +28,7 @@ class HighlightsManager {
             return
         }
         let highlightedScripture = get(scriptureId: scriptureId) ?? create(scripture: scripture)
-        applyHighlightChanges(highlightedScripture: highlightedScripture, content: scriptureContent, language: language)
+        applyHighlightChanges(highlightedScripture, content: scriptureContent, language: language)
         createHighlight(id: textId, content: textContent, scripture: highlightedScripture, sync: true)
     }
     
@@ -37,20 +37,11 @@ class HighlightsManager {
             let highlightedScripture = highlight.highlighted_scripture else {
             return
         }
-        deleteHighlight(highlight: highlight, sync: true)
-        applyHighlightChanges(highlightedScripture: highlightedScripture, content: content, language: language)
-        if highlightedScripture.highlighted_texts.count == 0 {
-            let id = highlightedScripture.id
-            try! realm.write {
-                realm.delete(highlightedScripture)
-            }
-            #if DEBUG
-            print("Highlighted scripture \(id) was removed successfully")
-            #endif
-        }
+        applyHighlightChanges(highlightedScripture, content: content, language: language)
+        deleteHighlight(highlight, sync: true)
     }
     
-    fileprivate func create(scripture: Scripture, sync: Bool = false) -> HighlightedScripture {
+    fileprivate func create(scripture: Scripture) -> HighlightedScripture {
         let highlightedScripture = HighlightedScripture(
             id: scripture.id,
             scripture: scripture,
@@ -63,6 +54,16 @@ class HighlightsManager {
             #endif
         }
         return highlightedScripture
+    }
+    
+    fileprivate func delete(_ scripture: HighlightedScripture) {
+        let id = scripture.id
+        try! realm.write {
+            realm.delete(scripture)
+        }
+        #if DEBUG
+        print("Highlighted scripture \(id) was removed successfully")
+        #endif
     }
     
     fileprivate func createHighlight(id: String, content: String, scripture: HighlightedScripture, sync: Bool = false) {
@@ -90,7 +91,10 @@ class HighlightsManager {
         }
     }
     
-    fileprivate func deleteHighlight(highlight: HighlightedText, sync: Bool = false) {
+    fileprivate func deleteHighlight(_ highlight: HighlightedText, sync: Bool = false) {
+        guard let highlightedScripture = highlight.highlighted_scripture else {
+            return
+        }
         let id = highlight.id
         let name = highlight.name_primary
         try! realm.write {
@@ -102,9 +106,16 @@ class HighlightsManager {
         if sync {
             FirestoreManager.shared.removeHighlight(id: id)
         }
+        if highlightedScripture.highlighted_texts.count == 0 {
+            let id = highlightedScripture.id
+            delete(highlightedScripture)
+            if sync {
+                FirestoreManager.shared.removeCustomScripture(id: id)
+            }
+        }
     }
     
-    fileprivate func applyHighlightChanges(highlightedScripture: HighlightedScripture, content: String, language: String) {
+    fileprivate func applyHighlightChanges(_ highlightedScripture: HighlightedScripture, content: String, language: String) {
         try! realm.write {
             if language == Constants.Language.primary {
                 highlightedScripture.scripture.scripture_primary = content
