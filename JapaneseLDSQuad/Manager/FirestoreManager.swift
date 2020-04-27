@@ -15,6 +15,7 @@ class FirestoreManager {
     
     var delegate: FirestoreManagerDelegate?
     var bookmarksListener: ListenerRegistration?
+    var highlightsListener: ListenerRegistration?
     
     var backupRequired = Utilities.shared.lastSyncedDate == Date.distantPast
     let bookmarksManager = BookmarksManager.shared
@@ -44,6 +45,7 @@ class FirestoreManager {
     func disableSync() {
         syncEnabled = false
         bookmarksListener?.remove()
+        highlightsListener?.remove()
         backupRequired = true
     }
     
@@ -90,7 +92,6 @@ class FirestoreManager {
         let userDocument = usersCollection.document(user.uid)
         let customScripturesRef = userDocument.collection(Constants.CollectionName.customScriptures)
         let highlightsRef = userDocument.collection(Constants.CollectionName.highlights)
-        
         highlightsRef.document(highlight.id).setData([
             "text": highlight.text,
             "note": highlight.note,
@@ -175,6 +176,63 @@ class FirestoreManager {
             return
         }
         syncBookmarks(userId: user.uid)
+        syncHighlights(userId: user.uid)
+    }
+    
+    fileprivate func syncHighlights(userId: String) {
+        let userDocument = usersCollection.document(userId)
+        highlightsListener = userDocument.collection(Constants.CollectionName.highlights).addSnapshotListener() { querySnapshot, error in
+            guard let snapshot = querySnapshot else {
+                return
+            }
+            if snapshot.metadata.hasPendingWrites {
+                return
+            }
+            #if DEBUG
+            print("------ Server changes for highlights were detected ------")
+            #endif
+            snapshot.documentChanges.forEach { diff in
+                let document = diff.document
+                let id = document.documentID, data = document.data()
+                let note = data["note"] as! String
+                let text = data["text"] as! String
+                let modifiedTimestamp = data["modifiedAt"] as! Timestamp
+
+                let customScripture = data["customScripture"] as! DocumentReference
+                customScripture.getDocument() { documentSnapshot, error in
+                    guard let snapshot = documentSnapshot else {
+                        return
+                    }
+                    let customScriptureId = snapshot.documentID
+                    let customScriptureData = snapshot.data()
+                    let content = customScriptureData!["content"] as! [String: String]
+                    let scriptureModifiedTimestamp = customScriptureData!["modifiedAt"] as! Timestamp
+                    
+                    switch diff.type {
+                    case .added, .modified:
+                        #if DEBUG
+                        print("Highlight \(id) was added to/modified in Firestore")
+                        #endif
+                        self.highlightsManager.syncAdd(textId: id, note: note, text: text, modifiedAt: modifiedTimestamp.dateValue(), scriptureId: customScriptureId, content: content, scriptureModifiedAt: scriptureModifiedTimestamp.dateValue())
+                    case .removed:
+                        #if DEBUG
+                        print("Highlight \(id) was deleted from Firestore")
+                        #endif
+                        self.highlightsManager.syncRemove(textId: id, scriptureId: customScriptureId, content: content, scriptureModifiedAt: scriptureModifiedTimestamp.dateValue())
+                    }
+                    self.delegate?.firestoreManagerDidFetchHighlights()
+                    self.backupHighlights(userId: userId)
+                    self.updateLastSyncedDate()
+                    #if DEBUG
+                    print("------ Server changes for highlights were applied ------")
+                    #endif
+                }
+            }
+        }
+    }
+    
+    fileprivate func backupHighlights(userId: String) {
+        
     }
     
     fileprivate func syncBookmarks(userId: String) {
@@ -186,29 +244,22 @@ class FirestoreManager {
             if snapshot.metadata.hasPendingWrites {
                 return
             }
-            
             #if DEBUG
             print("------ Server changes for bookmarks were detected ------")
             #endif
-            
             snapshot.documentChanges.forEach { diff in
                 let document = diff.document
                 let id = document.documentID
                 let createdTimestamp = document.data()["createdAt"] as! Timestamp
                 switch diff.type {
-                case .added:
+                case .added, .modified:
                     #if DEBUG
-                    print("Bookmark \(document.documentID) was added to Firestore")
-                    #endif
-                    self.bookmarksManager.syncAdd(scriptureId: id, createdAt: createdTimestamp.dateValue())
-                case .modified:
-                    #if DEBUG
-                    print("Bookmark \(document.documentID) was modified in Firestore")
+                    print("Bookmark \(id) was added to/modified in Firestore")
                     #endif
                     self.bookmarksManager.syncAdd(scriptureId: id, createdAt: createdTimestamp.dateValue())
                 case .removed:
                     #if DEBUG
-                    print("Bookmark \(document.documentID) was deleted from Firestore")
+                    print("Bookmark \(id) was deleted from Firestore")
                     #endif
                     self.bookmarksManager.syncRemove(bookmarkId: id)
                 }
@@ -216,7 +267,6 @@ class FirestoreManager {
             self.delegate?.firestoreManagerDidFetchBookmarks()
             self.backupBookmarks(userId: userId)
             self.updateLastSyncedDate()
-            
             #if DEBUG
             print("------ Server changes for bookmarks were applied ------")
             #endif
