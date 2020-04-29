@@ -19,8 +19,8 @@ class HighlightsManager {
         return realm.object(ofType: HighlightedScripture.self, forPrimaryKey: scriptureId)
     }
     
-    func getAll(sortBy: String = "date", ascending: Bool = false) -> Results<HighlightedScripture> {
-        return realm.objects(HighlightedScripture.self).sorted(byKeyPath: sortBy, ascending: ascending)
+    func getAllHighlights(sortBy: String = "date", ascending: Bool = false) -> Results<HighlightedText> {
+        return realm.objects(HighlightedText.self).sorted(byKeyPath: sortBy, ascending: ascending)
     }
     
     func add(textId: String, textContent: String, scriptureId: String, scriptureContent: String, language: String) {
@@ -55,7 +55,6 @@ class HighlightsManager {
         }
         applyHighlightChanges(highlightedScripture, content: content["primary"]!, language: Constants.Language.primary, modifiedAt: scriptureModifiedAt)
         applyHighlightChanges(highlightedScripture, content: content["secondary"]!, language: Constants.Language.secondary, modifiedAt: scriptureModifiedAt)
-        
         if let highlight = realm.object(ofType: HighlightedText.self, forPrimaryKey: textId) {
             deleteHighlight(highlight)
         }
