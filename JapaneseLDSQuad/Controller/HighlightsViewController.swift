@@ -28,6 +28,7 @@ class HighlightsViewController: UIViewController {
         searchBar.delegate = self
         collectionView.delegate = self
         collectionView.dataSource = self
+        FirestoreManager.shared.delegate = self
         if let layout = collectionView?.collectionViewLayout as? HighlightsViewLayout {
             layout.delegate = self
         }
@@ -89,6 +90,13 @@ extension HighlightsViewController: SettingsViewDelegate {
         updateCollectionBackgroundColor()
         clearLayoutCache()
         collectionView.reloadData()
+    }
+}
+
+extension HighlightsViewController: FirestoreManagerDelegate {
+    
+    func firestoreManagerDidFetchHighlights() {
+        reload()
     }
 }
 

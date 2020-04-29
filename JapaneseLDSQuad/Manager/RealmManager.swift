@@ -33,7 +33,7 @@ class RealmManager {
             fileURL: realmFileURL,
             schemaVersion: currentSchemaVersion,
             migrationBlock: { migration, oldSchemaVersion in
-                if (oldSchemaVersion < self.currentSchemaVersion) {
+                if (oldSchemaVersion < 2) {
                     migration.renameProperty(onType: Book.className(), from: "name_jpn", to: "name_primary")
                     migration.renameProperty(onType: Book.className(), from: "name_eng", to: "name_secondary")
                     migration.renameProperty(onType: Scripture.className(), from: "scripture_jpn", to: "scripture_primary")
@@ -88,15 +88,15 @@ class RealmManager {
     
     fileprivate func copyUserDataToNewRealmFile(from realmToCopy: Realm, to newRealmURL: URL) {
         let bookmarksToCopy = realmToCopy.objects(Bookmark.self).sorted(byKeyPath: "date")
-        let highlightedScripturesToCopy = realmToCopy.objects(HighlightedScripture.self).sorted(byKeyPath: "date")
+//        let highlightedScripturesToCopy = realmToCopy.objects(HighlightedScripture.self).sorted(byKeyPath: "date")
         let highlightedTextsToCopy = realmToCopy.objects(HighlightedText.self).sorted(byKeyPath: "date")
         
         let newRealmConfig = Realm.Configuration(fileURL: newRealmURL, schemaVersion: currentSchemaVersion)
         let realm = try! Realm(configuration: newRealmConfig)
         try! realm.write {
             copyUserBookmarks(to: realm, bookmarks: bookmarksToCopy)
-            copyUserHighlightedScriptures(to: realm, highlightedScriptures: highlightedScripturesToCopy)
-            copyUserHighlightedText(to: realm, highlightedTexts: highlightedTextsToCopy)
+//            copyUserHighlightedScriptures(to: realm, highlightedScriptures: highlightedScripturesToCopy)
+            copyUserHighlights(to: realm, highlightedTexts: highlightedTextsToCopy)
         }
     }
     
@@ -111,28 +111,28 @@ class RealmManager {
         }
     }
     
-    fileprivate func copyUserHighlightedScriptures(to realm: Realm, highlightedScriptures: Results<HighlightedScripture>) {
-        for highlightedScriptureToCopy in highlightedScriptures {
-            if let scripture = realm.objects(Scripture.self).filter("id = '\(highlightedScriptureToCopy.id)'").first {
-                scripture.scripture_primary = highlightedScriptureToCopy.scripture_primary
-                scripture.scripture_secondary = highlightedScriptureToCopy.scripture_secondary
-                let highlightedScripture = HighlightedScripture(id: highlightedScriptureToCopy.id,
-                                                                scripturePrimary: highlightedScriptureToCopy.scripture_primary,
-                                                                scriptureSecondary: highlightedScriptureToCopy.scripture_secondary,
-                                                                scripture: scripture,
-                                                                date: highlightedScriptureToCopy.date)
-                realm.create(HighlightedScripture.self, value: highlightedScripture, update: .all)
-            }
-        }
-    }
+//    fileprivate func copyUserHighlightedScriptures(to realm: Realm, highlightedScriptures: Results<HighlightedScripture>) {
+//        for highlightedScriptureToCopy in highlightedScriptures {
+//            if let scripture = realm.objects(Scripture.self).filter("id = '\(highlightedScriptureToCopy.id)'").first {
+//                scripture.scripture_primary = highlightedScriptureToCopy.scripture_primary
+//                scripture.scripture_secondary = highlightedScriptureToCopy.scripture_secondary
+//                let highlightedScripture = HighlightedScripture(id: highlightedScriptureToCopy.id,
+//                                                                scripturePrimary: highlightedScriptureToCopy.scripture_primary,
+//                                                                scriptureSecondary: highlightedScriptureToCopy.scripture_secondary,
+//                                                                scripture: scripture,
+//                                                                date: highlightedScriptureToCopy.date)
+//                realm.create(HighlightedScripture.self, value: highlightedScripture, update: .all)
+//            }
+//        }
+//    }
     
-    fileprivate func copyUserHighlightedText(to realm: Realm, highlightedTexts: Results<HighlightedText>) {
+    fileprivate func copyUserHighlights(to realm: Realm, highlightedTexts: Results<HighlightedText>) {
         for highlightedTextToCopy in highlightedTexts {
             let highlightedText = HighlightedText(id: highlightedTextToCopy.id,
                                                   namePrimary: highlightedTextToCopy.name_primary,
                                                   nameSecondary: highlightedTextToCopy.name_secondary,
                                                   text: highlightedTextToCopy.text,
-                                                  note:  highlightedTextToCopy.note,
+                                                  note: highlightedTextToCopy.note,
                                                   highlightedScripture: highlightedTextToCopy.highlighted_scripture,
                                                   date: highlightedTextToCopy.date)
             realm.create(HighlightedText.self, value: highlightedText, update: .all)

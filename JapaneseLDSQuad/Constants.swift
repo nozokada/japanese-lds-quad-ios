@@ -15,7 +15,7 @@ struct Constants {
     }
     
     struct Version {
-        static let realmSchema: UInt64 = 2
+        static let realmSchema: UInt64 = 3
     }
     
     struct StoryBoardID {
@@ -51,8 +51,8 @@ struct Constants {
     struct CollectionName {
         static let users = "users"
         static let bookmarks = "bookmarks"
-        static let highlightedScriptures = "highlighted_scriptures"
-        static let highlightedTexts = "highlighted_texts"
+        static let highlights = "highlights"
+        static let customScriptures = "customScriptures"
     }
     
     struct FieldName {

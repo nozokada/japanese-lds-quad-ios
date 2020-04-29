@@ -1,5 +1,5 @@
 //
-//  BookmarkManager.swift
+//  BookmarksManager.swift
 //  JapaneseLDSQuad
 //
 //  Created by Nozomi Okada on 2/4/20.
@@ -15,6 +15,12 @@ class BookmarksManager {
     
     lazy var realm = try! Realm()
     
+    func update(id: String) {
+        if !remove(bookmarkId: id) {
+            add(scriptureId: id)
+        }
+    }
+    
     func get(bookmarkId: String) -> Bookmark? {
         return realm.object(ofType: Bookmark.self, forPrimaryKey: bookmarkId)
     }
@@ -23,20 +29,52 @@ class BookmarksManager {
         return realm.objects(Bookmark.self).sorted(byKeyPath: sortBy, ascending: ascending)
     }
     
-    func add(scriptureId: String, createdAt: Date = Date(), completion: ((Bookmark) -> ())? = nil) {
+    func syncAdd(scriptureId: String, createdAt: Date) {
         guard let scripture = Utilities.shared.getScripture(id: scriptureId) else {
             return
         }
         if let bookmark = get(bookmarkId: scriptureId) {
             if bookmark.date.timeIntervalSince1970 >= createdAt.timeIntervalSince1970 {
                 #if DEBUG
-                print("Bookmark \(bookmark.name_primary) (\(bookmark.id)) already exists")
+                print("Bookmark \(bookmark.id) (for \(bookmark.name_primary)) already exists")
                 #endif
                 return
             }
-            let _ = delete(bookmarkId: bookmark.id)
+            delete(bookmark)
         }
-        let bookmarkToAdd = Bookmark(
+        create(scripture: scripture, createdAt: createdAt)
+    }
+    
+    func syncRemove(bookmarkId: String) {
+        guard let bookmark = get(bookmarkId: bookmarkId) else {
+            #if DEBUG
+            print("Bookmark \(bookmarkId) does not exist")
+            #endif
+            return
+        }
+        delete(bookmark)
+    }
+    
+    fileprivate func add(scriptureId: String) {
+        guard let scripture = Utilities.shared.getScripture(id: scriptureId) else {
+            return
+        }
+        create(scripture: scripture, createdAt: Date(), sync: true)
+    }
+    
+    fileprivate func remove(bookmarkId: String) -> Bool {
+        guard let bookmark = get(bookmarkId: bookmarkId) else {
+            #if DEBUG
+            print("Bookmark \(bookmarkId) does not exist")
+            #endif
+            return false
+        }
+        delete(bookmark, sync: true)
+        return true
+    }
+    
+    fileprivate func create(scripture: Scripture, createdAt: Date, sync: Bool = false) {
+        let bookmark = Bookmark(
             id: scripture.id,
             namePrimary: Utilities.shared.generateTitlePrimary(scripture: scripture),
             nameSecondary: Utilities.shared.generateTitleSecondary(scripture: scripture),
@@ -44,34 +82,27 @@ class BookmarksManager {
             date: createdAt as NSDate
         )
         try! realm.write {
-            realm.add(bookmarkToAdd)
+            realm.add(bookmark)
         }
         #if DEBUG
-        print("Bookmark \(bookmarkToAdd.name_primary) (\(bookmarkToAdd.id)) was added successfully")
+        print("Bookmark \(bookmark.id) (for \(bookmark.name_primary)) was added successfully")
         #endif
-        completion?(bookmarkToAdd)
+        if sync {
+            FirestoreManager.shared.addBookmark(bookmark)
+        }
     }
     
-    func delete(bookmarkId: String, completion: ((String) -> ())? = nil) -> Bool {
-        guard let bookmarkToRemove = get(bookmarkId: bookmarkId) else {
-            #if DEBUG
-            print("Bookmark \(bookmarkId) does not exist")
-            #endif
-            return false
-        }
+    fileprivate func delete(_ bookmark: Bookmark, sync: Bool = false) {
+        let id = bookmark.id
+        let name = bookmark.name_primary
         try! realm.write {
-            realm.delete(bookmarkToRemove)
+            realm.delete(bookmark)
         }
         #if DEBUG
-        print("Bookmark \(bookmarkId) was deleted successfully")
+        print("Bookmark \(id) (for \(name)) was deleted successfully")
         #endif
-        completion?(bookmarkId)
-        return true
-    }
-    
-    func update(id: String) {
-        if !delete(bookmarkId: id, completion: FirestoreManager.shared.deleteServerBookmark) {
-            add(scriptureId: id, completion: FirestoreManager.shared.addServerBookmark)
+        if sync {
+            FirestoreManager.shared.removeBookmark(id: id)
         }
     }
 }
