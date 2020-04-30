@@ -71,7 +71,7 @@
 "passwordResetLabel" = "パスワードをお忘れの場合";
 "registerButtonLabel" = "新規登録";
 "passwordResetDescriptionLabel" = "サインイン時に使用しているメールアドレスを入力してください";
-"passwordResetEmailSentDescriptionLabel" = "パスワード再設定用のメールを送信しました\メールに記載された手順に従ってください";
+"passwordResetEmailSentDescriptionLabel" = "パスワード再設定用のメールを送信しました\nメールに記載された手順に従ってください";
 "passwordResetEmailSendButtonLabel" = "メールを送信";
 "passwordResetEmailSentButtonLabel" = "送信完了";
 
