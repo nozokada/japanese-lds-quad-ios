@@ -40,14 +40,5 @@ protocol AuthenticationManagerDelegate {
 
 protocol FirestoreManagerDelegate {
     
-    func firestoreManagerDidFetchBookmarks()
-    
-    func firestoreManagerDidFetchHighlights()
-}
-
-extension FirestoreManagerDelegate {
-    
-    func firestoreManagerDidFetchBookmarks() {}
-    
-    func firestoreManagerDidFetchHighlights() {}
+    func firestoreManagerDidSucceed()
 }
