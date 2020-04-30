@@ -68,7 +68,7 @@ class AuthenticationManager {
                 self.handleAuthError(error)
             } else {
                 #if DEBUG
-                print("Sign-in succeeded")
+                print("Sign in succeeded")
                 #endif
                 self.delegate?.authenticationManagerDidSucceed()
             }
