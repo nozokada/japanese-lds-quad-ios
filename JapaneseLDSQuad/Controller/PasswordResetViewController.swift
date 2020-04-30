@@ -25,6 +25,8 @@ class PasswordResetViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         AuthenticationManager.shared.delegate = self
+        messageTextLabel.textColor = Utilities.shared.getTextColor()
+        view.backgroundColor = Utilities.shared.getBackgroundColor()
     }
     
     fileprivate func alert(title: String, message: String, close: Bool = false) {

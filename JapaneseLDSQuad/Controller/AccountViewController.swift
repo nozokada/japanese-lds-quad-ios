@@ -25,12 +25,12 @@ class AccountViewController: UITableViewController {
             presentSignInViewController()
             return
         }
+        self.user = user
         navigationItem.title = "accountViewTitle".localized
         usernameLabel.text = user.displayName
         emailLabel.text = user.email
         syncSwitchLabel.text = "syncButtonLabel".localized
         signOutButton.setTitle("signOutButtonLabel".localized, for: .normal)
-        self.user = user
         setSettingsBarButton()
         setSyncSwitchState()
     }

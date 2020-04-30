@@ -28,6 +28,7 @@ class RegisterViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         AuthenticationManager.shared.delegate = self
+        view.backgroundColor = Utilities.shared.getBackgroundColor()
     }
     
     fileprivate func alert(title: String, message: String, close: Bool = false) {
