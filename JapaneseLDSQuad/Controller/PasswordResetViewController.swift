@@ -27,15 +27,14 @@ class PasswordResetViewController: UIViewController {
         AuthenticationManager.shared.delegate = self
     }
     
-    fileprivate func alert(message: String, close: Bool = false) {
-        let title = "passwordResetError".localized
+    fileprivate func alert(title: String, message: String, close: Bool = false) {
         let alertController = Utilities.shared.alert(view: view, title: title, message: message, handler: nil)
         present(alertController, animated: true, completion: nil)
     }
     
     @IBAction func sendButtonTapped(_ sender: Any) {
         guard let email = emailTextField.text, !email.isEmpty else {
-            alert(message: "fillAllFields".localized)
+            alert(title: "passwordResetError".localized, message: "fillAllFields".localized)
             return
         }
         sendButton.disable()
@@ -52,6 +51,6 @@ extension PasswordResetViewController: AuthenticationManagerDelegate {
     
     func authenticationManagerDidReceiveMessage(_ message: String) {
         sendButton.enable()
-        alert(message: message)
+        alert(title: "passwordResetError".localized, message: message)
     }
 }

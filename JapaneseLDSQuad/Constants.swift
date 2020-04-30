@@ -28,8 +28,8 @@ struct Constants {
         static let speech = "speech"
         static let purchase = "purchase"
         static let profile = "profile"
-        static let login = "login"
-        static let signup = "signup"
+        static let signIn = "signIn"
+        static let register = "register"
         static let password = "password"
     }
     

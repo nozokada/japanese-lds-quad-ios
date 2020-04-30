@@ -743,7 +743,7 @@
                                                         <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="logoutButtonTapped:" destination="c0K-TQ-ZJf" eventType="touchUpInside" id="qkT-U5-vOT"/>
+                                                        <action selector="signOutButtonTapped:" destination="c0K-TQ-ZJf" eventType="touchUpInside" id="qkT-U5-vOT"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -765,7 +765,7 @@
                     <navigationItem key="navigationItem" title="プロフィール" id="Rdr-H3-h9r"/>
                     <connections>
                         <outlet property="emailLabel" destination="TLz-Zg-T8V" id="ACs-H6-ccC"/>
-                        <outlet property="logoutButton" destination="lIx-J0-ug2" id="eqY-Mp-oWI"/>
+                        <outlet property="signOutButton" destination="lIx-J0-ug2" id="eqY-Mp-oWI"/>
                         <outlet property="syncSwitch" destination="dp9-ou-kP4" id="ivh-jO-O7c"/>
                         <outlet property="syncSwitchLabel" destination="qHr-Sx-QCt" id="3UH-lg-MIG"/>
                         <outlet property="usernameLabel" destination="K1f-nn-uMa" id="Cok-Qp-dF3"/>
@@ -776,10 +776,10 @@
             </objects>
             <point key="canvasLocation" x="1484" y="-1015.2709359605911"/>
         </scene>
-        <!--ログインする-->
+        <!--サインインする-->
         <scene sceneID="hf6-u9-Dyq">
             <objects>
-                <viewController storyboardIdentifier="login" id="b6A-Oo-dWt" customClass="LoginViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="signIn" id="b6A-Oo-dWt" customClass="SignInViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Mhr-Vp-GHt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -791,7 +791,7 @@
                                 </constraints>
                                 <state key="normal" title="ログイン"/>
                                 <connections>
-                                    <action selector="loginButtonTapped:" destination="b6A-Oo-dWt" eventType="touchUpInside" id="AEs-qI-4li"/>
+                                    <action selector="signInButtonTapped:" destination="b6A-Oo-dWt" eventType="touchUpInside" id="AEs-qI-4li"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Eメールアドレス" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="E7e-H5-QdN">
@@ -808,13 +808,13 @@
                                     <constraint firstAttribute="height" constant="34" id="6At-uj-OG0"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iqh-ex-BT3">
                                 <rect key="frame" x="100" y="348.66666666666669" width="175" height="30"/>
                                 <state key="normal" title="アカウントを作成する"/>
                                 <connections>
-                                    <action selector="signupButtonTapped:" destination="b6A-Oo-dWt" eventType="touchUpInside" id="1Vr-l5-jth"/>
+                                    <action selector="registerButtonTapped:" destination="b6A-Oo-dWt" eventType="touchUpInside" id="1Vr-l5-jth"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ブックマーク、印とメモの同期を複数の端末で行うことができるようになります" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wEY-41-CQ8">
@@ -855,14 +855,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ht6-se-MAu"/>
                     </view>
-                    <navigationItem key="navigationItem" title="ログインする" id="kBh-cO-VGL"/>
+                    <navigationItem key="navigationItem" title="サインインする" id="kBh-cO-VGL"/>
                     <connections>
-                        <outlet property="createAccountButton" destination="Iqh-ex-BT3" id="54v-VM-KJp"/>
                         <outlet property="emailTextField" destination="E7e-H5-QdN" id="RXE-G5-QnH"/>
-                        <outlet property="loginButton" destination="g13-k6-SqF" id="021-bf-cwh"/>
                         <outlet property="messageTextLabel" destination="wEY-41-CQ8" id="q4C-Bd-mnn"/>
                         <outlet property="passwordResetButton" destination="sFT-GT-j55" id="1qx-hQ-36Y"/>
                         <outlet property="passwordTextField" destination="W7V-Q8-NPb" id="Gm4-2l-7P9"/>
+                        <outlet property="registerButton" destination="Iqh-ex-BT3" id="54v-VM-KJp"/>
+                        <outlet property="signInButton" destination="g13-k6-SqF" id="021-bf-cwh"/>
                         <segue destination="CXH-gc-ONc" kind="show" id="RJ7-Jf-zFc"/>
                         <segue destination="2vk-Hi-Kp8" kind="show" id="ZYp-Lg-7z3"/>
                     </connections>
@@ -871,10 +871,10 @@
             </objects>
             <point key="canvasLocation" x="2232.8000000000002" y="-1015.2709359605911"/>
         </scene>
-        <!--アカウントを作成する-->
+        <!--新規登録する-->
         <scene sceneID="WG4-G7-QqS">
             <objects>
-                <viewController storyboardIdentifier="signup" id="CXH-gc-ONc" customClass="SignupViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="register" id="CXH-gc-ONc" customClass="RegisterViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vuG-sM-eb9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -894,7 +894,7 @@
                                 </constraints>
                                 <state key="normal" title="アカウントを作成"/>
                                 <connections>
-                                    <action selector="createAccountButtonTapped:" destination="CXH-gc-ONc" eventType="touchUpInside" id="g7g-WP-Tks"/>
+                                    <action selector="registerButtonTapped:" destination="CXH-gc-ONc" eventType="touchUpInside" id="g7g-WP-Tks"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="パスワード" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BxA-iF-Itg">
@@ -903,7 +903,7 @@
                                     <constraint firstAttribute="height" constant="34" id="eDY-Kx-F8p"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Eメールアドレス" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d2n-ZU-cWX">
                                 <rect key="frame" x="20" y="178" width="335" height="34"/>
@@ -932,11 +932,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="AQk-yp-FUm"/>
                     </view>
-                    <navigationItem key="navigationItem" title="アカウントを作成する" id="wjh-RL-v7Y"/>
+                    <navigationItem key="navigationItem" title="新規登録する" id="wjh-RL-v7Y"/>
                     <connections>
-                        <outlet property="createAccountButton" destination="zW6-QY-dba" id="J6U-hA-nin"/>
                         <outlet property="emailTextField" destination="d2n-ZU-cWX" id="yHE-xz-Ajy"/>
                         <outlet property="passwordTextField" destination="BxA-iF-Itg" id="5vS-UK-FJ3"/>
+                        <outlet property="registerButton" destination="zW6-QY-dba" id="J6U-hA-nin"/>
                         <outlet property="usernameTextField" destination="3BO-vN-pGX" id="LhX-5f-AWd"/>
                     </connections>
                 </viewController>
@@ -944,7 +944,7 @@
             </objects>
             <point key="canvasLocation" x="3012" y="-1015"/>
         </scene>
-        <!--パスワードをリセットする-->
+        <!--パスワードを再設定する-->
         <scene sceneID="dbD-fI-kQ3">
             <objects>
                 <viewController storyboardIdentifier="password" id="2vk-Hi-Kp8" customClass="PasswordResetViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
@@ -953,13 +953,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ログインに使用しているメールアドレスを入力してください" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZAQ-2Z-K8W">
-                                <rect key="frame" x="20" y="128" width="335" height="40.666666666666657"/>
+                                <rect key="frame" x="20" y="128" width="335" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="u6q-fU-req"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OKs-7n-67T" customClass="MainButton" customModule="JapaneseLDSQuad" customModuleProvider="target">
-                                <rect key="frame" x="100" y="242.66666666666663" width="175" height="40"/>
+                                <rect key="frame" x="100" y="302" width="175" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="l32-dO-pIh"/>
                                 </constraints>
@@ -969,7 +972,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Eメールアドレス" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="076-jM-3Hc">
-                                <rect key="frame" x="20" y="188.66666666666666" width="335" height="34"/>
+                                <rect key="frame" x="20" y="248" width="335" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="NMe-zH-y3U"/>
                                 </constraints>
@@ -992,7 +995,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="acm-9G-RRN"/>
                     </view>
-                    <navigationItem key="navigationItem" title="パスワードをリセットする" id="azu-OE-Ldh"/>
+                    <navigationItem key="navigationItem" title="パスワードを再設定する" id="azu-OE-Ldh"/>
                     <connections>
                         <outlet property="emailTextField" destination="076-jM-3Hc" id="ayA-N5-ZYu"/>
                         <outlet property="messageTextLabel" destination="ZAQ-2Z-K8W" id="aQe-gp-uW1"/>

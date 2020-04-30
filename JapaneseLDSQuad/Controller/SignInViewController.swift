@@ -1,5 +1,5 @@
 //
-//  LoginViewController.swift
+//  SignInViewController.swift
 //  JapaneseLDSQuad
 //
 //  Created by Nozomi Okada on 3/21/20.
@@ -9,23 +9,23 @@
 import UIKit
 import FirebaseAuth
 
-class LoginViewController: UIViewController {
+class SignInViewController: UIViewController {
 
     @IBOutlet weak var messageTextLabel: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var loginButton: MainButton!
-    @IBOutlet weak var createAccountButton: UIButton!
+    @IBOutlet weak var signInButton: MainButton!
+    @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var passwordResetButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "loginViewTitle".localized
-        messageTextLabel.text = "loginDescriptionLabel".localized
+        navigationItem.title = "signInViewTitle".localized
+        messageTextLabel.text = "signInDescriptionLabel".localized
         emailTextField.placeholder = "emailPlaceholder".localized
         passwordTextField.placeholder = "passwordPlaceholder".localized
-        loginButton.setTitle("loginButtonLabel".localized, for: .normal)
-        createAccountButton.setTitle("createAccountLabel".localized, for: .normal)
+        signInButton.setTitle("signInButtonLabel".localized, for: .normal)
+        registerButton.setTitle("registerLabel".localized, for: .normal)
         passwordResetButton.setTitle("passwordResetLabel".localized, for: .normal)
     }
     
@@ -34,8 +34,7 @@ class LoginViewController: UIViewController {
         AuthenticationManager.shared.delegate = self
     }
     
-    fileprivate func alert(message: String, close: Bool = false) {
-        let title = "loginError".localized
+    fileprivate func alert(title: String, message: String, close: Bool = false) {
         let alertController = Utilities.shared.alert(view: view, title: title, message: message, handler: nil)
         present(alertController, animated: true, completion: nil)
     }
@@ -46,18 +45,18 @@ class LoginViewController: UIViewController {
         }
     }
     
-    @IBAction func loginButtonTapped(_ sender: Any) {
+    @IBAction func signInButtonTapped(_ sender: Any) {
         guard let email = emailTextField.text, !email.isEmpty,
             let password = passwordTextField.text, !password.isEmpty else {
-                alert(message: "fillAllFields".localized)
+                alert(title: "signInError".localized, message: "fillAllFields".localized)
                 return
         }
-        loginButton.disable()
+        signInButton.disable()
         AuthenticationManager.shared.signIn(email: email, password: password)
     }
     
-    @IBAction func signupButtonTapped(_ sender: Any) {
-        if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.signup) {
+    @IBAction func registerButtonTapped(_ sender: Any) {
+        if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.register) {
             navigationController?.pushViewController(viewController, animated: true)
         }
     }
@@ -69,15 +68,15 @@ class LoginViewController: UIViewController {
     }
 }
 
-extension LoginViewController: AuthenticationManagerDelegate {
+extension SignInViewController: AuthenticationManagerDelegate {
     
     func authenticationManagerDidSucceed() {
-        loginButton.enable()
+        signInButton.enable()
         presentProfileViewController()
     }
     
     func authenticationManagerDidReceiveMessage(_ message: String) {
-        loginButton.enable()
-        alert(message: message)
+        signInButton.enable()
+        alert(title: "signInError".localized, message: message)
     }
 }

@@ -22,8 +22,8 @@
 "chapterTextFieldPlaceholder" = "ch.";
 "verseTextFieldPlaceholder" = "v.";
 "profileViewTitle" = "Profile";
-"loginViewTitle" = "Login";
-"signupViewTitle" = "Sign Up";
+"signInViewTitle" = "Sign In";
+"registerViewTitle" = "Register";
 "passwordResetViewTitle" = "Reset Password";
 
 "noBookmarksLabel" = "There are no bookmarks\n\nTap a verse number to add\nSwipe left on cell to remove";
@@ -60,17 +60,17 @@
 "allFeaturesPassPurchaseButtonLabel" = "Buy";
 "allFeaturesPassRestoreButtonLabel" = "Restore Purchase";
 
-"loginDescriptionLabel" = "Sync bookmarks and highlights across multiple devices";
+"signInDescriptionLabel" = "Sign in and sync bookmarks and highlights across multiple devices";
 "emailPlaceholder" = "Email Address";
 "passwordPlaceholder" = "Password";
 "usernamePlaceholder" = "Username";
-"loginButtonLabel" = "Login";
-"logoutButtonLabel" = "Sign Out";
+"signInButtonLabel" = "Sign In";
+"signOutButtonLabel" = "Sign Out";
 "syncButtonLabel" = "Sync";
-"createAccountLabel" = "Sign Up";
+"registerLabel" = "Register";
 "passwordResetLabel" = "Forgot password?";
-"createAccountButtonLabel" = "Sign Up";
-"passwordResetDescriptionLabel" = "Enter the email address you use to login";
+"registerButtonLabel" = "Register";
+"passwordResetDescriptionLabel" = "To reset your password, enter the email address you use to sign in";
 "passwordResetEmailSentDescriptionLabel" = "Password reset email sent\nFollow the directions in the email to reset your password";
 "passwordResetEmailSendButtonLabel" = "Send";
 "passwordResetEmailSentButtonLabel" = "Sent";
@@ -84,7 +84,7 @@
 "restoreComplete" = "Restore complete!";
 
 "fillAllFields" = "Please fill in all fields";
-"loginError" = "Login Error";
-"signupError" = "Signup Error";
-"logoutError" = "Logout Error";
+"signInError" = "Sign-In Error";
+"registrationError" = "Registration Error";
+"signOutError" = "Sign-Out Error";
 "passwordResetError" = "Password Reset Error";

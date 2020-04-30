@@ -13,7 +13,7 @@ class ProfileViewController: UITableViewController {
 
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
-    @IBOutlet weak var logoutButton: MainButton!
+    @IBOutlet weak var signOutButton: MainButton!
     @IBOutlet weak var syncSwitchLabel: UILabel!
     @IBOutlet weak var syncSwitch: UIButton!
     
@@ -22,14 +22,14 @@ class ProfileViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let user = AuthenticationManager.shared.currentUser else {
-            presentLoginViewController()
+            presentSignInViewController()
             return
         }
         navigationItem.title = "profileViewTitle".localized
         usernameLabel.text = user.displayName
         emailLabel.text = user.email
         syncSwitchLabel.text = "syncButtonLabel".localized
-        logoutButton.setTitle("logoutButtonLabel".localized, for: .normal)
+        signOutButton.setTitle("signOutButtonLabel".localized, for: .normal)
         self.user = user
         setSettingsBarButton()
         setSyncSwitchState()
@@ -46,16 +46,15 @@ class ProfileViewController: UITableViewController {
         syncSwitch.setImage(state ? #imageLiteral(resourceName: "ToggleOn") : #imageLiteral(resourceName: "ToggleOff"), for: .normal)
     }
     
-    fileprivate func alert(message: String, close: Bool = false) {
-        let title = "logoutError".localized
+    fileprivate func alert(title: String, message: String, close: Bool = false) {
         let alertController = Utilities.shared.alert(view: view, title: title, message: message, handler: nil)
         present(alertController, animated: true, completion: nil)
     }
     
-    fileprivate func presentLoginViewController() {
-        if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.login) {
+    fileprivate func presentSignInViewController() {
+        if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.signIn) {
             navigationController?.setViewControllers([viewController], animated: false)
-            navigationItem.title = "loginViewTitle".localized
+            navigationItem.title = "signInViewTitle".localized
         }
     }
     
@@ -77,8 +76,8 @@ class ProfileViewController: UITableViewController {
         }
     }
     
-    @IBAction func logoutButtonTapped(_ sender: Any) {
-        AuthenticationManager.shared.signOut(completion: presentLoginViewController)
+    @IBAction func signOutButtonTapped(_ sender: Any) {
+        AuthenticationManager.shared.signOut(completion: presentSignInViewController)
     }
 }
 
@@ -95,6 +94,6 @@ extension ProfileViewController: AuthenticationManagerDelegate {
     }
     
     func authenticationManagerDidReceiveMessage(_ message: String) {
-        alert(message: message)
+        alert(title: "signOutError".localized, message: message)
     }
 }

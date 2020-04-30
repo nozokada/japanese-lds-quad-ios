@@ -22,8 +22,8 @@
 "chapterTextFieldPlaceholder" = "章";
 "verseTextFieldPlaceholder" = "節";
 "profileViewTitle" = "プロフィール";
-"loginViewTitle" = "ログインする";
-"signupViewTitle" = "アカウントを作成する";
+"signInViewTitle" = "サインインする";
+"registerViewTitle" = "新規登録する";
 "passwordResetViewTitle" = "パスワードを再設定する";
 
 "noBookmarksLabel" = "ブックマークはありません\n\n節の数字をタップして追加してください\nセルを左にスワイプすると削除できます";
@@ -60,17 +60,17 @@
 "allFeaturesPassPurchaseButtonLabel" = "購入する";
 "allFeaturesPassRestoreButtonLabel" = "購入を復元する";
 
-"loginDescriptionLabel" = "ブックマーク、印とメモの同期を複数の端末で行うことができるようになります";
+"signInDescriptionLabel" = "サインインすると、ブックマークや印とメモを複数の端末で同期できるようになります";
 "emailPlaceholder" = "Eメールアドレス";
 "passwordPlaceholder" = "パスワード";
 "usernamePlaceholder" = "ユーザー名";
-"loginButtonLabel" = "ログイン";
-"logoutButtonLabel" = "ログアウト";
+"signInButtonLabel" = "サインイン";
+"signOutButtonLabel" = "サインアウト";
 "syncButtonLabel" = "同期する";
-"createAccountLabel" = "アカウントを作成する";
+"registerLabel" = "新規登録";
 "passwordResetLabel" = "パスワードをお忘れの場合";
-"createAccountButtonLabel" = "アカウントを新規作成";
-"passwordResetDescriptionLabel" = "ログインに使用しているメールアドレスを入力してください";
+"registerButtonLabel" = "新規登録";
+"passwordResetDescriptionLabel" = "サインイン時に使用しているメールアドレスを入力してください";
 "passwordResetEmailSentDescriptionLabel" = "パスワード再設定用のメールを送信しました\メールに記載された手順に従ってください";
 "passwordResetEmailSendButtonLabel" = "メールを送信";
 "passwordResetEmailSentButtonLabel" = "送信完了";
@@ -84,7 +84,7 @@
 "restoreComplete" = "購入の復元が完了しました";
 
 "fillAllFields" = "すべての項目に記入してください";
-"loginError" = "ログインエラー";
-"signupError" = "アカウント作成エラー";
-"logoutError" = "ログアアウトエラー";
+"signInError" = "サインインエラー";
+"registrationError" = "登録エラー";
+"signOutError" = "サインアウトエラー";
 "passwordResetError" = "パスワード再設定エラー";
