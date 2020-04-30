@@ -10,7 +10,7 @@
 "searchTabBarItemTitle" = "探す";
 "bookmarksTabBarItemTitle" = "ブックマーク";
 "highlightsTabBarItemTitle" = "印とメモ";
-"profileTabBarItemTitle" = "アカウント";
+"accountTabBarItemTitle" = "アカウント";
 
 "rootViewTitle" = "すべての聖典";
 "standardWorksGroupedTableViewLabel" = "標準聖典";

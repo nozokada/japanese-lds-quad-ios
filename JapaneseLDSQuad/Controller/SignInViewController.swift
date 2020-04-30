@@ -39,8 +39,8 @@ class SignInViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
-    fileprivate func presentProfileViewController() {
-        if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.profile) {
+    fileprivate func presentAccountViewController() {
+        if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.account) {
             navigationController?.setViewControllers([viewController], animated: false)
         }
     }
@@ -72,7 +72,7 @@ extension SignInViewController: AuthenticationManagerDelegate {
     
     func authenticationManagerDidSucceed() {
         signInButton.enable()
-        presentProfileViewController()
+        presentAccountViewController()
     }
     
     func authenticationManagerDidReceiveMessage(_ message: String) {

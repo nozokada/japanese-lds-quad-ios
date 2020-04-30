@@ -369,38 +369,38 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="heM-Hy-qRc">
-                                <rect key="frame" x="70" y="697" width="235" height="61"/>
+                                <rect key="frame" x="90.666666666666686" y="727.33333333333337" width="194" height="30.666666666666629"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oHI-ld-dSJ">
-                                        <rect key="frame" x="0.0" y="0.0" width="34.333333333333336" height="61"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="26" height="30.666666666666668"/>
                                         <state key="normal" image="Slower"/>
                                         <connections>
                                             <action selector="slowerButton:" destination="AUS-pu-oiz" eventType="touchUpInside" id="IHT-ko-U0D"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BUu-7l-7ju">
-                                        <rect key="frame" x="50.333333333333329" y="0.0" width="34" height="61"/>
+                                        <rect key="frame" x="41.999999999999986" y="0.0" width="26" height="30.666666666666668"/>
                                         <state key="normal" image="Back"/>
                                         <connections>
                                             <action selector="backButtonTapped:" destination="AUS-pu-oiz" eventType="touchUpInside" id="eNi-7h-KF6"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uey-GC-yPi">
-                                        <rect key="frame" x="100.33333333333334" y="0.0" width="34.333333333333343" height="61"/>
+                                        <rect key="frame" x="83.999999999999986" y="0.0" width="26" height="30.666666666666668"/>
                                         <state key="normal" image="Play"/>
                                         <connections>
                                             <action selector="playButtonTapped:" destination="AUS-pu-oiz" eventType="touchUpInside" id="ibJ-wk-jtZ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IBR-UL-7Gh">
-                                        <rect key="frame" x="150.66666666666666" y="0.0" width="34" height="61"/>
+                                        <rect key="frame" x="126" y="0.0" width="26" height="30.666666666666668"/>
                                         <state key="normal" image="Next"/>
                                         <connections>
                                             <action selector="nextButtonTapped:" destination="AUS-pu-oiz" eventType="touchUpInside" id="h5I-ii-aeO"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HQh-6m-qY8">
-                                        <rect key="frame" x="200.66666666666669" y="0.0" width="34.333333333333343" height="61"/>
+                                        <rect key="frame" x="168" y="0.0" width="26" height="30.666666666666668"/>
                                         <state key="normal" image="Faster"/>
                                         <connections>
                                             <action selector="fasterButtonTapped:" destination="AUS-pu-oiz" eventType="touchUpInside" id="jGW-Y4-fWL"/>
@@ -409,7 +409,7 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.0x" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJu-kZ-BDs">
-                                <rect key="frame" x="20" y="697" width="34" height="61"/>
+                                <rect key="frame" x="20" y="727.33333333333337" width="34" height="30.666666666666629"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="34" id="HaE-7F-iD2"/>
                                 </constraints>
@@ -649,10 +649,10 @@
             </objects>
             <point key="canvasLocation" x="-0.80000000000000004" y="-698.27586206896558"/>
         </scene>
-        <!--プロフィール-->
+        <!--アカウント-->
         <scene sceneID="WtM-Fk-wiF">
             <objects>
-                <tableViewController storyboardIdentifier="profile" id="c0K-TQ-ZJf" customClass="AccountViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="account" id="c0K-TQ-ZJf" customClass="AccountViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Z1l-hv-BU3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -762,7 +762,7 @@
                             <outlet property="delegate" destination="c0K-TQ-ZJf" id="clU-Uo-6MH"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="プロフィール" id="Rdr-H3-h9r"/>
+                    <navigationItem key="navigationItem" title="アカウント" id="Rdr-H3-h9r"/>
                     <connections>
                         <outlet property="emailLabel" destination="TLz-Zg-T8V" id="ACs-H6-ccC"/>
                         <outlet property="signOutButton" destination="lIx-J0-ug2" id="eqY-Mp-oWI"/>
@@ -1261,7 +1261,7 @@
         <scene sceneID="Hz6-Dm-kVS">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="v1G-iI-2zk" customClass="MainNavigationController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="アカウント" image="Profile" id="1ZQ-l0-wXI"/>
+                    <tabBarItem key="tabBarItem" title="アカウント" image="Account" id="1ZQ-l0-wXI"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="CdV-8y-NSy" customClass="MainNavigationBar" customModule="JapaneseLDSQuad" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -1278,13 +1278,13 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Account" width="23.666666030883789" height="23.666666030883789"/>
         <image name="Back" width="22.333333969116211" height="20.333333969116211"/>
         <image name="Bookmark" width="22.666666030883789" height="31"/>
         <image name="Faster" width="26" height="30.666666030883789"/>
         <image name="Next" width="22.333333969116211" height="20.333333969116211"/>
         <image name="Pencil" width="22.333333969116211" height="19.666666030883789"/>
         <image name="Play" width="22" height="21"/>
-        <image name="Profile" width="23.666666030883789" height="23.666666030883789"/>
         <image name="Read" width="27.666666030883789" height="22.333333969116211"/>
         <image name="Search" width="25.333333969116211" height="25.333333969116211"/>
         <image name="Slower" width="26" height="30.666666030883789"/>
