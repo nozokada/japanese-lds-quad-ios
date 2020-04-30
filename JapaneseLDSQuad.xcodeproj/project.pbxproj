@@ -73,6 +73,7 @@
 		D4EBF00523FA562D00275624 /* HighlightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EBF00423FA562D00275624 /* HighlightCell.swift */; };
 		D4EBF00723FA726200275624 /* HighlightRegularTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EBF00623FA726200275624 /* HighlightRegularTextLabel.swift */; };
 		D4EBF00923FBA56B00275624 /* HighlightsViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EBF00823FBA56B00275624 /* HighlightsViewLayout.swift */; };
+		D4EF555E245A75BE00F66505 /* PasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EF555D245A75BD00F66505 /* PasswordResetViewController.swift */; };
 		D4F9C6062421C4AC00F3910E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F9C6052421C4AC00F3910E /* ProfileViewController.swift */; };
 		D4F9C6082421C72600F3910E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D4F9C6072421C72500F3910E /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
@@ -176,6 +177,7 @@
 		D4EBF00423FA562D00275624 /* HighlightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightCell.swift; sourceTree = "<group>"; };
 		D4EBF00623FA726200275624 /* HighlightRegularTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightRegularTextLabel.swift; sourceTree = "<group>"; };
 		D4EBF00823FBA56B00275624 /* HighlightsViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightsViewLayout.swift; sourceTree = "<group>"; };
+		D4EF555D245A75BD00F66505 /* PasswordResetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetViewController.swift; sourceTree = "<group>"; };
 		D4F9C6052421C4AC00F3910E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		D4F9C6072421C72500F3910E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F24AEA88112E18282C759158 /* Pods-JapaneseLDSQuad.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JapaneseLDSQuad.debug.xcconfig"; path = "Target Support Files/Pods-JapaneseLDSQuad/Pods-JapaneseLDSQuad.debug.xcconfig"; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 				D4F9C6052421C4AC00F3910E /* ProfileViewController.swift */,
 				D402AD5D2426C6B8003A781B /* LoginViewController.swift */,
 				D402AD5F24273BC8003A781B /* SignupViewController.swift */,
+				D4EF555D245A75BD00F66505 /* PasswordResetViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -671,6 +674,7 @@
 				D4EBF00523FA562D00275624 /* HighlightCell.swift in Sources */,
 				D481DC3523F6657B00F166B7 /* JavaScriptFunctions.swift in Sources */,
 				D47EFBC423FE4579001E213F /* HighlightSmallTextLabel.swift in Sources */,
+				D4EF555E245A75BE00F66505 /* PasswordResetViewController.swift in Sources */,
 				D475CCF723E9521200678A85 /* StoreObserver.swift in Sources */,
 				D47156D02411BF94002732A8 /* AppDataTypes.swift in Sources */,
 				D481DC3723F678C300F166B7 /* MainWebView.swift in Sources */,

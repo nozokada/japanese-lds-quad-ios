@@ -30,6 +30,7 @@ struct Constants {
         static let profile = "profile"
         static let login = "login"
         static let signup = "signup"
+        static let password = "password"
     }
     
     struct RestorationID {

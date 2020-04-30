@@ -52,6 +52,12 @@ class LoginViewController: UIViewController {
             navigationController?.pushViewController(viewController, animated: true)
         }
     }
+    
+    @IBAction func passwordResetButtonTapped(_ sender: Any) {
+        if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.password) {
+            navigationController?.pushViewController(viewController, animated: true)
+        }
+    }
 }
 
 extension LoginViewController: AuthenticationManagerDelegate {
