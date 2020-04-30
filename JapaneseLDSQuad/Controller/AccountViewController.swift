@@ -1,5 +1,5 @@
 //
-//  ProfileViewController.swift
+//  AccountViewController.swift
 //  JapaneseLDSQuad
 //
 //  Created by Nozomi Okada on 3/17/20.
@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class ProfileViewController: UITableViewController {
+class AccountViewController: UITableViewController {
 
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
@@ -25,7 +25,7 @@ class ProfileViewController: UITableViewController {
             presentSignInViewController()
             return
         }
-        navigationItem.title = "profileViewTitle".localized
+        navigationItem.title = "accountViewTitle".localized
         usernameLabel.text = user.displayName
         emailLabel.text = user.email
         syncSwitchLabel.text = "syncButtonLabel".localized
@@ -81,14 +81,14 @@ class ProfileViewController: UITableViewController {
     }
 }
 
-extension ProfileViewController: SettingsViewDelegate {
+extension AccountViewController: SettingsViewDelegate {
     
     func reload() {
         tableView.reloadData()
     }
 }
 
-extension ProfileViewController: AuthenticationManagerDelegate {
+extension AccountViewController: AuthenticationManagerDelegate {
     
     func authenticationManagerDidSucceed() {
     }

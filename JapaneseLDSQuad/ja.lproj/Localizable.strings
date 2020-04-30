@@ -21,7 +21,7 @@
 "highlightsViewTitle" = "印とメモ";
 "chapterTextFieldPlaceholder" = "章";
 "verseTextFieldPlaceholder" = "節";
-"profileViewTitle" = "プロフィール";
+"accountViewTitle" = "アカウント";
 "signInViewTitle" = "サインインする";
 "registerViewTitle" = "新規登録する";
 "passwordResetViewTitle" = "パスワードを再設定する";

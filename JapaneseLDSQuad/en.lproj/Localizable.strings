@@ -21,7 +21,7 @@
 "highlightsViewTitle" = "Highlights";
 "chapterTextFieldPlaceholder" = "ch.";
 "verseTextFieldPlaceholder" = "v.";
-"profileViewTitle" = "Profile";
+"accountViewTitle" = "Account";
 "signInViewTitle" = "Sign In";
 "registerViewTitle" = "Register";
 "passwordResetViewTitle" = "Reset Password";

@@ -74,7 +74,7 @@
 		D4EBF00723FA726200275624 /* HighlightRegularTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EBF00623FA726200275624 /* HighlightRegularTextLabel.swift */; };
 		D4EBF00923FBA56B00275624 /* HighlightsViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EBF00823FBA56B00275624 /* HighlightsViewLayout.swift */; };
 		D4EF555E245A75BE00F66505 /* PasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EF555D245A75BD00F66505 /* PasswordResetViewController.swift */; };
-		D4F9C6062421C4AC00F3910E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F9C6052421C4AC00F3910E /* ProfileViewController.swift */; };
+		D4F9C6062421C4AC00F3910E /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F9C6052421C4AC00F3910E /* AccountViewController.swift */; };
 		D4F9C6082421C72600F3910E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D4F9C6072421C72500F3910E /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -178,7 +178,7 @@
 		D4EBF00623FA726200275624 /* HighlightRegularTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightRegularTextLabel.swift; sourceTree = "<group>"; };
 		D4EBF00823FBA56B00275624 /* HighlightsViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightsViewLayout.swift; sourceTree = "<group>"; };
 		D4EF555D245A75BD00F66505 /* PasswordResetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetViewController.swift; sourceTree = "<group>"; };
-		D4F9C6052421C4AC00F3910E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		D4F9C6052421C4AC00F3910E /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		D4F9C6072421C72500F3910E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F24AEA88112E18282C759158 /* Pods-JapaneseLDSQuad.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JapaneseLDSQuad.debug.xcconfig"; path = "Target Support Files/Pods-JapaneseLDSQuad/Pods-JapaneseLDSQuad.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -277,7 +277,7 @@
 				D41EC6712404CF18001521D8 /* SpeechViewController.swift */,
 				D4DE983A240F4C4100D87829 /* PurchaseViewController.swift */,
 				D4EBEFFC23F8EF4700275624 /* SettingsViewController.swift */,
-				D4F9C6052421C4AC00F3910E /* ProfileViewController.swift */,
+				D4F9C6052421C4AC00F3910E /* AccountViewController.swift */,
 				D402AD5D2426C6B8003A781B /* SignInViewController.swift */,
 				D402AD5F24273BC8003A781B /* RegisterViewController.swift */,
 				D4EF555D245A75BD00F66505 /* PasswordResetViewController.swift */,
@@ -635,7 +635,7 @@
 				D41EC67424050876001521D8 /* HighlightChangeDelegate.swift in Sources */,
 				D475CCEB23E934F200678A85 /* ContentViewController.swift in Sources */,
 				D475CCE223E9293700678A85 /* MainNavigationController.swift in Sources */,
-				D4F9C6062421C4AC00F3910E /* ProfileViewController.swift in Sources */,
+				D4F9C6062421C4AC00F3910E /* AccountViewController.swift in Sources */,
 				D4EBEFFD23F8EF4700275624 /* SettingsViewController.swift in Sources */,
 				D45D07C024441BE90042406E /* FirestoreManager.swift in Sources */,
 				D475CCE523E92D5200678A85 /* MainNavigationBar.swift in Sources */,
