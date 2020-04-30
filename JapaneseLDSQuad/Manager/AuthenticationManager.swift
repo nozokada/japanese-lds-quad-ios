@@ -23,7 +23,7 @@ class AuthenticationManager {
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             guard let user = authResult?.user else {
                 #if DEBUG
-                print("Failed to create authentication")
+                print("User creation for \(email) was failed")
                 #endif
                 if let error = error {
                     self.handleAuthError(error)
@@ -35,7 +35,7 @@ class AuthenticationManager {
             changeRequest.commitChanges() { error in
                 if let _ = error {
                     #if DEBUG
-                    print("Failed to change user display name")
+                    print("Saving display name \(username) was failed")
                     #endif
                 }
             }
@@ -46,10 +46,13 @@ class AuthenticationManager {
             ]) { error in
                 if let error = error {
                     #if DEBUG
-                    print("Failed to create user")
+                    print("User data for \(username) was not added")
                     #endif
                     self.handleAuthError(error)
                 } else {
+                    #if DEBUG
+                    print("User data for \(username) was successfully added")
+                    #endif
                     self.delegate?.authenticationManagerDidSucceed()
                 }
             }
@@ -60,10 +63,14 @@ class AuthenticationManager {
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             if let error = error {
                 #if DEBUG
-                print("Failed to sign in")
+                print("Sign in failed")
                 #endif
                 self.handleAuthError(error)
             } else {
+                #if DEBUG
+                print("Sign-in succeeded")
+                #endif
+                FirestoreManager.shared.configure()
                 self.delegate?.authenticationManagerDidSucceed()
             }
         }
@@ -83,10 +90,13 @@ class AuthenticationManager {
         Auth.auth().sendPasswordReset(withEmail: email) { error in
             if let error = error {
                 #if DEBUG
-                print("Failed to send password reset email")
+                print("Password reset email was not sent to \(email)")
                 #endif
                 self.handleAuthError(error)
             } else {
+                #if DEBUG
+                print("Password reset email was successfully sent to \(email)")
+                #endif
                 self.delegate?.authenticationManagerDidSucceed()
             }
         }
