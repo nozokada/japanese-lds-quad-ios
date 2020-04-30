@@ -11,13 +11,22 @@ import FirebaseAuth
 
 class LoginViewController: UIViewController {
 
+    @IBOutlet weak var messageTextLabel: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: MainButton!
+    @IBOutlet weak var createAccountButton: UIButton!
+    @IBOutlet weak var passwordResetButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "loginViewTitle".localized
+        messageTextLabel.text = "loginDescriptionLabel".localized
+        emailTextField.placeholder = "emailPlaceholder".localized
+        passwordTextField.placeholder = "passwordPlaceholder".localized
+        loginButton.setTitle("loginButtonLabel".localized, for: .normal)
+        createAccountButton.setTitle("createAccountLabel".localized, for: .normal)
+        passwordResetButton.setTitle("passwordResetLabel".localized, for: .normal)
     }
     
     override func viewWillAppear(_ animated: Bool) {

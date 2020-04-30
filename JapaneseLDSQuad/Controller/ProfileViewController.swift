@@ -25,10 +25,13 @@ class ProfileViewController: UITableViewController {
             presentLoginViewController()
             return
         }
-        self.user = user
-        setSettingsBarButton()
+        navigationItem.title = "profileViewTitle".localized
         usernameLabel.text = user.displayName
         emailLabel.text = user.email
+        syncSwitchLabel.text = "syncButtonLabel".localized
+        logoutButton.setTitle("logoutButtonLabel".localized, for: .normal)
+        self.user = user
+        setSettingsBarButton()
         setSyncSwitchState()
     }
     
@@ -52,6 +55,7 @@ class ProfileViewController: UITableViewController {
     fileprivate func presentLoginViewController() {
         if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.login) {
             navigationController?.setViewControllers([viewController], animated: false)
+            navigationItem.title = "loginViewTitle".localized
         }
     }
     

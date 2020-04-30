@@ -79,6 +79,19 @@ class AuthenticationManager {
         }
     }
     
+    func sendPasswordReset(to email: String) {
+        Auth.auth().sendPasswordReset(withEmail: email) { error in
+            if let error = error {
+                #if DEBUG
+                print("Failed to send password reset email")
+                #endif
+                self.handleAuthError(error)
+            } else {
+                self.delegate?.authenticationManagerDidSucceed()
+            }
+        }
+    }
+    
     fileprivate func handleAuthError(_ error: Error) {
         let error = error as NSError
         var message = error.localizedDescription

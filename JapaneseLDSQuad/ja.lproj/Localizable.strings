@@ -24,6 +24,7 @@
 "profileViewTitle" = "プロフィール";
 "loginViewTitle" = "ログインする";
 "signupViewTitle" = "アカウントを作成する";
+"passwordResetViewTitle" = "パスワードを再設定する";
 
 "noBookmarksLabel" = "ブックマークはありません\n\n節の数字をタップして追加してください\nセルを左にスワイプすると削除できます";
 
@@ -59,6 +60,21 @@
 "allFeaturesPassPurchaseButtonLabel" = "購入する";
 "allFeaturesPassRestoreButtonLabel" = "購入を復元する";
 
+"loginDescriptionLabel" = "ブックマーク、印とメモの同期を複数の端末で行うことができるようになります";
+"emailPlaceholder" = "Eメールアドレス";
+"passwordPlaceholder" = "パスワード";
+"usernamePlaceholder" = "ユーザー名";
+"loginButtonLabel" = "ログイン";
+"logoutButtonLabel" = "ログアウト";
+"syncButtonLabel" = "同期する";
+"createAccountLabel" = "アカウントを作成する";
+"passwordResetLabel" = "パスワードをお忘れの場合";
+"createAccountButtonLabel" = "アカウントを新規作成";
+"passwordResetDescriptionLabel" = "ログインに使用しているメールアドレスを入力してください";
+"passwordResetEmailSentDescriptionLabel" = "パスワード再設定用のメールを送信しました\メールに記載された手順に従ってください";
+"passwordResetEmailSendButtonLabel" = "メールを送信";
+"passwordResetEmailSentButtonLabel" = "送信完了";
+
 "productRequestStatus" = "製品リクエストの状況";
 "purchaseStatus" = "購入手続きの状況";
 "purchaseNotAllowed" = "アプリ内課金が許可されていません";
@@ -71,3 +87,4 @@
 "loginError" = "ログインエラー";
 "signupError" = "アカウント作成エラー";
 "logoutError" = "ログアアウトエラー";
+"passwordResetError" = "パスワード再設定エラー";

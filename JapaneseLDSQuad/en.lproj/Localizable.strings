@@ -23,7 +23,8 @@
 "verseTextFieldPlaceholder" = "v.";
 "profileViewTitle" = "Profile";
 "loginViewTitle" = "Login";
-"signupViewTitle" = "Create Account";
+"signupViewTitle" = "Sign Up";
+"passwordResetViewTitle" = "Reset Password";
 
 "noBookmarksLabel" = "There are no bookmarks\n\nTap a verse number to add\nSwipe left on cell to remove";
 
@@ -59,6 +60,21 @@
 "allFeaturesPassPurchaseButtonLabel" = "Buy";
 "allFeaturesPassRestoreButtonLabel" = "Restore Purchase";
 
+"loginDescriptionLabel" = "Sync bookmarks and highlights across multiple devices";
+"emailPlaceholder" = "Email Address";
+"passwordPlaceholder" = "Password";
+"usernamePlaceholder" = "Username";
+"loginButtonLabel" = "Login";
+"logoutButtonLabel" = "Sign Out";
+"syncButtonLabel" = "Sync";
+"createAccountLabel" = "Sign Up";
+"passwordResetLabel" = "Forgot password?";
+"createAccountButtonLabel" = "Sign Up";
+"passwordResetDescriptionLabel" = "Enter the email address you use to login";
+"passwordResetEmailSentDescriptionLabel" = "Password reset email sent\nFollow the directions in the email to reset your password";
+"passwordResetEmailSendButtonLabel" = "Send";
+"passwordResetEmailSentButtonLabel" = "Sent";
+
 "productRequestStatus" = "Product Request Status";
 "purchaseStatus" = "Purchase Status";
 "purchaseNotAllowed" = "In-App Purchases are not allowed";
@@ -71,3 +87,4 @@
 "loginError" = "Login Error";
 "signupError" = "Signup Error";
 "logoutError" = "Logout Error";
+"passwordResetError" = "Password Reset Error";

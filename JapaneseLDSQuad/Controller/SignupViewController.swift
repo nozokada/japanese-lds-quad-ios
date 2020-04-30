@@ -19,6 +19,10 @@ class SignupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "signupViewTitle".localized
+        usernameTextField.placeholder = "usernamePlaceholder".localized
+        emailTextField.placeholder = "emailPlaceholder".localized
+        passwordTextField.placeholder = "passwordPlaceholder".localized
+        createAccountButton.setTitle("createAccountButtonLabel".localized, for: .normal)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,10 +45,6 @@ class SignupViewController: UIViewController {
         }
         createAccountButton.disable()
         AuthenticationManager.shared.createUser(email: email, password: password, username: username)
-    }
-    
-    @IBAction func cancelButtonTapped(_ sender: Any) {
-        navigationController?.popToRootViewController(animated: true)
     }
 }
 
