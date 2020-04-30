@@ -820,7 +820,7 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iqh-ex-BT3">
                                 <rect key="frame" x="100" y="348.66666666666669" width="175" height="30"/>
-                                <state key="normal" title="アカウントを作成する"/>
+                                <state key="normal" title="新規登録"/>
                                 <connections>
                                     <action selector="registerButtonTapped:" destination="b6A-Oo-dWt" eventType="touchUpInside" id="1Vr-l5-jth"/>
                                 </connections>
@@ -902,7 +902,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="v7W-00-2SK"/>
                                 </constraints>
-                                <state key="normal" title="アカウントを作成"/>
+                                <state key="normal" title="新規登録"/>
                                 <connections>
                                     <action selector="registerButtonTapped:" destination="CXH-gc-ONc" eventType="touchUpInside" id="g7g-WP-Tks"/>
                                 </connections>
