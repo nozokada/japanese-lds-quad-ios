@@ -70,7 +70,6 @@ class AuthenticationManager {
                 #if DEBUG
                 print("Sign-in succeeded")
                 #endif
-                FirestoreManager.shared.configure()
                 self.delegate?.authenticationManagerDidSucceed()
             }
         }
@@ -79,6 +78,7 @@ class AuthenticationManager {
     func signOut(completion: @escaping () -> ()) {
         do {
             try Auth.auth().signOut()
+            FirestoreManager.shared.disableSync()
             completion()
         }
         catch let error as NSError {
