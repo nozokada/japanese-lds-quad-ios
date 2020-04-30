@@ -271,7 +271,6 @@ class FirestoreManager {
                     let customScriptureData = snapshot.data()
                     let content = customScriptureData!["content"] as! [String: String]
                     let scriptureModifiedTimestamp = customScriptureData!["modifiedAt"] as! Timestamp
-                    
                     switch diff.type {
                     case .added, .modified:
                         #if DEBUG
