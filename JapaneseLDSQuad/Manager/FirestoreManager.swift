@@ -253,8 +253,9 @@ class FirestoreManager {
             #if DEBUG
             print("------ Server changes for highlights were detected ------")
             #endif
+            var syncedCount = 0
             let changes = snapshot.documentChanges
-            for (index, diff) in changes.enumerated() {
+            changes.forEach { diff in
                 let document = diff.document
                 let id = document.documentID, data = document.data()
                 let note = data["note"] as! String
@@ -283,7 +284,8 @@ class FirestoreManager {
                         #endif
                         self.highlightsManager.syncRemove(textId: id, scriptureId: customScriptureId, content: content, scriptureModifiedAt: scriptureModifiedTimestamp.dateValue())
                     }
-                    if index == changes.count - 1 {
+                    syncedCount += 1
+                    if syncedCount == changes.count {
                         completion?()
                         #if DEBUG
                         print("------ Server changes for highlights were applied ------")
