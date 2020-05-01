@@ -19,7 +19,11 @@ class HighlightsManager {
         return realm.object(ofType: HighlightedScripture.self, forPrimaryKey: scriptureId)
     }
     
-    func getAllHighlights(sortBy: String = "date", ascending: Bool = false) -> Results<HighlightedText> {
+    func get(textId: String) -> HighlightedText? {
+        return realm.object(ofType: HighlightedText.self, forPrimaryKey: textId)
+    }
+    
+    func getAll(sortBy: String = "date", ascending: Bool = false) -> Results<HighlightedText> {
         return realm.objects(HighlightedText.self).sorted(byKeyPath: sortBy, ascending: ascending)
     }
     
@@ -33,9 +37,8 @@ class HighlightsManager {
         createHighlight(id: textId, text: textContent, scripture: highlightedScripture, modifiedAt: createdAt, sync: true)
     }
     
-    func remove(id: String, content: String, language: String) {
-        guard let highlight = realm.object(ofType: HighlightedText.self, forPrimaryKey: id),
-            let highlightedScripture = highlight.highlighted_scripture else {
+    func remove(textId: String, content: String, language: String) {
+        guard let highlight = get(textId: textId), let highlightedScripture = highlight.highlighted_scripture else {
             return
         }
         applyHighlightChanges(highlightedScripture, content: content, language: language, modifiedAt: Date())
@@ -55,14 +58,14 @@ class HighlightsManager {
         }
         applyHighlightChanges(highlightedScripture, content: content["primary"]!, language: Constants.Language.primary, modifiedAt: scriptureModifiedAt)
         applyHighlightChanges(highlightedScripture, content: content["secondary"]!, language: Constants.Language.secondary, modifiedAt: scriptureModifiedAt)
-        if let highlight = realm.object(ofType: HighlightedText.self, forPrimaryKey: textId) {
+        if let highlight = get(textId: textId) {
             deleteHighlight(highlight)
         }
         createHighlight(id: textId, text: text, scripture: highlightedScripture, modifiedAt: modifiedAt)
     }
     
     func syncRemove(textId: String, scriptureId: String, content: [String: String], scriptureModifiedAt: Date) {
-        guard let highlight = realm.object(ofType: HighlightedText.self, forPrimaryKey: textId) else {
+        guard let highlight = get(textId: textId) else {
             #if DEBUG
             print("Highlight \(textId) does not exist")
             #endif
