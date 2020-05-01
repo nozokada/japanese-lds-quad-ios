@@ -300,7 +300,7 @@ class FirestoreManager {
             return
         }
         highlightsBackupRequired = false
-        for highlight in highlightsManager.getAllHighlights() {
+        for highlight in highlightsManager.getAll() {
             if highlight.date.timeIntervalSince1970 > lastSyncedAt.timeIntervalSince1970 {
                 #if DEBUG
                 print("Backing up highlight \(highlight.id) (for \(highlight.name_primary))")
