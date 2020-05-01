@@ -78,6 +78,19 @@ class HighlightsManager {
         deleteHighlight(highlight)
     }
     
+    func updateNote(textId: String, note: String) {
+        guard let highlight = get(textId: textId) else { return }
+        let updatedAt = NSDate()
+        try! realm.write {
+            highlight.note = note
+            highlight.date = updatedAt
+            highlight.highlighted_scripture.date = updatedAt
+        }
+        FirestoreManager.shared.addCustomScripture(highlight.highlighted_scripture) {
+            FirestoreManager.shared.addHighlight(highlight)
+        }
+    }
+    
     fileprivate func create(scripture: Scripture, modifiedAt: Date) -> HighlightedScripture {
         let highlightedScripture = HighlightedScripture(
             id: scripture.id,
