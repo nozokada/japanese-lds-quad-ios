@@ -33,13 +33,12 @@ class PagesViewController: UIPageViewController {
         contentType = Utilities.shared.getContentType(targetBook: targetBook)
         scripturesInBook = targetBook.child_scriptures.sorted(byKeyPath: "id")
         currentChapterIndex = Utilities.shared.getChapterNumberFromScriptureId(id: targetChapterId) - 1
-//        currentContentViewController = getViewControllerAt(index: currentChapterIndex)
         setTitle()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updatePageContentView()
+        loadContentViewControllers()
         addSpeechViewController()
     }
     
@@ -77,7 +76,7 @@ class PagesViewController: UIPageViewController {
         }
     }
     
-    fileprivate func updatePageContentView() {
+    fileprivate func loadContentViewControllers() {
         guard let contentViewControllers = [getViewControllerAt(index: currentChapterIndex)] as? [UIViewController] else { return }
         setViewControllers(contentViewControllers, direction: .forward, animated: false, completion: nil)
         currentContentViewController = viewControllers?.last as? ContentViewController
@@ -110,7 +109,7 @@ extension PagesViewController: SettingsViewDelegate {
     
     func reload() {
         setCurrentRelativeOffset()
-        updatePageContentView()
+        loadContentViewControllers()
     }
 }
 
