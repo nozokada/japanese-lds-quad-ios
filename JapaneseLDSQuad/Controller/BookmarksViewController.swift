@@ -63,7 +63,7 @@ extension BookmarksViewController: SettingsViewDelegate {
 
 extension BookmarksViewController: FirestoreManagerDelegate {
     
-    func firestoreManagerDidFetchBookmarks() {
+    func firestoreManagerDidSucceed() {
         reload()
     }
 }

@@ -19,8 +19,6 @@ class FirestoreManager {
     
     var bookmarksBackupRequired = Utilities.shared.lastSyncedDate == Date.distantPast
     var highlightsBackupRequired = Utilities.shared.lastSyncedDate == Date.distantPast
-    let bookmarksManager = BookmarksManager.shared
-    let highlightsManager = HighlightsManager.shared
     let usersCollection = Firestore.firestore().collection(Constants.CollectionName.users)
     
     var syncEnabled: Bool {
@@ -179,12 +177,12 @@ class FirestoreManager {
         }
         let lastSyncedAt = Utilities.shared.lastSyncedDate
         syncBookmarks(userId: user.uid) {
-            self.delegate?.firestoreManagerDidFetchBookmarks()
+            self.delegate?.firestoreManagerDidSucceed()
             self.backupBookmarks(userId: user.uid, lastSyncedAt: lastSyncedAt)
             self.updateLastSyncedDate()
         }
         syncHighlights(userId: user.uid) {
-            self.delegate?.firestoreManagerDidFetchHighlights()
+            self.delegate?.firestoreManagerDidSucceed()
             self.backupHighlights(userId: user.uid, lastSyncedAt: lastSyncedAt)
             self.updateLastSyncedDate()
         }
@@ -211,12 +209,12 @@ class FirestoreManager {
                     #if DEBUG
                     print("Bookmark \(id) was added to/modified in Firestore")
                     #endif
-                    self.bookmarksManager.syncAdd(scriptureId: id, createdAt: createdTimestamp.dateValue())
+                    BookmarksManager.shared.syncAdd(scriptureId: id, createdAt: createdTimestamp.dateValue())
                 case .removed:
                     #if DEBUG
                     print("Bookmark \(id) was deleted from Firestore")
                     #endif
-                    self.bookmarksManager.syncRemove(bookmarkId: id)
+                    BookmarksManager.shared.syncRemove(bookmarkId: id)
                 }
             }
             completion?()
@@ -231,7 +229,7 @@ class FirestoreManager {
             return
         }
         bookmarksBackupRequired = false
-        for bookmark in bookmarksManager.getAll() {
+        for bookmark in BookmarksManager.shared.getAll() {
             if bookmark.date.timeIntervalSince1970 > lastSyncedAt.timeIntervalSince1970 {
                 #if DEBUG
                 print("Backing up bookmark \(bookmark.id) (for \(bookmark.name_primary))")
@@ -253,8 +251,9 @@ class FirestoreManager {
             #if DEBUG
             print("------ Server changes for highlights were detected ------")
             #endif
+            var syncedCount = 0
             let changes = snapshot.documentChanges
-            for (index, diff) in changes.enumerated() {
+            changes.forEach { diff in
                 let document = diff.document
                 let id = document.documentID, data = document.data()
                 let note = data["note"] as! String
@@ -270,20 +269,20 @@ class FirestoreManager {
                     let customScriptureData = snapshot.data()
                     let content = customScriptureData!["content"] as! [String: String]
                     let scriptureModifiedTimestamp = customScriptureData!["modifiedAt"] as! Timestamp
-                    
                     switch diff.type {
                     case .added, .modified:
                         #if DEBUG
                         print("Highlight \(id) was added to/modified in Firestore")
                         #endif
-                        self.highlightsManager.syncAdd(textId: id, note: note, text: text, modifiedAt: modifiedTimestamp.dateValue(), scriptureId: customScriptureId, content: content, scriptureModifiedAt: scriptureModifiedTimestamp.dateValue())
+                        HighlightsManager.shared.syncAdd(textId: id, note: note, text: text, modifiedAt: modifiedTimestamp.dateValue(), scriptureId: customScriptureId, content: content, scriptureModifiedAt: scriptureModifiedTimestamp.dateValue())
                     case .removed:
                         #if DEBUG
                         print("Highlight \(id) was deleted from Firestore")
                         #endif
-                        self.highlightsManager.syncRemove(textId: id, scriptureId: customScriptureId, content: content, scriptureModifiedAt: scriptureModifiedTimestamp.dateValue())
+                        HighlightsManager.shared.syncRemove(textId: id, scriptureId: customScriptureId, content: content, scriptureModifiedAt: scriptureModifiedTimestamp.dateValue())
                     }
-                    if index == changes.count - 1 {
+                    syncedCount += 1
+                    if syncedCount == changes.count {
                         completion?()
                         #if DEBUG
                         print("------ Server changes for highlights were applied ------")
@@ -299,7 +298,7 @@ class FirestoreManager {
             return
         }
         highlightsBackupRequired = false
-        for highlight in highlightsManager.getAllHighlights() {
+        for highlight in HighlightsManager.shared.getAll() {
             if highlight.date.timeIntervalSince1970 > lastSyncedAt.timeIntervalSince1970 {
                 #if DEBUG
                 print("Backing up highlight \(highlight.id) (for \(highlight.name_primary))")

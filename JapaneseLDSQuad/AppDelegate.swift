@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         initUserDefaults()
         RealmManager.shared.setUpRealm()
         FirestoreManager.shared.configure()
-//        PurchaseManager.shared.unlockProduct(withIdentifier: Constants.ProductID.allFeaturesPass)
+        PurchaseManager.shared.unlockProduct(withIdentifier: Constants.ProductID.allFeaturesPass)
         SKPaymentQueue.default().add(StoreObserver.shared)
         return true
     }

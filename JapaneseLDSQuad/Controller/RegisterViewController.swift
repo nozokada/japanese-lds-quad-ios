@@ -1,5 +1,5 @@
 //
-//  SignupViewController.swift
+//  RegisterViewController.swift
 //  JapaneseLDSQuad
 //
 //  Created by Nozomi Okada on 3/22/20.
@@ -9,56 +9,56 @@
 import UIKit
 import FirebaseAuth
 
-class SignupViewController: UIViewController {
+class RegisterViewController: UIViewController {
 
+    @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var usernameTextField: UITextField!
-    @IBOutlet weak var createAccountButton: MainButton!
+    @IBOutlet weak var registerButton: MainButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "signupViewTitle".localized
+        navigationItem.title = "registerViewTitle".localized
+        usernameTextField.placeholder = "usernamePlaceholder".localized
+        emailTextField.placeholder = "emailPlaceholder".localized
+        passwordTextField.placeholder = "passwordPlaceholder".localized
+        registerButton.setTitle("registerButtonLabel".localized, for: .normal)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         AuthenticationManager.shared.delegate = self
+        view.backgroundColor = Utilities.shared.getBackgroundColor()
     }
     
-    fileprivate func alert(message: String, close: Bool = false) {
-        let title = "signupError".localized
+    fileprivate func alert(title: String, message: String, close: Bool = false) {
         let alertController = Utilities.shared.alert(view: view, title: title, message: message, handler: nil)
         present(alertController, animated: true, completion: nil)
     }
     
-    @IBAction func createAccountButtonTapped(_ sender: Any) {
+    @IBAction func registerButtonTapped(_ sender: Any) {
         guard let email = emailTextField.text, !email.isEmpty,
             let password = passwordTextField.text, !password.isEmpty,
             let username = usernameTextField.text, !username.isEmpty else {
-                alert(message: "fillAllFields".localized)
+                alert(title: "registrationError".localized, message: "fillAllFields".localized)
                 return
         }
-        createAccountButton.disable()
+        registerButton.disable()
         AuthenticationManager.shared.createUser(email: email, password: password, username: username)
-    }
-    
-    @IBAction func cancelButtonTapped(_ sender: Any) {
-        navigationController?.popToRootViewController(animated: true)
     }
 }
 
-extension SignupViewController: AuthenticationManagerDelegate {
+extension RegisterViewController: AuthenticationManagerDelegate {
     
     func authenticationManagerDidSucceed() {
-        createAccountButton.enable()
+        registerButton.enable()
         if let viewController = navigationController?.viewControllers.first as? AuthenticationManagerDelegate {
             viewController.authenticationManagerDidSucceed()
         }
     }
     
     func authenticationManagerDidReceiveMessage(_ message: String) {
-        createAccountButton.enable()
-        alert(message: message)
+        registerButton.enable()
+        alert(title: "registrationError".localized, message: message)
     }
 }

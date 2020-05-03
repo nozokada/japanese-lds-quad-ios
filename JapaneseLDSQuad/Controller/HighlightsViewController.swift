@@ -95,7 +95,7 @@ extension HighlightsViewController: SettingsViewDelegate {
 
 extension HighlightsViewController: FirestoreManagerDelegate {
     
-    func firestoreManagerDidFetchHighlights() {
+    func firestoreManagerDidSucceed() {
         reload()
     }
 }

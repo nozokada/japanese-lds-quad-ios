@@ -10,7 +10,7 @@
 "searchTabBarItemTitle" = "Search";
 "bookmarksTabBarItemTitle" = "Bookmarks";
 "highlightsTabBarItemTitle" = "Highlights";
-"profileTabBarItemTitle" = "Account";
+"accountTabBarItemTitle" = "Account";
 
 "rootViewTitle" = "Scriptures";
 "standardWorksGroupedTableViewLabel" = "Standard Works";
@@ -21,9 +21,10 @@
 "highlightsViewTitle" = "Highlights";
 "chapterTextFieldPlaceholder" = "ch.";
 "verseTextFieldPlaceholder" = "v.";
-"profileViewTitle" = "Profile";
-"loginViewTitle" = "Login";
-"signupViewTitle" = "Create Account";
+"accountViewTitle" = "Account";
+"signInViewTitle" = "Sign In";
+"registerViewTitle" = "Register";
+"passwordResetViewTitle" = "Reset Password";
 
 "noBookmarksLabel" = "There are no bookmarks\n\nTap a verse number to add\nSwipe left on cell to remove";
 
@@ -59,6 +60,21 @@
 "allFeaturesPassPurchaseButtonLabel" = "Buy";
 "allFeaturesPassRestoreButtonLabel" = "Restore Purchase";
 
+"signInDescriptionLabel" = "Sign in and sync bookmarks and highlights across multiple devices";
+"emailPlaceholder" = "Email Address";
+"passwordPlaceholder" = "Password";
+"usernamePlaceholder" = "Username";
+"signInButtonLabel" = "Sign In";
+"signOutButtonLabel" = "Sign Out";
+"syncButtonLabel" = "Sync";
+"registerLabel" = "Register";
+"passwordResetLabel" = "Forgot password?";
+"registerButtonLabel" = "Register";
+"passwordResetDescriptionLabel" = "To reset your password, enter the email address you use to sign in";
+"passwordResetEmailSentDescriptionLabel" = "Password reset email sent\nFollow the directions in the email to reset your password";
+"passwordResetEmailSendButtonLabel" = "Send";
+"passwordResetEmailSentButtonLabel" = "Sent";
+
 "productRequestStatus" = "Product Request Status";
 "purchaseStatus" = "Purchase Status";
 "purchaseNotAllowed" = "In-App Purchases are not allowed";
@@ -68,6 +84,7 @@
 "restoreComplete" = "Restore complete!";
 
 "fillAllFields" = "Please fill in all fields";
-"loginError" = "Login Error";
-"signupError" = "Signup Error";
-"logoutError" = "Logout Error";
+"signInError" = "Sign-In Error";
+"registrationError" = "Registration Error";
+"signOutError" = "Sign-Out Error";
+"passwordResetError" = "Password Reset Error";

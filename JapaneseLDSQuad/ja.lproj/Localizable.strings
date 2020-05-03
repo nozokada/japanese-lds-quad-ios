@@ -10,7 +10,7 @@
 "searchTabBarItemTitle" = "探す";
 "bookmarksTabBarItemTitle" = "ブックマーク";
 "highlightsTabBarItemTitle" = "印とメモ";
-"profileTabBarItemTitle" = "アカウント";
+"accountTabBarItemTitle" = "アカウント";
 
 "rootViewTitle" = "すべての聖典";
 "standardWorksGroupedTableViewLabel" = "標準聖典";
@@ -21,9 +21,10 @@
 "highlightsViewTitle" = "印とメモ";
 "chapterTextFieldPlaceholder" = "章";
 "verseTextFieldPlaceholder" = "節";
-"profileViewTitle" = "プロフィール";
-"loginViewTitle" = "ログインする";
-"signupViewTitle" = "アカウントを作成する";
+"accountViewTitle" = "アカウント";
+"signInViewTitle" = "サインインする";
+"registerViewTitle" = "新規登録する";
+"passwordResetViewTitle" = "パスワードを再設定する";
 
 "noBookmarksLabel" = "ブックマークはありません\n\n節の数字をタップして追加してください\nセルを左にスワイプすると削除できます";
 
@@ -59,6 +60,21 @@
 "allFeaturesPassPurchaseButtonLabel" = "購入する";
 "allFeaturesPassRestoreButtonLabel" = "購入を復元する";
 
+"signInDescriptionLabel" = "サインインすると、ブックマークや印とメモを複数の端末で同期できるようになります";
+"emailPlaceholder" = "Eメールアドレス";
+"passwordPlaceholder" = "パスワード";
+"usernamePlaceholder" = "ユーザー名";
+"signInButtonLabel" = "サインイン";
+"signOutButtonLabel" = "サインアウト";
+"syncButtonLabel" = "同期する";
+"registerLabel" = "新規登録";
+"passwordResetLabel" = "パスワードをお忘れの場合";
+"registerButtonLabel" = "新規登録";
+"passwordResetDescriptionLabel" = "サインイン時に使用しているメールアドレスを入力してください";
+"passwordResetEmailSentDescriptionLabel" = "パスワード再設定用のメールを送信しました\nメールに記載された手順に従ってください";
+"passwordResetEmailSendButtonLabel" = "メールを送信";
+"passwordResetEmailSentButtonLabel" = "送信完了";
+
 "productRequestStatus" = "製品リクエストの状況";
 "purchaseStatus" = "購入手続きの状況";
 "purchaseNotAllowed" = "アプリ内課金が許可されていません";
@@ -68,6 +84,7 @@
 "restoreComplete" = "購入の復元が完了しました";
 
 "fillAllFields" = "すべての項目に記入してください";
-"loginError" = "ログインエラー";
-"signupError" = "アカウント作成エラー";
-"logoutError" = "ログアアウトエラー";
+"signInError" = "サインインエラー";
+"registrationError" = "登録エラー";
+"signOutError" = "サインアウトエラー";
+"passwordResetError" = "パスワード再設定エラー";

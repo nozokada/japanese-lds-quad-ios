@@ -56,7 +56,7 @@ class NoteViewController: UIViewController {
     }
     
     func initHighlightedText(id: String) {
-        if let highlightedText = realm.objects(HighlightedText.self).filter("id = '\(id)'").first {
+        if let highlightedText = HighlightsManager.shared.get(textId: id) {
             self.highlightedText = highlightedText
         }
         saveButton.disable()
@@ -160,11 +160,11 @@ class NoteViewController: UIViewController {
         if noteTextView.textColor != noteTextViewPlaceholderTextColor {
             textToSave = noteTextView.text
         }
-        try! realm.write {
-            highlightedText?.note = textToSave
+        if let highlightedText = highlightedText {
+            HighlightsManager.shared.updateNote(textId: highlightedText.id, note: textToSave)
+            saveButton.disable()
+            saveButton.setTitle("noteSavedButtonLabel".localized, for: .normal)
         }
-        saveButton.disable()
-        saveButton.setTitle("noteSavedButtonLabel".localized, for: .normal)
     }
     
     @IBAction func closeButtonTapped(_ sender: Any) {

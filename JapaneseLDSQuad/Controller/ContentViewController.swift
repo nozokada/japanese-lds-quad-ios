@@ -166,7 +166,7 @@ extension ContentViewController: HighlightChangeDelegate {
             guard let language = result as? String else { return }
             self.webView.evaluateJavaScript(JavaScriptSnippets.getScriptureContent(textId: id)) { result, error in
                 guard let content = result as? String else { return }
-                HighlightsManager.shared.remove(id: id, content: content, language: language)
+                HighlightsManager.shared.remove(textId: id, content: content, language: language)
                 if let noteViewController = self.getNoteViewController() {
                     noteViewController.hide()
                 }
