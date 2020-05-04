@@ -24,7 +24,7 @@ struct JavaScriptFunctions {
         return """
             function findScriptureId(node) {
                 var currentNode = node;
-                while(currentNode.parentElement.className != 'verse')
+                while(!currentNode.parentElement.classList.contains('verse'))
                     currentNode = currentNode.parentNode;
                 while(!currentNode.parentElement.hasAttribute('id'))
                     currentNode = currentNode.parentNode;
@@ -37,7 +37,7 @@ struct JavaScriptFunctions {
         return """
             function getScriptureContent(node) {
                 var currentNode = node;
-                while(currentNode.parentElement.className != 'verse')
+                while(!currentNode.parentElement.classList.contains('verse'))
                     currentNode = currentNode.parentNode;
                 var currentElement = currentNode.parentElement;
                 return currentElement.getElementsByTagName('span')[0].innerHTML;
@@ -49,7 +49,7 @@ struct JavaScriptFunctions {
         return """
             function getScriptureContentLanguage(node) {
                 var currentNode = node;
-                while(currentNode.parentElement.className != 'verse')
+                while(!currentNode.parentElement.classList.contains('verse'))
                     currentNode = currentNode.parentNode;
                 var currentElement = currentNode.parentElement;
                 return currentElement.getElementsByTagName('span')[0].getAttribute('lang');

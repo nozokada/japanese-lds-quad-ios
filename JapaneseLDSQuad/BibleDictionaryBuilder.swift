@@ -33,10 +33,11 @@ class BibleDictionaryBuilder: ContentBuilder {
         let verse = ""
         for scripture in scriptures {
             if scripture.id.count == 6 {
-                if scripture.verse == targetVerse { html += "<a id='anchor'></a>" }
-                let bookmarked = BookmarksManager.shared.get(bookmarkId: scripture.id) != nil ? true : false
-                html += "<div id='\(scripture.id)'"
-                html += bookmarked ? " class='bookmarked'>" : ">"
+                let targeted = scripture.verse == targetVerse
+                if targeted { html += "<a id='anchor'></a>" }
+                html += "<div id='\(scripture.id)' class='"
+                html += targeted ? "targeted " : ""
+                html += "'>"
                 let primaryScripture = PurchaseManager.shared.allFeaturesUnlocked ? getGSWithBibleLinks(gsString: scripture.scripture_primary) : scripture.scripture_primary
                 html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verse)</a> <span lang='\(Constants.Language.primary)'>\(primaryScripture)</span></div>"
                 html += "</div>"

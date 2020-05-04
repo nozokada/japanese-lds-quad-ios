@@ -68,6 +68,18 @@ class Utilities {
         return nightModeEnabled ? Constants.BackgroundColor.night : Constants.BackgroundColor.day
     }
     
+    func getCSSFont() -> String {
+        return alternativeFontEnabled ? Constants.Font.min : Constants.Font.kaku
+    }
+    
+    func getCSSTextColor() -> String {
+        return nightModeEnabled ? "rgb(186,186,186)" : "rgb(0,0,0)"
+    }
+    
+    func getCSSBackgroundColor() -> String {
+        return nightModeEnabled ? "rgb(33,34,37)" : "rgb(255,255,255)"
+    }
+    
     func isPaid(book: Book) -> Bool {
         return Constants.PaidContent.books.contains(book.link)
     }

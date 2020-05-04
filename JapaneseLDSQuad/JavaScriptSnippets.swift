@@ -10,6 +10,43 @@ import Foundation
 
 struct JavaScriptSnippets {
     
+    static func updateDualMode() -> String {
+        let displayValue = Utilities.shared.dualEnabled ? "" : "none"
+        return """
+            var verses = document.getElementsByClassName('secondary');
+            for (verse of verses) {
+                verse.style.display = '\(displayValue)';
+            }
+        """
+    }
+    
+    static func updateSideBySideMode() -> String {
+        let methodName = Utilities.shared.sideBySideEnabled ? "add" : "remove"
+        return """
+            var elements = document.querySelectorAll('.verse,.hymn-verse,.paragraph');
+            for (element of elements) {
+                element.classList.\(methodName)('side');
+            }
+        """
+    }
+    
+    static func updateAppearance() -> String {
+        let font = Utilities.shared.getCSSFont()
+        let fontSize = Utilities.shared.fontSizeMultiplier
+        let fontColor = Utilities.shared.getCSSTextColor()
+        let backgroundColor = Utilities.shared.getCSSBackgroundColor()
+        return """
+            var elements = document.querySelectorAll('body,tr,.verse-number');
+            for (element of elements) {
+                element.style.color = '\(fontColor)'
+                if (element.classList.contains('verse-number')) { continue; }
+                element.style.backgroundColor = '\(backgroundColor)'
+                element.style.fontFamily = '\(font)'
+                element.style.fontSize = '\(fontSize)em'
+            }
+        """
+    }
+    
     static func getAnchorOffset() -> String {
         return """
             getAnchorOffset();
@@ -24,7 +61,7 @@ struct JavaScriptSnippets {
             """
     }
     
-    static func toggleBookmarkStatus(verseId: String) -> String {
+    static func updateBookmarkStatus(verseId: String) -> String {
         return """
             var verse = document.getElementById('\(verseId)');
             if (verse.classList.contains('bookmarked')) {

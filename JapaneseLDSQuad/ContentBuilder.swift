@@ -52,14 +52,12 @@ class ContentBuilder {
     func buildTitle() -> String {
         var html = ""
         if let title = scriptures.filter("verse = 'title'").first {
-            html += "<div class='title'>\(title.scripture_primary)</div>"
-            if dualEnabled {
-                html += "<div class='title'>\(title.scripture_secondary)</div>"
-            }
+            html += "<div class='title primary'>\(title.scripture_primary)</div>"
+            html += "<div class='title secondary'>\(title.scripture_secondary)</div>"
         }
         if let counter = scriptures.filter("verse = 'counter'").first {
-            html += "<div class='subtitle'>\(counter.scripture_primary)</div>"
-            html += dualEnabled ? "<div class='subtitle'>\(counter.scripture_secondary)</div>" : ""
+            html += "<div class='subtitle primary'>\(counter.scripture_primary)</div>"
+            html += "<div class='subtitle secondary'>\(counter.scripture_secondary)</div>"
         }
         return html
     }
@@ -67,21 +65,21 @@ class ContentBuilder {
     func buildPrefaces() -> String {
         var html = ""
         if let preface = scriptures.filter("verse = 'preface'").first {
-            if dualEnabled { html += "<hr>" }
-            html += "<div class='paragraph'>\(preface.scripture_primary)</div>"
-            html += dualEnabled ? "<div class='paragraph'>\(preface.scripture_secondary)</div>" : ""
+            html += "<hr class='secondary'>"
+            html += "<div class='paragraph primary'>\(preface.scripture_primary)</div>"
+            html += "<div class='paragraph secondary'>\(preface.scripture_secondary)</div>"
         }
         
         if let intro = scriptures.filter("verse = 'intro'").first {
-            html += dualEnabled ? "<hr>" : ""
-            html += "<div class='paragraph'>\(intro.scripture_primary)</div>"
-            html += dualEnabled ? "<div class='paragraph'>\(intro.scripture_secondary)</div>" : ""
+            html += "<hr class='secondary'>"
+            html += "<div class='paragraph primary'>\(intro.scripture_primary)</div>"
+            html += "<div class='paragraph secondary'>\(intro.scripture_secondary)</div>"
         }
         
         if let summary = scriptures.filter("verse = 'summary'").first {
-            html += dualEnabled ? "<hr>" : ""
-            html += summary.scripture_primary.isEmpty ? "" : "<div class='paragraph'><i>\(summary.scripture_primary)</i></div>"
-            html += dualEnabled ? "<div class='paragraph'><i>\(summary.scripture_secondary)</i></div>" : ""
+            html += "<hr class='secondary'>"
+            html += "<div class='paragraph primary'><i>\(summary.scripture_primary)</i></div>"
+            html += "<div class='paragraph secondary'><i>\(summary.scripture_secondary)</i></div>"
         }
         return html
     }
@@ -93,23 +91,15 @@ class ContentBuilder {
             if scripture.id.count == 6 {
                 let targeted = scripture.verse == targetVerse
                 let bookmarked = BookmarksManager.shared.get(bookmarkId: scripture.id) != nil ? true : false
-                
                 if targeted { html += "<a id='anchor'></a>" }
-                if dualEnabled && !scripture.scripture_secondary.isEmpty {
-                    html += "<hr>"
-                    html += "<div id='\(scripture.id)' class='"
-                    html += targeted ? "targeted " : ""
-                    html += bookmarked ? "bookmarked" : ""
-                    html += "'>"
-                    html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verseNumber)</a> <span lang='\(Constants.Language.primary)'>\(scripture.scripture_primary)</span></div>"
-                    html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verseNumber)</a> <span lang='\(Constants.Language.secondary)'>\(scripture.scripture_secondary)</span></div>"
-                } else {
-                    html += "<div id='\(scripture.id)' class='"
-                    html += targeted ? "targeted " : ""
-                    html += bookmarked ? "bookmarked" : ""
-                    html += "'>"
-                    let primaryScripture = scripture.scripture_primary
-                    html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verseNumber)</a> <span lang='\(Constants.Language.primary)'>\(primaryScripture)</span></div>"
+                html += "<hr class='secondary'>"
+                html += "<div id='\(scripture.id)' class='"
+                html += targeted ? "targeted " : ""
+                html += bookmarked ? "bookmarked" : ""
+                html += "'>"
+                html += "<div class='verse primary'><a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verseNumber)</a> <span lang='\(Constants.Language.primary)'>\(scripture.scripture_primary)</span></div>"
+                if !scripture.scripture_secondary.isEmpty {
+                    html += "<div class='verse secondary'><a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verseNumber)</a> <span lang='\(Constants.Language.secondary)'>\(scripture.scripture_secondary)</span></div>"
                 }
                 html += "</div>"
             }
@@ -118,19 +108,10 @@ class ContentBuilder {
     }
     
     fileprivate func buildCSS() -> String {
-        let font = Utilities.shared.alternativeFontEnabled
-            ? Constants.Font.min
-            : Constants.Font.kaku
+        let font = Utilities.shared.getCSSFont()
         let fontSize = Utilities.shared.fontSizeMultiplier
-        let paddingSize = sqrt(sqrt(fontSize))
-        let fontColor = Utilities.shared.nightModeEnabled
-            ? "rgb(186,186,186)"
-            : "rgb(0,0,0)"
-        let backgroundColor = Utilities.shared.nightModeEnabled
-            ? "rgb(33,34,37)"
-            : "rgb(255,255,255)"
-        let sideBySideEnabled = Utilities.shared.dualEnabled
-            && Utilities.shared.sideBySideEnabled
+        let fontColor = Utilities.shared.getCSSTextColor()
+        let backgroundColor = Utilities.shared.getCSSBackgroundColor()
         
         let screenScale = Int(UIScreen.main.scale)
         let bookmarkImageFileName = screenScale > 1 ? "Bookmark Verse@\(screenScale)x" : "Bookmark Verse"
@@ -160,7 +141,7 @@ class ContentBuilder {
             """
             body,tr {
                 margin: 0;
-                \(sideBySideEnabled ? "padding: \(paddingSize / 2)em;" : "padding: \(paddingSize / 2)em \(paddingSize)em;")
+                padding: 0.5em;
                 font-family: '\(font)';
                 line-height: 1.4;
                 font-size: \(fontSize)em;
@@ -173,9 +154,11 @@ class ContentBuilder {
         let verse =
             """
             .verse {
-                \(sideBySideEnabled ? "padding: \(paddingSize / 2)em;" : "padding: \(paddingSize / 2)em 0;")
-                \(sideBySideEnabled ? "display: table-cell;" : "")
-                \(sideBySideEnabled ? "width: 50%;" : "")
+                padding: 0.5em;
+            }
+            .verse.side {
+                display: table-cell;
+                width: 50%;
             }
             """
         
@@ -192,10 +175,10 @@ class ContentBuilder {
             """
             .bookmarked:before {
                 background-image: url('Images/\(bookmarkImageFileName).png');
-                background-size: \(paddingSize)em \(paddingSize / 2)em;
+                background-size: 1em 0.5em;
                 display: inline-block;
-                width: \(paddingSize)em;
-                height: \(paddingSize / 2)em;
+                width: 1em;
+                height: 0.5em;
                 position: absolute;
                 left: 0;
                 content: '';
@@ -205,18 +188,22 @@ class ContentBuilder {
         let paragraph =
             """
             .paragraph {
-                \(sideBySideEnabled ? "padding: \(paddingSize / 2)em;" : "padding: \(paddingSize / 2)em 0;")
-                \(sideBySideEnabled ? "display: table-cell;" : "")
-                \(sideBySideEnabled ? "width: 50%;" : "")
+                padding: 0.5em;
+            }
+            .paragraph.side {
+                display: table-cell;
+                width: 50%;
             }
             """
         
         let hymnVerse =
             """
             .hymn-verse {
-                \(sideBySideEnabled ? "padding: \(paddingSize / 2)em;" : "padding: \(paddingSize / 2)em 0;")
-                \(sideBySideEnabled ? "display: table-cell;" : "")
-                \(sideBySideEnabled ? "width: 50%;" : "")
+                padding: 0.5em;
+            }
+            .hymn-verse.side {
+                display: table-cell;
+                width: 50%;
             }
             .hymn-verse ol {
                 margin: 0 auto;

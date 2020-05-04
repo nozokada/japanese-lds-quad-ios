@@ -34,17 +34,16 @@ class PagesViewController: UIPageViewController {
         scripturesInBook = targetBook.child_scriptures.sorted(byKeyPath: "id")
         currentChapterIndex = Utilities.shared.getChapterNumberFromScriptureId(id: targetChapterId) - 1
         setTitle()
+        loadContentViewController()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        loadContentViewControllers()
         addSpeechViewController()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        setCurrentRelativeOffset()
         updateScripturesToSpeech()
     }
     
@@ -76,12 +75,10 @@ class PagesViewController: UIPageViewController {
         }
     }
     
-    fileprivate func loadContentViewControllers() {
+    fileprivate func loadContentViewController() {
         guard let contentViewControllers = [getViewControllerAt(index: currentChapterIndex)] as? [UIViewController] else { return }
         setViewControllers(contentViewControllers, direction: .forward, animated: false, completion: nil)
         currentContentViewController = viewControllers?.last as? ContentViewController
-        currentContentViewController.relativeOffset = currentRelativeOffset
-        targetVerse = nil
     }
     
     fileprivate func getViewControllerAt(index: Int) -> ContentViewController? {
@@ -97,10 +94,11 @@ class PagesViewController: UIPageViewController {
         return nil
     }
     
-    fileprivate func setCurrentRelativeOffset() {
+    fileprivate func saveCurrentRelativeOffset() {
         let offset = currentContentViewController.webView.scrollView.contentOffset.y
         let height = currentContentViewController.webView.scrollView.contentSize.height
         currentRelativeOffset = offset / height
+        currentContentViewController.relativeOffset = currentRelativeOffset
     }
 }
 
@@ -108,8 +106,11 @@ class PagesViewController: UIPageViewController {
 extension PagesViewController: SettingsViewDelegate {
     
     func reload() {
-        setCurrentRelativeOffset()
-        loadContentViewControllers()
+        saveCurrentRelativeOffset()
+        guard let viewControllers = viewControllers else { return }
+        for case let viewController as ContentViewController in viewControllers {
+            viewController.reload()
+        }
     }
 }
 

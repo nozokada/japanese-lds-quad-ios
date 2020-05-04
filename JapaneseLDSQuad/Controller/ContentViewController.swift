@@ -84,19 +84,34 @@ extension ContentViewController: WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        reload() {
+            self.spotlightTargetVerses()
+            self.hideActivityIndicator()
+        }
+    }
+    
+    func reload(completion: (() -> ())? = nil) {
+        webView.evaluateJavaScript(JavaScriptSnippets.updateAppearance()) { _, _ in
+            self.webView.evaluateJavaScript(JavaScriptSnippets.updateSideBySideMode()) { _, _ in
+                self.webView.evaluateJavaScript(JavaScriptSnippets.updateDualMode()) { _, _ in
+                    self.scroll()
+                    completion?()
+                }
+            }
+        }
+    }
+    
+    fileprivate func scroll() {
         webView.evaluateJavaScript("document.documentElement.scrollHeight;") { result, error in
             guard let height = result as? CGFloat else { return }
-            let visibleHeight = webView.scrollView.bounds.size.height
-            
-            webView.evaluateJavaScript(JavaScriptSnippets.getAnchorOffset()) { result, error in
+            let visibleHeight = self.webView.scrollView.bounds.size.height
+            self.webView.evaluateJavaScript(JavaScriptSnippets.getAnchorOffset()) { result, error in
                 guard let anchorOffset = result as? CGFloat else { return }
-                var offset = self.targetVerse == nil ? self.relativeOffset * height : anchorOffset
+                var offset = self.relativeOffset != 0 ? self.relativeOffset * height : anchorOffset
                 if offset >= (height - visibleHeight) {
                     offset = height - visibleHeight
                 }
-                webView.evaluateJavaScript("window.scrollTo(0,\(offset));", completionHandler: nil)
-                self.spotlightTargetVerses()
-                self.hideActivityIndicator()
+                self.webView.evaluateJavaScript("window.scrollTo(0,\(offset));")
             }
         }
     }
@@ -107,7 +122,7 @@ extension ContentViewController: WKNavigationDelegate {
     
     fileprivate func toggleBookmark(verseId: String) {
         BookmarksManager.shared.update(id: verseId)
-        webView.evaluateJavaScript(JavaScriptSnippets.toggleBookmarkStatus(verseId: verseId), completionHandler: nil)
+        webView.evaluateJavaScript(JavaScriptSnippets.updateBookmarkStatus(verseId: verseId), completionHandler: nil)
     }
     
     fileprivate func showNote(highlightedTextId: String) {
