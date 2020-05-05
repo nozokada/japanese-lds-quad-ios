@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct TargetScriptureData {
+class TargetScriptureData {
     
     var book: Book
     var chapter: Int
@@ -21,7 +21,7 @@ struct TargetScriptureData {
     }
 }
 
-struct ContentViewData {
+class ContentViewData {
     
     var index: Int
     var builder: ContentBuilder
