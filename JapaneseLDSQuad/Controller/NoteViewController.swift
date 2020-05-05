@@ -7,12 +7,9 @@
 //
 
 import UIKit
-import RealmSwift
 
 class NoteViewController: UIViewController {
         
-    var delegate: HighlightChangeDelegate?
-    
     @IBOutlet weak var noteViewTitleLabel: UILabel!
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var closeButton: UIButton!
@@ -20,17 +17,16 @@ class NoteViewController: UIViewController {
     @IBOutlet weak var noteTextViewHeight: NSLayoutConstraint!
     @IBOutlet weak var saveButton: MainButton!
     
-    var realm: Realm!
     var highlightedText: HighlightedText?
     var bottomY: CGFloat = UIScreen.main.bounds.height
     var isHidden = true
+    var parentContentViewController: ContentViewController?
     
     let noteTextViewPlaceholder = "notePlaceholder".localized
     let noteTextViewPlaceholderTextColor = UIColor.lightGray
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        realm = try! Realm()
         noteTextView.delegate = self
         saveButton.setTitle("noteSavedButtonLabel".localized, for: .normal)
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture))
@@ -53,6 +49,10 @@ class NoteViewController: UIViewController {
             }
             self.view.isHidden = false
         }
+    }
+    
+    func setContentViewController(_ viewController: ContentViewController) {
+        parentContentViewController = viewController
     }
     
     func initHighlightedText(id: String) {
@@ -152,7 +152,7 @@ class NoteViewController: UIViewController {
     
     @IBAction func deleteButtonTapped(_ sender: Any) {
         guard let highlightedText = highlightedText else { return }
-        delegate?.removeHighlight(id: highlightedText.id)
+        parentContentViewController?.removeHighlight(id: highlightedText.id)
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {

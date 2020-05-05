@@ -83,7 +83,7 @@ class PagesViewController: UIPageViewController {
     
     fileprivate func getViewControllerAt(index: Int) -> ContentViewController? {
         let chapterId = Utilities.shared.getChapterIdFromChapterNumber(bookId: targetBook.id, chapter: index + 1)
-        let scriptures = scripturesInBook.filter("id BEGINSWITH '\(chapterId)'").sorted(byKeyPath: "id")
+        let scriptures = Utilities.shared.getScriptures(chapterId: chapterId)
         let contentBuilder = Utilities.shared.getContentBuilder(scriptures: scriptures, contentType: contentType)
         if let contentViewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.content) as? ContentViewController {
             let contentViewData = ContentViewData(

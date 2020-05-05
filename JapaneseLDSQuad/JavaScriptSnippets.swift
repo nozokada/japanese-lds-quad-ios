@@ -13,9 +13,9 @@ struct JavaScriptSnippets {
     static func updateDualMode() -> String {
         let displayValue = Utilities.shared.dualEnabled ? "" : "none"
         return """
-            var verses = document.getElementsByClassName('secondary');
-            for (verse of verses) {
-                verse.style.display = '\(displayValue)';
+            var elements = document.getElementsByClassName('secondary');
+            for (element of elements) {
+                element.style.display = '\(displayValue)';
             }
         """
     }
@@ -44,6 +44,17 @@ struct JavaScriptSnippets {
                 element.style.fontFamily = '\(font)'
                 element.style.fontSize = '\(fontSize)em'
             }
+        """
+    }
+    
+    static func updateContent(scripture: Scripture) -> String {
+        return """
+        var verse = document.getElementById('\(scripture.id)');
+        var primarySpan = verse.querySelectorAll('span[lang="\(Constants.Language.primary)"]')[0];
+        var secondarySpan = verse.querySelectorAll('span[lang="\(Constants.Language.secondary)"]')[0];
+        primarySpan.innerHTML = '\(scripture.scripture_primary)';
+        secondarySpan.innerHTML = '\(scripture.scripture_secondary)';
+        verse.id
         """
     }
     
@@ -127,7 +138,7 @@ struct JavaScriptSnippets {
             """
     }
     
-    static func getScriptureContent(textId: String) -> String {
+    static func removeHighlight(textId: String) -> String {
         return """
             var highlightedText = document.getElementById('\(textId)');
             var parent = highlightedText.parentNode;

@@ -92,6 +92,10 @@ class Utilities {
         return Locale.current.languageCode
     }
     
+    func getBook(linkName: String) -> Book? {
+        return realm.objects(Book.self).filter("link = '\(linkName)'").sorted(byKeyPath: "id").last
+    }
+    
     func getChapterIdFromChapterNumber(bookId: String, chapter: Int) -> String {
         return "\(bookId)\(String(chapter / 10, radix: 21).uppercased())\(String(chapter % 10))"
     }
@@ -107,6 +111,10 @@ class Utilities {
     
     func getScripture(id: String) -> Scripture? {
         return realm.object(ofType: Scripture.self, forPrimaryKey: id)
+    }
+    
+    func getScriptures(chapterId: String) -> Results<Scripture> {
+        return realm.objects(Scripture.self).filter("id BEGINSWITH '\(chapterId)'").sorted(byKeyPath: "id")
     }
     
     func generateTitlePrimary(scripture: Scripture) -> String {

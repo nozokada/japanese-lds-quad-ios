@@ -26,7 +26,6 @@
 		D41EC66A24011328001521D8 /* SpeechViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EC66924011328001521D8 /* SpeechViewDelegate.swift */; };
 		D41EC66E24034822001521D8 /* SpeechUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EC66D24034822001521D8 /* SpeechUtilities.swift */; };
 		D41EC6722404CF18001521D8 /* SpeechViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EC6712404CF18001521D8 /* SpeechViewController.swift */; };
-		D41EC67424050876001521D8 /* HighlightChangeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EC67324050876001521D8 /* HighlightChangeDelegate.swift */; };
 		D4212A1D23E7BC02002CD60A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4212A1C23E7BC02002CD60A /* AppDelegate.swift */; };
 		D4212A1F23E7BC02002CD60A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4212A1E23E7BC02002CD60A /* SceneDelegate.swift */; };
 		D4212A2123E7BC02002CD60A /* BooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4212A2023E7BC02002CD60A /* BooksViewController.swift */; };
@@ -123,7 +122,6 @@
 		D41EC66924011328001521D8 /* SpeechViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechViewDelegate.swift; sourceTree = "<group>"; };
 		D41EC66D24034822001521D8 /* SpeechUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechUtilities.swift; sourceTree = "<group>"; };
 		D41EC6712404CF18001521D8 /* SpeechViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechViewController.swift; sourceTree = "<group>"; };
-		D41EC67324050876001521D8 /* HighlightChangeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightChangeDelegate.swift; sourceTree = "<group>"; };
 		D4212A1923E7BC02002CD60A /* JapaneseLDSQuad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JapaneseLDSQuad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4212A1C23E7BC02002CD60A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4212A1E23E7BC02002CD60A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -319,7 +317,6 @@
 				D40B3E7B23E896BA00276662 /* Constants.swift */,
 				D475CCEE23E9449600678A85 /* Utilities.swift */,
 				D41EC66D24034822001521D8 /* SpeechUtilities.swift */,
-				D41EC67324050876001521D8 /* HighlightChangeDelegate.swift */,
 				D41EC66924011328001521D8 /* SpeechViewDelegate.swift */,
 				D4EBF00023F906E200275624 /* SettingsViewDelegate.swift */,
 				D47156C92410BEC5002732A8 /* PurchaseViewDelegate.swift */,
@@ -632,7 +629,6 @@
 				D4212A2323E7BC02002CD60A /* SearchViewController.swift in Sources */,
 				D40B3E7023E892F900276662 /* Book.swift in Sources */,
 				D47EFBC823FFBB9A001E213F /* MainButton.swift in Sources */,
-				D41EC67424050876001521D8 /* HighlightChangeDelegate.swift in Sources */,
 				D475CCEB23E934F200678A85 /* ContentViewController.swift in Sources */,
 				D475CCE223E9293700678A85 /* MainNavigationController.swift in Sources */,
 				D4F9C6062421C4AC00F3910E /* AccountViewController.swift in Sources */,

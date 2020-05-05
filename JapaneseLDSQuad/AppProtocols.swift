@@ -15,6 +15,11 @@ protocol MainWebViewDelegate {
     func showPurchaseViewController()
 }
 
+protocol ContentChangeDelegate {
+    
+    func updateContent()
+}
+
 protocol StoreManagerDelegate {
     
     func storeManagerDidReceiveProducts(_ products: [SKProduct])

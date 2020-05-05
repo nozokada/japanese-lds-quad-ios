@@ -12,12 +12,12 @@ import WebKit
 
 class ContentViewController: UIViewController {
 
-    var realm: Realm!
     var targetChapterId: String!
     var targetScriptureId: String!
     var targetVerse: String?
     var htmlContent: String!
     var pageIndex: Int = 0
+    var noteViewController: NoteViewController?
     
     @IBOutlet weak var webView: MainWebView!
     var spinner: MainIndicatorView!
@@ -27,11 +27,11 @@ class ContentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        realm = try! Realm()
         webView.delegate = self
         webView.navigationDelegate = self
-        webView.evaluateJavaScript(JavaScriptFunctions.load(), completionHandler: nil)
+        webView.evaluateJavaScript(JavaScriptFunctions.load())
         webView.loadHTMLString(htmlContent, baseURL: Bundle.main.bundleURL)
+        HighlightsManager.shared.delegate = self
         showActivityIndicator()
     }
     
@@ -54,6 +54,19 @@ class ContentViewController: UIViewController {
     
     fileprivate func hideActivityIndicator() {
         spinner.stopAnimating()
+    }
+    
+    fileprivate func addNoteViewController() {
+        guard let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.notes) as? NoteViewController else { return }
+        addChild(viewController)
+        view.addSubview(viewController.view)
+        viewController.didMove(toParent: self)
+        viewController.setContentViewController(self)
+        
+        let height = view.frame.height
+        let width  = view.frame.width
+        viewController.view.frame = CGRect(x: 0, y: view.frame.maxY, width: width, height: height)
+        self.noteViewController = viewController
     }
 }
 
@@ -116,20 +129,29 @@ extension ContentViewController: WKNavigationDelegate {
         }
     }
     
+    func removeHighlight(id: String) {
+        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguage(textId: id)) { result, error in
+            guard let language = result as? String else { return }
+            self.webView.evaluateJavaScript(JavaScriptSnippets.removeHighlight(textId: id)) { result, error in
+                guard let content = result as? String else { return }
+                HighlightsManager.shared.remove(textId: id, content: content, language: language)
+                self.noteViewController?.hide()
+            }
+        }
+    }
+    
     fileprivate func spotlightTargetVerses() {
-        webView.evaluateJavaScript(JavaScriptSnippets.SpotlightTargetVerses(), completionHandler: nil)
+        webView.evaluateJavaScript(JavaScriptSnippets.SpotlightTargetVerses())
     }
     
     fileprivate func toggleBookmark(verseId: String) {
         BookmarksManager.shared.update(id: verseId)
-        webView.evaluateJavaScript(JavaScriptSnippets.updateBookmarkStatus(verseId: verseId), completionHandler: nil)
+        webView.evaluateJavaScript(JavaScriptSnippets.updateBookmarkStatus(verseId: verseId))
     }
     
     fileprivate func showNote(highlightedTextId: String) {
-        if let noteViewController = getNoteViewController() {
-            noteViewController.initHighlightedText(id: highlightedTextId)
-            noteViewController.show()
-        }
+        noteViewController?.initHighlightedText(id: highlightedTextId)
+        noteViewController?.show()
     }
     
     fileprivate func presentAnotherContent(path: [String]) {
@@ -157,7 +179,7 @@ extension ContentViewController: WKNavigationDelegate {
             chapter = Int(v) ?? 1
             verse = nil
         }
-        guard let book = realm.objects(Book.self).filter("link = '\(bookId)'").sorted(byKeyPath: "id").last else { return nil }
+        guard let book = Utilities.shared.getBook(linkName: bookId) else { return nil }
         return TargetScriptureData(book: book, chapter: chapter, verse: verse)
     }
 }
@@ -174,18 +196,11 @@ extension ContentViewController: MainWebViewDelegate {
     }
 }
 
-extension ContentViewController: HighlightChangeDelegate {
+extension ContentViewController: ContentChangeDelegate {
     
-    func removeHighlight(id: String) {
-        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguage(textId: id)) { result, error in
-            guard let language = result as? String else { return }
-            self.webView.evaluateJavaScript(JavaScriptSnippets.getScriptureContent(textId: id)) { result, error in
-                guard let content = result as? String else { return }
-                HighlightsManager.shared.remove(textId: id, content: content, language: language)
-                if let noteViewController = self.getNoteViewController() {
-                    noteViewController.hide()
-                }
-            }
+    func updateContent() {
+        for scripture in Utilities.shared.getScriptures(chapterId: targetChapterId) {
+            webView.evaluateJavaScript(JavaScriptSnippets.updateContent(scripture: scripture))
         }
     }
 }

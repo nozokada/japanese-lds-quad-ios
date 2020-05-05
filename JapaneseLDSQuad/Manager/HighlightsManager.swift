@@ -15,6 +15,8 @@ class HighlightsManager {
     
     lazy var realm = try! Realm()
     
+    var delegate: ContentChangeDelegate?
+    
     func get(scriptureId: String) -> HighlightedScripture? {
         return realm.object(ofType: HighlightedScripture.self, forPrimaryKey: scriptureId)
     }
@@ -62,6 +64,7 @@ class HighlightsManager {
             deleteHighlight(highlight)
         }
         createHighlight(id: textId, text: text, scripture: highlightedScripture, modifiedAt: modifiedAt)
+        delegate?.updateContent()
     }
     
     func syncRemove(textId: String, scriptureId: String, content: [String: String], scriptureModifiedAt: Date) {
@@ -76,6 +79,7 @@ class HighlightsManager {
             applyHighlightChanges(highlightedScripture, content: content["secondary"]!, language: Constants.Language.secondary, modifiedAt: scriptureModifiedAt)
         }
         deleteHighlight(highlight)
+        delegate?.updateContent()
     }
     
     func updateNote(textId: String, note: String) {
