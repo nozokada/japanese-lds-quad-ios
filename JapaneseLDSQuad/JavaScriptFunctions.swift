@@ -10,7 +10,7 @@ import Foundation
 
 struct JavaScriptFunctions {
     
-    static func getAllFunctions() -> String {
+    static func load() -> String {
         return """
             \(getScriptureId())
             \(getScriptureContent())

@@ -30,7 +30,7 @@ class ContentViewController: UIViewController {
         realm = try! Realm()
         webView.delegate = self
         webView.navigationDelegate = self
-        webView.evaluateJavaScript(JavaScriptFunctions.getAllFunctions(), completionHandler: nil)
+        webView.evaluateJavaScript(JavaScriptFunctions.load(), completionHandler: nil)
         webView.loadHTMLString(htmlContent, baseURL: Bundle.main.bundleURL)
         showActivityIndicator()
     }
