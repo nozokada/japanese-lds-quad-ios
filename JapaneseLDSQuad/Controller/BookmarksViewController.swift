@@ -22,7 +22,6 @@ class BookmarksViewController: UIViewController {
         realm = try! Realm()
         tableView.delegate = self
         tableView.dataSource = self
-        FirestoreManager.shared.delegate = self
         setSettingsBarButton()
         navigationItem.title = "bookmarksViewTitle".localized
         noBookmarksLabel = getNoBookmarksMessageLabel()
@@ -34,6 +33,7 @@ class BookmarksViewController: UIViewController {
         tableView.estimatedRowHeight = CGFloat(Constants.TextSize.standard)
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = tableView.tableFooterView ?? UIView(frame: CGRect.zero)
+        FirestoreManager.shared.delegate = self
         reload()
     }
     

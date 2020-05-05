@@ -28,7 +28,6 @@ class HighlightsViewController: UIViewController {
         searchBar.delegate = self
         collectionView.delegate = self
         collectionView.dataSource = self
-        FirestoreManager.shared.delegate = self
         if let layout = collectionView?.collectionViewLayout as? HighlightsViewLayout {
             layout.delegate = self
         }
@@ -41,6 +40,7 @@ class HighlightsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        FirestoreManager.shared.delegate = self
         reload()
     }
     

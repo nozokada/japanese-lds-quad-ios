@@ -78,7 +78,7 @@ class PagesViewController: UIPageViewController {
     fileprivate func loadContentViewController() {
         guard let contentViewControllers = [getViewControllerAt(index: currentChapterIndex)] as? [UIViewController] else { return }
         setViewControllers(contentViewControllers, direction: .forward, animated: false, completion: nil)
-        currentContentViewController = viewControllers?.last as? ContentViewController
+        currentContentViewController = viewControllers?.first as? ContentViewController
     }
     
     fileprivate func getViewControllerAt(index: Int) -> ContentViewController? {
@@ -87,7 +87,7 @@ class PagesViewController: UIPageViewController {
         let contentBuilder = Utilities.shared.getContentBuilder(scriptures: scriptures, contentType: contentType)
         if let contentViewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.content) as? ContentViewController {
             let contentViewData = ContentViewData(
-                index: index, builder: contentBuilder, chapterId: targetChapterId, verse: chapterId == targetChapterId ? targetVerse : nil)
+                index: index, builder: contentBuilder, chapterId: chapterId, verse: chapterId == targetChapterId ? targetVerse : nil)
             contentViewController.initData(contentViewData: contentViewData)
             return contentViewController
         }
@@ -151,7 +151,7 @@ extension PagesViewController: UIPageViewControllerDelegate {
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if finished && completed {
-            currentContentViewController = pageViewController.viewControllers?[0] as! ContentViewController?
+            currentContentViewController = viewControllers?.first as? ContentViewController
             currentChapterIndex = currentContentViewController.pageIndex
             targetChapterId = Utilities.shared.getChapterIdFromChapterNumber(bookId: targetBook.id, chapter: currentChapterIndex + 1)
             setTitle()

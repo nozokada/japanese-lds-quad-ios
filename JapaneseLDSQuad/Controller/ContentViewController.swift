@@ -31,8 +31,12 @@ class ContentViewController: UIViewController {
         webView.navigationDelegate = self
         webView.evaluateJavaScript(JavaScriptFunctions.load())
         webView.loadHTMLString(htmlContent, baseURL: Bundle.main.bundleURL)
-        HighlightsManager.shared.delegate = self
         showActivityIndicator()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        HighlightsManager.shared.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
