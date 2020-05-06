@@ -17,6 +17,7 @@ class NoteViewController: UIViewController {
     @IBOutlet weak var noteTextViewHeight: NSLayoutConstraint!
     @IBOutlet weak var saveButton: MainButton!
     
+    var highlightedTextId: String!
     var highlightedText: HighlightedText?
     var bottomY: CGFloat = UIScreen.main.bounds.height
     var isHidden = true
@@ -56,11 +57,9 @@ class NoteViewController: UIViewController {
     }
     
     func initHighlightedText(id: String) {
-        if let highlightedText = HighlightsManager.shared.get(textId: id) {
-            self.highlightedText = highlightedText
-        }
+        highlightedTextId = id
+        reload()
         saveButton.disable()
-        setTitleAndNote()
     }
     
     func show(animated: Bool = true) {
@@ -151,8 +150,8 @@ class NoteViewController: UIViewController {
     }
     
     @IBAction func deleteButtonTapped(_ sender: Any) {
-        guard let highlightedText = highlightedText else { return }
-        parentContentViewController?.removeHighlight(id: highlightedText.id)
+        guard let text = highlightedText else { return }
+        parentContentViewController?.removeHighlight(id: text.id)
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {
@@ -160,8 +159,8 @@ class NoteViewController: UIViewController {
         if noteTextView.textColor != noteTextViewPlaceholderTextColor {
             textToSave = noteTextView.text
         }
-        if let highlightedText = highlightedText {
-            HighlightsManager.shared.updateNote(textId: highlightedText.id, note: textToSave)
+        if let text = highlightedText {
+            HighlightsManager.shared.updateNote(textId: text.id, note: textToSave)
             saveButton.disable()
             saveButton.setTitle("noteSavedButtonLabel".localized, for: .normal)
         }
@@ -175,6 +174,10 @@ class NoteViewController: UIViewController {
 extension NoteViewController: SettingsViewDelegate {
     
     func reload() {
+        if let textId = highlightedTextId,
+            let text = HighlightsManager.shared.get(textId: textId) {
+            highlightedText = text
+        }
         setTitleAndNote()
         noteViewTitleLabel.textColor = Utilities.shared.getTextColor()
         noteTextView.backgroundColor = Utilities.shared.getBackgroundColor()

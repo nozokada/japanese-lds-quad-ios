@@ -70,7 +70,7 @@ class ContentViewController: UIViewController {
         let height = view.frame.height
         let width  = view.frame.width
         viewController.view.frame = CGRect(x: 0, y: view.frame.maxY, width: width, height: height)
-        self.noteViewController = viewController
+        noteViewController = viewController
     }
 }
 
@@ -203,6 +203,7 @@ extension ContentViewController: MainWebViewDelegate {
 extension ContentViewController: ContentChangeDelegate {
     
     func updateContent() {
+        noteViewController?.reload()
         for scripture in Utilities.shared.getScriptures(chapterId: targetChapterId) {
             webView.evaluateJavaScript(JavaScriptSnippets.updateContent(scripture: scripture))
         }
