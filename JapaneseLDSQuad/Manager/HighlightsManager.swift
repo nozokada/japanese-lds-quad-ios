@@ -63,7 +63,7 @@ class HighlightsManager {
         if let highlight = get(textId: textId) {
             deleteHighlight(highlight)
         }
-        createHighlight(id: textId, text: text, scripture: highlightedScripture, modifiedAt: modifiedAt)
+        createHighlight(id: textId, text: text, note: note, scripture: highlightedScripture, modifiedAt: modifiedAt)
         delegate?.updateContent()
     }
     
