@@ -64,7 +64,9 @@ class HighlightsManager {
             deleteHighlight(highlight)
         }
         createHighlight(id: textId, text: text, note: note, scripture: highlightedScripture, modifiedAt: modifiedAt)
-        delegate?.updateContent()
+        DispatchQueue.main.async {
+            self.delegate?.updateContent()
+        }
     }
     
     func syncRemove(textId: String, scriptureId: String, content: [String: String], scriptureModifiedAt: Date) {
@@ -79,7 +81,9 @@ class HighlightsManager {
             applyHighlightChanges(highlightedScripture, content: content["secondary"]!, language: Constants.Language.secondary, modifiedAt: scriptureModifiedAt)
         }
         deleteHighlight(highlight)
-        delegate?.updateContent()
+        DispatchQueue.main.async {
+            self.delegate?.updateContent()
+        }
     }
     
     func updateNote(textId: String, note: String) {

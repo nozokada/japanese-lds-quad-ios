@@ -53,7 +53,9 @@ class AuthenticationManager {
                     #if DEBUG
                     print("User data for \(username) was successfully added")
                     #endif
-                    self.delegate?.authenticationManagerDidSucceed()
+                    DispatchQueue.main.async {
+                        self.delegate?.authenticationManagerDidSucceed()
+                    }
                 }
             }
         }
@@ -70,7 +72,9 @@ class AuthenticationManager {
                 #if DEBUG
                 print("Sign in succeeded")
                 #endif
-                self.delegate?.authenticationManagerDidSucceed()
+                DispatchQueue.main.async {
+                    self.delegate?.authenticationManagerDidSucceed()
+                }
             }
         }
     }
@@ -97,7 +101,9 @@ class AuthenticationManager {
                 #if DEBUG
                 print("Password reset email was successfully sent to \(email)")
                 #endif
-                self.delegate?.authenticationManagerDidSucceed()
+                DispatchQueue.main.async {
+                    self.delegate?.authenticationManagerDidSucceed()
+                }
             }
         }
     }
@@ -108,6 +114,8 @@ class AuthenticationManager {
         if let authErrorCode = AuthErrorCode(rawValue: error.code) {
             message = authErrorCode.getDescription(error: error)
         }
-        self.delegate?.authenticationManagerDidReceiveMessage(message)
+        DispatchQueue.main.async {
+            self.delegate?.authenticationManagerDidReceiveMessage(message)
+        }
     }
 }

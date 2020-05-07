@@ -88,9 +88,7 @@ extension PurchaseViewController: StoreManagerDelegate {
     
     func storeManagerDidReceiveProducts(_ products: [SKProduct]) {
         allFeaturesPass = products.first
-        DispatchQueue.main.async {
-            self.reload()
-        }
+        reload()
     }
     
     func storeManagerDidReceiveMessage(_ message: String) {
