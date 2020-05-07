@@ -38,6 +38,7 @@ class ContentViewController: UIViewController {
         super.viewWillAppear(animated)
         BookmarksManager.shared.delegate = self
         HighlightsManager.shared.delegate = self
+        reload()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -112,6 +113,7 @@ extension ContentViewController: WKNavigationDelegate {
         webView.evaluateJavaScript(JavaScriptSnippets.updateAppearance()) { _, _ in
             self.webView.evaluateJavaScript(JavaScriptSnippets.updateSideBySideMode()) { _, _ in
                 self.webView.evaluateJavaScript(JavaScriptSnippets.updateDualMode()) { _, _ in
+                    self.updateContentView()
                     self.scroll()
                     completion?()
                 }
