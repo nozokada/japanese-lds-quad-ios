@@ -202,7 +202,7 @@ extension ContentViewController: MainWebViewDelegate {
 
 extension ContentViewController: ContentChangeDelegate {
     
-    func updateContent() {
+    func updateContentView() {
         noteViewController?.reload()
         for scripture in Utilities.shared.getScriptures(chapterId: targetChapterId) {
             webView.evaluateJavaScript(JavaScriptSnippets.updateContent(scripture: scripture))

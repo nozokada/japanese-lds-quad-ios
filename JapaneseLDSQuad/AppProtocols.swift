@@ -17,7 +17,7 @@ protocol MainWebViewDelegate {
 
 protocol ContentChangeDelegate {
     
-    func updateContent()
+    func updateContentView()
 }
 
 protocol StoreManagerDelegate {

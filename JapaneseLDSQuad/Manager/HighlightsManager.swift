@@ -65,7 +65,7 @@ class HighlightsManager {
         }
         createHighlight(id: textId, text: text, note: note, scripture: highlightedScripture, modifiedAt: modifiedAt)
         DispatchQueue.main.async {
-            self.delegate?.updateContent()
+            self.delegate?.updateContentView()
         }
     }
     
@@ -82,7 +82,7 @@ class HighlightsManager {
         }
         deleteHighlight(highlight)
         DispatchQueue.main.async {
-            self.delegate?.updateContent()
+            self.delegate?.updateContentView()
         }
     }
     
