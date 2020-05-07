@@ -36,6 +36,7 @@ class ContentViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        BookmarksManager.shared.delegate = self
         HighlightsManager.shared.delegate = self
     }
     
@@ -205,7 +206,7 @@ extension ContentViewController: ContentChangeDelegate {
     func updateContentView() {
         noteViewController?.reload()
         for scripture in Utilities.shared.getScriptures(chapterId: targetChapterId) {
-            webView.evaluateJavaScript(JavaScriptSnippets.updateContent(scripture: scripture))
+            webView.evaluateJavaScript(JavaScriptSnippets.updateVerse(scripture: scripture))
         }
     }
 }

@@ -47,14 +47,16 @@ struct JavaScriptSnippets {
         """
     }
     
-    static func updateContent(scripture: Scripture) -> String {
+    static func updateVerse(scripture: Scripture) -> String {
+        let bookmarked = BookmarksManager.shared.get(bookmarkId: scripture.id) != nil
+        let methodName = bookmarked ? "add" : "remove"
         return """
         var verse = document.getElementById('\(scripture.id)');
         var primarySpan = verse.querySelectorAll('span[lang="\(Constants.Language.primary)"]')[0];
         var secondarySpan = verse.querySelectorAll('span[lang="\(Constants.Language.secondary)"]')[0];
         primarySpan.innerHTML = '\(scripture.scripture_primary)';
         secondarySpan.innerHTML = '\(scripture.scripture_secondary)';
-        verse.id
+        verse.classList.\(methodName)('bookmarked');
         """
     }
     

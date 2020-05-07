@@ -15,6 +15,8 @@ class BookmarksManager {
     
     lazy var realm = try! Realm()
     
+    var delegate: ContentChangeDelegate?
+    
     func update(id: String) {
         if !remove(bookmarkId: id) {
             add(scriptureId: id)
@@ -43,6 +45,9 @@ class BookmarksManager {
             delete(bookmark)
         }
         create(scripture: scripture, createdAt: createdAt)
+        DispatchQueue.main.async {
+            self.delegate?.updateContentView()
+        }
     }
     
     func syncRemove(bookmarkId: String) {
@@ -53,6 +58,9 @@ class BookmarksManager {
             return
         }
         delete(bookmark)
+        DispatchQueue.main.async {
+            self.delegate?.updateContentView()
+        }
     }
     
     fileprivate func add(scriptureId: String) {

@@ -90,7 +90,7 @@ class ContentBuilder {
             let verseNumber = numbered ? scripture.verse : ""
             if scripture.id.count == 6 {
                 let targeted = scripture.verse == targetVerse
-                let bookmarked = BookmarksManager.shared.get(bookmarkId: scripture.id) != nil ? true : false
+                let bookmarked = BookmarksManager.shared.get(bookmarkId: scripture.id) != nil
                 if targeted { html += "<a id='anchor'></a>" }
                 html += "<hr class='secondary'>"
                 html += "<div id='\(scripture.id)' class='"
