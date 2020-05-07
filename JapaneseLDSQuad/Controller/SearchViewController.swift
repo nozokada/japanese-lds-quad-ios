@@ -70,14 +70,6 @@ class SearchViewController: UIViewController {
         return label
     }
     
-    fileprivate func updateTableBackgroundColor() {
-        tableView.backgroundColor = Utilities.shared.getBackgroundColor()
-    }
-    
-    fileprivate func updateSearchBarStyle() {
-        searchBar.barStyle = Utilities.shared.nightModeEnabled ? .black : .default
-    }
-    
     fileprivate func updateSearchResultCount() {
         searchResultCountLabel.text = searchText.isEmpty && chapterText.isEmpty && verseText.isEmpty
             ? ""
@@ -119,10 +111,10 @@ extension SearchViewController: SettingsViewDelegate {
         if let results = results {
             noResultsLabel.isHidden = results.count > 0
         }
-        updateSearchBarStyle()
         updatePassageLookupView()
         updateSearchResultCount()
-        updateTableBackgroundColor()
+        searchBar.barStyle = Utilities.shared.nightModeEnabled ? .black : .default
+        tableView.backgroundColor = Utilities.shared.getBackgroundColor()
         tableView.reloadData()
     }
 }
@@ -161,10 +153,7 @@ extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let results = filteredResults, results.count > 0 else { return UITableViewCell() }
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: Constants.ReuseID.searchResultCell)
-        let cellColor = Utilities.shared.getCellColor()
-        
-        tableView.backgroundColor = cellColor
-        cell.backgroundColor = cellColor
+        cell.backgroundColor = Utilities.shared.getCellColor()
         
         let scripture = results[indexPath.row]
         let contentType = Utilities.shared.getContentType(targetBook: scripture.parent_book)
