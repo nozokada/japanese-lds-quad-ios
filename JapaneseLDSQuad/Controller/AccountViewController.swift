@@ -38,6 +38,7 @@ class AccountViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         AuthenticationManager.shared.delegate = self
+        reload()
         tableView.tableFooterView = UIView()
     }
     
@@ -59,11 +60,7 @@ class AccountViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        tableView.backgroundColor = Utilities.shared.getBackgroundColor()
         cell.backgroundColor = Utilities.shared.getCellColor()
-        let fontColor = Utilities.shared.getTextColor()
-        usernameLabel.textColor = fontColor
-        syncSwitchLabel.textColor = fontColor
     }
     
     @IBAction func syncSwitchToggled(_ sender: Any) {
@@ -84,6 +81,10 @@ class AccountViewController: UITableViewController {
 extension AccountViewController: SettingsViewDelegate {
     
     func reload() {
+        let fontColor = Utilities.shared.getTextColor()
+        usernameLabel.textColor = fontColor
+        syncSwitchLabel.textColor = fontColor
+        tableView.backgroundColor = Utilities.shared.getBackgroundColor()
         tableView.reloadData()
     }
 }
