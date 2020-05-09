@@ -22,7 +22,6 @@ class PagesViewController: UIPageViewController {
     
     var currentContentViewController: ContentViewController!
     var currentChapterIndex: Int!
-    var currentRelativeOffset: CGFloat = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,8 +96,7 @@ class PagesViewController: UIPageViewController {
     fileprivate func saveCurrentRelativeOffset() {
         let offset = currentContentViewController.webView.scrollView.contentOffset.y
         let height = currentContentViewController.webView.scrollView.contentSize.height
-        currentRelativeOffset = offset / height
-        currentContentViewController.relativeOffset = currentRelativeOffset
+        currentContentViewController.relativeOffset = offset / height
     }
 }
 
@@ -150,12 +148,13 @@ extension PagesViewController: UIPageViewControllerDataSource {
 extension PagesViewController: UIPageViewControllerDelegate {
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        if finished && completed {
+        saveCurrentRelativeOffset()
+        if completed {
             currentContentViewController = viewControllers?.first as? ContentViewController
             currentChapterIndex = currentContentViewController.pageIndex
             targetChapterId = Utilities.shared.getChapterIdFromChapterNumber(bookId: targetBook.id, chapter: currentChapterIndex + 1)
             setTitle()
+            updateScripturesToSpeech()
         }
-        updateScripturesToSpeech()
     }
 }
