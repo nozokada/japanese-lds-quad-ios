@@ -12,25 +12,23 @@ import WebKit
 
 class ContentViewController: UIViewController {
 
-    var targetChapterId: String!
-    var targetScriptureId: String!
+    var targetChapterId: String?
+    var targetScriptureId: String?
     var targetVerse: String?
-    var htmlContent: String!
-    var pageIndex: Int = 0
+    var htmlContent: String?
+    var pageIndex = 0
+    var scrollRelativeOffset: CGFloat?
     var noteViewController: NoteViewController?
     
     @IBOutlet weak var webView: MainWebView!
-    var spinner: MainIndicatorView!
-    
-    var relativeOffset: CGFloat = 0
-    var lastTapPoint = CGPoint(x: 0, y: 0)
+    var spinner: MainIndicatorView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         webView.delegate = self
         webView.navigationDelegate = self
         webView.evaluateJavaScript(JavaScriptFunctions.load())
-        webView.loadHTMLString(htmlContent, baseURL: Bundle.main.bundleURL)
+        webView.loadHTMLString(htmlContent ?? "", baseURL: Bundle.main.bundleURL)
         showActivityIndicator()
     }
     
@@ -55,31 +53,39 @@ class ContentViewController: UIViewController {
     
     fileprivate func showActivityIndicator() {
         spinner = MainIndicatorView(parentView: view)
-        spinner.startAnimating()
+        spinner?.startAnimating()
     }
     
     fileprivate func hideActivityIndicator() {
-        spinner.stopAnimating()
+        spinner?.stopAnimating()
     }
     
     fileprivate func addNoteViewController() {
-        guard let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.notes) as? NoteViewController else { return }
+        guard let viewController = storyboard?.instantiateViewController(
+            withIdentifier: Constants.StoryBoardID.notes) as? NoteViewController else {
+                return
+        }
         addChild(viewController)
         view.addSubview(viewController.view)
         viewController.didMove(toParent: self)
         viewController.setContentViewController(self)
-        
-        let height = view.frame.height
-        let width  = view.frame.width
-        viewController.view.frame = CGRect(x: 0, y: view.frame.maxY, width: width, height: height)
+        viewController.view.frame = CGRect(
+            x: 0,
+            y: view.frame.maxY,
+            width: view.frame.width,
+            height: view.frame.height)
         noteViewController = viewController
     }
 }
 
 extension ContentViewController: WKNavigationDelegate {
     
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
-        guard var requestUrl = navigationAction.request.url else { return }
+    func webView(_ webView: WKWebView,
+                 decidePolicyFor navigationAction: WKNavigationAction,
+                 decisionHandler: (WKNavigationActionPolicy) -> Void) {
+        guard var requestUrl = navigationAction.request.url else {
+            return
+        }
         let requestType = requestUrl.lastPathComponent
         
         switch requestType {
@@ -126,11 +132,13 @@ extension ContentViewController: WKNavigationDelegate {
             guard let height = result as? CGFloat else { return }
             let visibleHeight = self.webView.scrollView.bounds.size.height
             self.webView.evaluateJavaScript(JavaScriptSnippets.getAnchorOffset()) { result, error in
-                guard let anchorOffset = result as? CGFloat else { return }
-                var offset = self.relativeOffset != 0 ? self.relativeOffset * height : anchorOffset
-                if offset >= (height - visibleHeight) {
-                    offset = height - visibleHeight
+                var offset: CGFloat = 0
+                if let relatvieOffset = self.scrollRelativeOffset {
+                    offset = relatvieOffset * height
+                } else if let anchorOffset = result as? CGFloat {
+                    offset = anchorOffset
                 }
+                offset  = (offset >= height - visibleHeight) ? height - visibleHeight : offset
                 self.webView.evaluateJavaScript("window.scrollTo(0,\(offset));")
             }
         }
@@ -138,9 +146,13 @@ extension ContentViewController: WKNavigationDelegate {
     
     func removeHighlight(id: String) {
         webView.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguage(textId: id)) { result, error in
-            guard let language = result as? String else { return }
+            guard let language = result as? String else {
+                return
+            }
             self.webView.evaluateJavaScript(JavaScriptSnippets.removeHighlight(textId: id)) { result, error in
-                guard let content = result as? String else { return }
+                guard let content = result as? String else {
+                    return
+                }
                 HighlightsManager.shared.remove(textId: id, content: content, language: language)
                 self.noteViewController?.hide()
             }
@@ -162,11 +174,16 @@ extension ContentViewController: WKNavigationDelegate {
     }
     
     fileprivate func presentAnotherContent(path: [String]) {
-        guard let targetScriptureData = createTargetScriptureDataFromPath(path: path) else { return }
-        if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
+        guard let targetScriptureData = createTargetScriptureDataFromPath(path: path) else {
+            return
+        }
+        if let viewController = storyboard?.instantiateViewController(
+            withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
             viewController.initData(targetScriptureData: targetScriptureData)
             if targetChapterId == viewController.targetChapterId {
-                guard var viewControllers = navigationController?.viewControllers else { return }
+                guard var viewControllers = navigationController?.viewControllers else {
+                    return
+                }
                 viewControllers.removeLast()
                 viewControllers.append(viewController)
                 navigationController?.setViewControllers(viewControllers, animated: false)
@@ -177,16 +194,24 @@ extension ContentViewController: WKNavigationDelegate {
     }
     
     fileprivate func createTargetScriptureDataFromPath(path: [String]) -> TargetScriptureData? {
-        guard var bookId = path.first else { return nil }
+        guard var bookId = path.first else {
+            return nil
+        }
         var chapter = path.count > 1 ? Int(path[1]) ?? 1 : 1
-        var verse = path.count > 2 ? path[2].components(separatedBy: CharacterSet.punctuationCharacters).first! : nil
+        var verse = path.count > 2
+            ? path[2].components(separatedBy: CharacterSet.punctuationCharacters).first!
+            : nil
         if bookId == Constants.ContentType.gs {
-            guard let v = verse else { return nil }
+            guard let v = verse else {
+                return nil
+            }
             bookId = "gs_\(chapter)"
             chapter = Int(v) ?? 1
             verse = nil
         }
-        guard let book = Utilities.shared.getBook(linkName: bookId) else { return nil }
+        guard let book = Utilities.shared.getBook(linkName: bookId) else {
+            return nil
+        }
         return TargetScriptureData(book: book, chapter: chapter, verse: verse)
     }
 }
@@ -206,8 +231,11 @@ extension ContentViewController: MainWebViewDelegate {
 extension ContentViewController: ContentChangeDelegate {
     
     func updateContentView() {
+        guard let chapterId = targetChapterId else {
+            return
+        }
         noteViewController?.reload()
-        for scripture in Utilities.shared.getScriptures(chapterId: targetChapterId) {
+        for scripture in Utilities.shared.getScriptures(chapterId: chapterId) {
             webView.evaluateJavaScript(JavaScriptSnippets.updateVerse(scripture: scripture))
         }
     }
