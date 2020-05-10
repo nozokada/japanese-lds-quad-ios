@@ -14,7 +14,7 @@ class MainIndicatorView: UIActivityIndicatorView {
         super.init(frame: CGRect.zero)
         let screenSize = UIScreen.main.bounds
         center = CGPoint(x: screenSize.width / 2 - frame.width / 2, y: parentView.frame.height / 2 - frame.height / 2)
-        style = .gray
+        style = .white
         parentView.addSubview(self)
     }
     
