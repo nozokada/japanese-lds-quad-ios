@@ -13,15 +13,13 @@ import AVFoundation
 
 class PagesViewController: UIPageViewController {
 
-    var targetBook: Book!
-    var targetBookName: String!
-    var scriptures: Results<Scripture>!
-    var contentType = Constants.ContentType.main
+    var targetBook: Book?
+    var targetBookName: String?
     var targetVerse: String?
-    var targetChapterId: String!
-    
-    var currentContentViewController: ContentViewController!
-    var currentChapterIndex: Int!
+    var targetChapterId: String?
+    var contentType = Constants.ContentType.main
+    var scriptures: Results<Scripture>?
+    var currentContentViewController: ContentViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,9 +27,11 @@ class PagesViewController: UIPageViewController {
         dataSource = self
         setSettingsBarButton()
         setSpeechBarButton()
-        contentType = Utilities.shared.getContentType(targetBook: targetBook)
-        scriptures = targetBook.child_scriptures.sorted(byKeyPath: "id")
-        currentChapterIndex = Utilities.shared.getChapterNumberFromScriptureId(id: targetChapterId) - 1
+        guard let book = targetBook else {
+            return
+        }
+        contentType = Utilities.shared.getContentType(targetBook: book)
+        scriptures = book.child_scriptures.sorted(byKeyPath: "id")
         setTitle()
         loadContentViewController()
     }
@@ -48,17 +48,21 @@ class PagesViewController: UIPageViewController {
     
     func initData(targetScriptureData: TargetScriptureData) {
         targetBook = targetScriptureData.book
-        targetBookName = targetScriptureData.book.name_primary
-        targetChapterId = Utilities.shared.getChapterIdFromChapterNumber(
-            bookId: targetBook.id,
-            chapter: targetScriptureData.chapter)
+        targetBookName = targetBook?.name_primary
         targetVerse = targetScriptureData.verse
+        guard let book = targetBook else {
+            return
+        }
+        targetChapterId = Utilities.shared.getChapterIdFromChapterNumber(
+            bookId: book.id,
+            chapter: targetScriptureData.chapter)
+        
     }
     
     func initData(scripture: Scripture) {
         targetBook = scripture.parent_book
+        targetBookName = targetBook?.name_primary
         targetVerse = scripture.verse
-        targetBookName = targetBook.name_primary
         targetChapterId = Utilities.shared.getChapterIdFromScripture(scripture: scripture)
     }
     
@@ -68,22 +72,26 @@ class PagesViewController: UIPageViewController {
         }
         switch contentType {
         case Constants.ContentType.aux:
-            navigationItem.title = scriptures.first?.parent_book.name_primary
+            navigationItem.title = scriptures?.first?.parent_book.name_primary
         case  Constants.ContentType.gs:
-            navigationItem.title = scriptures.filter(
+            navigationItem.title = scriptures?.filter(
                 "verse = 'title' AND id BEGINSWITH '\(chapterId)'").first?.scripture_primary.tagsRemoved
         default:
             guard let bookName = targetBookName else {
                 return
             }
-            let counter = scriptures.filter(
+            let counter = scriptures?.filter(
                 "verse = 'counter' AND id BEGINSWITH '\(chapterId)'").first?.scripture_primary ?? ""
             navigationItem.title = "\(bookName) \(counter)"
         }
     }
     
     fileprivate func loadContentViewController() {
-        guard let contentViewControllers = [getViewControllerAt(currentChapterIndex)] as? [UIViewController] else {
+        guard let chapterId = targetChapterId else {
+            return
+        }
+        let pageIndex = Utilities.shared.getChapterNumberFromScriptureId(id: chapterId) - 1
+        guard let contentViewControllers = [getViewControllerAt(pageIndex)] as? [UIViewController] else {
             return
         }
         setViewControllers(contentViewControllers, direction: .forward, animated: false, completion: nil)
@@ -91,11 +99,12 @@ class PagesViewController: UIPageViewController {
     }
     
     fileprivate func getViewControllerAt(_ index: Int) -> ContentViewController? {
-        guard let contentViewController = storyboard?.instantiateViewController(
+        guard let book = targetBook,
+            let contentViewController = storyboard?.instantiateViewController(
             withIdentifier: Constants.StoryBoardID.content) as? ContentViewController else {
                 return nil
         }
-        let chapterId = Utilities.shared.getChapterIdFromChapterNumber(bookId: targetBook.id, chapter: index + 1)
+        let chapterId = Utilities.shared.getChapterIdFromChapterNumber(bookId: book.id, chapter: index + 1)
         let scriptures = Utilities.shared.getScriptures(chapterId: chapterId)
         let contentBuilder = Utilities.shared.getContentBuilder(scriptures: scriptures, contentType: contentType)
         let contentViewData = ContentViewData(
@@ -108,9 +117,12 @@ class PagesViewController: UIPageViewController {
     }
     
     fileprivate func saveCurrentRelativeOffset() {
-        let offset = currentContentViewController.webView.scrollView.contentOffset.y
-        let height = currentContentViewController.webView.scrollView.contentSize.height
-        currentContentViewController.relativeOffset = offset / height
+        guard let viewController = currentContentViewController else {
+            return
+        }
+        let offset = viewController.webView.scrollView.contentOffset.y
+        let height = viewController.webView.scrollView.contentSize.height
+        viewController.scrollRelativeOffset = offset / height
     }
 }
 
@@ -135,10 +147,12 @@ extension PagesViewController: SpeechViewDelegate {
     }
     
     func updateScripturesToSpeech() {
-        guard let speechViewController = getSpeechViewController() else {
+        guard let chapterId = targetChapterId,
+            let scriptures = scriptures,
+            let speechViewController = getSpeechViewController() else {
             return
         }
-        speechViewController.initScripturesToSpeech(chapterId: targetChapterId, scriptures: scriptures)
+        speechViewController.initScripturesToSpeech(chapterId: chapterId, scriptures: scriptures)
     }
 }
 
@@ -159,7 +173,7 @@ extension PagesViewController: UIPageViewControllerDataSource {
             return nil
         }
         let currentIndex = currentViewController.pageIndex
-        let lastChapter = Utilities.shared.getChapterNumberFromScriptureId(id: (scriptures.last?.id)!)
+        let lastChapter = scriptures?.last?.chapter ?? 1
         return currentIndex < lastChapter - 1 ? getViewControllerAt(currentIndex + 1) : nil
     }
 }
@@ -170,13 +184,18 @@ extension PagesViewController: UIPageViewControllerDelegate {
                             didFinishAnimating finished: Bool,
                             previousViewControllers: [UIViewController],
                             transitionCompleted completed: Bool) {
+        guard let book = targetBook else {
+            return
+        }
         saveCurrentRelativeOffset()
         if completed {
-            currentContentViewController = viewControllers?.first as? ContentViewController
-            currentChapterIndex = currentContentViewController.pageIndex
+            guard let currentViewController = viewControllers?.first as? ContentViewController else {
+                return
+            }
+            currentContentViewController = currentViewController
             targetChapterId = Utilities.shared.getChapterIdFromChapterNumber(
-                bookId: targetBook.id,
-                chapter: currentChapterIndex + 1)
+                bookId: book.id,
+                chapter: currentViewController.pageIndex + 1)
             setTitle()
             updateScripturesToSpeech()
         }
