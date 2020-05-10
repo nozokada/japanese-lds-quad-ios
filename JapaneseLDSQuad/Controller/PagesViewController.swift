@@ -117,12 +117,12 @@ class PagesViewController: UIPageViewController {
     }
     
     fileprivate func saveCurrentRelativeOffset() {
-        guard let viewController = currentContentViewController else {
+        guard let currentViewController = currentContentViewController else {
             return
         }
-        let offset = viewController.webView.scrollView.contentOffset.y
-        let height = viewController.webView.scrollView.contentSize.height
-        viewController.scrollRelativeOffset = offset / height
+        let offset = currentViewController.webView.scrollView.contentOffset.y
+        let height = currentViewController.webView.scrollView.contentSize.height
+        currentViewController.scrollRelativeOffset = offset / height
     }
 }
 
