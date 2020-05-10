@@ -21,8 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.enable = true
         FirebaseApp.configure()
         
-        initUserDefaults()
-        RealmManager.shared.setUpRealm()
+        SetupManager.shared.initUserDefaults()
+        SetupManager.shared.initRealm()
         FirestoreManager.shared.configure()
 //        PurchaseManager.shared.unlockProduct(withIdentifier: Constants.ProductID.allFeaturesPass)
         SKPaymentQueue.default().add(StoreObserver.shared)
@@ -45,17 +45,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-    }
-
-    func initUserDefaults() {
-        UserDefaults.standard.register(defaults: [Constants.Config.font: false])
-        UserDefaults.standard.register(defaults: [Constants.Config.night: false])
-        UserDefaults.standard.register(defaults: [Constants.Config.dual: false])
-        UserDefaults.standard.register(defaults: [Constants.Config.side: false])
-        UserDefaults.standard.register(defaults: [Constants.Config.size: 1.0])
-        UserDefaults.standard.register(defaults: [Constants.Config.rate: 1.0])
-        UserDefaults.standard.register(defaults: [Constants.Config.pass: false])
-        UserDefaults.standard.register(defaults: [Constants.Config.sync: false])
-        UserDefaults.standard.register(defaults: [Constants.Config.lastSynced: Date.distantPast])
     }
 }

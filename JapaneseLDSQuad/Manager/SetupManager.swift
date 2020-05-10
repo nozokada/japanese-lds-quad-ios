@@ -1,5 +1,5 @@
 //
-//  RealmManager.swift
+//  SetupManager.swift
 //  JapaneseLDSQuad
 //
 //  Created by Nozomi Okada on 3/6/20.
@@ -9,14 +9,26 @@
 import Foundation
 import RealmSwift
 
-class RealmManager {
+class SetupManager {
     
-    static let shared = RealmManager()
+    static let shared = SetupManager()
     
     let defaultRealmFileURL = Realm.Configuration.defaultConfiguration.fileURL!
     let currentSchemaVersion = Constants.Version.realmSchema
     
-    func setUpRealm() {
+    func initUserDefaults() {
+        UserDefaults.standard.register(defaults: [Constants.Config.font: false])
+        UserDefaults.standard.register(defaults: [Constants.Config.night: false])
+        UserDefaults.standard.register(defaults: [Constants.Config.dual: false])
+        UserDefaults.standard.register(defaults: [Constants.Config.side: false])
+        UserDefaults.standard.register(defaults: [Constants.Config.size: 1.0])
+        UserDefaults.standard.register(defaults: [Constants.Config.rate: 1.0])
+        UserDefaults.standard.register(defaults: [Constants.Config.pass: false])
+        UserDefaults.standard.register(defaults: [Constants.Config.sync: false])
+        UserDefaults.standard.register(defaults: [Constants.Config.lastSynced: Date.distantPast])
+    }
+    
+    func initRealm() {
         if FileManager.default.fileExists(atPath: defaultRealmFileURL.path) {
             let migrationConfig = getRealmMigrationConfig(realmFileURL: defaultRealmFileURL)
             let realm = try! Realm(configuration: migrationConfig)
@@ -88,14 +100,12 @@ class RealmManager {
     
     fileprivate func copyUserDataToNewRealmFile(from realmToCopy: Realm, to newRealmURL: URL) {
         let bookmarksToCopy = realmToCopy.objects(Bookmark.self).sorted(byKeyPath: "date")
-//        let highlightedScripturesToCopy = realmToCopy.objects(HighlightedScripture.self).sorted(byKeyPath: "date")
         let highlightedTextsToCopy = realmToCopy.objects(HighlightedText.self).sorted(byKeyPath: "date")
         
         let newRealmConfig = Realm.Configuration(fileURL: newRealmURL, schemaVersion: currentSchemaVersion)
         let realm = try! Realm(configuration: newRealmConfig)
         try! realm.write {
             copyUserBookmarks(to: realm, bookmarks: bookmarksToCopy)
-//            copyUserHighlightedScriptures(to: realm, highlightedScriptures: highlightedScripturesToCopy)
             copyUserHighlights(to: realm, highlightedTexts: highlightedTextsToCopy)
         }
     }
@@ -110,21 +120,6 @@ class RealmManager {
             realm.create(Bookmark.self, value: bookmark, update: .all)
         }
     }
-    
-//    fileprivate func copyUserHighlightedScriptures(to realm: Realm, highlightedScriptures: Results<HighlightedScripture>) {
-//        for highlightedScriptureToCopy in highlightedScriptures {
-//            if let scripture = realm.objects(Scripture.self).filter("id = '\(highlightedScriptureToCopy.id)'").first {
-//                scripture.scripture_primary = highlightedScriptureToCopy.scripture_primary
-//                scripture.scripture_secondary = highlightedScriptureToCopy.scripture_secondary
-//                let highlightedScripture = HighlightedScripture(id: highlightedScriptureToCopy.id,
-//                                                                scripturePrimary: highlightedScriptureToCopy.scripture_primary,
-//                                                                scriptureSecondary: highlightedScriptureToCopy.scripture_secondary,
-//                                                                scripture: scripture,
-//                                                                date: highlightedScriptureToCopy.date)
-//                realm.create(HighlightedScripture.self, value: highlightedScripture, update: .all)
-//            }
-//        }
-//    }
     
     fileprivate func copyUserHighlights(to realm: Realm, highlightedTexts: Results<HighlightedText>) {
         for highlightedTextToCopy in highlightedTexts {
