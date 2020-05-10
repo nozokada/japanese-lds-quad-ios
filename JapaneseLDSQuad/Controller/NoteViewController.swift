@@ -181,6 +181,11 @@ class NoteViewController: UIViewController {
 extension NoteViewController: SettingsViewDelegate {
     
     func reload() {
+        guard let textId = highlightedTextId,
+            HighlightsManager.shared.get(textId: textId) != nil else {
+                hide()
+            return
+        }
         setTitleAndNote()
         noteViewTitleLabel.textColor = Utilities.shared.getTextColor()
         noteTextView.backgroundColor = Utilities.shared.getBackgroundColor()
@@ -192,7 +197,6 @@ extension NoteViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         showFull()
-        
         if textView.textColor == noteTextViewPlaceholderTextColor {
             textView.text = nil
             textView.textColor = Utilities.shared.getTextColor()
