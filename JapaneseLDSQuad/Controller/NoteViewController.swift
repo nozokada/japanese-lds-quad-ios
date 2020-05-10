@@ -17,12 +17,10 @@ class NoteViewController: UIViewController {
     @IBOutlet weak var noteTextViewHeight: NSLayoutConstraint!
     @IBOutlet weak var saveButton: MainButton!
     
-    var highlightedTextId: String!
-    var highlightedText: HighlightedText?
-    var bottomY: CGFloat = UIScreen.main.bounds.height
-    var isHidden = true
+    var highlightedTextId: String?
     var parentContentViewController: ContentViewController?
-    
+    var isHidden = true
+    var bottomY: CGFloat = UIScreen.main.bounds.height
     let noteTextViewPlaceholder = "notePlaceholder".localized
     let noteTextViewPlaceholderTextColor = UIColor.lightGray
 
@@ -99,12 +97,16 @@ class NoteViewController: UIViewController {
     }
     
     fileprivate func setTitleAndNote() {
+        guard let textId = highlightedTextId,
+            let text = HighlightsManager.shared.get(textId: textId) else {
+            return
+        }
         noteViewTitleLabel.text = Utilities.shared.getLanguage() == Constants.Language.primary
-            ? highlightedText?.name_primary
-            : highlightedText?.name_secondary
+            ? text.name_primary
+            : text.name_secondary
         noteViewTitleLabel.sizeToFit()
         
-        noteTextView.text = highlightedText?.note
+        noteTextView.text = text.note
         if noteTextView.text.isEmpty {
             noteTextView.text = noteTextViewPlaceholder
             noteTextView.textColor = noteTextViewPlaceholderTextColor
@@ -150,20 +152,25 @@ class NoteViewController: UIViewController {
     }
     
     @IBAction func deleteButtonTapped(_ sender: Any) {
-        guard let text = highlightedText else { return }
+        guard let textId = highlightedTextId,
+            let text = HighlightsManager.shared.get(textId: textId) else {
+            return
+        }
         parentContentViewController?.removeHighlight(id: text.id)
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {
+        guard let textId = highlightedTextId,
+            let text = HighlightsManager.shared.get(textId: textId) else {
+            return
+        }
         var textToSave = ""
         if noteTextView.textColor != noteTextViewPlaceholderTextColor {
             textToSave = noteTextView.text
         }
-        if let text = highlightedText {
-            HighlightsManager.shared.updateNote(textId: text.id, note: textToSave)
-            saveButton.disable()
-            saveButton.setTitle("noteSavedButtonLabel".localized, for: .normal)
-        }
+        HighlightsManager.shared.updateNote(textId: text.id, note: textToSave)
+        saveButton.disable()
+        saveButton.setTitle("noteSavedButtonLabel".localized, for: .normal)
     }
     
     @IBAction func closeButtonTapped(_ sender: Any) {
@@ -174,10 +181,6 @@ class NoteViewController: UIViewController {
 extension NoteViewController: SettingsViewDelegate {
     
     func reload() {
-        if let textId = highlightedTextId,
-            let text = HighlightsManager.shared.get(textId: textId) {
-            highlightedText = text
-        }
         setTitleAndNote()
         noteViewTitleLabel.textColor = Utilities.shared.getTextColor()
         noteTextView.backgroundColor = Utilities.shared.getBackgroundColor()
