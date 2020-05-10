@@ -43,6 +43,7 @@ class PagesViewController: UIPageViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        saveCurrentRelativeOffset()
         updateScripturesToSpeech()
     }
     
