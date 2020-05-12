@@ -373,38 +373,38 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="heM-Hy-qRc">
-                                <rect key="frame" x="70" y="697" width="235" height="61"/>
+                                <rect key="frame" x="90.666666666666686" y="727.33333333333337" width="194" height="30.666666666666629"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oHI-ld-dSJ">
-                                        <rect key="frame" x="0.0" y="0.0" width="34.333333333333336" height="61"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="26" height="30.666666666666668"/>
                                         <state key="normal" image="Slower"/>
                                         <connections>
                                             <action selector="slowerButton:" destination="AUS-pu-oiz" eventType="touchUpInside" id="IHT-ko-U0D"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BUu-7l-7ju">
-                                        <rect key="frame" x="50.333333333333329" y="0.0" width="34" height="61"/>
+                                        <rect key="frame" x="41.999999999999986" y="0.0" width="26" height="30.666666666666668"/>
                                         <state key="normal" image="Back"/>
                                         <connections>
                                             <action selector="backButtonTapped:" destination="AUS-pu-oiz" eventType="touchUpInside" id="eNi-7h-KF6"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uey-GC-yPi">
-                                        <rect key="frame" x="100.33333333333334" y="0.0" width="34.333333333333343" height="61"/>
+                                        <rect key="frame" x="83.999999999999986" y="0.0" width="26" height="30.666666666666668"/>
                                         <state key="normal" image="Play"/>
                                         <connections>
                                             <action selector="playButtonTapped:" destination="AUS-pu-oiz" eventType="touchUpInside" id="ibJ-wk-jtZ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IBR-UL-7Gh">
-                                        <rect key="frame" x="150.66666666666666" y="0.0" width="34" height="61"/>
+                                        <rect key="frame" x="126" y="0.0" width="26" height="30.666666666666668"/>
                                         <state key="normal" image="Next"/>
                                         <connections>
                                             <action selector="nextButtonTapped:" destination="AUS-pu-oiz" eventType="touchUpInside" id="h5I-ii-aeO"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HQh-6m-qY8">
-                                        <rect key="frame" x="200.66666666666669" y="0.0" width="34.333333333333343" height="61"/>
+                                        <rect key="frame" x="168" y="0.0" width="26" height="30.666666666666668"/>
                                         <state key="normal" image="Faster"/>
                                         <connections>
                                             <action selector="fasterButtonTapped:" destination="AUS-pu-oiz" eventType="touchUpInside" id="jGW-Y4-fWL"/>
@@ -413,7 +413,7 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.0x" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJu-kZ-BDs">
-                                <rect key="frame" x="20" y="697" width="34" height="61"/>
+                                <rect key="frame" x="20" y="727.33333333333337" width="34" height="30.666666666666629"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="34" id="HaE-7F-iD2"/>
                                 </constraints>
@@ -1175,22 +1175,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="アルマ書37章38節" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SAs-Ap-UA3">
-                                <rect key="frame" x="20" y="64" width="144.66666666666666" height="25"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="アルマ書37章38節" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SAs-Ap-UA3">
+                                <rect key="frame" x="20.000000000000014" y="65" width="236.33333333333337" height="20.333333333333329"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aeM-aW-BwF">
-                                <rect key="frame" x="276.33333333333331" y="64" width="20" height="25"/>
-                                <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" image="Trash"/>
-                                <connections>
-                                    <action selector="deleteButtonTapped:" destination="n05-c0-JaN" eventType="touchUpInside" id="s4A-h3-oRS"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="noe-sa-QWN">
-                                <rect key="frame" x="336.33333333333331" y="64" width="18.666666666666686" height="25"/>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="noe-sa-QWN">
+                                <rect key="frame" x="336.33333333333331" y="64" width="18.666666666666686" height="22"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="Xmark"/>
@@ -1199,7 +1191,7 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="メモはありません" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VwB-EE-2OB">
-                                <rect key="frame" x="20" y="105" width="335" height="300"/>
+                                <rect key="frame" x="20" y="102" width="335" height="300"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="GID-Na-ZfV"/>
@@ -1209,7 +1201,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Kn-wn-pRg" customClass="MainButton" customModule="JapaneseLDSQuad" customModuleProvider="target">
-                                <rect key="frame" x="100" y="425" width="175" height="30"/>
+                                <rect key="frame" x="100" y="422" width="175" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="ZBV-Qu-sb0"/>
                                 </constraints>
@@ -1219,23 +1211,29 @@
                                     <action selector="saveButtonTapped:" destination="n05-c0-JaN" eventType="touchUpInside" id="uDk-uI-BGy"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aeM-aW-BwF">
+                                <rect key="frame" x="276.33333333333331" y="62.666666666666657" width="20" height="25"/>
+                                <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="Trash"/>
+                                <connections>
+                                    <action selector="deleteButtonTapped:" destination="n05-c0-JaN" eventType="touchUpInside" id="s4A-h3-oRS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="v7F-bW-jwN" firstAttribute="trailing" secondItem="noe-sa-QWN" secondAttribute="trailing" constant="20" id="0KB-GE-8x4"/>
                             <constraint firstItem="noe-sa-QWN" firstAttribute="leading" secondItem="aeM-aW-BwF" secondAttribute="trailing" constant="40" id="0c0-Uh-IQe"/>
                             <constraint firstItem="noe-sa-QWN" firstAttribute="top" secondItem="v7F-bW-jwN" secondAttribute="top" constant="20" id="0n5-6y-Mlk"/>
+                            <constraint firstItem="noe-sa-QWN" firstAttribute="centerY" secondItem="SAs-Ap-UA3" secondAttribute="centerY" id="4ft-2s-Rei"/>
                             <constraint firstItem="7Kn-wn-pRg" firstAttribute="top" secondItem="VwB-EE-2OB" secondAttribute="bottom" constant="20" id="5h7-fc-LSk"/>
                             <constraint firstItem="v7F-bW-jwN" firstAttribute="trailing" secondItem="VwB-EE-2OB" secondAttribute="trailing" constant="20" id="9S9-Cm-0Zm"/>
                             <constraint firstItem="VwB-EE-2OB" firstAttribute="leading" secondItem="v7F-bW-jwN" secondAttribute="leading" constant="20" id="CA6-BN-gbk"/>
-                            <constraint firstItem="noe-sa-QWN" firstAttribute="centerY" secondItem="SAs-Ap-UA3" secondAttribute="centerY" id="Dw0-I0-wfK"/>
                             <constraint firstItem="7Kn-wn-pRg" firstAttribute="leading" secondItem="v7F-bW-jwN" secondAttribute="leading" constant="100" id="IFH-6V-ZXl"/>
-                            <constraint firstItem="aeM-aW-BwF" firstAttribute="top" secondItem="v7F-bW-jwN" secondAttribute="top" constant="20" id="L6T-Ue-f3u"/>
-                            <constraint firstItem="aeM-aW-BwF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="SAs-Ap-UA3" secondAttribute="trailing" constant="8" symbolic="YES" id="LqT-gi-nu3"/>
                             <constraint firstItem="7Kn-wn-pRg" firstAttribute="centerX" secondItem="jvP-af-qDM" secondAttribute="centerX" id="OR8-i7-W3R"/>
-                            <constraint firstItem="SAs-Ap-UA3" firstAttribute="top" secondItem="v7F-bW-jwN" secondAttribute="top" constant="20" id="OyO-P2-O4Y"/>
+                            <constraint firstItem="aeM-aW-BwF" firstAttribute="leading" secondItem="SAs-Ap-UA3" secondAttribute="trailing" constant="20" id="T9v-jH-doF"/>
+                            <constraint firstItem="noe-sa-QWN" firstAttribute="centerY" secondItem="aeM-aW-BwF" secondAttribute="centerY" id="VBF-a0-9S8"/>
                             <constraint firstItem="VwB-EE-2OB" firstAttribute="top" secondItem="noe-sa-QWN" secondAttribute="bottom" constant="16" id="bvn-ft-Uc5"/>
-                            <constraint firstItem="aeM-aW-BwF" firstAttribute="centerY" secondItem="SAs-Ap-UA3" secondAttribute="centerY" id="olV-dD-92v"/>
                             <constraint firstItem="v7F-bW-jwN" firstAttribute="trailing" secondItem="7Kn-wn-pRg" secondAttribute="trailing" constant="100" id="omy-ol-lSF"/>
                             <constraint firstItem="SAs-Ap-UA3" firstAttribute="leading" secondItem="v7F-bW-jwN" secondAttribute="leading" constant="20" id="zvh-aV-da7"/>
                         </constraints>
@@ -1252,7 +1250,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p5L-Z3-3FR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2239.130434782609" y="1719.6428571428571"/>
+            <point key="canvasLocation" x="2237.5999999999999" y="1719.4581280788177"/>
         </scene>
         <!--印とメモ-->
         <scene sceneID="Qcm-ng-gDF">
