@@ -59,6 +59,13 @@ struct Constants {
     struct FieldName {
         static let username = "username"
         static let createdAt = "createdAt"
+        static let modifiedAt = "modifiedAt"
+        static let text = "text"
+        static let note = "note"
+        static let customScripture = "customScripture"
+        static let content = "content"
+        static let primary = "primary"
+        static let secondary = "secondary"
     }
     
     struct Count {

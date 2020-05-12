@@ -56,7 +56,7 @@ class FirestoreManager {
         let userDocument = usersCollection.document(user.uid)
         let bookmarksRef = userDocument.collection(Constants.CollectionName.bookmarks)
         bookmarksRef.document(bookmark.id).setData([
-            "createdAt": bookmark.date as Date,
+            Constants.FieldName.createdAt: bookmark.date as Date,
         ]) { error in
             if let error = error {
                 print("Error writing bookmark document: \(error)")
@@ -93,10 +93,10 @@ class FirestoreManager {
         let customScripturesRef = userDocument.collection(Constants.CollectionName.customScriptures)
         let highlightsRef = userDocument.collection(Constants.CollectionName.highlights)
         highlightsRef.document(highlight.id).setData([
-            "text": highlight.text,
-            "note": highlight.note,
-            "customScripture": customScripturesRef.document(highlight.highlighted_scripture.id),
-            "modifiedAt": highlight.date as Date,
+            Constants.FieldName.text: highlight.text,
+            Constants.FieldName.note: highlight.note,
+            Constants.FieldName.customScripture: customScripturesRef.document(highlight.highlighted_scripture.id),
+            Constants.FieldName.modifiedAt: highlight.date as Date,
         ]) { error in
             if let error = error {
                 print("Error writing highlight document: \(error)")
@@ -115,11 +115,11 @@ class FirestoreManager {
         let userDocument = usersCollection.document(user.uid)
         let customScripturesRef = userDocument.collection(Constants.CollectionName.customScriptures)
         customScripturesRef.document(scripture.id).setData([
-            "content": [
-                "primary": scripture.scripture.scripture_primary,
-                "secondary": scripture.scripture.scripture_secondary,
+            Constants.FieldName.content: [
+                Constants.FieldName.primary: scripture.scripture.scripture_primary,
+                Constants.FieldName.secondary: scripture.scripture.scripture_secondary,
             ],
-            "modifiedAt": scripture.date as Date,
+            Constants.FieldName.modifiedAt: scripture.date as Date,
         ]) { error in
             if let error = error {
                 print("Error writing custom scripture document: \(error)")
@@ -194,7 +194,8 @@ class FirestoreManager {
     
     fileprivate func syncBookmarks(userId: String, completion: (() -> ())? = nil) {
         let userDocument = usersCollection.document(userId)
-        bookmarksListener = userDocument.collection(Constants.CollectionName.bookmarks).addSnapshotListener() { querySnapshot, error in
+        bookmarksListener = userDocument.collection(
+            Constants.CollectionName.bookmarks).addSnapshotListener() { querySnapshot, error in
             guard let snapshot = querySnapshot else {
                 return
             }
@@ -207,13 +208,13 @@ class FirestoreManager {
             snapshot.documentChanges.forEach { diff in
                 let document = diff.document
                 let id = document.documentID
-                let createdTimestamp = document.data()["createdAt"] as! Timestamp
+                let timestamp = document.data()[Constants.FieldName.createdAt] as! Timestamp
                 switch diff.type {
                 case .added, .modified:
                     #if DEBUG
                     print("Bookmark \(id) was added to/modified in Firestore")
                     #endif
-                    BookmarksManager.shared.syncAdd(scriptureId: id, createdAt: createdTimestamp.dateValue())
+                    BookmarksManager.shared.syncAdd(scriptureId: id, createdAt: timestamp.dateValue())
                 case .removed:
                     #if DEBUG
                     print("Bookmark \(id) was deleted from Firestore")
@@ -260,30 +261,41 @@ class FirestoreManager {
             changes.forEach { diff in
                 let document = diff.document
                 let id = document.documentID, data = document.data()
-                let note = data["note"] as! String
-                let text = data["text"] as! String
-                let modifiedTimestamp = data["modifiedAt"] as! Timestamp
+                let note = data[Constants.FieldName.note] as! String
+                let text = data[Constants.FieldName.text] as! String
+                let timestamp = data[Constants.FieldName.modifiedAt] as! Timestamp
 
-                let customScripture = data["customScripture"] as! DocumentReference
+                let customScripture = data[Constants.FieldName.customScripture] as! DocumentReference
                 customScripture.getDocument() { documentSnapshot, error in
                     guard let snapshot = documentSnapshot else {
                         return
                     }
                     let customScriptureId = snapshot.documentID
-                    let customScriptureData = snapshot.data()
-                    let content = customScriptureData!["content"] as! [String: String]
-                    let scriptureModifiedTimestamp = customScriptureData!["modifiedAt"] as! Timestamp
+                    let scriptureData = snapshot.data()
+                    let content = scriptureData![Constants.FieldName.content] as! [String: String]
+                    let scriptureTimestamp = scriptureData![Constants.FieldName.modifiedAt] as! Timestamp
                     switch diff.type {
                     case .added, .modified:
                         #if DEBUG
                         print("Highlight \(id) was added to/modified in Firestore")
                         #endif
-                        HighlightsManager.shared.syncAdd(textId: id, note: note, text: text, modifiedAt: modifiedTimestamp.dateValue(), scriptureId: customScriptureId, content: content, scriptureModifiedAt: scriptureModifiedTimestamp.dateValue())
+                        HighlightsManager.shared.syncAdd(
+                            textId: id,
+                            note: note,
+                            text: text,
+                            modifiedAt: timestamp.dateValue(),
+                            scriptureId: customScriptureId,
+                            content: content,
+                            scriptureModifiedAt: scriptureTimestamp.dateValue())
                     case .removed:
                         #if DEBUG
                         print("Highlight \(id) was deleted from Firestore")
                         #endif
-                        HighlightsManager.shared.syncRemove(textId: id, scriptureId: customScriptureId, content: content, scriptureModifiedAt: scriptureModifiedTimestamp.dateValue())
+                        HighlightsManager.shared.syncRemove(
+                            textId: id,
+                            scriptureId: customScriptureId,
+                            content: content,
+                            scriptureModifiedAt: scriptureTimestamp.dateValue())
                     }
                     syncedCount += 1
                     if syncedCount == changes.count {
