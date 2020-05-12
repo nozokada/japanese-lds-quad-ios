@@ -30,14 +30,10 @@ class AuthenticationManager {
                 }
                 return
             }
-            let changeRequest = user.createProfileChangeRequest()
-            changeRequest.displayName = username
-            changeRequest.commitChanges() { error in
-                if let _ = error {
-                    #if DEBUG
-                    print("Saving display name \(username) was failed")
-                    #endif
-                }
+            #if DEBUG
+            print("User creation for \(email) was successful")
+            #endif
+            self.changeDisplayName(user: user, username: username) {
                 self.createUserData(user: user) {
                     DispatchQueue.main.async {
                         self.delegate?.authenticationManagerDidSucceed()
@@ -47,15 +43,31 @@ class AuthenticationManager {
         }
     }
     
+    func changeDisplayName(user: User, username: String, completion: (() -> ())? = nil) {
+        let changeRequest = user.createProfileChangeRequest()
+        changeRequest.displayName = username
+        changeRequest.commitChanges() { error in
+            if let error = error {
+                #if DEBUG
+                print("Display name \(username) was not added: \(error.localizedDescription)")
+                #endif
+            }
+            #if DEBUG
+            print("Display name \(username) was successfully added")
+            #endif
+            completion?()
+        }
+    }
+    
     func createUserData(user: User, completion: (() -> ())? = nil) {
         let username = user.displayName ?? user.uid
         Firestore.firestore().collection(Constants.CollectionName.users).document(user.uid).setData([
             Constants.FieldName.username : username,
             Constants.FieldName.createdAt : FieldValue.serverTimestamp()
         ]) { error in
-            if let _ = error {
+            if let error = error {
                 #if DEBUG
-                print("User data for \(username) was not added")
+                print("User data for \(username) was not added: \(error.localizedDescription)")
                 #endif
                 return
             }
