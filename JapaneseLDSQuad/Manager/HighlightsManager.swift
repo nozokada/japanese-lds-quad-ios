@@ -29,41 +29,90 @@ class HighlightsManager {
         return realm.objects(HighlightedText.self).sorted(byKeyPath: sortBy, ascending: ascending)
     }
     
-    func add(textId: String, textContent: String, scriptureId: String, scriptureContent: String, language: String) {
+    func add(textId: String,
+             textContent: String,
+             scriptureId: String,
+             scriptureContent: String,
+             language: String) {
         guard let scripture = Utilities.shared.getScripture(id: scriptureId) else {
             return
         }
         let createdAt = Date()
-        let highlightedScripture = get(scriptureId: scriptureId) ?? create(scripture: scripture, modifiedAt: createdAt)
-        applyHighlightChanges(highlightedScripture, content: scriptureContent, language: language, modifiedAt: createdAt)
-        createHighlight(id: textId, text: textContent, scripture: highlightedScripture, modifiedAt: createdAt, sync: true)
+        let highlightedScripture = get(scriptureId: scriptureId)
+            ?? create(scripture: scripture, modifiedAt: createdAt)
+        applyHighlightChanges(
+            highlightedScripture,
+            content: scriptureContent,
+            language: language,
+            modifiedAt: createdAt)
+        createHighlight(
+            id: textId,
+            text: textContent,
+            scripture: highlightedScripture,
+            modifiedAt: createdAt,
+            sync: true)
     }
     
     func remove(textId: String, content: String, language: String) {
-        guard let highlight = get(textId: textId), let highlightedScripture = highlight.highlighted_scripture else {
+        guard let highlight = get(textId: textId),
+            let highlightedScripture = highlight.highlighted_scripture else {
             return
         }
-        applyHighlightChanges(highlightedScripture, content: content, language: language, modifiedAt: Date())
+        applyHighlightChanges(
+            highlightedScripture,
+            content: content,
+            language: language,
+            modifiedAt: Date())
         deleteHighlight(highlight, sync: true)
     }
     
-    func syncAdd(textId: String, note: String, text: String, modifiedAt: Date, scriptureId: String, content: [String: String], scriptureModifiedAt: Date) {
+    func syncAdd(textId: String,
+                 note: String,
+                 text: String,
+                 modifiedAt: Date,
+                 scriptureId: String,
+                 content: [String: String],
+                 scriptureModifiedAt: Date) {
         guard let scripture = Utilities.shared.getScripture(id: scriptureId) else {
             return
         }
-        let highlightedScripture = get(scriptureId: scriptureId) ?? create(scripture: scripture, modifiedAt: scriptureModifiedAt)
-        if highlightedScripture.date.timeIntervalSince1970 > scriptureModifiedAt.timeIntervalSince1970 {
+        let highlightedScripture = get(scriptureId: scriptureId)
+            ?? create(scripture: scripture, modifiedAt: scriptureModifiedAt)
+        let localTimestamp = highlightedScripture.date.timeIntervalSince1970
+        let serverTimestamp = scriptureModifiedAt.timeIntervalSince1970
+        if localTimestamp > serverTimestamp {
             #if DEBUG
-            print("Newer highlighted scripture \(highlightedScripture.id) exists")
+            print("Local changes to scripture \(highlightedScripture.id) are newer")
             #endif
             return
         }
-        applyHighlightChanges(highlightedScripture, content: content["primary"]!, language: Constants.Language.primary, modifiedAt: scriptureModifiedAt)
-        applyHighlightChanges(highlightedScripture, content: content["secondary"]!, language: Constants.Language.secondary, modifiedAt: scriptureModifiedAt)
-        if let highlight = get(textId: textId) {
-            deleteHighlight(highlight)
+        if localTimestamp < serverTimestamp {
+            #if DEBUG
+            print("Local changes to scripture \(highlightedScripture.id) are older, syncing...")
+            #endif
+            for highlight in highlightedScripture.highlighted_texts {
+                deleteHighlight(highlight)
+            }
         }
-        createHighlight(id: textId, text: text, note: note, scripture: highlightedScripture, modifiedAt: modifiedAt)
+        if get(textId: textId) != nil {
+            return
+        }
+        applyHighlightChanges(
+            highlightedScripture,
+            content: content["primary"]!,
+            language: Constants.Language.primary,
+            modifiedAt: scriptureModifiedAt)
+        applyHighlightChanges(
+            highlightedScripture,
+            content: content["secondary"]!,
+            language: Constants.Language.secondary,
+            modifiedAt: scriptureModifiedAt)
+        createHighlight(
+            id: textId,
+            text: text,
+            note: note,
+            scripture: highlightedScripture,
+            modifiedAt: modifiedAt)
         DispatchQueue.main.async {
             self.delegate?.updateContentView()
         }
@@ -77,8 +126,16 @@ class HighlightsManager {
             return
         }
         if let highlightedScripture = get(scriptureId: scriptureId) {
-            applyHighlightChanges(highlightedScripture, content: content["primary"]!, language: Constants.Language.primary, modifiedAt: scriptureModifiedAt)
-            applyHighlightChanges(highlightedScripture, content: content["secondary"]!, language: Constants.Language.secondary, modifiedAt: scriptureModifiedAt)
+            applyHighlightChanges(
+                highlightedScripture,
+                content: content["primary"]!,
+                language: Constants.Language.primary,
+                modifiedAt: scriptureModifiedAt)
+            applyHighlightChanges(
+                highlightedScripture,
+                content: content["secondary"]!,
+                language: Constants.Language.secondary,
+                modifiedAt: scriptureModifiedAt)
         }
         deleteHighlight(highlight)
         DispatchQueue.main.async {
@@ -124,7 +181,11 @@ class HighlightsManager {
         #endif
     }
     
-    fileprivate func createHighlight(id: String, text: String, note: String = "", scripture: HighlightedScripture, modifiedAt: Date, sync: Bool = false) {
+    fileprivate func createHighlight(id: String,
+                                     text: String, note: String = "",
+                                     scripture: HighlightedScripture,
+                                     modifiedAt: Date,
+                                     sync: Bool = false) {
         let highlight = HighlightedText(
             id: id,
             namePrimary: Utilities.shared.generateTitlePrimary(scripture: scripture.scripture),
@@ -166,7 +227,8 @@ class HighlightsManager {
         }
     }
     
-    fileprivate func deleteHighlightedScriptureIfNeeded(_ highlightedScripture: HighlightedScripture, sync: Bool = false) {
+    fileprivate func deleteHighlightedScriptureIfNeeded(_ highlightedScripture: HighlightedScripture,
+                                                        sync: Bool = false) {
         if highlightedScripture.highlighted_texts.count == 0 {
             let id = highlightedScripture.id
             delete(highlightedScripture)
@@ -176,7 +238,10 @@ class HighlightsManager {
         }
     }
     
-    fileprivate func applyHighlightChanges(_ highlightedScripture: HighlightedScripture, content: String, language: String, modifiedAt: Date) {
+    fileprivate func applyHighlightChanges(_ highlightedScripture: HighlightedScripture,
+                                           content: String,
+                                           language: String,
+                                           modifiedAt: Date) {
         try! realm.write {
             if language == Constants.Language.primary {
                 highlightedScripture.scripture.scripture_primary = content

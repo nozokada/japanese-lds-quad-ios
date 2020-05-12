@@ -35,16 +35,26 @@ class BookmarksManager {
         guard let scripture = Utilities.shared.getScripture(id: scriptureId) else {
             return
         }
-        if let bookmark = get(bookmarkId: scriptureId) {
-            if bookmark.date.timeIntervalSince1970 >= createdAt.timeIntervalSince1970 {
-                #if DEBUG
-                print("Bookmark \(bookmark.id) (for \(bookmark.name_primary)) already exists")
-                #endif
-                return
-            }
+        let bookmark = get(bookmarkId: scriptureId)
+            ?? create(scripture: scripture, createdAt: createdAt)
+        let localTimestamp = bookmark.date.timeIntervalSince1970
+        let serverTimestamp = createdAt.timeIntervalSince1970
+        if localTimestamp > serverTimestamp {
+            #if DEBUG
+            print("Local bookmark \(bookmark.id) (for \(bookmark.name_primary)) is newer")
+            #endif
+            return
+        }
+        if localTimestamp < serverTimestamp {
+            #if DEBUG
+            print("Local bookmark \(bookmark.id) (for \(bookmark.name_primary)) is older, syncing...")
+            #endif
             delete(bookmark)
         }
-        create(scripture: scripture, createdAt: createdAt)
+        if get(bookmarkId: bookmark.id) != nil {
+            return
+        }
+        let _ = create(scripture: scripture, createdAt: createdAt)
         DispatchQueue.main.async {
             self.delegate?.updateContentView()
         }
@@ -67,7 +77,7 @@ class BookmarksManager {
         guard let scripture = Utilities.shared.getScripture(id: scriptureId) else {
             return
         }
-        create(scripture: scripture, createdAt: Date(), sync: true)
+        let _ = create(scripture: scripture, createdAt: Date(), sync: true)
     }
     
     fileprivate func remove(bookmarkId: String) -> Bool {
@@ -81,7 +91,7 @@ class BookmarksManager {
         return true
     }
     
-    fileprivate func create(scripture: Scripture, createdAt: Date, sync: Bool = false) {
+    fileprivate func create(scripture: Scripture, createdAt: Date, sync: Bool = false) -> Bookmark {
         let bookmark = Bookmark(
             id: scripture.id,
             namePrimary: Utilities.shared.generateTitlePrimary(scripture: scripture),
@@ -98,6 +108,7 @@ class BookmarksManager {
         if sync {
             FirestoreManager.shared.addBookmark(bookmark)
         }
+        return bookmark
     }
     
     fileprivate func delete(_ bookmark: Bookmark, sync: Bool = false) {
