@@ -90,12 +90,12 @@ class FirestoreManager {
             return
         }
         let userDocument = usersCollection.document(user.uid)
-        let customScripturesRef = userDocument.collection(Constants.CollectionName.customScriptures)
+        let scripturesRef = userDocument.collection(Constants.CollectionName.scriptures)
         let highlightsRef = userDocument.collection(Constants.CollectionName.highlights)
         highlightsRef.document(highlight.id).setData([
             Constants.FieldName.text: highlight.text,
             Constants.FieldName.note: highlight.note,
-            Constants.FieldName.customScripture: customScripturesRef.document(highlight.highlighted_scripture.id),
+            Constants.FieldName.scripture: scripturesRef.document(highlight.highlighted_scripture.id),
             Constants.FieldName.modifiedAt: highlight.date as Date,
         ]) { error in
             if let error = error {
@@ -108,13 +108,13 @@ class FirestoreManager {
         }
     }
     
-    func addCustomScripture(_ scripture: HighlightedScripture, completion: (() -> ())? = nil) {
+    func addUserScripture(_ scripture: HighlightedScripture, completion: (() -> ())? = nil) {
         guard let user = AuthenticationManager.shared.currentUser else {
             return
         }
         let userDocument = usersCollection.document(user.uid)
-        let customScripturesRef = userDocument.collection(Constants.CollectionName.customScriptures)
-        customScripturesRef.document(scripture.id).setData([
+        let scripturesRef = userDocument.collection(Constants.CollectionName.scriptures)
+        scripturesRef.document(scripture.id).setData([
             Constants.FieldName.content: [
                 Constants.FieldName.primary: scripture.scripture.scripture_primary,
                 Constants.FieldName.secondary: scripture.scripture.scripture_secondary,
@@ -122,10 +122,10 @@ class FirestoreManager {
             Constants.FieldName.modifiedAt: scripture.date as Date,
         ]) { error in
             if let error = error {
-                print("Error writing custom scripture document: \(error)")
+                print("Error writing user scripture document: \(error)")
             } else {
                 #if DEBUG
-                print("Custom scripture \(scripture.id) was successfully added to Firestore")
+                print("User scripture \(scripture.id) was successfully added to Firestore")
                 #endif
                 completion?()
             }
@@ -149,18 +149,18 @@ class FirestoreManager {
         }
     }
     
-    func removeCustomScripture(id: String) {
+    func removeUserScripture(id: String) {
         guard let user = AuthenticationManager.shared.currentUser, syncEnabled else {
             return
         }
         let userDocument = usersCollection.document(user.uid)
-        let customScripturesRef = userDocument.collection(Constants.CollectionName.customScriptures)
-        customScripturesRef.document(id).delete() { error in
+        let scripturesRef = userDocument.collection(Constants.CollectionName.scriptures)
+        scripturesRef.document(id).delete() { error in
             if let error = error {
-                print("Error removing custom scripture document: \(error)")
+                print("Error removing user scripture document: \(error)")
             } else {
                 #if DEBUG
-                print("Custom scripture \(id) was successfully removed from Firestore")
+                print("User scripture \(id) was successfully removed from Firestore")
                 #endif
             }
         }
@@ -265,12 +265,12 @@ class FirestoreManager {
                 let text = data[Constants.FieldName.text] as! String
                 let timestamp = data[Constants.FieldName.modifiedAt] as! Timestamp
 
-                let customScripture = data[Constants.FieldName.customScripture] as! DocumentReference
-                customScripture.getDocument() { documentSnapshot, error in
+                let scripture = data[Constants.FieldName.scripture] as! DocumentReference
+                scripture.getDocument() { documentSnapshot, error in
                     guard let snapshot = documentSnapshot else {
                         return
                     }
-                    let customScriptureId = snapshot.documentID
+                    let scriptureId = snapshot.documentID
                     let scriptureData = snapshot.data()
                     let content = scriptureData![Constants.FieldName.content] as! [String: String]
                     let scriptureTimestamp = scriptureData![Constants.FieldName.modifiedAt] as! Timestamp
@@ -284,7 +284,7 @@ class FirestoreManager {
                             note: note,
                             text: text,
                             modifiedAt: timestamp.dateValue(),
-                            scriptureId: customScriptureId,
+                            scriptureId: scriptureId,
                             content: content,
                             scriptureModifiedAt: scriptureTimestamp.dateValue())
                     case .removed:
@@ -293,7 +293,7 @@ class FirestoreManager {
                         #endif
                         HighlightsManager.shared.syncRemove(
                             textId: id,
-                            scriptureId: customScriptureId,
+                            scriptureId: scriptureId,
                             content: content,
                             scriptureModifiedAt: scriptureTimestamp.dateValue())
                     }
@@ -319,7 +319,7 @@ class FirestoreManager {
                 #if DEBUG
                 print("Backing up highlight \(highlight.id) (for \(highlight.name_primary))")
                 #endif
-                addCustomScripture(highlight.highlighted_scripture) {
+                addUserScripture(highlight.highlighted_scripture) {
                     self.addHighlight(highlight)
                 }
             }

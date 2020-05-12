@@ -94,7 +94,7 @@ class HighlightsManager {
             highlight.date = updatedAt
             highlight.highlighted_scripture.date = updatedAt
         }
-        FirestoreManager.shared.addCustomScripture(highlight.highlighted_scripture) {
+        FirestoreManager.shared.addUserScripture(highlight.highlighted_scripture) {
             FirestoreManager.shared.addHighlight(highlight)
         }
     }
@@ -141,7 +141,7 @@ class HighlightsManager {
         print("Highlight \(highlight.id) (for \(highlight.name_primary)) was added successfully")
         #endif
         if sync {
-            FirestoreManager.shared.addCustomScripture(scripture) {
+            FirestoreManager.shared.addUserScripture(scripture) {
                 FirestoreManager.shared.addHighlight(highlight)
             }
         }
@@ -160,7 +160,7 @@ class HighlightsManager {
         print("Highlight \(id) (for \(name)) was deleted successfully")
         #endif
         if sync {
-            FirestoreManager.shared.addCustomScripture(highlightedScripture) {
+            FirestoreManager.shared.addUserScripture(highlightedScripture) {
                 FirestoreManager.shared.removeHighlight(id: id)
             }
         }
@@ -171,7 +171,7 @@ class HighlightsManager {
             let id = highlightedScripture.id
             delete(highlightedScripture)
             if sync {
-                FirestoreManager.shared.removeCustomScripture(id: id)
+                FirestoreManager.shared.removeUserScripture(id: id)
             }
         }
     }
