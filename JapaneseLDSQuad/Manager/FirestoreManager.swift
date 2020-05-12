@@ -109,7 +109,7 @@ class FirestoreManager {
     }
     
     func addUserScripture(_ scripture: HighlightedScripture, completion: (() -> ())? = nil) {
-        guard let user = AuthenticationManager.shared.currentUser else {
+        guard let user = AuthenticationManager.shared.currentUser, syncEnabled else {
             return
         }
         let userDocument = usersCollection.document(user.uid)
