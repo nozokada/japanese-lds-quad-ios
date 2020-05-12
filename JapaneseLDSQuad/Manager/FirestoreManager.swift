@@ -235,12 +235,10 @@ class FirestoreManager {
         }
         bookmarksBackupRequired = false
         for bookmark in BookmarksManager.shared.getAll() {
-            if bookmark.date.timeIntervalSince1970 > lastSyncedAt.timeIntervalSince1970 {
-                #if DEBUG
-                print("Backing up bookmark \(bookmark.id) (for \(bookmark.name_primary))")
-                #endif
-                addBookmark(bookmark)
-            }
+            #if DEBUG
+            print("Backing up bookmark \(bookmark.id) (for \(bookmark.name_primary))")
+            #endif
+            addBookmark(bookmark)
         }
     }
     
@@ -319,13 +317,11 @@ class FirestoreManager {
         }
         highlightsBackupRequired = false
         for highlight in HighlightsManager.shared.getAll() {
-            if highlight.date.timeIntervalSince1970 > lastSyncedAt.timeIntervalSince1970 {
-                #if DEBUG
-                print("Backing up highlight \(highlight.id) (for \(highlight.name_primary))")
-                #endif
-                addUserScripture(highlight.highlighted_scripture) {
-                    self.addHighlight(highlight)
-                }
+            #if DEBUG
+            print("Backing up highlight \(highlight.id) (for \(highlight.name_primary))")
+            #endif
+            addUserScripture(highlight.highlighted_scripture) {
+                self.addHighlight(highlight)
             }
         }
     }
