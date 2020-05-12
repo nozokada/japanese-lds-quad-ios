@@ -258,6 +258,10 @@ class FirestoreManager {
             #endif
             var syncedCount = 0
             let changes = snapshot.documentChanges
+            if changes.count == 0 {
+                completion?()
+                return
+            }
             changes.forEach { diff in
                 let document = diff.document
                 let id = document.documentID, data = document.data()
