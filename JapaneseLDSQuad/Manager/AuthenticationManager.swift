@@ -96,11 +96,11 @@ class AuthenticationManager {
         }
     }
     
-    func signOut(completion: @escaping () -> ()) {
+    func signOut(completion: (() -> ())? = nil) {
         do {
             try Auth.auth().signOut()
             FirestoreManager.shared.disableSync()
-            completion()
+            completion?()
         }
         catch let error as NSError {
             handleAuthError(error)
