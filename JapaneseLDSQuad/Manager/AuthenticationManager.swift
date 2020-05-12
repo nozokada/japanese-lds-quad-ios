@@ -38,26 +38,31 @@ class AuthenticationManager {
                     print("Saving display name \(username) was failed")
                     #endif
                 }
-            }
-            
-            Firestore.firestore().collection(Constants.CollectionName.users).document(user.uid).setData([
-                Constants.FieldName.username : username,
-                Constants.FieldName.createdTimestamp : FieldValue.serverTimestamp()
-            ]) { error in
-                if let error = error {
-                    #if DEBUG
-                    print("User data for \(username) was not added")
-                    #endif
-                    self.handleAuthError(error)
-                } else {
-                    #if DEBUG
-                    print("User data for \(username) was successfully added")
-                    #endif
+                self.createUserData(user: user) {
                     DispatchQueue.main.async {
                         self.delegate?.authenticationManagerDidSucceed()
                     }
                 }
             }
+        }
+    }
+    
+    func createUserData(user: User, completion: (() -> ())? = nil) {
+        let username = user.displayName ?? user.uid
+        Firestore.firestore().collection(Constants.CollectionName.users).document(user.uid).setData([
+            Constants.FieldName.username : username,
+            Constants.FieldName.createdAt : FieldValue.serverTimestamp()
+        ]) { error in
+            if let _ = error {
+                #if DEBUG
+                print("User data for \(username) was not added")
+                #endif
+                return
+            }
+            #if DEBUG
+            print("User data for \(username) was successfully added")
+            #endif
+            completion?()
         }
     }
     

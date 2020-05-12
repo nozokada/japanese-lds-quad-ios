@@ -58,7 +58,7 @@ struct Constants {
     
     struct FieldName {
         static let username = "username"
-        static let createdTimestamp = "createdTimestamp"
+        static let createdAt = "createdAt"
     }
     
     struct Count {
