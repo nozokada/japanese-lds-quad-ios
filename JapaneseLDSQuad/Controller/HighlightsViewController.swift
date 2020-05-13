@@ -167,9 +167,9 @@ extension HighlightsViewController: UISearchBarDelegate {
             let nameQuery = "name_primary CONTAINS '\(searchText)' OR name_secondary CONTAINS '\(searchText)'"
             let noteQuery = "note CONTAINS '\(searchText)'"
             let searchQuery = "\(nameQuery) OR \(noteQuery)"
-            results = realm.objects(HighlightedText.self).filter(searchQuery)
+            results = HighlightsManager.shared.getAll(sortBy: "date", searchQuery: searchQuery)
         } else {
-            results = realm.objects(HighlightedText.self).sorted(byKeyPath: "date")
+            results = HighlightsManager.shared.getAll(sortBy: "date")
         }
         searchNoficationToken = results.observe { _ in
             self.reload()

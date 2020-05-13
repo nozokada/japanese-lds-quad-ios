@@ -25,8 +25,20 @@ class HighlightsManager {
         return realm.object(ofType: HighlightedText.self, forPrimaryKey: textId)
     }
     
-    func getAll(sortBy: String = "date", ascending: Bool = false) -> Results<HighlightedText> {
-        return realm.objects(HighlightedText.self).sorted(byKeyPath: sortBy, ascending: ascending)
+    func getAll() -> Results<HighlightedScripture> {
+        return realm.objects(HighlightedScripture.self)
+    }
+    
+    func getAll(sortBy: String,
+                ascending: Bool = false,
+                searchQuery: String? = nil) -> Results<HighlightedText> {
+        if let query = searchQuery {
+            return realm.objects(HighlightedText.self)
+                .filter(query)
+                .sorted(byKeyPath: sortBy, ascending: ascending)
+        }
+        return realm.objects(HighlightedText.self)
+            .sorted(byKeyPath: sortBy, ascending: ascending)
     }
     
     func add(textId: String,
@@ -143,6 +155,16 @@ class HighlightsManager {
         }
     }
     
+    func deleteIfNeeded() {
+        for highlightedScripture in getAll() {
+            if highlightedScripture.highlighted_texts.count == 0 {
+                let id = highlightedScripture.id
+                delete(highlightedScripture)
+                FirestoreManager.shared.removeUserScripture(id: id)
+            }
+        }
+    }
+    
     func updateNote(textId: String, note: String) {
         guard let highlight = get(textId: textId) else { return }
         let updatedAt = NSDate()
@@ -223,17 +245,6 @@ class HighlightsManager {
         if sync {
             FirestoreManager.shared.addUserScripture(highlightedScripture) {
                 FirestoreManager.shared.removeHighlight(id: id)
-            }
-        }
-    }
-    
-    fileprivate func deleteHighlightedScriptureIfNeeded(_ highlightedScripture: HighlightedScripture,
-                                                        sync: Bool = false) {
-        if highlightedScripture.highlighted_texts.count == 0 {
-            let id = highlightedScripture.id
-            delete(highlightedScripture)
-            if sync {
-                FirestoreManager.shared.removeUserScripture(id: id)
             }
         }
     }

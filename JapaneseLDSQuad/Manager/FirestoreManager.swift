@@ -222,10 +222,10 @@ class FirestoreManager {
                     BookmarksManager.shared.syncRemove(bookmarkId: id)
                 }
             }
-            completion?()
             #if DEBUG
             print("------ Server changes for bookmarks were applied ------")
             #endif
+            completion?()
         }
     }
     
@@ -301,10 +301,10 @@ class FirestoreManager {
                     }
                     syncedCount += 1
                     if syncedCount == changes.count {
-                        completion?()
                         #if DEBUG
                         print("------ Server changes for highlights were applied ------")
                         #endif
+                        completion?()
                     }
                 }
             }
@@ -316,7 +316,7 @@ class FirestoreManager {
             return
         }
         highlightsBackupRequired = false
-        for highlight in HighlightsManager.shared.getAll() {
+        for highlight in HighlightsManager.shared.getAll(sortBy: "date") {
             #if DEBUG
             print("Backing up highlight \(highlight.id) (for \(highlight.name_primary))")
             #endif
