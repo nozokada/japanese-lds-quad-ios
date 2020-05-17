@@ -168,7 +168,7 @@ class NoteViewController: UIViewController {
         if noteTextView.textColor != noteTextViewPlaceholderTextColor {
             textToSave = noteTextView.text
         }
-        HighlightsManager.shared.updateNote(textId: text.id, note: textToSave)
+        HighlightsManager.shared.update(textId: text.id, note: textToSave)
         saveButton.disable()
         saveButton.setTitle("noteSavedButtonLabel".localized, for: .normal)
     }

@@ -85,17 +85,15 @@ class FirestoreManager {
         }
     }
     
-    func addHighlight(_ highlight: HighlightedText) {
+    func addHighlight(_ highlight: HighlightedText, completion: (() -> ())? = nil) {
         guard let user = AuthenticationManager.shared.currentUser, syncEnabled else {
             return
         }
         let userDocument = usersCollection.document(user.uid)
-        let scripturesRef = userDocument.collection(Constants.CollectionName.scriptures)
         let highlightsRef = userDocument.collection(Constants.CollectionName.highlights)
         highlightsRef.document(highlight.id).setData([
             Constants.FieldName.text: highlight.text,
             Constants.FieldName.note: highlight.note,
-            Constants.FieldName.scripture: scripturesRef.document(highlight.highlighted_scripture.id),
             Constants.FieldName.modifiedAt: highlight.date as Date,
         ]) { error in
             if let error = error {
@@ -104,12 +102,16 @@ class FirestoreManager {
                 #if DEBUG
                 print("Highlight \(highlight.id) (for \(highlight.name_primary)) was successfully added to Firestore")
                 #endif
+                completion?()
             }
         }
     }
     
-    func addUserScripture(_ scripture: HighlightedScripture, completion: (() -> ())? = nil) {
+    func addUserScripture(highlight: HighlightedText) {
         guard let user = AuthenticationManager.shared.currentUser, syncEnabled else {
+            return
+        }
+        guard let scripture = highlight.highlighted_scripture else {
             return
         }
         let userDocument = usersCollection.document(user.uid)
@@ -120,14 +122,39 @@ class FirestoreManager {
                 Constants.FieldName.secondary: scripture.scripture.scripture_secondary,
             ],
             Constants.FieldName.modifiedAt: scripture.date as Date,
+        ], merge: true) { error in
+            if let error = error {
+                #if DEBUG
+                print("Error writing user scripture document: \(error)")
+                #endif
+            } else {
+                self.addToUserScripture(highlight)
+            }
+        }
+    }
+    
+    func addToUserScripture(_ highlight: HighlightedText) {
+        guard let user = AuthenticationManager.shared.currentUser, syncEnabled else {
+            return
+        }
+        guard let scripture = highlight.highlighted_scripture else {
+            return
+        }
+        let userDocument = usersCollection.document(user.uid)
+        let scripturesRef = userDocument.collection(Constants.CollectionName.scriptures)
+        let highlightsRef = userDocument.collection(Constants.CollectionName.highlights)
+        scripturesRef.document(scripture.id).updateData([
+            Constants.FieldName.highlights: FieldValue.arrayUnion([highlightsRef.document(highlight.id)]),
         ]) { error in
             if let error = error {
-                print("Error writing user scripture document: \(error)")
-            } else {
                 #if DEBUG
-                print("User scripture \(scripture.id) was successfully added to Firestore")
+                print("Error adding highlight \(highlight.id) to user scripture \(scripture.id): \(error)")
                 #endif
-                completion?()
+            }
+            else {
+                #if DEBUG
+                print("Highlight \(highlight.id) was successfully added to user scripture \(scripture.id)")
+                #endif
             }
         }
     }
@@ -149,19 +176,28 @@ class FirestoreManager {
         }
     }
     
-    func removeUserScripture(id: String) {
+    func removeFromUserScripture(id: String, scripture: HighlightedScripture, completion: (() -> ())? = nil) {
         guard let user = AuthenticationManager.shared.currentUser, syncEnabled else {
             return
         }
         let userDocument = usersCollection.document(user.uid)
         let scripturesRef = userDocument.collection(Constants.CollectionName.scriptures)
-        scripturesRef.document(id).delete() { error in
+        let highlightsRef = userDocument.collection(Constants.CollectionName.highlights)
+        scripturesRef.document(scripture.id).updateData([
+            Constants.FieldName.content: [
+                Constants.FieldName.primary: scripture.scripture.scripture_primary,
+                Constants.FieldName.secondary: scripture.scripture.scripture_secondary,
+            ],
+            Constants.FieldName.highlights: FieldValue.arrayRemove([highlightsRef.document(id)]),
+            Constants.FieldName.modifiedAt: scripture.date as Date,
+        ]) { error in
             if let error = error {
-                print("Error removing user scripture document: \(error)")
+                print("Error removing highlight \(id) from user scripture \(scripture.id): \(error)")
             } else {
                 #if DEBUG
-                print("User scripture \(id) was successfully removed from Firestore")
+                print("Highlight \(id) was successfully removed from user scripture \(scripture.id)")
                 #endif
+                completion?()
             }
         }
     }
@@ -244,61 +280,41 @@ class FirestoreManager {
     
     fileprivate func syncHighlights(userId: String, completion: (() -> ())? = nil) {
         let userDocument = usersCollection.document(userId)
-        highlightsListener = userDocument.collection(Constants.CollectionName.highlights).addSnapshotListener() { querySnapshot, error in
+        highlightsListener = userDocument.collection(Constants.CollectionName.scriptures)
+            .addSnapshotListener() { querySnapshot, error in
             guard let snapshot = querySnapshot else {
                 return
             }
             if snapshot.metadata.hasPendingWrites {
                 return
             }
-            #if DEBUG
-            print("------ Server changes for highlights were detected ------")
-            #endif
-            var syncedCount = 0
             let changes = snapshot.documentChanges
             if changes.count == 0 {
                 completion?()
                 return
             }
+            #if DEBUG
+            print("------ Server changes for scriptures were detected ------")
+            #endif
+            var syncedCount = 0
             changes.forEach { diff in
                 let document = diff.document
-                let id = document.documentID, data = document.data()
-                let note = data[Constants.FieldName.note] as! String
-                let text = data[Constants.FieldName.text] as! String
+                let id = document.documentID
+                let data = document.data()
+                guard let highlights = data[Constants.FieldName.highlights] as? [DocumentReference] else {
+                    #if DEBUG
+                    print("Highlights field does not exist")
+                    #endif
+                    return
+                }
                 let timestamp = data[Constants.FieldName.modifiedAt] as! Timestamp
-
-                let scripture = data[Constants.FieldName.scripture] as! DocumentReference
-                scripture.getDocument() { documentSnapshot, error in
-                    guard let snapshot = documentSnapshot else {
-                        return
-                    }
-                    let scriptureId = snapshot.documentID
-                    let scriptureData = snapshot.data()
-                    let content = scriptureData![Constants.FieldName.content] as! [String: String]
-                    let scriptureTimestamp = scriptureData![Constants.FieldName.modifiedAt] as! Timestamp
-                    switch diff.type {
-                    case .added, .modified:
-                        #if DEBUG
-                        print("Highlight \(id) was added to/modified in Firestore")
-                        #endif
-                        HighlightsManager.shared.syncAdd(
-                            textId: id,
-                            note: note,
-                            text: text,
-                            modifiedAt: timestamp.dateValue(),
-                            scriptureId: scriptureId,
-                            content: content,
-                            scriptureModifiedAt: scriptureTimestamp.dateValue())
-                    case .removed:
-                        #if DEBUG
-                        print("Highlight \(id) was deleted from Firestore")
-                        #endif
-                        HighlightsManager.shared.syncRemove(
-                            textId: id,
-                            scriptureId: scriptureId,
-                            content: content,
-                            scriptureModifiedAt: scriptureTimestamp.dateValue())
-                    }
+                let content = data[Constants.FieldName.content] as! [String: String]
+                self.serializeHighlights(highlights: highlights, scriptureId: id) { highlights in
+                    HighlightsManager.shared.sync(
+                        highlights: highlights,
+                        scriptureId: id,
+                        content: content,
+                        modifiedAt: timestamp.dateValue())
                     syncedCount += 1
                     if syncedCount == changes.count {
                         #if DEBUG
@@ -320,8 +336,39 @@ class FirestoreManager {
             #if DEBUG
             print("Backing up highlight \(highlight.id) (for \(highlight.name_primary))")
             #endif
-            addUserScripture(highlight.highlighted_scripture) {
-                self.addHighlight(highlight)
+            addHighlight(highlight) {
+                self.addUserScripture(highlight: highlight)
+            }
+        }
+    }
+    
+    fileprivate func serializeHighlights(highlights: [DocumentReference],
+                                         scriptureId: String,
+                                         completion: (([HighlightedText]) -> ())? = nil) {
+        guard let scripture = HighlightsManager.shared.get(scriptureId: scriptureId) else {
+            return
+        }
+        var realmHighlights = [HighlightedText]()
+        for highlight in highlights {
+            highlight.getDocument() { documentSnapshot, error in
+                guard let snapshot = documentSnapshot else {
+                    return
+                }
+                let id = snapshot.documentID
+                let data = snapshot.data()
+                let note = data?[Constants.FieldName.note] as! String
+                let text = data?[Constants.FieldName.text] as! String
+                let timestamp = data?[Constants.FieldName.modifiedAt] as! Timestamp
+                realmHighlights.append(
+                    HighlightsManager.shared.createHighlight(
+                        id: id,
+                        text: text,
+                        note: note,
+                        scripture: scripture,
+                        date: timestamp.dateValue()))
+                if highlights.count == realmHighlights.count {
+                    completion?(realmHighlights)
+                }
             }
         }
     }

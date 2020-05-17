@@ -17,9 +17,9 @@ class HighlightedScripture: Object {
     
     let highlighted_texts = LinkingObjects(fromType: HighlightedText.self, property: "highlighted_scripture")
     
-    convenience init(id: String, scripture: Scripture, date: NSDate) {
+    convenience init(scripture: Scripture, date: NSDate) {
         self.init()
-        self.id = id
+        self.id = scripture.id
         self.scripture = scripture
         self.date = date
     }

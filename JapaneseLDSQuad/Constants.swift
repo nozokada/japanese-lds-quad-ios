@@ -63,6 +63,7 @@ struct Constants {
         static let text = "text"
         static let note = "note"
         static let scripture = "scripture"
+        static let highlights = "highlights"
         static let content = "content"
         static let primary = "primary"
         static let secondary = "secondary"
