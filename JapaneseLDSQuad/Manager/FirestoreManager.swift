@@ -201,7 +201,7 @@ class FirestoreManager {
             DispatchQueue.main.async {
                 self.delegate?.firestoreManagerDidSucceed()
             }
-//            self.backupHighlights(userId: user.uid, lastSyncedAt: lastSyncedAt)
+            self.backupHighlights(userId: user.uid, lastSyncedAt: lastSyncedAt)
             self.updateLastSyncedDate()
         }
     }
@@ -250,7 +250,7 @@ class FirestoreManager {
         bookmarksBackupRequired = false
         for bookmark in BookmarksManager.shared.getAll() {
             #if DEBUG
-            print("Backing up bookmark \(bookmark.id) (for \(bookmark.name_primary))")
+            print("Backing up bookmark \(bookmark.id) in \(bookmark.name_primary)")
             #endif
             addBookmark(bookmark)
         }
@@ -268,12 +268,16 @@ class FirestoreManager {
             }
             let changes = snapshot.documentChanges
             if changes.count == 0 {
+                #if DEBUG
+                print("Listener for highlights fired but there is no change")
+                #endif
                 completion?()
                 return
             }
             #if DEBUG
             print("------ Server changes for scriptures were detected ------")
             #endif
+            var syncCount = 0
             changes.forEach { diff in
                 let document = diff.document
                 let id = document.documentID
@@ -288,10 +292,13 @@ class FirestoreManager {
                 }
                 self.serializeHighlights(highlights: highlights, scripture: scripture) { highlights in
                     HighlightsManager.shared.sync(highlights: highlights, scripture: scripture, content: content)
-                    #if DEBUG
-                    print("------ Server changes for scriptures were applied ------")
-                    #endif
-                    completion?()
+                    syncCount += 1
+                    if changes.count == syncCount {
+                        #if DEBUG
+                        print("------ Server changes for scriptures were applied ------")
+                        #endif
+                        completion?()
+                    }
                 }
             }
         }
@@ -304,7 +311,7 @@ class FirestoreManager {
         highlightsBackupRequired = false
         for highlight in HighlightsManager.shared.getAll(sortBy: "date") {
             #if DEBUG
-            print("Backing up highlight \(highlight.id) (for \(highlight.name_primary))")
+            print("Backing up highlight \(highlight.id) in \(highlight.name_primary)")
             #endif
             addHighlight(highlight) {
                 self.addToUserScripture(highlight)
@@ -315,21 +322,29 @@ class FirestoreManager {
     fileprivate func serializeHighlights(highlights: [DocumentReference],
                                          scripture: HighlightedScripture,
                                          completion: (([HighlightedText]) -> ())? = nil) {
-        var realmHighlights = [HighlightedText]()
         if highlights.count == 0 {
-            completion?(realmHighlights)
+            #if DEBUG
+            print("There is no highlight for scripture \(scripture.id)")
+            #endif
+            completion?([])
             return
         }
+        var realmHighlights = [HighlightedText]()
         for highlight in highlights {
             highlight.getDocument() { documentSnapshot, error in
                 guard let snapshot = documentSnapshot else {
                     return
                 }
+                guard let data = snapshot.data() else {
+                    #if DEBUG
+                    print("Highlight \(snapshot.documentID) does not exist anymore in Firestore")
+                    #endif
+                    return
+                }
                 let id = snapshot.documentID
-                let data = snapshot.data()
-                let note = data?[Constants.FieldName.note] as! String
-                let text = data?[Constants.FieldName.text] as! String
-                let timestamp = data?[Constants.FieldName.modifiedAt] as! Timestamp
+                let note = data[Constants.FieldName.note] as! String
+                let text = data[Constants.FieldName.text] as! String
+                let timestamp = data[Constants.FieldName.modifiedAt] as! Timestamp
                 realmHighlights.append(
                     HighlightsManager.shared.createHighlight(
                         id: id,

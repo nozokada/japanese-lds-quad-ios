@@ -50,10 +50,7 @@ class HighlightsManager {
             date: Date()) else {
             return
         }
-        applyHighlightChanges(
-            highlightedScripture,
-            content: scriptureContent,
-            language: language)
+        updateScriptureContent(highlightedScripture, content: scriptureContent, language: language)
         write(createHighlight(
             id: textId,
             text: textContent,
@@ -70,22 +67,31 @@ class HighlightsManager {
             date: Date()) else {
             return
         }
-        applyHighlightChanges(highlightedScripture, content: content, language: language)
+        updateScriptureContent(highlightedScripture, content: content, language: language)
         delete(highlight, sync: true)
     }
     
     func sync(highlights: [HighlightedText], scripture: HighlightedScripture, content: [String: String]) {
-        applyHighlightChanges(
-            scripture,
-            content: content["primary"]!,
-            language: Constants.Language.primary)
-        applyHighlightChanges(
-            scripture,
-            content: content["secondary"]!,
-            language: Constants.Language.secondary)
+        #if DEBUG
+        let printedHighlights = "[\(highlights.map({$0.id}).joined(separator: ","))]"
+        print("Syncing highlightedScripture \(scripture.id) with highlights: \(printedHighlights)")
+        #endif
+        
+        #if DEBUG
+        let printedOldHighlights = "[\(scripture.highlighted_texts.map({$0.id}).joined(separator: ","))]"
+        print("Highlights before sync: \(printedOldHighlights)")
+        #endif
+        
+        updateScriptureContent(scripture, content: content["primary"]!, language: Constants.Language.primary)
+        updateScriptureContent(scripture, content: content["secondary"]!, language: Constants.Language.secondary)
         
         scripture.highlighted_texts.forEach { delete($0) }
         highlights.forEach { write($0) }
+        
+        #if DEBUG
+        let printedNewHighlights = "[\(scripture.highlighted_texts.map({$0.id}).joined(separator: ","))]"
+        print("Highlights after sync: \(printedNewHighlights)")
+        #endif
         
         DispatchQueue.main.async {
             self.delegate?.updateContentView()
@@ -112,11 +118,17 @@ class HighlightsManager {
             return nil
         }
         if let highlightedScripture = get(scriptureId: id) {
+            #if DEBUG
+            print("HighlightedScripture \(id) already exists in Realm so updating its date")
+            #endif
             try! realm.write {
                 highlightedScripture.date = date as NSDate
             }
             return highlightedScripture
         }
+        #if DEBUG
+        print("HighlightedScripture \(id) does not exist in Realm so creating new one")
+        #endif
         return write(HighlightedScripture(scripture: scripture, date: date as NSDate))
     }
     
@@ -140,7 +152,7 @@ class HighlightsManager {
         try! realm.write {
             realm.add(scripture)
             #if DEBUG
-            print("Highlighted scripture \(scripture.id) was added successfully")
+            print("Highlighted scripture \(scripture.id) was created in Realm")
             #endif
         }
         return scripture
@@ -151,7 +163,7 @@ class HighlightsManager {
             realm.add(highlight)
         }
         #if DEBUG
-        print("Highlight \(highlight.id) (for \(highlight.name_primary)) was added successfully")
+        print("Highlight \(highlight.id) in \(highlight.name_primary) was created in Realm")
         #endif
         if sync {
             FirestoreManager.shared.addHighlight(highlight) {
@@ -166,7 +178,7 @@ class HighlightsManager {
             realm.delete(scripture)
         }
         #if DEBUG
-        print("Highlighted scripture \(id) was removed successfully")
+        print("Highlighted scripture \(id) was removed from Realm")
         #endif
     }
     
@@ -180,7 +192,7 @@ class HighlightsManager {
             realm.delete(highlight)
         }
         #if DEBUG
-        print("Highlight \(id) (for \(name)) was deleted successfully")
+        print("Highlight \(id) in \(name) was removed from Realm")
         #endif
         if sync {
             FirestoreManager.shared.removeFromUserScripture(
@@ -190,7 +202,7 @@ class HighlightsManager {
         }
     }
     
-    fileprivate func applyHighlightChanges(_ highlightedScripture: HighlightedScripture,
+    fileprivate func updateScriptureContent(_ highlightedScripture: HighlightedScripture,
                                            content: String,
                                            language: String) {
         try! realm.write {
