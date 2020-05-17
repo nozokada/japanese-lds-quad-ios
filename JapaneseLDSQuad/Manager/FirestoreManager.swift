@@ -274,32 +274,24 @@ class FirestoreManager {
             #if DEBUG
             print("------ Server changes for scriptures were detected ------")
             #endif
-            var syncedCount = 0
             changes.forEach { diff in
                 let document = diff.document
                 let id = document.documentID
                 let data = document.data()
-                guard let highlights = data[Constants.FieldName.highlights] as? [DocumentReference] else {
-                    #if DEBUG
-                    print("Highlights field does not exist")
-                    #endif
-                    return
-                }
+                let highlights = data[Constants.FieldName.highlights] as! [DocumentReference]
                 let timestamp = data[Constants.FieldName.modifiedAt] as! Timestamp
                 let content = data[Constants.FieldName.content] as! [String: String]
-                self.serializeHighlights(highlights: highlights, scriptureId: id) { highlights in
-                    HighlightsManager.shared.sync(
-                        highlights: highlights,
-                        scriptureId: id,
-                        content: content,
-                        modifiedAt: timestamp.dateValue())
-                    syncedCount += 1
-                    if syncedCount == changes.count {
-                        #if DEBUG
-                        print("------ Server changes for highlights were applied ------")
-                        #endif
-                        completion?()
-                    }
+                guard let scripture = HighlightsManager.shared.createHighlightedScripture(
+                    id: id,
+                    date: timestamp.dateValue()) else {
+                    return
+                }
+                self.serializeHighlights(highlights: highlights, scripture: scripture) { highlights in
+                    HighlightsManager.shared.sync(highlights: highlights, scripture: scripture, content: content)
+                    #if DEBUG
+                    print("------ Server changes for highlights were applied ------")
+                    #endif
+                    completion?()
                 }
             }
         }
@@ -321,12 +313,13 @@ class FirestoreManager {
     }
     
     fileprivate func serializeHighlights(highlights: [DocumentReference],
-                                         scriptureId: String,
+                                         scripture: HighlightedScripture,
                                          completion: (([HighlightedText]) -> ())? = nil) {
-        guard let scripture = HighlightsManager.shared.get(scriptureId: scriptureId) else {
+        var realmHighlights = [HighlightedText]()
+        if highlights.count == 0 {
+            completion?(realmHighlights)
             return
         }
-        var realmHighlights = [HighlightedText]()
         for highlight in highlights {
             highlight.getDocument() { documentSnapshot, error in
                 guard let snapshot = documentSnapshot else {

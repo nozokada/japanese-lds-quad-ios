@@ -45,58 +45,46 @@ class HighlightsManager {
              scriptureId: String,
              scriptureContent: String,
              language: String) {
-        guard let scripture = Utilities.shared.getScripture(id: scriptureId) else {
+        guard let highlightedScripture = createHighlightedScripture(
+            id: scriptureId,
+            date: Date()) else {
             return
         }
-        let createdAt = Date()
-        let highlightedScripture = get(scriptureId: scriptureId)
-            ?? write(HighlightedScripture(scripture: scripture, date: createdAt as NSDate))
         applyHighlightChanges(
             highlightedScripture,
             content: scriptureContent,
-            language: language,
-            modifiedAt: createdAt)
+            language: language)
         write(createHighlight(
             id: textId,
             text: textContent,
             scripture: highlightedScripture,
-            date: createdAt), sync: true)
+            date: highlightedScripture.date as Date), sync: true)
     }
     
     func remove(textId: String, content: String, language: String) {
-        guard let highlight = get(textId: textId),
-            let highlightedScripture = highlight.highlighted_scripture else {
+        guard let highlight = get(textId: textId) else {
             return
         }
-        applyHighlightChanges(
-            highlightedScripture,
-            content: content,
-            language: language,
-            modifiedAt: Date())
+        guard let highlightedScripture = createHighlightedScripture(
+            id: highlight.highlighted_scripture.id,
+            date: Date()) else {
+            return
+        }
+        applyHighlightChanges(highlightedScripture, content: content, language: language)
         delete(highlight, sync: true)
     }
     
-    func sync(highlights: [HighlightedText],
-              scriptureId: String,
-              content: [String: String],
-              modifiedAt: Date) {
-        guard let scripture = Utilities.shared.getScripture(id: scriptureId) else {
-            return
-        }
-        let highlightedScripture = get(scriptureId: scriptureId)
-            ?? write(HighlightedScripture(scripture: scripture, date: modifiedAt as NSDate))
+    func sync(highlights: [HighlightedText], scripture: HighlightedScripture, content: [String: String]) {
         applyHighlightChanges(
-            highlightedScripture,
+            scripture,
             content: content["primary"]!,
-            language: Constants.Language.primary,
-            modifiedAt: modifiedAt)
+            language: Constants.Language.primary)
         applyHighlightChanges(
-            highlightedScripture,
+            scripture,
             content: content["secondary"]!,
-            language: Constants.Language.secondary,
-            modifiedAt: modifiedAt)
+            language: Constants.Language.secondary)
         
-        highlightedScripture.highlighted_texts.forEach { delete($0) }
+        scripture.highlighted_texts.forEach { delete($0) }
         highlights.forEach { write($0) }
         
         DispatchQueue.main.async {
@@ -117,6 +105,19 @@ class HighlightsManager {
         FirestoreManager.shared.addHighlight(highlight) {
             FirestoreManager.shared.addToUserScripture(highlight)
         }
+    }
+    
+    func createHighlightedScripture(id: String, date: Date) -> HighlightedScripture? {
+        guard let scripture = Utilities.shared.getScripture(id: id) else {
+            return nil
+        }
+        if let highlightedScripture = get(scriptureId: id) {
+            try! realm.write {
+                highlightedScripture.date = date as NSDate
+            }
+            return highlightedScripture
+        }
+        return write(HighlightedScripture(scripture: scripture, date: date as NSDate))
     }
     
     func createHighlight(id: String,
@@ -191,15 +192,13 @@ class HighlightsManager {
     
     fileprivate func applyHighlightChanges(_ highlightedScripture: HighlightedScripture,
                                            content: String,
-                                           language: String,
-                                           modifiedAt: Date) {
+                                           language: String) {
         try! realm.write {
             if language == Constants.Language.primary {
                 highlightedScripture.scripture.scripture_primary = content
             } else {
                 highlightedScripture.scripture.scripture_secondary = content
             }
-            highlightedScripture.date = modifiedAt as NSDate
         }
     }
 }
