@@ -107,32 +107,6 @@ class FirestoreManager {
         }
     }
     
-    func addUserScripture(highlight: HighlightedText) {
-        guard let user = AuthenticationManager.shared.currentUser, syncEnabled else {
-            return
-        }
-        guard let scripture = highlight.highlighted_scripture else {
-            return
-        }
-        let userDocument = usersCollection.document(user.uid)
-        let scripturesRef = userDocument.collection(Constants.CollectionName.scriptures)
-        scripturesRef.document(scripture.id).setData([
-            Constants.FieldName.content: [
-                Constants.FieldName.primary: scripture.scripture.scripture_primary,
-                Constants.FieldName.secondary: scripture.scripture.scripture_secondary,
-            ],
-            Constants.FieldName.modifiedAt: scripture.date as Date,
-        ], merge: true) { error in
-            if let error = error {
-                #if DEBUG
-                print("Error writing user scripture document: \(error)")
-                #endif
-            } else {
-                self.addToUserScripture(highlight)
-            }
-        }
-    }
-    
     func addToUserScripture(_ highlight: HighlightedText) {
         guard let user = AuthenticationManager.shared.currentUser, syncEnabled else {
             return
@@ -143,17 +117,21 @@ class FirestoreManager {
         let userDocument = usersCollection.document(user.uid)
         let scripturesRef = userDocument.collection(Constants.CollectionName.scriptures)
         let highlightsRef = userDocument.collection(Constants.CollectionName.highlights)
-        scripturesRef.document(scripture.id).updateData([
+        scripturesRef.document(scripture.id).setData([
+            Constants.FieldName.content: [
+                Constants.FieldName.primary: scripture.scripture.scripture_primary,
+                Constants.FieldName.secondary: scripture.scripture.scripture_secondary,
+            ],
+            Constants.FieldName.modifiedAt: scripture.date as Date,
             Constants.FieldName.highlights: FieldValue.arrayUnion([highlightsRef.document(highlight.id)]),
-        ]) { error in
+        ], merge: true) { error in
             if let error = error {
                 #if DEBUG
                 print("Error adding highlight \(highlight.id) to user scripture \(scripture.id): \(error)")
                 #endif
-            }
-            else {
+            } else {
                 #if DEBUG
-                print("Highlight \(highlight.id) was successfully added to user scripture \(scripture.id)")
+                print("Highlight \(highlight.id) was successfully added user scripture \(scripture.id)")
                 #endif
             }
         }
@@ -223,7 +201,7 @@ class FirestoreManager {
             DispatchQueue.main.async {
                 self.delegate?.firestoreManagerDidSucceed()
             }
-            self.backupHighlights(userId: user.uid, lastSyncedAt: lastSyncedAt)
+//            self.backupHighlights(userId: user.uid, lastSyncedAt: lastSyncedAt)
             self.updateLastSyncedDate()
         }
     }
@@ -337,7 +315,7 @@ class FirestoreManager {
             print("Backing up highlight \(highlight.id) (for \(highlight.name_primary))")
             #endif
             addHighlight(highlight) {
-                self.addUserScripture(highlight: highlight)
+                self.addToUserScripture(highlight)
             }
         }
     }

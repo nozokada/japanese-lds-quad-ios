@@ -115,7 +115,7 @@ class HighlightsManager {
             highlight.highlighted_scripture.date = updatedAt
         }
         FirestoreManager.shared.addHighlight(highlight) {
-            FirestoreManager.shared.addUserScripture(highlight: highlight)
+            FirestoreManager.shared.addToUserScripture(highlight)
         }
     }
     
@@ -154,7 +154,7 @@ class HighlightsManager {
         #endif
         if sync {
             FirestoreManager.shared.addHighlight(highlight) {
-                FirestoreManager.shared.addUserScripture(highlight: highlight)
+                FirestoreManager.shared.addToUserScripture(highlight)
             }
         }
     }
