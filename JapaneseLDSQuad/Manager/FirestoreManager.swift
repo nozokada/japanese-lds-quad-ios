@@ -289,7 +289,7 @@ class FirestoreManager {
                 self.serializeHighlights(highlights: highlights, scripture: scripture) { highlights in
                     HighlightsManager.shared.sync(highlights: highlights, scripture: scripture, content: content)
                     #if DEBUG
-                    print("------ Server changes for highlights were applied ------")
+                    print("------ Server changes for scriptures were applied ------")
                     #endif
                     completion?()
                 }
