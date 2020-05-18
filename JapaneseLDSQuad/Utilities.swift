@@ -88,7 +88,7 @@ class Utilities {
         return [Constants.RestorationID.highlights].contains(restorationIdentifider)
     }
     
-    func getLanguage() -> String? {
+    func getSystemLang() -> String? {
         return Locale.current.languageCode
     }
     

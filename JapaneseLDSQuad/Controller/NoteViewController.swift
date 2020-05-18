@@ -101,7 +101,7 @@ class NoteViewController: UIViewController {
             let text = HighlightsManager.shared.get(textId: textId) else {
             return
         }
-        noteViewTitleLabel.text = Utilities.shared.getLanguage() == Constants.Lang.primary
+        noteViewTitleLabel.text = Utilities.shared.getSystemLang() == Constants.Lang.primary
             ? text.name_primary
             : text.name_secondary
         noteViewTitleLabel.sizeToFit()

@@ -128,7 +128,7 @@ extension HighlightsViewController: HighlightsViewLayoutDelegate {
     
     func collectionView(_ collectionView: UICollectionView, heightForLabelAt indexPath: IndexPath) -> CGFloat {
         let highlight = results[indexPath.item]
-        return getLabelHeight(text: Utilities.shared.getLanguage() == Constants.Lang.primary
+        return getLabelHeight(text: Utilities.shared.getSystemLang() == Constants.Lang.primary
             ? "\(highlight.name_primary)"
             : "\(highlight.name_secondary)", labelType: HighlightRegularTextLabel.self)
             + getLabelHeight(text: highlight.text, labelType: HighlightSmallTextLabel.self)

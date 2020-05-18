@@ -47,11 +47,11 @@ class MainWebView: WKWebView {
                 self.alert(message: "InvalidCopyRangeAlertMessage".localized)
                 return
             }
-            self.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguage()) { result, error in
-                guard let scriptureLanguage = result as? String else { return }
+            self.evaluateJavaScript(JavaScriptSnippets.getScriptureLang()) { result, error in
+                guard let scriptureLang = result as? String else { return }
                 guard let realm = try? Realm() else { return }
                 guard let scripture = realm.objects(Scripture.self).filter("id = '\(scriptureId)'").first else { return }
-                UIPasteboard.general.string = scriptureLanguage == Constants.Lang.primary
+                UIPasteboard.general.string = scriptureLang == Constants.Lang.primary
                     ? scripture.scripture_primary_raw
                     : scripture.scripture_secondary_raw
             }
@@ -79,8 +79,8 @@ class MainWebView: WKWebView {
                     guard let scriptureContent = result as? String else {
                         return
                     }
-                    self.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguage()) { result, error in
-                        guard let language = result as? String else {
+                    self.evaluateJavaScript(JavaScriptSnippets.getScriptureLang()) { result, error in
+                        guard let lang = result as? String else {
                             return
                         }
                         guard let highlightedScripture = HighlightsManager.shared.createHighlightedScripture(
@@ -93,7 +93,7 @@ class MainWebView: WKWebView {
                             text: highlightedText,
                             highlightedScripture: highlightedScripture,
                             content: scriptureContent,
-                            language: language)
+                            lang: lang)
                     }
                 }
             }

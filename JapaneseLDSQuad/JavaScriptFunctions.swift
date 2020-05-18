@@ -14,7 +14,7 @@ struct JavaScriptFunctions {
         return """
             \(getScriptureId())
             \(getScriptureContent())
-            \(getScriptureContentLanguage())
+            \(getScriptureContentLang())
             \(highlightText())
             \(callMarkSelector())
             """
@@ -45,9 +45,9 @@ struct JavaScriptFunctions {
             """
     }
     
-    static func getScriptureContentLanguage() -> String {
+    static func getScriptureContentLang() -> String {
         return """
-            function getScriptureContentLanguage(node) {
+            function getScriptureContentLang(node) {
                 var currentNode = node;
                 while(!currentNode.parentElement.classList.contains('verse'))
                     currentNode = currentNode.parentNode;

@@ -126,19 +126,19 @@ class SpeechViewController: UIViewController {
         }
     }
     
-    fileprivate func initUtterance(speechString: String, language: String) {
+    fileprivate func initUtterance(speechString: String, lang: String) {
         let newUtterance = AVSpeechUtterance(string: speechString)
-        newUtterance.voice = AVSpeechSynthesisVoice(language: language)
+        newUtterance.voice = AVSpeechSynthesisVoice(language: lang)
         newUtterance.rate = Utilities.shared.getSpeechRate()
         currentUtterance = newUtterance
     }
     
-    fileprivate func play(text: String, in language: String) {
-        speak(text: text, in: language)
+    fileprivate func play(text: String, in lang: String) {
+        speak(text: text, in: lang)
         playOrPauseButton.setImage(UIImage(named: "Pause"), for: .normal)
     }
     
-    fileprivate func playNext(withNumber: Bool = false, in language: String = Constants.Lang.primarySpeech) {
+    fileprivate func playNext(withNumber: Bool = false, in lang: String = Constants.Lang.primarySpeech) {
         guard allowedToPlayNext else { return }
         guard let scriptures = scripturesToSpeak else { return }
         
@@ -146,9 +146,9 @@ class SpeechViewController: UIViewController {
             nextSpeechIndex = 0
         }
         let scripture = scriptures[nextSpeechIndex]
-        let speechText = getScriptureSpeechText(scripture: scripture, withNumber: withNumber, in: language)
+        let speechText = getScriptureSpeechText(scripture: scripture, withNumber: withNumber, in: lang)
         stop()
-        speak(text: speechText, in: language)
+        speak(text: speechText, in: lang)
         nextSpeechIndex += 1
         updateImage(for: playOrPauseButton, imageName: "Pause")
     }
@@ -168,17 +168,17 @@ class SpeechViewController: UIViewController {
         updateImage(for: playOrPauseButton, imageName: "Play")
     }
     
-    fileprivate func getScriptureSpeechText(scripture: Scripture, withNumber: Bool, in language: String) -> String {
+    fileprivate func getScriptureSpeechText(scripture: Scripture, withNumber: Bool, in lang: String) -> String {
         var speechText = withNumber ? "\(scripture.verse): " : ""
-        speechText.append(language == Constants.Lang.primarySpeech
-            ? SpeechUtilities.correctPrimaryLanguage(speechText: scripture.scripture_primary_raw)
-            : SpeechUtilities.correctSecondaryLanguage(speechText: scripture.scripture_secondary_raw))
+        speechText.append(lang == Constants.Lang.primarySpeech
+            ? SpeechUtilities.correctPrimaryLang(speechText: scripture.scripture_primary_raw)
+            : SpeechUtilities.correctSecondaryLang(speechText: scripture.scripture_secondary_raw))
         
         return speechText
     }
     
-    fileprivate func speak(text: String, in language: String) {
-        initUtterance(speechString: text, language: language)
+    fileprivate func speak(text: String, in lang: String) {
+        initUtterance(speechString: text, lang: lang)
         speechSynthesizer.speak(currentUtterance)
     }
     

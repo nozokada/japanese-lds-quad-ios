@@ -145,15 +145,15 @@ extension ContentViewController: WKNavigationDelegate {
     }
     
     func removeHighlight(id: String) {
-        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguage(textId: id)) { result, error in
-            guard let language = result as? String else {
+        webView.evaluateJavaScript(JavaScriptSnippets.getScriptureLang(textId: id)) { result, error in
+            guard let lang = result as? String else {
                 return
             }
             self.webView.evaluateJavaScript(JavaScriptSnippets.removeHighlight(textId: id)) { result, error in
                 guard let content = result as? String else {
                     return
                 }
-                HighlightsManager.shared.remove(textId: id, content: content, language: language)
+                HighlightsManager.shared.remove(textId: id, content: content, lang: lang)
                 self.noteViewController?.hide()
             }
         }

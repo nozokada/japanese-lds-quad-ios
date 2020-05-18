@@ -44,8 +44,8 @@ class HighlightsManager {
              text: String,
              highlightedScripture: HighlightedScripture,
              content: String,
-             language: String) {
-        updateScriptureContent(highlightedScripture, content: content, lang: language)
+             lang: String) {
+        updateScriptureContent(highlightedScripture, content: content, lang: lang)
         write(createHighlight(
             id: id,
             text: text,
@@ -53,7 +53,7 @@ class HighlightsManager {
             date: highlightedScripture.date as Date), sync: true)
     }
     
-    func remove(textId: String, content: String, language: String) {
+    func remove(textId: String, content: String, lang: String) {
         guard let highlight = get(textId: textId) else {
             return
         }
@@ -62,7 +62,7 @@ class HighlightsManager {
             date: Date()) else {
             return
         }
-        updateScriptureContent(highlightedScripture, content: content, lang: language)
+        updateScriptureContent(highlightedScripture, content: content, lang: lang)
         delete(highlight, sync: true)
     }
     

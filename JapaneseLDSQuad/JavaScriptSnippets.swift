@@ -126,17 +126,17 @@ struct JavaScriptSnippets {
             """
     }
     
-    static func getScriptureLanguage() -> String {
+    static func getScriptureLang() -> String {
         return """
             var selection = window.getSelection();
-            var scriptureContentLanguage = '';
+            var scriptureContentLang = '';
             if(selection) {
                 if(selection.rangeCount) {
                     var range = selection.getRangeAt(0);
-                    scriptureContentLanguage = getScriptureContentLanguage(range.startContainer);
+                    scriptureContentLang = getScriptureContentLang(range.startContainer);
                 }
             }
-            scriptureContentLanguage
+            scriptureContentLang
             """
     }
     
@@ -152,11 +152,11 @@ struct JavaScriptSnippets {
             """
     }
     
-    static func getScriptureLanguage(textId: String) -> String {
+    static func getScriptureLang(textId: String) -> String {
         return """
             var highlightedText = document.getElementById('\(textId)');
-            var scriptureContentLanguage = getScriptureContentLanguage(highlightedText);
-            scriptureContentLanguage
+            var scriptureContentLang = getScriptureContentLang(highlightedText);
+            scriptureContentLang
             """
     }
     

@@ -48,7 +48,7 @@ extension SKProduct {
 
 extension AuthErrorCode {
     func getDescription(error: Error) -> String {
-        if Utilities.shared.getLanguage() != Constants.Lang.primary {
+        if Utilities.shared.getSystemLang() != Constants.Lang.primary {
             return error.localizedDescription
         }
         switch self {

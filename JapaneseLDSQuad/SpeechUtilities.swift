@@ -8,7 +8,7 @@
 
 struct SpeechUtilities {
     
-    static func correctPrimaryLanguage(speechText: String) -> String {
+    static func correctPrimaryLang(speechText: String) -> String {
         var outputText = speechText
         outputText = outputText
             .replacingOccurrences(of: "聖徒", with: "せいと")
@@ -44,7 +44,7 @@ struct SpeechUtilities {
         return outputText
     }
     
-    static func correctSecondaryLanguage(speechText: String) -> String {
+    static func correctSecondaryLang(speechText: String) -> String {
         var outputText = speechText
         outputText = outputText.replacingOccurrences(of: "Nephi", with: "neefye")
         
