@@ -97,9 +97,9 @@ class ContentBuilder {
                 html += targeted ? "targeted " : ""
                 html += bookmarked ? "bookmarked" : ""
                 html += "'>"
-                html += "<div class='verse primary'><a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verseNumber)</a> <span lang='\(Constants.Language.primary)'>\(scripture.scripture_primary)</span></div>"
+                html += "<div class='verse primary'><a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verseNumber)</a> <span lang='\(Constants.Lang.primary)'>\(scripture.scripture_primary)</span></div>"
                 if !scripture.scripture_secondary.isEmpty {
-                    html += "<div class='verse secondary'><a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verseNumber)</a> <span lang='\(Constants.Language.secondary)'>\(scripture.scripture_secondary)</span></div>"
+                    html += "<div class='verse secondary'><a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verseNumber)</a> <span lang='\(Constants.Lang.secondary)'>\(scripture.scripture_secondary)</span></div>"
                 }
                 html += "</div>"
             }

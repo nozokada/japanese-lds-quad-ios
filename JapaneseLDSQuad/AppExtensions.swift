@@ -28,11 +28,11 @@ extension String {
 extension AVSpeechUtterance {
     
     var speakingPrimary: Bool {
-        return voice?.language == Constants.Language.primarySpeech
+        return voice?.language == Constants.Lang.primarySpeech
     }
     
     var speakingSecondary: Bool {
-        return voice?.language == Constants.Language.secondarySpeech
+        return voice?.language == Constants.Lang.secondarySpeech
     }
 }
 
@@ -48,7 +48,7 @@ extension SKProduct {
 
 extension AuthErrorCode {
     func getDescription(error: Error) -> String {
-        if Utilities.shared.getLanguage() != Constants.Language.primary {
+        if Utilities.shared.getLanguage() != Constants.Lang.primary {
             return error.localizedDescription
         }
         switch self {

@@ -138,7 +138,7 @@ class SpeechViewController: UIViewController {
         playOrPauseButton.setImage(UIImage(named: "Pause"), for: .normal)
     }
     
-    fileprivate func playNext(withNumber: Bool = false, in language: String = Constants.Language.primarySpeech) {
+    fileprivate func playNext(withNumber: Bool = false, in language: String = Constants.Lang.primarySpeech) {
         guard allowedToPlayNext else { return }
         guard let scriptures = scripturesToSpeak else { return }
         
@@ -170,7 +170,7 @@ class SpeechViewController: UIViewController {
     
     fileprivate func getScriptureSpeechText(scripture: Scripture, withNumber: Bool, in language: String) -> String {
         var speechText = withNumber ? "\(scripture.verse): " : ""
-        speechText.append(language == Constants.Language.primarySpeech
+        speechText.append(language == Constants.Lang.primarySpeech
             ? SpeechUtilities.correctPrimaryLanguage(speechText: scripture.scripture_primary_raw)
             : SpeechUtilities.correctSecondaryLanguage(speechText: scripture.scripture_secondary_raw))
         
@@ -255,7 +255,7 @@ extension SpeechViewController: AVSpeechSynthesizerDelegate {
         
         if utterance.speakingPrimary && Utilities.shared.dualEnabled {
             nextSpeechIndex -= 1
-            playNext(in: Constants.Language.secondarySpeech)
+            playNext(in: Constants.Lang.secondarySpeech)
             return
         }
         

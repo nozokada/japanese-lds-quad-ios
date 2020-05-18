@@ -45,7 +45,7 @@ class HighlightsManager {
              highlightedScripture: HighlightedScripture,
              content: String,
              language: String) {
-        updateScriptureContent(highlightedScripture, content: content, language: language)
+        updateScriptureContent(highlightedScripture, content: content, lang: language)
         write(createHighlight(
             id: id,
             text: text,
@@ -62,7 +62,7 @@ class HighlightsManager {
             date: Date()) else {
             return
         }
-        updateScriptureContent(highlightedScripture, content: content, language: language)
+        updateScriptureContent(highlightedScripture, content: content, lang: language)
         delete(highlight, sync: true)
     }
     
@@ -77,8 +77,8 @@ class HighlightsManager {
         print("Highlights before sync: \(printedOldHighlights)")
         #endif
         
-        updateScriptureContent(scripture, content: content["primary"]!, language: Constants.Language.primary)
-        updateScriptureContent(scripture, content: content["secondary"]!, language: Constants.Language.secondary)
+        updateScriptureContent(scripture, content: content["primary"]!, lang: Constants.Lang.primary)
+        updateScriptureContent(scripture, content: content["secondary"]!, lang: Constants.Lang.secondary)
         
         scripture.highlighted_texts.forEach { delete($0) }
         highlights.forEach { write($0) }
@@ -199,9 +199,9 @@ class HighlightsManager {
     
     fileprivate func updateScriptureContent(_ highlightedScripture: HighlightedScripture,
                                            content: String,
-                                           language: String) {
+                                           lang: String) {
         try! realm.write {
-            if language == Constants.Language.primary {
+            if lang == Constants.Lang.primary {
                 highlightedScripture.scripture.scripture_primary = content
             } else {
                 highlightedScripture.scripture.scripture_secondary = content

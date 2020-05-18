@@ -42,9 +42,9 @@ class HymnBuilder: ContentBuilder {
                 html += "<div id='\(scripture.id)' class='"
                 html += targeted ? "targeted " : ""
                 html += "'>"
-                html += "<div class='hymn-verse primary'><ol><span lang='\(Constants.Language.primary)'>\(scripture.scripture_primary)</span></ol></div>"
+                html += "<div class='hymn-verse primary'><ol><span lang='\(Constants.Lang.primary)'>\(scripture.scripture_primary)</span></ol></div>"
                 if !scripture.scripture_secondary.isEmpty {
-                    html += "<div class='hymn-verse secondary'><ol><span lang='\(Constants.Language.secondary)'>\(scripture.scripture_secondary)</span></ol></div>"
+                    html += "<div class='hymn-verse secondary'><ol><span lang='\(Constants.Lang.secondary)'>\(scripture.scripture_secondary)</span></ol></div>"
                 }
                 html += "</div>"
             }

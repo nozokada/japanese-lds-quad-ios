@@ -52,8 +52,8 @@ struct JavaScriptSnippets {
         let methodName = bookmarked ? "add" : "remove"
         return """
         var verse = document.getElementById('\(scripture.id)');
-        var primarySpan = verse.querySelectorAll('span[lang="\(Constants.Language.primary)"]')[0];
-        var secondarySpan = verse.querySelectorAll('span[lang="\(Constants.Language.secondary)"]')[0];
+        var primarySpan = verse.querySelectorAll('span[lang="\(Constants.Lang.primary)"]')[0];
+        var secondarySpan = verse.querySelectorAll('span[lang="\(Constants.Lang.secondary)"]')[0];
         primarySpan.innerHTML = '\(scripture.scripture_primary)';
         secondarySpan.innerHTML = '\(scripture.scripture_secondary)';
         verse.classList.\(methodName)('bookmarked');

@@ -89,7 +89,7 @@ struct Constants {
         static let lastSynced = "lastSyncedAt"
     }
     
-    struct Language {
+    struct Lang {
         static let primary = "ja"
         static let secondary = "en"
         static let primarySpeech = "ja-JP"

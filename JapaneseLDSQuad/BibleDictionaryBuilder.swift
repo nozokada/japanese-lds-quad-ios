@@ -39,7 +39,7 @@ class BibleDictionaryBuilder: ContentBuilder {
                 html += targeted ? "targeted " : ""
                 html += "'>"
                 let primaryScripture = PurchaseManager.shared.allFeaturesUnlocked ? getGSWithBibleLinks(gsString: scripture.scripture_primary) : scripture.scripture_primary
-                html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verse)</a> <span lang='\(Constants.Language.primary)'>\(primaryScripture)</span></div>"
+                html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verse)</a> <span lang='\(Constants.Lang.primary)'>\(primaryScripture)</span></div>"
                 html += "</div>"
             }
         }
