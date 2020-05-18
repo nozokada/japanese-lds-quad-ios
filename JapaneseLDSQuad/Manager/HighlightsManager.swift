@@ -40,20 +40,15 @@ class HighlightsManager {
             .sorted(byKeyPath: sortBy, ascending: ascending)
     }
     
-    func add(textId: String,
-             textContent: String,
-             scriptureId: String,
-             scriptureContent: String,
+    func add(id: String,
+             text: String,
+             highlightedScripture: HighlightedScripture,
+             content: String,
              language: String) {
-        guard let highlightedScripture = createHighlightedScripture(
-            id: scriptureId,
-            date: Date()) else {
-            return
-        }
-        updateScriptureContent(highlightedScripture, content: scriptureContent, language: language)
+        updateScriptureContent(highlightedScripture, content: content, language: language)
         write(createHighlight(
-            id: textId,
-            text: textContent,
+            id: id,
+            text: text,
             scripture: highlightedScripture,
             date: highlightedScripture.date as Date), sync: true)
     }

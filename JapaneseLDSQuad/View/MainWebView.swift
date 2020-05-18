@@ -72,18 +72,28 @@ class MainWebView: WKWebView {
             }
             self.evaluateJavaScript(JavaScriptSnippets.getTextToHighlight(textId: highlightedTextId)) { result, error in
                 guard let highlightedText = result as? String else {
-                    self.alert(message:"InvalidHighlightRangeAlertMessage".localized)
+                    self.alert(message: "InvalidHighlightRangeAlertMessage".localized)
                     return
                 }
                 self.evaluateJavaScript(JavaScriptSnippets.getScriptureContent()) { result, error in
-                    guard let scriptureContent = result as? String else { return }
+                    guard let scriptureContent = result as? String else {
+                        return
+                    }
                     self.evaluateJavaScript(JavaScriptSnippets.getScriptureLanguage()) { result, error in
-                        guard let language = result as? String else { return }
-                        HighlightsManager.shared.add(textId: highlightedTextId,
-                                                              textContent: highlightedText,
-                                                              scriptureId: scriptureId,
-                                                              scriptureContent: scriptureContent,
-                                                              language: language)
+                        guard let language = result as? String else {
+                            return
+                        }
+                        guard let highlightedScripture = HighlightsManager.shared.createHighlightedScripture(
+                            id: scriptureId,
+                            date: Date()) else {
+                                return
+                        }
+                        HighlightsManager.shared.add(
+                            id: highlightedTextId,
+                            text: highlightedText,
+                            highlightedScripture: highlightedScripture,
+                            content: scriptureContent,
+                            language: language)
                     }
                 }
             }

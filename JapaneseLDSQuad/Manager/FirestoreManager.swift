@@ -131,7 +131,7 @@ class FirestoreManager {
                 #endif
             } else {
                 #if DEBUG
-                print("Highlight \(highlight.id) was successfully added user scripture \(scripture.id)")
+                print("Highlight \(highlight.id) was successfully added to user scripture \(scripture.id)")
                 #endif
             }
         }
