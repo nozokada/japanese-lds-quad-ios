@@ -111,7 +111,7 @@ class SetupManager {
     }
     
     fileprivate func copyUserBookmarks(to realm: Realm, bookmarks: Results<Bookmark>) {
-        for bookmarkToCopy in bookmarks {
+        bookmarks.forEach { bookmarkToCopy in
             let bookmark = Bookmark(id: bookmarkToCopy.id,
                                     namePrimary: bookmarkToCopy.name_primary,
                                     nameSecondary: bookmarkToCopy.name_secondary,
@@ -122,7 +122,7 @@ class SetupManager {
     }
     
     fileprivate func copyUserHighlights(to realm: Realm, highlightedTexts: Results<HighlightedText>) {
-        for highlightedTextToCopy in highlightedTexts {
+        highlightedTexts.forEach { highlightedTextToCopy in 
             let highlightedText = HighlightedText(id: highlightedTextToCopy.id,
                                                   namePrimary: highlightedTextToCopy.name_primary,
                                                   nameSecondary: highlightedTextToCopy.name_secondary,

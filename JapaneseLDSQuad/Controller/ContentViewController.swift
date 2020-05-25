@@ -235,7 +235,7 @@ extension ContentViewController: ContentChangeDelegate {
             return
         }
         noteViewController?.reload()
-        for scripture in Utilities.shared.getScriptures(chapterId: chapterId) {
+        Utilities.shared.getScriptures(chapterId: chapterId).forEach { scripture in 
             webView.evaluateJavaScript(JavaScriptSnippets.updateVerse(scripture: scripture))
         }
     }

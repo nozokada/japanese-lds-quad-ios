@@ -86,7 +86,7 @@ class ContentBuilder {
     
     func buildBody() -> String {
         var html = ""
-        for scripture in scriptures {
+        scriptures.forEach { scripture in
             let verseNumber = numbered ? scripture.verse : ""
             if scripture.id.count == 6 {
                 let targeted = scripture.verse == targetVerse

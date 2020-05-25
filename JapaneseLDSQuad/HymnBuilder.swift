@@ -34,7 +34,7 @@ class HymnBuilder: ContentBuilder {
     
     override func buildBody() -> String {
         var html = ""
-        for scripture in scriptures {
+        scriptures.forEach { scripture in
             if scripture.id.count == 6 {
                 let targeted = scripture.verse == targetVerse
                 if targeted { html += "<a id='anchor'></a>" }

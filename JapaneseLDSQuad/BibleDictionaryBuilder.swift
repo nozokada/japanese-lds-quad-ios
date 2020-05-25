@@ -31,15 +31,22 @@ class BibleDictionaryBuilder: ContentBuilder {
     override func buildBody() -> String {
         var html = ""
         let verse = ""
-        for scripture in scriptures {
+        scriptures.forEach { scripture in
             if scripture.id.count == 6 {
                 let targeted = scripture.verse == targetVerse
                 if targeted { html += "<a id='anchor'></a>" }
                 html += "<div id='\(scripture.id)' class='"
                 html += targeted ? "targeted " : ""
                 html += "'>"
-                let primaryScripture = PurchaseManager.shared.allFeaturesUnlocked ? getGSWithBibleLinks(gsString: scripture.scripture_primary) : scripture.scripture_primary
-                html += "<div class='verse'><a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verse)</a> <span lang='\(Constants.Lang.primary)'>\(primaryScripture)</span></div>"
+                let primaryScripture = PurchaseManager.shared.allFeaturesUnlocked
+                    ? getGSWithBibleLinks(gsString: scripture.scripture_primary)
+                    : scripture.scripture_primary
+                html += """
+                <div class='verse'>
+                <a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verse)</a>
+                <span lang='\(Constants.Lang.primary)'>\(primaryScripture)</span>
+                </div>
+                """
                 html += "</div>"
             }
         }
