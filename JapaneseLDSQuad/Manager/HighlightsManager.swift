@@ -46,11 +46,15 @@ class HighlightsManager {
              content: String,
              lang: String) {
         updateScriptureContent(highlightedScripture, content: content, lang: lang)
-        write(createHighlight(
+        let highlight = createHighlight(
             id: id,
             text: text,
             scripture: highlightedScripture,
-            date: highlightedScripture.date as Date), sync: true)
+            date: highlightedScripture.date as Date)
+        write(highlight)
+        FirestoreManager.shared.addHighlight(highlight) {
+            FirestoreManager.shared.addToUserScripture(highlight)
+        }
     }
     
     func remove(textId: String, content: String, lang: String) {
@@ -63,7 +67,31 @@ class HighlightsManager {
             return
         }
         updateScriptureContent(highlightedScripture, content: content, lang: lang)
-        delete(highlight, sync: true)
+        let id = highlight.id
+        delete(highlight)
+        FirestoreManager.shared.removeFromUserScripture(id: id, scripture: highlightedScripture) {
+            FirestoreManager.shared.removeHighlight(id: id)
+            if highlightedScripture.highlighted_texts.count == 0 {
+                let id = highlightedScripture.id
+                self.delete(highlightedScripture)
+                FirestoreManager.shared.removeUserScripture(id: id)
+            }
+        }
+    }
+    
+    func update(textId: String, note: String) {
+        guard let highlight = get(textId: textId) else {
+            return
+        }
+        let updatedAt = NSDate()
+        try! realm.write {
+            highlight.note = note
+            highlight.date = updatedAt
+            highlight.highlighted_scripture.date = updatedAt
+        }
+        FirestoreManager.shared.addHighlight(highlight) {
+            FirestoreManager.shared.addToUserScripture(highlight)
+        }
     }
     
     func sync(highlights: [HighlightedText], scripture: HighlightedScripture, content: [String: String]) {
@@ -88,23 +116,13 @@ class HighlightsManager {
         print("Highlights after sync: \(printedNewHighlights)")
         #endif
         
+        if scripture.highlighted_texts.count == 0 {
+            let id = scripture.id
+            delete(scripture)
+            FirestoreManager.shared.removeUserScripture(id: id)
+        }
         DispatchQueue.main.async {
             self.delegate?.updateContentView()
-        }
-    }
-    
-    func update(textId: String, note: String) {
-        guard let highlight = get(textId: textId) else {
-            return
-        }
-        let updatedAt = NSDate()
-        try! realm.write {
-            highlight.note = note
-            highlight.date = updatedAt
-            highlight.highlighted_scripture.date = updatedAt
-        }
-        FirestoreManager.shared.addHighlight(highlight) {
-            FirestoreManager.shared.addToUserScripture(highlight)
         }
     }
     
@@ -153,18 +171,13 @@ class HighlightsManager {
         return scripture
     }
     
-    fileprivate func write(_ highlight: HighlightedText, sync: Bool = false) {
+    fileprivate func write(_ highlight: HighlightedText) {
         try! realm.write {
             realm.add(highlight)
         }
         #if DEBUG
         print("Highlight \(highlight.id) in \(highlight.name_primary) was created in Realm")
         #endif
-        if sync {
-            FirestoreManager.shared.addHighlight(highlight) {
-                FirestoreManager.shared.addToUserScripture(highlight)
-            }
-        }
     }
     
     fileprivate func delete(_ scripture: HighlightedScripture) {
@@ -177,10 +190,7 @@ class HighlightsManager {
         #endif
     }
     
-    fileprivate func delete(_ highlight: HighlightedText, sync: Bool = false) {
-        guard let highlightedScripture = highlight.highlighted_scripture else {
-            return
-        }
+    fileprivate func delete(_ highlight: HighlightedText) {
         let id = highlight.id
         let name = highlight.name_primary
         try! realm.write {
@@ -189,12 +199,6 @@ class HighlightsManager {
         #if DEBUG
         print("Highlight \(id) in \(name) was removed from Realm")
         #endif
-        if sync {
-            FirestoreManager.shared.removeFromUserScripture(
-            id: id, scripture: highlightedScripture) {
-                FirestoreManager.shared.removeHighlight(id: id)
-            }
-        }
     }
     
     fileprivate func updateScriptureContent(_ highlightedScripture: HighlightedScripture,
