@@ -250,7 +250,7 @@ class FirestoreManager {
                     #if DEBUG
                     print("Bookmark \(id) was added to/modified in Firestore")
                     #endif
-                    BookmarksManager.shared.syncAdd(scriptureId: id, createdAt: timestamp.dateValue())
+                    BookmarksManager.shared.syncAdd(bookmarkId: id, createdAt: timestamp.dateValue())
                 case .removed:
                     #if DEBUG
                     print("Bookmark \(id) was deleted from Firestore")

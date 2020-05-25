@@ -31,28 +31,25 @@ class BookmarksManager {
         return realm.objects(Bookmark.self).sorted(byKeyPath: sortBy, ascending: ascending)
     }
     
-    func syncAdd(scriptureId: String, createdAt: Date) {
-        guard let scripture = Utilities.shared.getScripture(id: scriptureId) else {
+    func syncAdd(bookmarkId: String, createdAt: Date) {
+        guard let scripture = Utilities.shared.getScripture(id: bookmarkId) else {
             return
         }
-        let bookmark = get(bookmarkId: scriptureId)
+        let bookmark = get(bookmarkId: bookmarkId)
             ?? create(scripture: scripture, createdAt: createdAt)
         let localTimestamp = bookmark.date.timeIntervalSince1970
         let serverTimestamp = createdAt.timeIntervalSince1970
-        if localTimestamp > serverTimestamp {
+        if localTimestamp >= serverTimestamp {
             #if DEBUG
-            print("Local bookmark \(bookmark.id) (for \(bookmark.name_primary)) is newer")
+            print("Bookmark \(bookmark.id) already exists in Realm so won't sync")
             #endif
             return
         }
         if localTimestamp < serverTimestamp {
             #if DEBUG
-            print("Local bookmark \(bookmark.id) (for \(bookmark.name_primary)) is older, syncing...")
+            print("Bookmark \(bookmark.id) is outdated in Realm so syncing")
             #endif
-            delete(bookmark)
-        }
-        if get(bookmarkId: bookmark.id) != nil {
-            return
+            let _ = delete(bookmark)
         }
         let _ = create(scripture: scripture, createdAt: createdAt)
         DispatchQueue.main.async {
@@ -63,11 +60,11 @@ class BookmarksManager {
     func syncRemove(bookmarkId: String) {
         guard let bookmark = get(bookmarkId: bookmarkId) else {
             #if DEBUG
-            print("Bookmark \(bookmarkId) does not exist")
+            print("Bookmark \(bookmarkId) does not exist in Realm")
             #endif
             return
         }
-        delete(bookmark)
+        let _ = delete(bookmark)
         DispatchQueue.main.async {
             self.delegate?.updateContentView()
         }
@@ -77,21 +74,23 @@ class BookmarksManager {
         guard let scripture = Utilities.shared.getScripture(id: scriptureId) else {
             return
         }
-        let _ = create(scripture: scripture, createdAt: Date(), sync: true)
+        let bookmark = create(scripture: scripture, createdAt: Date())
+        FirestoreManager.shared.addBookmark(bookmark)
     }
     
     fileprivate func remove(bookmarkId: String) -> Bool {
         guard let bookmark = get(bookmarkId: bookmarkId) else {
             #if DEBUG
-            print("Bookmark \(bookmarkId) does not exist")
+            print("Bookmark \(bookmarkId) does not exist in Realm")
             #endif
             return false
         }
-        delete(bookmark, sync: true)
+        let id = delete(bookmark)
+        FirestoreManager.shared.removeBookmark(id: id)
         return true
     }
     
-    fileprivate func create(scripture: Scripture, createdAt: Date, sync: Bool = false) -> Bookmark {
+    fileprivate func create(scripture: Scripture, createdAt: Date) -> Bookmark {
         let bookmark = Bookmark(
             id: scripture.id,
             namePrimary: Utilities.shared.generateTitlePrimary(scripture: scripture),
@@ -103,25 +102,19 @@ class BookmarksManager {
             realm.add(bookmark)
         }
         #if DEBUG
-        print("Bookmark \(bookmark.id) (for \(bookmark.name_primary)) was added successfully")
+        print("Bookmark \(bookmark.id) was added successfully to Realm")
         #endif
-        if sync {
-            FirestoreManager.shared.addBookmark(bookmark)
-        }
         return bookmark
     }
     
-    fileprivate func delete(_ bookmark: Bookmark, sync: Bool = false) {
+    fileprivate func delete(_ bookmark: Bookmark) -> String {
         let id = bookmark.id
-        let name = bookmark.name_primary
         try! realm.write {
             realm.delete(bookmark)
         }
         #if DEBUG
-        print("Bookmark \(id) (for \(name)) was deleted successfully")
+        print("Bookmark \(id) was deleted successfully from Realm")
         #endif
-        if sync {
-            FirestoreManager.shared.removeBookmark(id: id)
-        }
+        return id
     }
 }
