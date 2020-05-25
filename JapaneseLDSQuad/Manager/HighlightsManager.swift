@@ -42,15 +42,15 @@ class HighlightsManager {
     
     func add(id: String,
              text: String,
-             highlightedScripture: HighlightedScripture,
+             userScripture: HighlightedScripture,
              content: String,
              lang: String) {
-        updateScriptureContent(highlightedScripture, content: content, lang: lang)
+        updateScriptureContent(userScripture, content: content, lang: lang)
         let highlight = createHighlight(
             id: id,
             text: text,
-            scripture: highlightedScripture,
-            date: highlightedScripture.date as Date)
+            userScripture: userScripture,
+            date: userScripture.date as Date)
         write(highlight)
         FirestoreManager.shared.addHighlight(highlight) {
             FirestoreManager.shared.addToUserScripture(highlight)
@@ -61,19 +61,19 @@ class HighlightsManager {
         guard let highlight = get(textId: textId) else {
             return
         }
-        guard let highlightedScripture = createHighlightedScripture(
+        guard let userScripture = getUserScripture(
             id: highlight.highlighted_scripture.id,
             date: Date()) else {
             return
         }
-        updateScriptureContent(highlightedScripture, content: content, lang: lang)
+        updateScriptureContent(userScripture, content: content, lang: lang)
         let id = highlight.id
         delete(highlight)
-        FirestoreManager.shared.removeFromUserScripture(id: id, scripture: highlightedScripture) {
+        FirestoreManager.shared.removeFromUserScripture(id: id, scripture: userScripture) {
             FirestoreManager.shared.removeHighlight(id: id)
-            if highlightedScripture.highlighted_texts.count == 0 {
-                let id = highlightedScripture.id
-                self.delete(highlightedScripture)
+            if userScripture.highlighted_texts.count == 0 {
+                let id = userScripture.id
+                self.delete(userScripture)
                 FirestoreManager.shared.removeUserScripture(id: id)
             }
         }
@@ -94,31 +94,31 @@ class HighlightsManager {
         }
     }
     
-    func sync(highlights: [HighlightedText], scripture: HighlightedScripture, content: [String: String]) {
+    func sync(highlights: [HighlightedText], userScripture: HighlightedScripture, content: [String: String]) {
         #if DEBUG
         let printedHighlights = "[\(highlights.map({$0.id}).joined(separator: ","))]"
-        print("Syncing highlightedScripture \(scripture.id) with highlights: \(printedHighlights)")
+        print("Syncing user scripture \(userScripture.id) with highlights: \(printedHighlights)")
         #endif
         
         #if DEBUG
-        let printedOldHighlights = "[\(scripture.highlighted_texts.map({$0.id}).joined(separator: ","))]"
+        let printedOldHighlights = "[\(userScripture.highlighted_texts.map({$0.id}).joined(separator: ","))]"
         print("Highlights before sync: \(printedOldHighlights)")
         #endif
         
-        updateScriptureContent(scripture, content: content["primary"]!, lang: Constants.Lang.primary)
-        updateScriptureContent(scripture, content: content["secondary"]!, lang: Constants.Lang.secondary)
+        updateScriptureContent(userScripture, content: content["primary"]!, lang: Constants.Lang.primary)
+        updateScriptureContent(userScripture, content: content["secondary"]!, lang: Constants.Lang.secondary)
         
-        scripture.highlighted_texts.forEach { delete($0) }
+        userScripture.highlighted_texts.forEach { delete($0) }
         highlights.forEach { write($0) }
         
         #if DEBUG
-        let printedNewHighlights = "[\(scripture.highlighted_texts.map({$0.id}).joined(separator: ","))]"
+        let printedNewHighlights = "[\(userScripture.highlighted_texts.map({$0.id}).joined(separator: ","))]"
         print("Highlights after sync: \(printedNewHighlights)")
         #endif
         
-        if scripture.highlighted_texts.count == 0 {
-            let id = scripture.id
-            delete(scripture)
+        if userScripture.highlighted_texts.count == 0 {
+            let id = userScripture.id
+            delete(userScripture)
             FirestoreManager.shared.removeUserScripture(id: id)
         }
         DispatchQueue.main.async {
@@ -126,21 +126,21 @@ class HighlightsManager {
         }
     }
     
-    func createHighlightedScripture(id: String, date: Date) -> HighlightedScripture? {
+    func getUserScripture(id: String, date: Date) -> HighlightedScripture? {
         guard let scripture = Utilities.shared.getScripture(id: id) else {
             return nil
         }
-        if let highlightedScripture = get(scriptureId: id) {
+        if let userScripture = get(scriptureId: id) {
             #if DEBUG
-            print("HighlightedScripture \(id) already exists in Realm so updating its date")
+            print("User scripture \(id) already exists in Realm so updating its date")
             #endif
             try! realm.write {
-                highlightedScripture.date = date as NSDate
+                userScripture.date = date as NSDate
             }
-            return highlightedScripture
+            return userScripture
         }
         #if DEBUG
-        print("HighlightedScripture \(id) does not exist in Realm so creating new one")
+        print("User scripture \(id) does not exist in Realm so creating new one")
         #endif
         return write(HighlightedScripture(scripture: scripture, date: date as NSDate))
     }
@@ -148,27 +148,27 @@ class HighlightsManager {
     func createHighlight(id: String,
                          text: String,
                          note: String = "",
-                         scripture: HighlightedScripture,
+                         userScripture: HighlightedScripture,
                          date: Date) -> HighlightedText {
         return HighlightedText(
             id: id,
-            namePrimary: Utilities.shared.generateTitlePrimary(scripture: scripture.scripture),
-            nameSecondary: Utilities.shared.generateTitleSecondary(scripture: scripture.scripture),
+            namePrimary: Utilities.shared.generateTitlePrimary(scripture: userScripture.scripture),
+            nameSecondary: Utilities.shared.generateTitleSecondary(scripture: userScripture.scripture),
             text: text,
             note: note,
-            highlightedScripture: scripture,
+            userScripture: userScripture,
             date: date as NSDate
         )
     }
     
-    fileprivate func write(_ scripture: HighlightedScripture) -> HighlightedScripture {
+    fileprivate func write(_ userScripture: HighlightedScripture) -> HighlightedScripture {
         try! realm.write {
-            realm.add(scripture)
+            realm.add(userScripture)
             #if DEBUG
-            print("Highlighted scripture \(scripture.id) was created in Realm")
+            print("User scripture \(userScripture.id) was created in Realm")
             #endif
         }
-        return scripture
+        return userScripture
     }
     
     fileprivate func write(_ highlight: HighlightedText) {
@@ -180,13 +180,13 @@ class HighlightsManager {
         #endif
     }
     
-    fileprivate func delete(_ scripture: HighlightedScripture) {
-        let id = scripture.id
+    fileprivate func delete(_ userScripture: HighlightedScripture) {
+        let id = userScripture.id
         try! realm.write {
-            realm.delete(scripture)
+            realm.delete(userScripture)
         }
         #if DEBUG
-        print("Highlighted scripture \(id) was removed from Realm")
+        print("User scripture \(id) was removed from Realm")
         #endif
     }
     
@@ -200,14 +200,14 @@ class HighlightsManager {
         #endif
     }
     
-    fileprivate func updateScriptureContent(_ highlightedScripture: HighlightedScripture,
+    fileprivate func updateScriptureContent(_ userScripture: HighlightedScripture,
                                            content: String,
                                            lang: String) {
         try! realm.write {
             if lang == Constants.Lang.primary {
-                highlightedScripture.scripture.scripture_primary = content
+                userScripture.scripture.scripture_primary = content
             } else {
-                highlightedScripture.scripture.scripture_secondary = content
+                userScripture.scripture.scripture_secondary = content
             }
         }
     }

@@ -301,7 +301,7 @@ class FirestoreManager {
                 let document = diff.document
                 let data = document.data()
                 let timestamp = data[Constants.FieldName.modifiedAt] as! Timestamp
-                guard let scripture = HighlightsManager.shared.createHighlightedScripture(
+                guard let scripture = HighlightsManager.shared.getUserScripture(
                     id: document.documentID,
                     date: timestamp.dateValue()) else {
                     return
@@ -310,7 +310,10 @@ class FirestoreManager {
                 let content = data[Constants.FieldName.content] as! [String: String]
                 self.serializeHighlights(highlights: highlights, scripture: scripture) { highlights in
                     if let highlights = highlights {
-                        HighlightsManager.shared.sync(highlights: highlights, scripture: scripture, content: content)
+                        HighlightsManager.shared.sync(
+                            highlights: highlights,
+                            userScripture: scripture,
+                            content: content)
                     }
                     syncedChangesCount += 1
                     if changes.count == syncedChangesCount {
@@ -366,7 +369,7 @@ class FirestoreManager {
                         id: snapshot.documentID,
                         text: data[Constants.FieldName.text] as! String,
                         note: data[Constants.FieldName.note] as! String,
-                        scripture: scripture,
+                        userScripture: scripture,
                         date: timestamp.dateValue()))
                 if highlights.count == highlightsToSync.count {
                     completion(highlightsToSync)

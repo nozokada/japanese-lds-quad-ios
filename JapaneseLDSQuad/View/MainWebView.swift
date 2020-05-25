@@ -83,7 +83,7 @@ class MainWebView: WKWebView {
                         guard let lang = result as? String else {
                             return
                         }
-                        guard let highlightedScripture = HighlightsManager.shared.createHighlightedScripture(
+                        guard let highlightedScripture = HighlightsManager.shared.getUserScripture(
                             id: scriptureId,
                             date: Date()) else {
                                 return
@@ -91,7 +91,7 @@ class MainWebView: WKWebView {
                         HighlightsManager.shared.add(
                             id: highlightedTextId,
                             text: highlightedText,
-                            highlightedScripture: highlightedScripture,
+                            userScripture: highlightedScripture,
                             content: scriptureContent,
                             lang: lang)
                     }

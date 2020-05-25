@@ -128,7 +128,7 @@ class SetupManager {
                                                   nameSecondary: highlightedTextToCopy.name_secondary,
                                                   text: highlightedTextToCopy.text,
                                                   note: highlightedTextToCopy.note,
-                                                  highlightedScripture: highlightedTextToCopy.highlighted_scripture,
+                                                  userScripture: highlightedTextToCopy.highlighted_scripture,
                                                   date: highlightedTextToCopy.date)
             realm.create(HighlightedText.self, value: highlightedText, update: .all)
         }
