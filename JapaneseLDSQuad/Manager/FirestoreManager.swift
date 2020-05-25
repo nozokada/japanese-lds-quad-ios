@@ -268,7 +268,7 @@ class FirestoreManager {
     fileprivate func backupBookmarks(userId: String, lastSyncedAt: Date) {
         BookmarksManager.shared.getAll().forEach { bookmark in
             #if DEBUG
-            print("Backing up bookmark \(bookmark.id) in \(bookmark.name_primary)")
+            print("Backing up bookmark \(bookmark.id)")
             #endif
             addBookmark(bookmark)
         }
@@ -327,7 +327,7 @@ class FirestoreManager {
     fileprivate func backupHighlights(userId: String, lastSyncedAt: Date) {
         HighlightsManager.shared.getAll(sortBy: "date").forEach { highlight in
             #if DEBUG
-            print("Backing up highlight \(highlight.id) in \(highlight.name_primary)")
+            print("Backing up highlight \(highlight.id)")
             #endif
             addHighlight(highlight) {
                 self.addToUserScripture(highlight)

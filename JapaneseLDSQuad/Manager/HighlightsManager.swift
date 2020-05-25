@@ -176,7 +176,7 @@ class HighlightsManager {
             realm.add(highlight)
         }
         #if DEBUG
-        print("Highlight \(highlight.id) in \(highlight.name_primary) was created in Realm")
+        print("Highlight \(highlight.id) was created in Realm")
         #endif
     }
     
@@ -192,12 +192,11 @@ class HighlightsManager {
     
     fileprivate func delete(_ highlight: HighlightedText) {
         let id = highlight.id
-        let name = highlight.name_primary
         try! realm.write {
             realm.delete(highlight)
         }
         #if DEBUG
-        print("Highlight \(id) in \(name) was removed from Realm")
+        print("Highlight \(id) was removed from Realm")
         #endif
     }
     
