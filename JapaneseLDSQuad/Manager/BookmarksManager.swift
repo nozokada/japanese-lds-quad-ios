@@ -45,12 +45,10 @@ class BookmarksManager {
             #endif
             return
         }
-        if localTimestamp < serverTimestamp {
-            #if DEBUG
-            print("Bookmark \(bookmark.id) is outdated in Realm so syncing")
-            #endif
-            let _ = delete(bookmark)
-        }
+        #if DEBUG
+        print("Bookmark \(bookmark.id) is outdated in Realm so syncing")
+        #endif
+        let _ = delete(bookmark)
         let _ = create(scripture: scripture, createdAt: createdAt)
         DispatchQueue.main.async {
             self.delegate?.updateContentView()
