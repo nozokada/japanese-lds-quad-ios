@@ -38,13 +38,10 @@ class BibleDictionaryBuilder: ContentBuilder {
                 html += "<div id='\(scripture.id)' class='"
                 html += targeted ? "targeted " : ""
                 html += "'>"
-                let primaryScripture = PurchaseManager.shared.allFeaturesUnlocked
-                    ? getGSWithBibleLinks(gsString: scripture.scripture_primary)
-                    : scripture.scripture_primary
                 html += """
                 <div class='verse'>
                 <a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verse)</a>
-                <span lang='\(Constants.Lang.primary)'>\(primaryScripture)</span>
+                <span lang='\(Constants.Lang.primary)'>\(scripture.scripture_primary)</span>
                 </div>
                 """
                 html += "</div>"

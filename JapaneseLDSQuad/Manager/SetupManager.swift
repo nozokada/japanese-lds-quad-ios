@@ -107,6 +107,7 @@ class SetupManager {
         try! realm.write {
             copyUserBookmarks(to: realm, bookmarks: bookmarksToCopy)
             copyUserHighlights(to: realm, highlights: highlightsToCopy)
+            enableGSBibleLinks(to: realm)
         }
     }
     
@@ -134,5 +135,56 @@ class SetupManager {
                 date: highlightsToCopy.date)
             realm.create(HighlightedText.self, value: highlight, update: .all)
         }
+    }
+    
+    fileprivate func enableGSBibleLinks(to realm: Realm) {
+        if !PurchaseManager.shared.allFeaturesUnlocked {
+            return
+        }
+        let gsBooks = realm.objects(Book.self).filter("link BEGINSWITH 'gs_'")
+        gsBooks.forEach { gsBook in
+            gsBook.child_scriptures.forEach { scripture in
+                scripture.scripture_primary = addBibleLinks(gsString: scripture.scripture_primary)
+            }
+        }
+    }
+    
+    fileprivate func addBibleLinks(gsString: String) -> String {
+        let regex = try! NSRegularExpression(pattern: Constants.RegexPattern.passage)
+        let matchResults = regex.matches(in: gsString, range: NSMakeRange(0, gsString.count))
+        var target = gsString as NSString
+        var targetOffset = 0
+        let titlesWithoutLink = Constants.Dictionary.titlesWithoutLink.sorted(by: {$0.key.count > $1.key.count})
+        var prevLinkTitle = ""
+        for result in matchResults {
+            let range = NSMakeRange(result.range.location + targetOffset, result.range.length)
+            let match = target.substring(with: range)
+            let currLength = target.length
+            for (title, linkTitle) in titlesWithoutLink {
+                if match.contains(title) {
+                    var uri = match.replacingOccurrences(of: title, with: "\(linkTitle)/")
+                        .replacingOccurrences(of: "：", with: "/")
+                        .replacingOccurrences(of: Constants.RegexPattern.bar, with: "", options: .regularExpression)
+                        .replacingOccurrences(of: "；", with: prevLinkTitle)
+                    var link = "<a href=\"\(uri)\">\(match)</a>"
+                    if title == "；" {
+                        uri = uri.replacingOccurrences(of: title, with: prevLinkTitle)
+                        link = "；<a href=\"\(uri)\">\(match.replacingOccurrences(of: title, with: ""))</a>"
+                    } else {
+                        prevLinkTitle = linkTitle
+                    }
+                    target = target.replacingOccurrences(of: match, with: link, range: range) as NSString
+                    targetOffset += target.length - currLength
+                    break
+                }
+            }
+            for (title, linkTitle) in Constants.Dictionary.titlesWithLink {
+                if match.contains(title) {
+                    prevLinkTitle = linkTitle
+                    break
+                }
+            }
+        }
+        return target as String
     }
 }
