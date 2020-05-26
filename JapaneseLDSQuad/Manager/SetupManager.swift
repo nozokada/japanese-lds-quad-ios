@@ -72,7 +72,7 @@ class SetupManager {
                 try FileManager.default.removeItem(at: defaultRealmFileURL)
             } catch {
                 #if DEBUG
-                print("Failed to remove old default Realm file")
+                print("Removing old default Realm file failed")
                 #endif
             }
         }
@@ -81,7 +81,7 @@ class SetupManager {
             try FileManager.default.moveItem(at: newRealmURL, to: defaultRealmFileURL)
         } catch {
             #if DEBUG
-            print("Failed to rename new Realm file")
+            print("Renaming new Realm file failed")
             #endif
         }
     }
@@ -92,7 +92,7 @@ class SetupManager {
                 try FileManager.default.copyItem(at: bundleURL, to: newRealmURL)
             } catch {
                 #if DEBUG
-                print("Failed to copy Realm file from bundle")
+                print("Copying Realm file from bundle failed")
                 #endif
             }
         }
@@ -100,37 +100,39 @@ class SetupManager {
     
     fileprivate func copyUserDataToNewRealmFile(from realmToCopy: Realm, to newRealmURL: URL) {
         let bookmarksToCopy = realmToCopy.objects(Bookmark.self).sorted(byKeyPath: "date")
-        let highlightedTextsToCopy = realmToCopy.objects(HighlightedText.self).sorted(byKeyPath: "date")
+        let highlightsToCopy = realmToCopy.objects(HighlightedText.self).sorted(byKeyPath: "date")
         
         let newRealmConfig = Realm.Configuration(fileURL: newRealmURL, schemaVersion: currentSchemaVersion)
         let realm = try! Realm(configuration: newRealmConfig)
         try! realm.write {
             copyUserBookmarks(to: realm, bookmarks: bookmarksToCopy)
-            copyUserHighlights(to: realm, highlightedTexts: highlightedTextsToCopy)
+            copyUserHighlights(to: realm, highlights: highlightsToCopy)
         }
     }
     
     fileprivate func copyUserBookmarks(to realm: Realm, bookmarks: Results<Bookmark>) {
         bookmarks.forEach { bookmarkToCopy in
-            let bookmark = Bookmark(id: bookmarkToCopy.id,
-                                    namePrimary: bookmarkToCopy.name_primary,
-                                    nameSecondary: bookmarkToCopy.name_secondary,
-                                    scripture: realm.objects(Scripture.self).filter("id = '\(bookmarkToCopy.id)'").first!,
-                                    date: bookmarkToCopy.date)
+            let bookmark = Bookmark(
+                id: bookmarkToCopy.id,
+                namePrimary: bookmarkToCopy.name_primary,
+                nameSecondary: bookmarkToCopy.name_secondary,
+                scripture: realm.object(ofType: Scripture.self, forPrimaryKey: bookmarkToCopy.id)!,
+                date: bookmarkToCopy.date)
             realm.create(Bookmark.self, value: bookmark, update: .all)
         }
     }
     
-    fileprivate func copyUserHighlights(to realm: Realm, highlightedTexts: Results<HighlightedText>) {
-        highlightedTexts.forEach { highlightedTextToCopy in 
-            let highlightedText = HighlightedText(id: highlightedTextToCopy.id,
-                                                  namePrimary: highlightedTextToCopy.name_primary,
-                                                  nameSecondary: highlightedTextToCopy.name_secondary,
-                                                  text: highlightedTextToCopy.text,
-                                                  note: highlightedTextToCopy.note,
-                                                  userScripture: highlightedTextToCopy.highlighted_scripture,
-                                                  date: highlightedTextToCopy.date)
-            realm.create(HighlightedText.self, value: highlightedText, update: .all)
+    fileprivate func copyUserHighlights(to realm: Realm, highlights: Results<HighlightedText>) {
+        highlights.forEach { highlightsToCopy in 
+            let highlight = HighlightedText(
+                id: highlightsToCopy.id,
+                namePrimary: highlightsToCopy.name_primary,
+                nameSecondary: highlightsToCopy.name_secondary,
+                text: highlightsToCopy.text,
+                note: highlightsToCopy.note,
+                userScripture: highlightsToCopy.highlighted_scripture,
+                date: highlightsToCopy.date)
+            realm.create(HighlightedText.self, value: highlight, update: .all)
         }
     }
 }
