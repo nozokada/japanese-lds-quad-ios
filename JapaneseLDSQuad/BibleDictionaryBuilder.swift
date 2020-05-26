@@ -49,43 +49,4 @@ class BibleDictionaryBuilder: ContentBuilder {
         }
         return html
     }
-
-    fileprivate func getGSWithBibleLinks(gsString: String) -> String {
-        let regex = try! NSRegularExpression(pattern: Constants.RegexPattern.passage)
-        let matchResults = regex.matches(in: gsString, range: NSMakeRange(0, gsString.count))
-        var target = gsString as NSString
-        var targetOffset = 0
-        let titlesWithoutLink = Constants.Dictionary.titlesWithoutLink.sorted(by: {$0.key.count > $1.key.count})
-        var prevLinkTitle = ""
-        for result in matchResults {
-            let range = NSMakeRange(result.range.location + targetOffset, result.range.length)
-            let match = target.substring(with: range)
-            let currLength = target.length
-            for (title, linkTitle) in titlesWithoutLink {
-                if match.contains(title) {
-                    var uri = match.replacingOccurrences(of: title, with: "\(linkTitle)/")
-                        .replacingOccurrences(of: "：", with: "/")
-                        .replacingOccurrences(of: Constants.RegexPattern.bar, with: "", options: .regularExpression)
-                        .replacingOccurrences(of: "；", with: prevLinkTitle)
-                    var link = "<a href=\"\(uri)\">\(match)</a>"
-                    if title == "；" {
-                        uri = uri.replacingOccurrences(of: title, with: prevLinkTitle)
-                        link = "；<a href=\"\(uri)\">\(match.replacingOccurrences(of: title, with: ""))</a>"
-                    } else {
-                        prevLinkTitle = linkTitle
-                    }
-                    target = target.replacingOccurrences(of: match, with: link, range: range) as NSString
-                    targetOffset += target.length - currLength
-                    break
-                }
-            }
-            for (title, linkTitle) in Constants.Dictionary.titlesWithLink {
-                if match.contains(title) {
-                    prevLinkTitle = linkTitle
-                    break
-                }
-            }
-        }
-        return target as String
-    }
 }
