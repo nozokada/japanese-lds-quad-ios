@@ -18,7 +18,7 @@ class PurchaseManager: NSObject {
     
     func unlockProduct(withIdentifier productIdentifier: String) {
         switch productIdentifier {
-        case Constants.ProductID.allFeaturesPass:
+        case Constants.AppInfo.allFeaturesPassProductID:
             enableAllFeatures()
         default:
             break

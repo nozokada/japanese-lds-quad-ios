@@ -21,9 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.enable = true
         FirebaseApp.configure()
         
-        SetupManager.shared.initUserDefaults()
-        SetupManager.shared.initRealm()
-        FirestoreManager.shared.configure()
+        DispatchQueue(label: Constants.AppInfo.bundleID).async {
+            SetupManager.shared.initUserDefaults()
+            SetupManager.shared.initRealm()
+            FirestoreManager.shared.configure()
+        }
 //        PurchaseManager.shared.unlockProduct(withIdentifier: Constants.ProductID.allFeaturesPass)
         SKPaymentQueue.default().add(StoreObserver.shared)
         return true

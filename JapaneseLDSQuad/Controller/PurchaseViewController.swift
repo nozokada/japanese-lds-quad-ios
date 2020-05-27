@@ -13,7 +13,7 @@ class PurchaseViewController: UIViewController {
     
     var delegate: PurchaseViewDelegate?
     
-    let productIdentifiers = [Constants.ProductID.allFeaturesPass]
+    let productIdentifiers = [Constants.AppInfo.allFeaturesPassProductID]
     
     var allFeaturesPass: SKProduct?
     var allFeaturesPassName: String!

@@ -45,8 +45,9 @@ struct Constants {
         static let highlightCell = "highlightCell"
     }
     
-    struct ProductID {
-        static let allFeaturesPass = "com.nozokada.JapaneseLDSQuad.allFeaturesPass"
+    struct AppInfo {
+        static let bundleID = "com.nozokada.JapaneseLDSQuad"
+        static let allFeaturesPassProductID = "com.nozokada.JapaneseLDSQuad.allFeaturesPass"
     }
     
     struct CollectionName {
