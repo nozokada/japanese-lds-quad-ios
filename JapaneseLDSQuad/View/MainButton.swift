@@ -11,7 +11,7 @@ import UIKit
 @IBDesignable
 class MainButton: UIButton {
     
-    var buttonText: String?
+    var originalText: String?
     var spinner: MainIndicatorView?
 
     override func awakeFromNib() {
@@ -40,6 +40,7 @@ class MainButton: UIButton {
     }
     
     func showSpinner() {
+        originalText = titleLabel?.text
         setTitle("", for: .normal)
         if spinner == nil {
             spinner = MainIndicatorView(parentView: self)
@@ -48,7 +49,7 @@ class MainButton: UIButton {
     }
     
     func hideSpinner() {
-        setTitle(buttonText, for: .normal)
+        setTitle(originalText, for: .normal)
         spinner?.stopAnimating()
     }
 }
