@@ -34,7 +34,9 @@ class BibleDictionaryBuilder: ContentBuilder {
         scriptures.forEach { scripture in
             if scripture.id.count == 6 {
                 let targeted = scripture.verse == targetVerse
-                if targeted { html += "<a id='anchor'></a>" }
+                if targeted {
+                    html += "<a id='anchor'></a>"
+                }
                 html += "<div id='\(scripture.id)' class='"
                 html += targeted ? "targeted " : ""
                 html += "'>"
