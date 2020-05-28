@@ -52,7 +52,9 @@ class ContentViewController: UIViewController {
     }
     
     fileprivate func showActivityIndicator() {
-        spinner = MainIndicatorView(parentView: view)
+        if spinner == nil {
+            spinner = MainIndicatorView(parentView: view)
+        }
         spinner?.startAnimating()
     }
     
