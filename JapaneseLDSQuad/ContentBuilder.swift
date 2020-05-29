@@ -101,10 +101,11 @@ class ContentBuilder {
                     html += "<a id='anchor'></a>"
                 }
                 html += "<hr class='secondary'>"
-                html += "<div id='\(scripture.id)' class='verse-container "
+                html += "<div id='\(scripture.id)' class='"
                 html += targeted ? "targeted " : ""
                 html += bookmarked ? "bookmarked" : ""
                 html += "'>"
+                html += "<div class='verse-container'>"
                 html += """
                 <div class='verse primary'>
                 <a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verseNumber)</a>
@@ -119,6 +120,7 @@ class ContentBuilder {
                     </div>
                     """
                 }
+                html += "</div>"
                 html += "</div>"
             }
         }

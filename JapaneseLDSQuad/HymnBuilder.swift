@@ -41,9 +41,10 @@ class HymnBuilder: ContentBuilder {
                     html += "<a id='anchor'></a>"
                 }
                 html += "<hr class='secondary'>"
-                html += "<div id='\(scripture.id)' class='hymn-verse-container "
+                html += "<div id='\(scripture.id)' class='"
                 html += targeted ? "targeted " : ""
                 html += "'>"
+                html += "<div class='hymn-verse-container'>"
                 html += """
                 <div class='hymn-verse primary'>
                 <ol><span lang='\(Constants.Lang.primary)'>\(scripture.scripture_primary)</span></ol>
@@ -56,6 +57,7 @@ class HymnBuilder: ContentBuilder {
                     </div>
                     """
                 }
+                html += "</div>"
                 html += "</div>"
             }
         }

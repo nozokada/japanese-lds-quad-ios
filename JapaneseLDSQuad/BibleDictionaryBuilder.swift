@@ -37,15 +37,17 @@ class BibleDictionaryBuilder: ContentBuilder {
                 if targeted {
                     html += "<a id='anchor'></a>"
                 }
-                html += "<div id='\(scripture.id)' class='verse-container "
+                html += "<div id='\(scripture.id)' class='"
                 html += targeted ? "targeted " : ""
                 html += "'>"
+                html += "<div class='verse-container'>"
                 html += """
                 <div class='verse'>
                 <a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verse)</a>
                 <span lang='\(Constants.Lang.primary)'>\(scripture.scripture_primary)</span>
                 </div>
                 """
+                html += "</div>"
                 html += "</div>"
             }
         }
