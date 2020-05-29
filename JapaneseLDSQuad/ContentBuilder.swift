@@ -66,20 +66,26 @@ class ContentBuilder {
         var html = ""
         if let preface = scriptures.filter("verse = 'preface'").first {
             html += "<hr class='secondary'>"
+            html += "<div class='paragraph-container'>"
             html += "<div class='paragraph primary'>\(preface.scripture_primary)</div>"
             html += "<div class='paragraph secondary'>\(preface.scripture_secondary)</div>"
+            html += "</div>"
         }
         
         if let intro = scriptures.filter("verse = 'intro'").first {
             html += "<hr class='secondary'>"
+            html += "<div class='paragraph-container'>"
             html += "<div class='paragraph primary'>\(intro.scripture_primary)</div>"
             html += "<div class='paragraph secondary'>\(intro.scripture_secondary)</div>"
+            html += "</div>"
         }
         
         if let summary = scriptures.filter("verse = 'summary'").first {
             html += "<hr class='secondary'>"
+            html += "<div class='paragraph-container'>"
             html += "<div class='paragraph primary'><i>\(summary.scripture_primary)</i></div>"
             html += "<div class='paragraph secondary'><i>\(summary.scripture_secondary)</i></div>"
+            html += "</div>"
         }
         return html
     }
@@ -95,7 +101,7 @@ class ContentBuilder {
                     html += "<a id='anchor'></a>"
                 }
                 html += "<hr class='secondary'>"
-                html += "<div id='\(scripture.id)' class='"
+                html += "<div id='\(scripture.id)' class='verse-container "
                 html += targeted ? "targeted " : ""
                 html += bookmarked ? "bookmarked" : ""
                 html += "'>"
@@ -159,12 +165,15 @@ class ContentBuilder {
                 font-size: \(fontSize)em;
                 color: \(fontColor);
                 background-color: \(backgroundColor);
-                -webkit-text-size-adjust: none;
             }
             """
         
         let verse =
             """
+            .verse-container {
+                display: table;
+                width: 100%;
+            }
             .verse {
                 padding: 0.5em;
             }
@@ -199,6 +208,10 @@ class ContentBuilder {
         
         let paragraph =
             """
+            .paragraph-container {
+                display: table;
+                width: 100%;
+            }
             .paragraph {
                 padding: 0.5em;
             }
@@ -210,16 +223,16 @@ class ContentBuilder {
         
         let hymnVerse =
             """
+            .hymn-verse-container {
+                display: table;
+                width: 100%;
+            }
             .hymn-verse {
                 padding: 0.5em;
             }
             .hymn-verse.side {
                 display: table-cell;
                 width: 50%;
-            }
-            .hymn-verse ol {
-                margin: 0 auto;
-                width: 80%;
             }
             """
         

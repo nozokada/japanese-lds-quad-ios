@@ -37,7 +37,7 @@ class BibleDictionaryBuilder: ContentBuilder {
                 if targeted {
                     html += "<a id='anchor'></a>"
                 }
-                html += "<div id='\(scripture.id)' class='"
+                html += "<div id='\(scripture.id)' class='verse-container "
                 html += targeted ? "targeted " : ""
                 html += "'>"
                 html += """
