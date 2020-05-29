@@ -47,8 +47,7 @@ class BibleDictionaryBuilder: ContentBuilder {
                 <span lang='\(Constants.Lang.primary)'>\(scripture.scripture_primary)</span>
                 </div>
                 """
-                html += "</div>"
-                html += "</div>"
+                html += "</div></div>"
             }
         }
         return html

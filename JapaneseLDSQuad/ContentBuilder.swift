@@ -120,8 +120,7 @@ class ContentBuilder {
                     </div>
                     """
                 }
-                html += "</div>"
-                html += "</div>"
+                html += "</div></div>"
             }
         }
         return html
