@@ -12,6 +12,10 @@ import FirebaseAuth
 
 extension String {
     
+    var isNumeric: Bool {
+        CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: self))
+    }
+    
     var localized: String {
         return NSLocalizedString(self, comment: "")
     }

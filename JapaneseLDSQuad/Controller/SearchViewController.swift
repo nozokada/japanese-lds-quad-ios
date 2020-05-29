@@ -23,8 +23,8 @@ class SearchViewController: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var passageLookupView: UIView!
-    @IBOutlet weak var chapterTextField: UITextField!
-    @IBOutlet weak var verseTextField: UITextField!
+    @IBOutlet weak var chapterTextField: MainTextField!
+    @IBOutlet weak var verseTextField: MainTextField!
     @IBOutlet weak var searchResultCountLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
@@ -78,17 +78,25 @@ class SearchViewController: UIViewController {
     
     fileprivate func updatePassageLookupView() {
         passageLookupView.backgroundColor = Utilities.shared.getBackgroundColor()
+        chapterTextField.customizeViews()
+        verseTextField.customizeViews()
         chapterTextField.placeholder = "chapterTextFieldPlaceholder".localized
         verseTextField.placeholder = "verseTextFieldPlaceholder".localized
     }
     
     @IBAction func chapterTextFieldEditingChanged(_ sender: Any) {
         chapterText = chapterTextField.text ?? ""
+        if !chapterText.isNumeric || !verseText.isNumeric {
+            return
+        }
         updateResults()
     }
     
     @IBAction func verseTextFieldEditingChanged(_ sender: Any) {
         verseText = verseTextField.text ?? ""
+        if !chapterText.isNumeric || !verseText.isNumeric {
+            return
+        }
         updateResults()
     }
     
