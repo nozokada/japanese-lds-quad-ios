@@ -23,6 +23,8 @@
 		D40B3E7C23E896BA00276662 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40B3E7B23E896BA00276662 /* Constants.swift */; };
 		D40B3E9323E8E1B400276662 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D40B3E9523E8E1B400276662 /* Localizable.strings */; };
 		D40B3E9F23E8E6DD00276662 /* AppExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40B3E9E23E8E6DD00276662 /* AppExtensions.swift */; };
+		D40EFDE72480C342001A0106 /* MainPasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40EFDE62480C342001A0106 /* MainPasswordTextField.swift */; };
+		D40EFDE92480D0A0001A0106 /* MainTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40EFDE82480D0A0001A0106 /* MainTextField.swift */; };
 		D41EC66A24011328001521D8 /* SpeechViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EC66924011328001521D8 /* SpeechViewDelegate.swift */; };
 		D41EC66E24034822001521D8 /* SpeechUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EC66D24034822001521D8 /* SpeechUtilities.swift */; };
 		D41EC6722404CF18001521D8 /* SpeechViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EC6712404CF18001521D8 /* SpeechViewController.swift */; };
@@ -119,6 +121,8 @@
 		D40B3E9623E8E1D200276662 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D40B3E9723E8E1E700276662 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D40B3E9E23E8E6DD00276662 /* AppExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppExtensions.swift; sourceTree = "<group>"; };
+		D40EFDE62480C342001A0106 /* MainPasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPasswordTextField.swift; sourceTree = "<group>"; };
+		D40EFDE82480D0A0001A0106 /* MainTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTextField.swift; sourceTree = "<group>"; };
 		D41EC66924011328001521D8 /* SpeechViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechViewDelegate.swift; sourceTree = "<group>"; };
 		D41EC66D24034822001521D8 /* SpeechUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechUtilities.swift; sourceTree = "<group>"; };
 		D41EC6712404CF18001521D8 /* SpeechViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechViewController.swift; sourceTree = "<group>"; };
@@ -367,6 +371,8 @@
 				D475CCE423E92D5200678A85 /* MainNavigationBar.swift */,
 				D44FF28523EA91990014B30F /* MainIndicatorView.swift */,
 				D481DC3623F678C300F166B7 /* MainWebView.swift */,
+				D40EFDE82480D0A0001A0106 /* MainTextField.swift */,
+				D40EFDE62480C342001A0106 /* MainPasswordTextField.swift */,
 				D4EBF00823FBA56B00275624 /* HighlightsViewLayout.swift */,
 				D4EBF00423FA562D00275624 /* HighlightCell.swift */,
 				D4EBF00623FA726200275624 /* HighlightRegularTextLabel.swift */,
@@ -644,12 +650,14 @@
 				D4EBF00723FA726200275624 /* HighlightRegularTextLabel.swift in Sources */,
 				D41EC66E24034822001521D8 /* SpeechUtilities.swift in Sources */,
 				D4212A2123E7BC02002CD60A /* BooksViewController.swift in Sources */,
+				D40EFDE92480D0A0001A0106 /* MainTextField.swift in Sources */,
 				D44FF28623EA91990014B30F /* MainIndicatorView.swift in Sources */,
 				D47156CE2411BC11002732A8 /* PurchaseManager.swift in Sources */,
 				D430AFF12412F0BC007E9666 /* SetupManager.swift in Sources */,
 				D4DE983B240F4C4100D87829 /* PurchaseViewController.swift in Sources */,
 				D475CCFB23E9538300678A85 /* BookmarksManager.swift in Sources */,
 				D475CCF523E94EF700678A85 /* JavaScriptSnippets.swift in Sources */,
+				D40EFDE72480C342001A0106 /* MainPasswordTextField.swift in Sources */,
 				D475CCFD23E953F200678A85 /* HighlightsManager.swift in Sources */,
 				D40B3E7823E893BD00276662 /* Bookmark.swift in Sources */,
 				D47EFBC623FE5B28001E213F /* NoteViewController.swift in Sources */,

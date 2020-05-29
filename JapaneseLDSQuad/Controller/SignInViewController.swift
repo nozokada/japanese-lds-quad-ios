@@ -12,8 +12,8 @@ import FirebaseAuth
 class SignInViewController: UIViewController {
 
     @IBOutlet weak var messageTextLabel: UILabel!
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var emailTextField: MainTextField!
+    @IBOutlet weak var passwordTextField: MainPasswordTextField!
     @IBOutlet weak var signInButton: MainButton!
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var passwordResetButton: UIButton!
@@ -34,6 +34,8 @@ class SignInViewController: UIViewController {
         AuthenticationManager.shared.delegate = self
         messageTextLabel.textColor = Utilities.shared.getTextColor()
         view.backgroundColor = Utilities.shared.getBackgroundColor()
+        emailTextField.customizeViews()
+        passwordTextField.customizeViews()
     }
     
     fileprivate func alert(title: String, message: String, close: Bool = false) {

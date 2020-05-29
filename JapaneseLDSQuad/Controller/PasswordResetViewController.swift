@@ -11,7 +11,7 @@ import UIKit
 class PasswordResetViewController: UIViewController {
     
     @IBOutlet weak var messageTextLabel: UILabel!
-    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var emailTextField: MainTextField!
     @IBOutlet weak var sendButton: MainButton!
     
     override func viewDidLoad() {

@@ -11,9 +11,9 @@ import FirebaseAuth
 
 class RegisterViewController: UIViewController {
 
-    @IBOutlet weak var usernameTextField: UITextField!
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var usernameTextField: MainTextField!
+    @IBOutlet weak var emailTextField: MainTextField!
+    @IBOutlet weak var passwordTextField: MainPasswordTextField!
     @IBOutlet weak var registerButton: MainButton!
     
     override func viewDidLoad() {
@@ -29,6 +29,9 @@ class RegisterViewController: UIViewController {
         super.viewWillAppear(animated)
         AuthenticationManager.shared.delegate = self
         view.backgroundColor = Utilities.shared.getBackgroundColor()
+        usernameTextField.customizeViews()
+        emailTextField.customizeViews()
+        passwordTextField.customizeViews()
     }
     
     fileprivate func alert(title: String, message: String, close: Bool = false) {
