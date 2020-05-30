@@ -11,7 +11,6 @@ import RealmSwift
 
 class BooksViewController: UIViewController {
     
-    var realm: Realm!
     var targetBook: Book!
     var targetBookName: String!
     var books: Results<Book>!
@@ -23,9 +22,8 @@ class BooksViewController: UIViewController {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
-        setSettingsBarButton() 
-        realm = try! Realm()
-        targetBook = targetBook ?? realm.objects(Book.self).filter("id = '0'").first
+        setSettingsBarButton()
+        targetBook = targetBook ?? Utilities.shared.getBook(linkName: "jlq")
         targetBookName = targetBookName ?? "rootViewTitle".localized
         navigationItem.title = targetBookName
         isTopMenu = targetBook.parent_book == nil
