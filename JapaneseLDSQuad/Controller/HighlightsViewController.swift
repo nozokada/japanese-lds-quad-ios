@@ -35,7 +35,7 @@ class HighlightsViewController: UIViewController {
         navigationItem.title = "highlightsViewTitle".localized
         spinner = MainIndicatorView(parentView: view)
         noHighlightsLabel = getNoHighlightsMessageLabel()
-        results = realm.objects(HighlightedText.self).sorted(byKeyPath: "date")
+        results = HighlightsManager.shared.getAll()
     }
     
     override func viewWillAppear(_ animated: Bool) {

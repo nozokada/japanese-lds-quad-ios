@@ -28,7 +28,7 @@ class HighlightsManager {
         return realm.objects(HighlightedScripture.self)
     }
     
-    func getAll(sortBy: String,
+    func getAll(sortBy: String = "date",
                 ascending: Bool = false,
                 searchQuery: String? = nil) -> Results<HighlightedText> {
         if let query = searchQuery {
