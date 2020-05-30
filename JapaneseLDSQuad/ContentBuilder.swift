@@ -90,36 +90,31 @@ class ContentBuilder {
     
     func buildBody() -> String {
         var html = ""
-        scriptures.forEach { scripture in
+        for scripture in scriptures {
             let verseNumber = numbered ? scripture.verse : ""
-            if scripture.id.count == 6 {
-                let targeted = scripture.verse == targetVerse
-                let bookmarked = BookmarksManager.shared.get(bookmarkId: scripture.id) != nil
-                if targeted {
-                    html += "<a id='anchor'></a>"
-                }
-                html += "<hr class='secondary'>"
-                html += "<div id='\(scripture.id)' class='"
-                html += targeted ? "targeted " : ""
-                html += bookmarked ? "bookmarked" : ""
-                html += "'>"
-                html += "<div class='verse-container'>"
-                html += """
-                <div class='verse primary'>
-                <a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verseNumber)</a>
-                <span lang='\(Constants.Lang.primary)'>\(scripture.scripture_primary)</span>
-                </div>
-                """
-                if !scripture.scripture_secondary.isEmpty {
-                    html += """
-                    <div class='verse secondary'>
-                    <a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verseNumber)</a>
-                    <span lang='\(Constants.Lang.secondary)'>\(scripture.scripture_secondary)</span>
-                    </div>
-                    """
-                }
-                html += "</div></div>"
+            if scripture.id.count != 6 {
+                continue
             }
+            let targeted = scripture.verse == targetVerse
+            let bookmarked = BookmarksManager.shared.get(bookmarkId: scripture.id) != nil
+            html += """
+            \(targeted ? "<a id='anchor'></a>" : "")
+            <hr class='secondary'>
+            <div id='\(scripture.id)' class='\(targeted ? "targeted " : "") \(bookmarked ? "bookmarked" : "")'>
+              <div class='verse-container'>
+                <div class='verse primary'>
+                  <a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verseNumber)</a>
+                  <span lang='\(Constants.Lang.primary)'>\(scripture.scripture_primary)</span>
+                </div>
+            \(scripture.scripture_secondary.isEmpty ? "" : """
+                <div class='verse secondary'>
+                  <a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verseNumber)</a>
+                  <span lang='\(Constants.Lang.secondary)'>\(scripture.scripture_secondary)</span>
+                </div>
+            """)
+              </div>
+            </div>
+            """
         }
         return html
     }

@@ -31,24 +31,22 @@ class BibleDictionaryBuilder: ContentBuilder {
     override func buildBody() -> String {
         var html = ""
         let verse = ""
-        scriptures.forEach { scripture in
-            if scripture.id.count == 6 {
-                let targeted = scripture.verse == targetVerse
-                if targeted {
-                    html += "<a id='anchor'></a>"
-                }
-                html += "<div id='\(scripture.id)' class='"
-                html += targeted ? "targeted " : ""
-                html += "'>"
-                html += "<div class='verse-container'>"
-                html += """
-                <div class='verse'>
-                <a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verse)</a>
-                <span lang='\(Constants.Lang.primary)'>\(scripture.scripture_primary)</span>
-                </div>
-                """
-                html += "</div></div>"
+        for scripture in scriptures {
+            if scripture.id.count != 6 {
+                continue
             }
+            let targeted = scripture.verse == targetVerse
+            html += """
+            \(targeted ? "<a id='anchor'></a>" : "")
+            <div id='\(scripture.id)' class='\(targeted ? "targeted " : "")'>
+              <div class='verse-container'>
+                <div class='verse'>
+                  <a class='verse-number' href='\(scripture.id)/\(Constants.AnnotationType.bookmark)'>\(verse)</a>
+                  <span lang='\(Constants.Lang.primary)'>\(scripture.scripture_primary)</span>
+                </div>
+              </div>
+            </div>
+            """
         }
         return html
     }

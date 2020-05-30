@@ -34,31 +34,27 @@ class HymnBuilder: ContentBuilder {
     
     override func buildBody() -> String {
         var html = ""
-        scriptures.forEach { scripture in
-            if scripture.id.count == 6 {
-                let targeted = scripture.verse == targetVerse
-                if targeted {
-                    html += "<a id='anchor'></a>"
-                }
-                html += "<hr class='secondary'>"
-                html += "<div id='\(scripture.id)' class='"
-                html += targeted ? "targeted " : ""
-                html += "'>"
-                html += "<div class='hymn-verse-container'>"
-                html += """
-                <div class='hymn-verse primary'>
-                <ol><span lang='\(Constants.Lang.primary)'>\(scripture.scripture_primary)</span></ol>
-                </div>
-                """
-                if !scripture.scripture_secondary.isEmpty {
-                    html += """
-                    <div class='hymn-verse secondary'>
-                    <ol><span lang='\(Constants.Lang.secondary)'>\(scripture.scripture_secondary)</span></ol>
-                    </div>
-                    """
-                }
-                html += "</div></div>"
+        for scripture in scriptures {
+            if scripture.id.count != 6 {
+                continue
             }
+            let targeted = scripture.verse == targetVerse
+            html += """
+            \(targeted ? "<a id='anchor'></a>" : "")
+            <hr class='secondary'>
+              <div id='\(scripture.id)' class='\(targeted ? "targeted " : "")'>
+                <div class='hymn-verse-container'>
+                  <div class='hymn-verse primary'>
+                    <ol><span lang='\(Constants.Lang.primary)'>\(scripture.scripture_primary)</span></ol>
+                  </div>
+            \(scripture.scripture_secondary.isEmpty ? "" : """
+                  <div class='hymn-verse secondary'>
+                    <ol><span lang='\(Constants.Lang.secondary)'>\(scripture.scripture_secondary)</span></ol>
+                  </div>
+            """)
+              </div>
+            </div>
+            """
         }
         return html
     }
