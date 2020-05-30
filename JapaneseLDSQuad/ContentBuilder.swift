@@ -11,14 +11,12 @@ import RealmSwift
 
 class ContentBuilder {
     
-    var realm: Realm
     var dualEnabled: Bool
     var scriptures: Results<Scripture>
     var numbered: Bool
     var targetVerse: String?
     
     init(scriptures: Results<Scripture>, numbered: Bool = false) {
-        realm = try! Realm()
         self.scriptures = scriptures
         self.numbered = numbered
         dualEnabled = Utilities.shared.dualEnabled
