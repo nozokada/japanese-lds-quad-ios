@@ -117,6 +117,10 @@ class Utilities {
         return realm.objects(Scripture.self).filter("id BEGINSWITH '\(chapterId)'").sorted(byKeyPath: "id")
     }
     
+    func getScriptures(query: String) -> Results<Scripture> {
+        return realm.objects(Scripture.self).filter(query)
+    }
+    
     func generateTitlePrimary(scripture: Scripture) -> String {
         if scripture.parent_book.link.hasPrefix("gs") || scripture.parent_book.link.hasPrefix("jst") {
             if let title = Utilities.shared.getScripture(id: "\(scripture.id.prefix(4))title") {

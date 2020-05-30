@@ -11,7 +11,6 @@ import RealmSwift
 
 class SearchViewController: UIViewController {
     
-    var realm: Realm!
     var results: Results<Scripture>!
     var filteredResults: Results<Scripture>!
     var searchText = ""
@@ -33,7 +32,6 @@ class SearchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        realm = try! Realm()
         searchBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
@@ -216,14 +214,16 @@ extension SearchViewController: UISearchBarDelegate {
         let searchQuerySecondary = "scripture_secondary_raw CONTAINS[c] '\(searchText)'"
         searchQuery += "(\(searchQuerySecondary) OR \(searchQueryPrimary))"
         
-        results = realm.objects(Scripture.self).filter(searchQuery)
+        results = Utilities.shared.getScriptures(query: searchQuery)
         searchNoficationToken = results.observe { _ in
             self.updateSegmentResults()
         }
     }
     
     fileprivate func updateSegmentResults() {
-        guard let results = results else { return }
+        guard let results = results else {
+            return
+        }
         let selectedSegmentIndex = searchBar.selectedScopeButtonIndex
         let filterQuery = selectedSegmentIndex != searchBar.scopeButtonTitles!.count - 1
             ? "parent_book.parent_book.id = '\(selectedSegmentIndex + 1)'"
