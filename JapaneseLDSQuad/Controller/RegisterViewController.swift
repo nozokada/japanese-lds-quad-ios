@@ -21,7 +21,7 @@ class RegisterViewController: UIViewController {
         navigationItem.title = "registerViewTitle".localized
         usernameTextField.placeholder = "usernamePlaceholder".localized
         emailTextField.placeholder = "emailPlaceholder".localized
-        passwordTextField.placeholder = "passwordPlaceholder".localized
+        passwordTextField.placeholder = "newPasswordPlaceholder".localized
         registerButton.setTitle("registerButtonLabel".localized, for: .normal)
     }
     
