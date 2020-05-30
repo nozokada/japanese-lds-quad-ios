@@ -63,7 +63,7 @@
 "signInDescriptionLabel" = "Sign in and sync bookmarks and highlights across multiple devices";
 "emailPlaceholder" = "Email Address";
 "passwordPlaceholder" = "Password";
-"usernamePlaceholder" = "Username";
+"usernamePlaceholder" = "Username (public)";
 "signInButtonLabel" = "Sign In";
 "signOutButtonLabel" = "Sign Out";
 "syncButtonLabel" = "Sync";

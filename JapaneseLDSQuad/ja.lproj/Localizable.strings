@@ -63,7 +63,7 @@
 "signInDescriptionLabel" = "サインインすると、ブックマークや印とメモを複数の端末で同期できるようになります";
 "emailPlaceholder" = "Eメールアドレス";
 "passwordPlaceholder" = "パスワード";
-"usernamePlaceholder" = "ユーザー名";
+"usernamePlaceholder" = "ユーザー名（公開）";
 "signInButtonLabel" = "サインイン";
 "signOutButtonLabel" = "サインアウト";
 "syncButtonLabel" = "同期する";
