@@ -50,12 +50,16 @@ class ContentBuilder {
     func buildTitle() -> String {
         var html = ""
         if let title = scriptures.filter("verse = 'title'").first {
-            html += "<div class='title primary'>\(title.scripture_primary)</div>"
-            html += "<div class='title secondary'>\(title.scripture_secondary)</div>"
+            html += """
+            <div class='title primary'>\(title.scripture_primary)</div>
+            <div class='title secondary'>\(title.scripture_secondary)</div>
+            """
         }
         if let counter = scriptures.filter("verse = 'counter'").first {
-            html += "<div class='subtitle primary'>\(counter.scripture_primary)</div>"
-            html += "<div class='subtitle secondary'>\(counter.scripture_secondary)</div>"
+            html += """
+            <div class='subtitle primary'>\(counter.scripture_primary)</div>
+            <div class='subtitle secondary'>\(counter.scripture_secondary)</div>
+            """
         }
         return html
     }
@@ -63,27 +67,33 @@ class ContentBuilder {
     func buildPrefaces() -> String {
         var html = ""
         if let preface = scriptures.filter("verse = 'preface'").first {
-            html += "<hr class='secondary'>"
-            html += "<div class='paragraph-container'>"
-            html += "<div class='paragraph primary'>\(preface.scripture_primary)</div>"
-            html += "<div class='paragraph secondary'>\(preface.scripture_secondary)</div>"
-            html += "</div>"
+            html += """
+            <hr class='secondary'>
+            <div class='paragraph-container'>
+              <div class='paragraph primary'>\(preface.scripture_primary)</div>
+              <div class='paragraph secondary'>\(preface.scripture_secondary)</div>
+            </div>
+            """
         }
         
         if let intro = scriptures.filter("verse = 'intro'").first {
-            html += "<hr class='secondary'>"
-            html += "<div class='paragraph-container'>"
-            html += "<div class='paragraph primary'>\(intro.scripture_primary)</div>"
-            html += "<div class='paragraph secondary'>\(intro.scripture_secondary)</div>"
-            html += "</div>"
+            html += """
+            <hr class='secondary'>
+            <div class='paragraph-container'>
+              <div class='paragraph primary'>\(intro.scripture_primary)</div>
+              <div class='paragraph secondary'>\(intro.scripture_secondary)</div>
+            </div>
+            """
         }
         
         if let summary = scriptures.filter("verse = 'summary'").first {
-            html += "<hr class='secondary'>"
-            html += "<div class='paragraph-container'>"
-            html += "<div class='paragraph primary'><i>\(summary.scripture_primary)</i></div>"
-            html += "<div class='paragraph secondary'><i>\(summary.scripture_secondary)</i></div>"
-            html += "</div>"
+            html += """
+            <hr class='secondary'>
+            <div class='paragraph-container'>
+              <div class='paragraph primary'><i>\(summary.scripture_primary)</i></div>
+              <div class='paragraph secondary'><i>\(summary.scripture_secondary)</i></div>
+            </div>
+            """
         }
         return html
     }

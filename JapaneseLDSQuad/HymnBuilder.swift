@@ -26,8 +26,10 @@ class HymnBuilder: ContentBuilder {
     override func buildTitle() -> String {
         var html = ""
         if let title = scriptures.filter("verse = 'title'").first {
-            html += "<div class='title'>\(title.scripture_primary)</div>"
-            html += "<div class='hymn-title secondary'>\(title.scripture_secondary)</div>"
+            html += """
+            <div class='title'>\(title.scripture_primary)</div>
+            <div class='hymn-title secondary'>\(title.scripture_secondary)</div>
+            """
         }
         return html
     }
