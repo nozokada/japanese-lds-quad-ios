@@ -11,7 +11,6 @@ import RealmSwift
 
 class HighlightsViewController: UIViewController {
     
-    var realm: Realm!
     var results: Results<HighlightedText>!
     var searchText = ""
     var searchNoficationToken: NotificationToken? = nil
@@ -24,7 +23,6 @@ class HighlightsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        realm = try! Realm()
         searchBar.delegate = self
         collectionView.delegate = self
         collectionView.dataSource = self

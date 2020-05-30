@@ -11,7 +11,6 @@ import RealmSwift
 
 class BookmarksViewController: UIViewController {
     
-    var realm: Realm!
     var bookmarks: Results<Bookmark>!
     var noBookmarksLabel: UILabel!
     
@@ -19,7 +18,6 @@ class BookmarksViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        realm = try! Realm()
         tableView.delegate = self
         tableView.dataSource = self
         setSettingsBarButton()
