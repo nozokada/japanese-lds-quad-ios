@@ -83,7 +83,7 @@
                         <subviews>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RtK-t0-pAz" customClass="MainWebView" customModule="JapaneseLDSQuad" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="88" width="375" height="641"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                                     <wkPreferences key="preferences"/>
@@ -369,38 +369,38 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="heM-Hy-qRc">
-                                <rect key="frame" x="70" y="697" width="235" height="61"/>
+                                <rect key="frame" x="90.666666666666686" y="727.33333333333337" width="194" height="30.666666666666629"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oHI-ld-dSJ">
-                                        <rect key="frame" x="0.0" y="0.0" width="34.333333333333336" height="61"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="26" height="30.666666666666668"/>
                                         <state key="normal" image="Slower"/>
                                         <connections>
                                             <action selector="slowerButton:" destination="AUS-pu-oiz" eventType="touchUpInside" id="IHT-ko-U0D"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BUu-7l-7ju">
-                                        <rect key="frame" x="50.333333333333329" y="0.0" width="34" height="61"/>
+                                        <rect key="frame" x="41.999999999999986" y="0.0" width="26" height="30.666666666666668"/>
                                         <state key="normal" image="Back"/>
                                         <connections>
                                             <action selector="backButtonTapped:" destination="AUS-pu-oiz" eventType="touchUpInside" id="eNi-7h-KF6"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uey-GC-yPi">
-                                        <rect key="frame" x="100.33333333333334" y="0.0" width="34.333333333333343" height="61"/>
+                                        <rect key="frame" x="83.999999999999986" y="0.0" width="26" height="30.666666666666668"/>
                                         <state key="normal" image="Play"/>
                                         <connections>
                                             <action selector="playButtonTapped:" destination="AUS-pu-oiz" eventType="touchUpInside" id="ibJ-wk-jtZ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IBR-UL-7Gh">
-                                        <rect key="frame" x="150.66666666666666" y="0.0" width="34" height="61"/>
+                                        <rect key="frame" x="126" y="0.0" width="26" height="30.666666666666668"/>
                                         <state key="normal" image="Next"/>
                                         <connections>
                                             <action selector="nextButtonTapped:" destination="AUS-pu-oiz" eventType="touchUpInside" id="h5I-ii-aeO"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HQh-6m-qY8">
-                                        <rect key="frame" x="200.66666666666669" y="0.0" width="34.333333333333343" height="61"/>
+                                        <rect key="frame" x="168" y="0.0" width="26" height="30.666666666666668"/>
                                         <state key="normal" image="Faster"/>
                                         <connections>
                                             <action selector="fasterButtonTapped:" destination="AUS-pu-oiz" eventType="touchUpInside" id="jGW-Y4-fWL"/>
@@ -409,7 +409,7 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.0x" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJu-kZ-BDs">
-                                <rect key="frame" x="20" y="697" width="34" height="61"/>
+                                <rect key="frame" x="20" y="727.33333333333337" width="34" height="30.666666666666629"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="34" id="HaE-7F-iD2"/>
                                 </constraints>
@@ -789,7 +789,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="5Yg-DX-gml"/>
                                 </constraints>
-                                <state key="normal" title="ログイン"/>
+                                <state key="normal" title="サインイン"/>
                                 <connections>
                                     <action selector="signInButtonTapped:" destination="b6A-Oo-dWt" eventType="touchUpInside" id="AEs-qI-4li"/>
                                 </connections>
@@ -811,7 +811,7 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iqh-ex-BT3">
-                                <rect key="frame" x="100" y="376.66666666666669" width="175" height="30"/>
+                                <rect key="frame" x="100" y="384.66666666666669" width="175" height="30"/>
                                 <state key="normal" title="新規登録"/>
                                 <connections>
                                     <action selector="registerButtonTapped:" destination="b6A-Oo-dWt" eventType="touchUpInside" id="1Vr-l5-jth"/>
@@ -824,7 +824,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sFT-GT-j55">
-                                <rect key="frame" x="100" y="414.66666666666669" width="175" height="30"/>
+                                <rect key="frame" x="100" y="434.66666666666669" width="175" height="30"/>
                                 <state key="normal" title="パスワードを忘れた場合"/>
                                 <connections>
                                     <action selector="passwordResetButtonTapped:" destination="b6A-Oo-dWt" eventType="touchUpInside" id="hFh-pg-4uW"/>
@@ -847,9 +847,9 @@
                             <constraint firstItem="W7V-Q8-NPb" firstAttribute="top" secondItem="E7e-H5-QdN" secondAttribute="bottom" constant="20" id="g3B-sU-bWY"/>
                             <constraint firstItem="g13-k6-SqF" firstAttribute="leading" secondItem="Ht6-se-MAu" secondAttribute="leading" constant="100" id="g99-EL-CRh"/>
                             <constraint firstItem="Ht6-se-MAu" firstAttribute="trailing" secondItem="sFT-GT-j55" secondAttribute="trailing" constant="100" id="k62-eT-TSH"/>
-                            <constraint firstItem="Iqh-ex-BT3" firstAttribute="top" secondItem="g13-k6-SqF" secondAttribute="bottom" constant="16" id="o7T-z9-KXN"/>
+                            <constraint firstItem="Iqh-ex-BT3" firstAttribute="top" secondItem="g13-k6-SqF" secondAttribute="bottom" constant="24" id="o7T-z9-KXN"/>
                             <constraint firstItem="Ht6-se-MAu" firstAttribute="trailing" secondItem="Iqh-ex-BT3" secondAttribute="trailing" constant="100" id="pqk-Sn-pBV"/>
-                            <constraint firstItem="sFT-GT-j55" firstAttribute="top" secondItem="Iqh-ex-BT3" secondAttribute="bottom" constant="8" id="u6b-18-2MC"/>
+                            <constraint firstItem="sFT-GT-j55" firstAttribute="top" secondItem="Iqh-ex-BT3" secondAttribute="bottom" constant="20" id="u6b-18-2MC"/>
                             <constraint firstItem="g13-k6-SqF" firstAttribute="top" secondItem="W7V-Q8-NPb" secondAttribute="bottom" constant="20" id="uHc-6u-LPh"/>
                             <constraint firstItem="Ht6-se-MAu" firstAttribute="trailing" secondItem="W7V-Q8-NPb" secondAttribute="trailing" constant="20" id="viO-mF-dhF"/>
                         </constraints>
@@ -879,7 +879,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ユーザー名" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3BO-vN-pGX" customClass="MainTextField" customModule="JapaneseLDSQuad" customModuleProvider="target">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ユーザー名（公開）" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3BO-vN-pGX" customClass="MainTextField" customModule="JapaneseLDSQuad" customModuleProvider="target">
                                 <rect key="frame" x="20" y="128" width="335" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="Ght-DU-kYk"/>
@@ -897,7 +897,7 @@
                                     <action selector="registerButtonTapped:" destination="CXH-gc-ONc" eventType="touchUpInside" id="g7g-WP-Tks"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="パスワード" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BxA-iF-Itg" customClass="MainPasswordTextField" customModule="JapaneseLDSQuad" customModuleProvider="target">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="パスワード（6文字以上）" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BxA-iF-Itg" customClass="MainPasswordTextField" customModule="JapaneseLDSQuad" customModuleProvider="target">
                                 <rect key="frame" x="20" y="256" width="335" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="eDY-Kx-F8p"/>
@@ -952,7 +952,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ログインに使用しているメールアドレスを入力してください" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZAQ-2Z-K8W">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="サインイン時に使用しているメールアドレスを入力してください" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZAQ-2Z-K8W">
                                 <rect key="frame" x="20" y="128" width="335" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="u6q-fU-req"/>
