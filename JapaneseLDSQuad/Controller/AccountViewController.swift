@@ -38,6 +38,7 @@ class AccountViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         AuthenticationManager.shared.delegate = self
+        FirestoreManager.shared.delegate = self
         reload()
         tableView.tableFooterView = UIView()
     }
@@ -96,5 +97,11 @@ extension AccountViewController: AuthenticationManagerDelegate {
     
     func authenticationManagerDidReceiveMessage(_ message: String) {
         alert(title: "signOutError".localized, message: message)
+    }
+}
+
+extension AccountViewController: FirestoreManagerDelegate {
+    
+    func firestoreManagerDidSucceed() {
     }
 }
