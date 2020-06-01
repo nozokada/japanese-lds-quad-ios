@@ -44,6 +44,16 @@ class Utilities {
         return UserDefaults.standard.object(forKey: Constants.Config.lastSynced) as! Date
     }
     
+    var formattedLastSyncedDate: String {
+        return formatDate(date: lastSyncedDate)
+    }
+    
+    func formatDate(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.setLocalizedDateFormatFromTemplate("yMMMdE jm")
+        return formatter.string(from: date)
+    }
+    
     func getFont(multiplySizeBy: Float = 1) -> UIFont? {
         let name = Utilities.shared.alternativeFontEnabled
             ? Constants.Font.min

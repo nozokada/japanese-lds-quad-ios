@@ -124,11 +124,11 @@ extension BookmarksViewController: UITableViewDataSource {
             dateLabelHeight += detailTextLabelHeight
         }
         
-        let formatter = DateFormatter()
-        formatter.setLocalizedDateFormatFromTemplate("yMMMdE jm")
+//        let formatter = DateFormatter()
+//        formatter.setLocalizedDateFormatFromTemplate("yMMMdE jm")
         
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: cell.frame.width / 3, height: dateLabelHeight))
-        label.text = formatter.string(from: bookmark.date as Date)
+        label.text = Utilities.shared.formatDate(date: bookmark.date as Date)
         label.font = Utilities.shared.getFont(multiplySizeBy: 0.6)
         label.textColor = .gray
         label.numberOfLines = 0

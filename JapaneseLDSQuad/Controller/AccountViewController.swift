@@ -13,6 +13,7 @@ class AccountViewController: UITableViewController {
 
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var lastSyncDateLabel: UILabel!
     @IBOutlet weak var signOutButton: MainButton!
     @IBOutlet weak var syncSwitchLabel: UILabel!
     @IBOutlet weak var syncSwitch: UIButton!
@@ -64,6 +65,10 @@ class AccountViewController: UITableViewController {
         navigationItem.title = "signInViewTitle".localized
     }
     
+    fileprivate func updateLastSyncDateLabel() {
+        lastSyncDateLabel.text = "\("lastSyncTitleLabel".localized): \(Utilities.shared.formattedLastSyncedDate)"
+    }
+    
     fileprivate func enableSync() {
         spinner.isHidden = false
         spinner.startAnimating()
@@ -109,6 +114,7 @@ extension AccountViewController: SettingsViewDelegate {
         syncSwitchLabel.textColor = fontColor
         tableView.backgroundColor = Utilities.shared.getBackgroundColor()
         tableView.reloadData()
+        updateLastSyncDateLabel()
     }
 }
 
@@ -127,6 +133,7 @@ extension AccountViewController: FirestoreManagerDelegate {
     func firestoreManagerDidSucceed() {
         spinner.stopAnimating()
         spinner.isHidden = true
+        updateLastSyncDateLabel()
     }
 }
 
