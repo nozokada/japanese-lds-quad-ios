@@ -45,6 +45,9 @@ class Utilities {
     }
     
     var formattedLastSyncedDate: String {
+        if lastSyncedDate == Date.distantPast {
+            return "neverSynced".localized
+        }
         return formatDate(date: lastSyncedDate)
     }
     

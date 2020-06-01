@@ -68,6 +68,7 @@
 "signInButtonLabel" = "Sign In";
 "signOutButtonLabel" = "Sign Out";
 "lastSyncTitleLabel" = "Last Sync";
+"neverSynced" = "Never";
 "syncButtonLabel" = "Sync";
 "syncWarningLabel" = "If synced highlights and notes already exist in the same verse, the ones stored in this device will be overwritten. Do you proceed?";
 "passwordResetLabel" = "Forgot password?";

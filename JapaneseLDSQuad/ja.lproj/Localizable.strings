@@ -68,6 +68,7 @@
 "signInButtonLabel" = "サインイン";
 "signOutButtonLabel" = "サインアウト";
 "lastSyncTitleLabel" = "最終同時日時";
+"neverSynced" = "同期していません";
 "syncButtonLabel" = "同期する";
 "syncWarningLabel" = "同期済の印とメモが同じ節に存在する場合、この端末に保存されている印とメモは上書きされます。続行しますか？";
 "passwordResetLabel" = "パスワードをお忘れの場合";
