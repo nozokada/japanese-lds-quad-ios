@@ -25,7 +25,7 @@ class SignInViewController: UIViewController {
         emailTextField.placeholder = "emailPlaceholder".localized
         passwordTextField.placeholder = "passwordPlaceholder".localized
         signInButton.setTitle("signInButtonLabel".localized, for: .normal)
-        registerButton.setTitle("registerLabel".localized, for: .normal)
+        registerButton.setTitle("registerButtonLabel".localized, for: .normal)
         passwordResetButton.setTitle("passwordResetLabel".localized, for: .normal)
     }
     
