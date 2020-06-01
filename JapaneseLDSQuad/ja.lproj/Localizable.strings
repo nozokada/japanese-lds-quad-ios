@@ -68,7 +68,7 @@
 "signInButtonLabel" = "サインイン";
 "signOutButtonLabel" = "サインアウト";
 "syncButtonLabel" = "同期する";
-"registerLabel" = "新規登録";
+"syncWarningLabel" = "同期済の印とメモが同じ節に存在する場合、この端末に保存されている印とメモは上書きされます。続行しますか？";
 "passwordResetLabel" = "パスワードをお忘れの場合";
 "registerButtonLabel" = "新規登録";
 "passwordResetDescriptionLabel" = "サインイン時に使用しているメールアドレスを入力してください";

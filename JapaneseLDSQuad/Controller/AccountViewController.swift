@@ -62,17 +62,33 @@ class AccountViewController: UITableViewController {
         navigationItem.title = "signInViewTitle".localized
     }
     
+    fileprivate func enableSync() {
+        syncSwitch.setImage(#imageLiteral(resourceName: "ToggleOn"), for: .normal)
+        FirestoreManager.shared.enableSync()
+    }
+    
+    fileprivate func disableSync() {
+        syncSwitch.setImage(#imageLiteral(resourceName: "ToggleOff"), for: .normal)
+        FirestoreManager.shared.disableSync()
+    }
+    
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = Utilities.shared.getCellColor()
     }
     
     @IBAction func syncSwitchToggled(_ sender: Any) {
-        let state = FirestoreManager.shared.syncEnabled
-        syncSwitch.setImage(state ? #imageLiteral(resourceName: "ToggleOff") : #imageLiteral(resourceName: "ToggleOn") , for: .normal)
-        if !state {
-            FirestoreManager.shared.enableSync()
+        if FirestoreManager.shared.syncEnabled {
+            disableSync()
         } else {
-            FirestoreManager.shared.disableSync()
+            guard let viewController = storyboard?.instantiateViewController(
+                withIdentifier: Constants.StoryBoardID.dialogue) as? DialogueViewController else {
+                return
+            }
+            viewController.delegate = self
+            viewController.initData(message: "syncWarningLabel".localized)
+            viewController.modalPresentationStyle = .overFullScreen
+            viewController.modalTransitionStyle = .crossDissolve
+            present(viewController, animated: true)
         }
     }
     
@@ -105,5 +121,12 @@ extension AccountViewController: AuthenticationManagerDelegate {
 extension AccountViewController: FirestoreManagerDelegate {
     
     func firestoreManagerDidSucceed() {
+    }
+}
+
+extension AccountViewController: DialogueViewDelegate {
+    
+    func dialogueViewDidReceiveOK() {
+        enableSync()
     }
 }

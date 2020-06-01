@@ -11,27 +11,42 @@ import UIKit
 class DialogueViewController: UIViewController {
     
     var delegate: DialogueViewDelegate?
+    var messageText: String?
+    var showWithoutCancel: Bool = false
 
+    @IBOutlet weak var modalView: UIView!
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var okButton: MainButton!
     @IBOutlet weak var cancelButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        messageLabel.text = messageText
+        okButton.setTitle("okButtonLabel".localized, for: .normal)
+        if showWithoutCancel {
+            cancelButton.isHidden = true
+        } else {
+            cancelButton.setTitle("cancelButtonLabel".localized, for: .normal)
+        }
+        addDropShadow()
     }
     
-    func initData(message: String, hideCancel: Bool = false) {
-        messageLabel.text = message
-        okButton.setTitle("okButtonLabel".localized, for: .normal)
-        cancelButton.setTitle("cancelButtonLabel".localized, for: .normal)
-        cancelButton.isHidden = hideCancel
+    func initData(message: String, withoutCancel: Bool = false) {
+        messageText = message
+        showWithoutCancel = withoutCancel
+    }
+    
+    fileprivate func addDropShadow() {
+        modalView.layer.shadowOpacity = 0.5
+        modalView.layer.shadowOffset = .zero
     }
     
     @IBAction func okButtonTapped(_ sender: Any) {
         delegate?.dialogueViewDidReceiveOK()
+        dismiss(animated: true)
     }
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
-        delegate?.dialogueViewDidReceiveCancel()
+        dismiss(animated: true)
     }
 }

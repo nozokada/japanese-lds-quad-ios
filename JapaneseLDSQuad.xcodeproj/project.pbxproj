@@ -44,7 +44,6 @@
 		D44FF28C23ECAB8E0014B30F /* HymnBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44FF28B23ECAB8E0014B30F /* HymnBuilder.swift */; };
 		D44FF28E23ECB3460014B30F /* BibleDictionaryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44FF28D23ECB3460014B30F /* BibleDictionaryBuilder.swift */; };
 		D45D07C024441BE90042406E /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45D07BF24441BE90042406E /* FirestoreManager.swift */; };
-		D47156CA2410BEC5002732A8 /* PurchaseViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47156C92410BEC5002732A8 /* PurchaseViewDelegate.swift */; };
 		D47156CC2411B2D2002732A8 /* AppProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47156CB2411B2D2002732A8 /* AppProtocols.swift */; };
 		D47156CE2411BC11002732A8 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47156CD2411BC11002732A8 /* PurchaseManager.swift */; };
 		D47156D02411BF94002732A8 /* AppDataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47156CF2411BF94002732A8 /* AppDataTypes.swift */; };
@@ -149,7 +148,6 @@
 		D44FF28B23ECAB8E0014B30F /* HymnBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HymnBuilder.swift; sourceTree = "<group>"; };
 		D44FF28D23ECB3460014B30F /* BibleDictionaryBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibleDictionaryBuilder.swift; sourceTree = "<group>"; };
 		D45D07BF24441BE90042406E /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
-		D47156C92410BEC5002732A8 /* PurchaseViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewDelegate.swift; sourceTree = "<group>"; };
 		D47156CB2411B2D2002732A8 /* AppProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppProtocols.swift; sourceTree = "<group>"; };
 		D47156CD2411BC11002732A8 /* PurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseManager.swift; sourceTree = "<group>"; };
 		D47156CF2411BF94002732A8 /* AppDataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDataTypes.swift; sourceTree = "<group>"; };
@@ -326,7 +324,6 @@
 				D41EC66D24034822001521D8 /* SpeechUtilities.swift */,
 				D41EC66924011328001521D8 /* SpeechViewDelegate.swift */,
 				D4EBF00023F906E200275624 /* SettingsViewDelegate.swift */,
-				D47156C92410BEC5002732A8 /* PurchaseViewDelegate.swift */,
 				D44FF28723EC992A0014B30F /* ContentBuilder.swift */,
 				D44FF28B23ECAB8E0014B30F /* HymnBuilder.swift */,
 				D44FF28D23ECB3460014B30F /* BibleDictionaryBuilder.swift */,
@@ -634,7 +631,6 @@
 				D402AD6024273BC8003A781B /* RegisterViewController.swift in Sources */,
 				D4DE983D240F602200D87829 /* StoreManager.swift in Sources */,
 				D40B3E7C23E896BA00276662 /* Constants.swift in Sources */,
-				D47156CA2410BEC5002732A8 /* PurchaseViewDelegate.swift in Sources */,
 				D4212A2323E7BC02002CD60A /* SearchViewController.swift in Sources */,
 				D40B3E7023E892F900276662 /* Book.swift in Sources */,
 				D47EFBC823FFBB9A001E213F /* MainButton.swift in Sources */,

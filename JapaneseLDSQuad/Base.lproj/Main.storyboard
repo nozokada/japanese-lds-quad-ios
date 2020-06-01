@@ -368,7 +368,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8FV-6U-Lf7">
-                                <rect key="frame" x="29" y="317.66666666666669" width="317.33333333333331" height="176.66666666666669"/>
+                                <rect key="frame" x="29" y="316.66666666666669" width="317.33333333333331" height="178.66666666666669"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ユーザーへのメッセージをここに表示する" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Htm-45-lyz">
                                         <rect key="frame" x="20" y="19.999999999999996" width="277.33333333333331" height="40.666666666666657"/>
@@ -376,40 +376,48 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iME-CS-oRI" customClass="MainButton" customModule="JapaneseLDSQuad" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="80.666666666666629" width="277.33333333333331" height="30"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="p45-Yq-b6q">
+                                        <rect key="frame" x="20" y="80.666666666666629" width="277.33333333333331" height="78"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iME-CS-oRI" customClass="MainButton" customModule="JapaneseLDSQuad" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="277.33333333333331" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="tZV-6I-W3G"/>
+                                                </constraints>
+                                                <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
+                                                <state key="normal" title="OK"/>
+                                                <connections>
+                                                    <action selector="okButtonTapped:" destination="F1x-gM-dmb" eventType="touchUpInside" id="f9z-Nl-NUj"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FXJ-Rp-gcY">
+                                                <rect key="frame" x="0.0" y="48" width="277.33333333333331" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="4VU-Uw-JKa"/>
+                                                </constraints>
+                                                <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
+                                                <state key="normal" title="キャンセル"/>
+                                                <connections>
+                                                    <action selector="cancelButtonTapped:" destination="F1x-gM-dmb" eventType="touchUpInside" id="w3K-Ga-1sb"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="tZV-6I-W3G"/>
+                                            <constraint firstItem="FXJ-Rp-gcY" firstAttribute="leading" secondItem="p45-Yq-b6q" secondAttribute="leading" id="5XK-hh-mfV"/>
+                                            <constraint firstAttribute="trailing" secondItem="FXJ-Rp-gcY" secondAttribute="trailing" id="Amv-HE-B4N"/>
+                                            <constraint firstItem="iME-CS-oRI" firstAttribute="leading" secondItem="p45-Yq-b6q" secondAttribute="leading" id="P4s-yf-cjT"/>
+                                            <constraint firstAttribute="trailing" secondItem="iME-CS-oRI" secondAttribute="trailing" id="kYq-R2-gnE"/>
                                         </constraints>
-                                        <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
-                                        <state key="normal" title="OK"/>
-                                        <connections>
-                                            <action selector="okButtonTapped:" destination="F1x-gM-dmb" eventType="touchUpInside" id="f9z-Nl-NUj"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FXJ-Rp-gcY">
-                                        <rect key="frame" x="20" y="126.66666666666663" width="277.33333333333331" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="4VU-Uw-JKa"/>
-                                        </constraints>
-                                        <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
-                                        <state key="normal" title="キャンセル"/>
-                                        <connections>
-                                            <action selector="cancelButtonTapped:" destination="F1x-gM-dmb" eventType="touchUpInside" id="w3K-Ga-1sb"/>
-                                        </connections>
-                                    </button>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstItem="FXJ-Rp-gcY" firstAttribute="top" secondItem="iME-CS-oRI" secondAttribute="bottom" constant="16" id="A9Y-7d-rWh"/>
-                                    <constraint firstAttribute="trailing" secondItem="FXJ-Rp-gcY" secondAttribute="trailing" constant="20" id="Ecq-O1-De4"/>
+                                    <constraint firstAttribute="trailing" secondItem="p45-Yq-b6q" secondAttribute="trailing" constant="20" id="3Gn-GF-ofe"/>
                                     <constraint firstItem="Htm-45-lyz" firstAttribute="top" secondItem="8FV-6U-Lf7" secondAttribute="top" constant="20" id="FSJ-d2-5Bz"/>
-                                    <constraint firstAttribute="bottom" secondItem="FXJ-Rp-gcY" secondAttribute="bottom" constant="20" id="L9q-YO-2tT"/>
-                                    <constraint firstAttribute="trailing" secondItem="iME-CS-oRI" secondAttribute="trailing" constant="20" id="Tle-k5-AOa"/>
-                                    <constraint firstItem="FXJ-Rp-gcY" firstAttribute="leading" secondItem="8FV-6U-Lf7" secondAttribute="leading" constant="20" id="W0k-l2-uJv"/>
+                                    <constraint firstItem="p45-Yq-b6q" firstAttribute="top" secondItem="Htm-45-lyz" secondAttribute="bottom" constant="20" id="FgP-13-bJB"/>
+                                    <constraint firstItem="p45-Yq-b6q" firstAttribute="leading" secondItem="8FV-6U-Lf7" secondAttribute="leading" constant="20" id="OqW-8C-kBS"/>
                                     <constraint firstItem="Htm-45-lyz" firstAttribute="leading" secondItem="8FV-6U-Lf7" secondAttribute="leading" constant="20" id="ZwH-U3-ol1"/>
-                                    <constraint firstItem="iME-CS-oRI" firstAttribute="top" secondItem="Htm-45-lyz" secondAttribute="bottom" constant="20" id="gJB-fC-FBJ"/>
-                                    <constraint firstItem="iME-CS-oRI" firstAttribute="leading" secondItem="8FV-6U-Lf7" secondAttribute="leading" constant="20" id="kDo-UW-CJb"/>
+                                    <constraint firstAttribute="bottom" secondItem="p45-Yq-b6q" secondAttribute="bottom" constant="20" id="uNj-NG-2tl"/>
                                     <constraint firstAttribute="trailing" secondItem="Htm-45-lyz" secondAttribute="trailing" constant="20" id="xNZ-RJ-RAC"/>
                                 </constraints>
                             </view>
@@ -428,12 +436,13 @@
                     <connections>
                         <outlet property="cancelButton" destination="FXJ-Rp-gcY" id="2eE-Vb-u08"/>
                         <outlet property="messageLabel" destination="Htm-45-lyz" id="AVd-3S-weD"/>
+                        <outlet property="modalView" destination="8FV-6U-Lf7" id="s5c-VR-Xld"/>
                         <outlet property="okButton" destination="iME-CS-oRI" id="oRA-yR-UNE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OGC-OX-I6F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3702" y="1038"/>
+            <point key="canvasLocation" x="3701.5999999999999" y="1037.4384236453202"/>
         </scene>
         <!--Speech View Controller-->
         <scene sceneID="uWY-cb-npa">

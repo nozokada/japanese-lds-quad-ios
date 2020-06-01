@@ -51,6 +51,22 @@ protocol FirestoreManagerDelegate {
 protocol DialogueViewDelegate {
     
     func dialogueViewDidReceiveOK()
+}
+
+protocol PurchaseViewDelegate {
     
-    func dialogueViewDidReceiveCancel()
+    func presentPuchaseViewController()
+}
+
+extension UIViewController: PurchaseViewDelegate {
+    
+    func presentPuchaseViewController() {
+        guard let viewController = storyboard?.instantiateViewController(
+            withIdentifier: Constants.StoryBoardID.purchase) as? PurchaseViewController else {
+                return
+        }
+        viewController.modalPresentationStyle = .overFullScreen
+        viewController.modalTransitionStyle = .crossDissolve
+        present(viewController, animated: true, completion: nil)
+    }
 }

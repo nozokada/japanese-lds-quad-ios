@@ -11,8 +11,6 @@ import StoreKit
 
 class PurchaseViewController: UIViewController {
     
-    var delegate: PurchaseViewDelegate?
-    
     let productIdentifiers = [Constants.AppInfo.allFeaturesPassProductID]
     
     var allFeaturesPass: SKProduct?
@@ -80,7 +78,7 @@ class PurchaseViewController: UIViewController {
     }
     
     @IBAction func closeButtonTapped(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
 }
 
