@@ -209,22 +209,22 @@ class FirestoreManager {
         }
         let lastSyncedAt = Utilities.shared.lastSyncedDate
         syncBookmarks(userId: user.uid) {
-            DispatchQueue.main.async {
-                self.delegate?.firestoreManagerDidSucceed()
-            }
             if self.bookmarksBackupRequired {
                 self.backupBookmarks(userId: user.uid, lastSyncedAt: lastSyncedAt)
             }
             self.updateLastSyncedDate()
-        }
-        syncHighlights(userId: user.uid) {
             DispatchQueue.main.async {
                 self.delegate?.firestoreManagerDidSucceed()
             }
+        }
+        syncHighlights(userId: user.uid) {
             if self.highlightsBackupRequired {
                 self.backupHighlights(userId: user.uid, lastSyncedAt: lastSyncedAt)
             }
             self.updateLastSyncedDate()
+            DispatchQueue.main.async {
+                self.delegate?.firestoreManagerDidSucceed()
+            }
         }
     }
     
