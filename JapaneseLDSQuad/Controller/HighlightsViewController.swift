@@ -113,11 +113,13 @@ extension HighlightsViewController: UICollectionViewDataSource, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
-            let highlight = results[indexPath.row]
-            viewController.initData(scripture: highlight.highlighted_scripture.scripture)
-            navigationController?.pushViewController(viewController, animated: true)
+        guard let viewController = storyboard?.instantiateViewController(
+            withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController else {
+                return
         }
+        let highlight = results[indexPath.row]
+        viewController.initData(scripture: highlight.highlighted_scripture.scripture)
+        navigationController?.pushViewController(viewController, animated: true)
         searchBar.resignFirstResponder()
     }
 }

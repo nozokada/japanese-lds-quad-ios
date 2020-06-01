@@ -172,13 +172,15 @@ class Utilities {
         let grandParentBook = parentBook.parent_book!
         var viewControllers = [UIViewController]()
 
-        if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.books) as? BooksViewController {
+        if let viewController = storyboard?.instantiateViewController(
+            withIdentifier: Constants.StoryBoardID.books) as? BooksViewController {
             viewController.initTargetBook(targetBook: grandParentBook)
             viewControllers.append(viewController)
         }
 
         if parentBook.child_scriptures.sorted(byKeyPath: "id").last?.chapter != 1 {
-            if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.chapters) as? ChaptersViewController {
+            if let viewController = storyboard?.instantiateViewController(
+                withIdentifier: Constants.StoryBoardID.chapters) as? ChaptersViewController {
                 viewController.initTargetBook(targetBook: parentBook)
                 viewControllers.append(viewController)
             }

@@ -69,11 +69,13 @@ extension BookmarksViewController: FirestoreManagerDelegate {
 extension BookmarksViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
-            let bookmark = bookmarks[indexPath.row]
-            viewController.initData(scripture: bookmark.scripture)
-            navigationController?.pushViewController(viewController, animated: true)
+        guard let viewController = storyboard?.instantiateViewController(
+            withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController else {
+                return
         }
+        let bookmark = bookmarks[indexPath.row]
+        viewController.initData(scripture: bookmark.scripture)
+        navigationController?.pushViewController(viewController, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

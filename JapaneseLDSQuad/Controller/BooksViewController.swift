@@ -125,22 +125,28 @@ extension BooksViewController: UITableViewDelegate {
         }
         
         if selectedBook.child_books.count > 0 {
-            if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.books) as? BooksViewController {
-                viewController.initTargetBook(targetBook: selectedBook)
-                navigationController?.pushViewController(viewController, animated: true)
+            guard let viewController = storyboard?.instantiateViewController(
+                withIdentifier: Constants.StoryBoardID.books) as? BooksViewController else {
+                    return
             }
+            viewController.initTargetBook(targetBook: selectedBook)
+            navigationController?.pushViewController(viewController, animated: true)
         }
         else if selectedBook.child_scriptures.sorted(byKeyPath: "id").last?.chapter == 1 {
-            if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
-                viewController.initData(targetScriptureData: TargetScriptureData(book: selectedBook, chapter: 1))
-                navigationController?.pushViewController(viewController, animated: true)
+            guard let viewController = storyboard?.instantiateViewController(
+                withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController else {
+                    return
             }
+            viewController.initData(targetScriptureData: TargetScriptureData(book: selectedBook, chapter: 1))
+            navigationController?.pushViewController(viewController, animated: true)
         }
         else {
-            if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.chapters) as? ChaptersViewController {
-                viewController.initTargetBook(targetBook: selectedBook)
-                navigationController?.pushViewController(viewController, animated: true)
+            guard let viewController = storyboard?.instantiateViewController(
+                withIdentifier: Constants.StoryBoardID.chapters) as? ChaptersViewController else {
+                    return
             }
+            viewController.initTargetBook(targetBook: selectedBook)
+            navigationController?.pushViewController(viewController, animated: true)
         }
     }
 }

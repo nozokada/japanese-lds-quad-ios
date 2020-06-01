@@ -30,7 +30,10 @@ extension SpeechViewDelegate where Self: UIViewController {
 extension UIViewController {
     
     func addSpeechViewController() {
-        guard let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.speech) as? SpeechViewController else { return }
+        guard let viewController = storyboard?.instantiateViewController(
+            withIdentifier: Constants.StoryBoardID.speech) as? SpeechViewController else {
+                return
+        }
         addChild(viewController)
         view.addSubview(viewController.view)
         viewController.didMove(toParent: self)

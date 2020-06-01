@@ -179,19 +179,20 @@ extension ContentViewController: WKNavigationDelegate {
         guard let targetScriptureData = createTargetScriptureDataFromPath(path: path) else {
             return
         }
-        if let viewController = storyboard?.instantiateViewController(
-            withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController {
-            viewController.initData(targetScriptureData: targetScriptureData)
-            if targetChapterId == viewController.targetChapterId {
-                guard var viewControllers = navigationController?.viewControllers else {
-                    return
-                }
-                viewControllers.removeLast()
-                viewControllers.append(viewController)
-                navigationController?.setViewControllers(viewControllers, animated: false)
-            } else {
-                navigationController?.pushViewController(viewController, animated: true)
+        guard let viewController = storyboard?.instantiateViewController(
+            withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController else {
+                return
+        }
+        viewController.initData(targetScriptureData: targetScriptureData)
+        if targetChapterId == viewController.targetChapterId {
+            guard var viewControllers = navigationController?.viewControllers else {
+                return
             }
+            viewControllers.removeLast()
+            viewControllers.append(viewController)
+            navigationController?.setViewControllers(viewControllers, animated: false)
+        } else {
+            navigationController?.pushViewController(viewController, animated: true)
         }
     }
     

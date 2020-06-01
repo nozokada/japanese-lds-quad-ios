@@ -16,7 +16,11 @@ import UIKit
 extension SettingsViewDelegate where Self: UIViewController {
     
     func setSettingsBarButton() {
-        let settingsButton = UIBarButtonItem(image: UIImage(named: "Ellipsis"), style: .plain, target: self, action: #selector(presentSettingsViewController(sender:)))
+        let settingsButton = UIBarButtonItem(
+            image: UIImage(named: "Ellipsis"),
+            style: .plain,
+            target: self,
+            action: #selector(presentSettingsViewController(sender:)))
         if let barButtonItems = navigationItem.rightBarButtonItems {
             navigationItem.rightBarButtonItems = barButtonItems + [settingsButton]
         } else {
@@ -28,16 +32,20 @@ extension SettingsViewDelegate where Self: UIViewController {
 extension UIViewController {
     
     @objc func presentSettingsViewController(sender: UIBarButtonItem) {
-        if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.settings) as? SettingsViewController {
-            viewController.delegate = self as? SettingsViewDelegate
-            viewController.modalPresentationStyle = .popover
-            viewController.preferredContentSize = Constants.Size.settingsViewDimension
-            
-            guard let controller = viewController.popoverPresentationController else { return }
-            controller.barButtonItem = sender
-            controller.delegate = self
-            present(viewController, animated: true, completion: nil)
+        guard let viewController = storyboard?.instantiateViewController(
+            withIdentifier: Constants.StoryBoardID.settings) as? SettingsViewController else {
+                return
         }
+        viewController.delegate = self as? SettingsViewDelegate
+        viewController.modalPresentationStyle = .popover
+        viewController.preferredContentSize = Constants.Size.settingsViewDimension
+        
+        guard let controller = viewController.popoverPresentationController else {
+            return
+        }
+        controller.barButtonItem = sender
+        controller.delegate = self
+        present(viewController, animated: true, completion: nil)
     }
 }
 

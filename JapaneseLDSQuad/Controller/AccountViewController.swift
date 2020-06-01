@@ -54,10 +54,12 @@ class AccountViewController: UITableViewController {
     }
     
     fileprivate func presentSignInViewController() {
-        if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.signIn) {
-            navigationController?.setViewControllers([viewController], animated: false)
-            navigationItem.title = "signInViewTitle".localized
+        guard let viewController = storyboard?.instantiateViewController(
+            withIdentifier: Constants.StoryBoardID.signIn) else {
+                return
         }
+        navigationController?.setViewControllers([viewController], animated: false)
+        navigationItem.title = "signInViewTitle".localized
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

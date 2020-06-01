@@ -17,11 +17,13 @@ protocol PurchaseViewDelegate {
 extension UIViewController: PurchaseViewDelegate {
     
     func presentPuchaseViewController() {
-        if let viewController = storyboard?.instantiateViewController(withIdentifier: Constants.StoryBoardID.purchase) as? PurchaseViewController {
-            viewController.delegate = self
-            viewController.modalPresentationStyle = .overFullScreen
-            viewController.modalTransitionStyle = .crossDissolve
-            present(viewController, animated: true, completion: nil)
+        guard let viewController = storyboard?.instantiateViewController(
+            withIdentifier: Constants.StoryBoardID.purchase) as? PurchaseViewController else {
+                return
         }
+        viewController.delegate = self
+        viewController.modalPresentationStyle = .overFullScreen
+        viewController.modalTransitionStyle = .crossDissolve
+        present(viewController, animated: true, completion: nil)
     }
 }
