@@ -16,6 +16,7 @@ class AccountViewController: UITableViewController {
     @IBOutlet weak var signOutButton: MainButton!
     @IBOutlet weak var syncSwitchLabel: UILabel!
     @IBOutlet weak var syncSwitch: UIButton!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     var user: User?
     
@@ -33,6 +34,7 @@ class AccountViewController: UITableViewController {
         signOutButton.setTitle("signOutButtonLabel".localized, for: .normal)
         setSettingsBarButton()
         setSyncSwitchState()
+        spinner.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,6 +65,8 @@ class AccountViewController: UITableViewController {
     }
     
     fileprivate func enableSync() {
+        spinner.isHidden = false
+        spinner.startAnimating()
         syncSwitch.setImage(#imageLiteral(resourceName: "ToggleOn"), for: .normal)
         FirestoreManager.shared.enableSync()
     }
@@ -121,6 +125,8 @@ extension AccountViewController: AuthenticationManagerDelegate {
 extension AccountViewController: FirestoreManagerDelegate {
     
     func firestoreManagerDidSucceed() {
+        spinner.stopAnimating()
+        spinner.isHidden = true
     }
 }
 

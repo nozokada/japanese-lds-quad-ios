@@ -231,11 +231,11 @@ class FirestoreManager {
     fileprivate func syncBookmarks(userId: String, completion: @escaping () -> ()) {
         let userDocument = usersCollection.document(userId)
         bookmarksListener = userDocument.collection(
-            Constants.CollectionName.bookmarks).addSnapshotListener() { querySnapshot, error in
+            Constants.CollectionName.bookmarks).addSnapshotListener(includeMetadataChanges: true) { querySnapshot, error in
             guard let snapshot = querySnapshot else {
                 return
             }
-            if snapshot.metadata.hasPendingWrites {
+            if snapshot.metadata.hasPendingWrites || snapshot.metadata.isFromCache {
                 return
             }
             #if DEBUG
@@ -277,12 +277,12 @@ class FirestoreManager {
     
     fileprivate func syncHighlights(userId: String, completion: @escaping () -> ()) {
         let userDocument = usersCollection.document(userId)
-        highlightsListener = userDocument.collection(Constants.CollectionName.scriptures)
-            .addSnapshotListener() { querySnapshot, error in
+        highlightsListener = userDocument.collection(
+            Constants.CollectionName.scriptures).addSnapshotListener(includeMetadataChanges: true) { querySnapshot, error in
             guard let snapshot = querySnapshot else {
                 return
             }
-            if snapshot.metadata.hasPendingWrites {
+            if snapshot.metadata.hasPendingWrites || snapshot.metadata.isFromCache {
                 return
             }
             let changes = snapshot.documentChanges
