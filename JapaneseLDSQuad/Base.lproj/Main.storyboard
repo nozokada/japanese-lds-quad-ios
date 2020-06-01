@@ -362,7 +362,7 @@
         <!--Dialogue View Controller-->
         <scene sceneID="QgH-Az-Qid">
             <objects>
-                <viewController id="F1x-gM-dmb" customClass="DialogueViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="dialogue" id="F1x-gM-dmb" customClass="DialogueViewController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kHh-ks-btZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

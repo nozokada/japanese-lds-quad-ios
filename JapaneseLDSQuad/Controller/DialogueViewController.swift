@@ -20,8 +20,11 @@ class DialogueViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    func initMessage(message: String) {
+    func initData(message: String, hideCancel: Bool = false) {
         messageLabel.text = message
+        okButton.setTitle("okButtonLabel".localized, for: .normal)
+        cancelButton.setTitle("cancelButtonLabel".localized, for: .normal)
+        cancelButton.isHidden = hideCancel
     }
     
     @IBAction func okButtonTapped(_ sender: Any) {

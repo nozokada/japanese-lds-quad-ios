@@ -89,3 +89,6 @@
 "registrationError" = "登録エラー";
 "signOutError" = "サインアウトエラー";
 "passwordResetError" = "パスワード再設定エラー";
+
+"okButtonLabel" = "OK";
+"cancelButtonLabel" = "キャンセル";
