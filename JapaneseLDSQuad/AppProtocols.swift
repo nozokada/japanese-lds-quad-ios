@@ -47,3 +47,10 @@ protocol FirestoreManagerDelegate {
     
     func firestoreManagerDidSucceed()
 }
+
+protocol DialogueViewDelegate {
+    
+    func dialogueViewDidReceiveOK()
+    
+    func dialogueViewDidReceiveCancel()
+}
