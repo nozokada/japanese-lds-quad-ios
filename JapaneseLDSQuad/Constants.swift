@@ -36,6 +36,7 @@ struct Constants {
     
     struct RestorationID {
         static let highlights = "highlights"
+        static let account = "account"
     }
     
     struct ReuseID {

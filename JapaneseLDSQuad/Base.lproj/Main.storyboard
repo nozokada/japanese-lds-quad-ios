@@ -1409,7 +1409,7 @@
         <!--アカウント-->
         <scene sceneID="Hz6-Dm-kVS">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="v1G-iI-2zk" customClass="MainNavigationController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="account" automaticallyAdjustsScrollViewInsets="NO" id="v1G-iI-2zk" customClass="MainNavigationController" customModule="JapaneseLDSQuad" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="アカウント" image="Account" id="1ZQ-l0-wXI"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="CdV-8y-NSy" customClass="MainNavigationBar" customModule="JapaneseLDSQuad" customModuleProvider="target">

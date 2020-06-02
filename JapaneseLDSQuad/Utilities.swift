@@ -98,7 +98,8 @@ class Utilities {
     }
     
     func isPaid(restorationIdentifider: String) -> Bool {
-        return [Constants.RestorationID.highlights].contains(restorationIdentifider)
+        return [Constants.RestorationID.highlights,
+                Constants.RestorationID.account].contains(restorationIdentifider)
     }
     
     func getSystemLang() -> String? {

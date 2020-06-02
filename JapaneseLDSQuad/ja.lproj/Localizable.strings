@@ -56,7 +56,7 @@
 "InvalidHighlightRangeAlertMessage" = "印を付けることができない部分が選択されています";
 
 "allFeaturesPassTitleLabel" = "オール機能パス";
-"allFeaturesDescriptionLabel" = "お買い上げ頂くと、全ての機能が利用できるようになります\n\n日英横並び表示\n章と節で探す\n印とメモ\n機械音声読み上げ\n聖句ガイドの聖書へのリンク\n聖句ガイドの聖書のジョセフ・スミス訳";
+"allFeaturesDescriptionLabel" = "お買い上げ頂くと、全ての機能が利用できるようになります\n\nアカウントの作成と同期\n日英横並び表示\n章と節で探す\n印とメモ\n機械音声読み上げ\n聖句ガイドの聖書へのリンク\n聖句ガイドの聖書のジョセフ・スミス訳";
 "allFeaturesPassPurchaseButtonLabel" = "購入する";
 "allFeaturesPassRestoreButtonLabel" = "購入を復元する";
 
