@@ -172,6 +172,7 @@
 		D481DC3323F515B000F166B7 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D481DC3423F6657B00F166B7 /* JavaScriptFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaScriptFunctions.swift; sourceTree = "<group>"; };
 		D481DC3623F678C300F166B7 /* MainWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWebView.swift; sourceTree = "<group>"; };
+		D49AA7E02486BC6200E5B90F /* JapaneseLDSQuad.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JapaneseLDSQuad.entitlements; sourceTree = "<group>"; };
 		D4DE983A240F4C4100D87829 /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
 		D4DE983C240F602200D87829 /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
 		D4DFE61823F4C0DE0055B6FB /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
@@ -315,6 +316,7 @@
 		D4212A1B23E7BC02002CD60A /* JapaneseLDSQuad */ = {
 			isa = PBXGroup;
 			children = (
+				D49AA7E02486BC6200E5B90F /* JapaneseLDSQuad.entitlements */,
 				D40B3E7923E8943200276662 /* JLQ.realm */,
 				D4212A1C23E7BC02002CD60A /* AppDelegate.swift */,
 				D4212A1E23E7BC02002CD60A /* SceneDelegate.swift */,
@@ -882,8 +884,9 @@
 			baseConfigurationReference = F24AEA88112E18282C759158 /* Pods-JapaneseLDSQuad.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = JapaneseLDSQuad/JapaneseLDSQuad.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = EPF2DMU2WE;
 				INFOPLIST_FILE = JapaneseLDSQuad/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -904,8 +907,9 @@
 			baseConfigurationReference = 36031AF5C5271D1558EF428B /* Pods-JapaneseLDSQuad.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = JapaneseLDSQuad/JapaneseLDSQuad.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = EPF2DMU2WE;
 				INFOPLIST_FILE = JapaneseLDSQuad/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
