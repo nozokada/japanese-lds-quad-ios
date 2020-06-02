@@ -140,7 +140,7 @@ extension SearchViewController: UITableViewDelegate {
         
         guard let viewController = storyboard?.instantiateViewController(
             withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController else {
-                return
+            return
         }
         viewController.initData(scripture: scripture)
         navigationController?.pushViewController(viewController, animated: true)
@@ -159,7 +159,9 @@ extension SearchViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let results = filteredResults, results.count > 0 else { return UITableViewCell() }
+        guard let results = filteredResults, results.count > 0 else {
+            return UITableViewCell()
+        }
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: Constants.ReuseID.searchResultCell)
         cell.backgroundColor = Utilities.shared.getCellColor()
         

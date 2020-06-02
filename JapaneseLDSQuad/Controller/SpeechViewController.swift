@@ -139,9 +139,12 @@ class SpeechViewController: UIViewController {
     }
     
     fileprivate func playNext(withNumber: Bool = false, in lang: String = Constants.Lang.primarySpeech) {
-        guard allowedToPlayNext else { return }
-        guard let scriptures = scripturesToSpeak else { return }
-        
+        guard allowedToPlayNext else {
+            return
+        }
+        guard let scriptures = scripturesToSpeak else {
+            return
+        }
         if nextSpeechIndex < 0 || nextSpeechIndex >= scripturesToSpeak.count {
             nextSpeechIndex = 0
         }
@@ -207,8 +210,9 @@ class SpeechViewController: UIViewController {
     }
     
     @IBAction func fasterButtonTapped(_ sender: Any) {
-        guard let utterance = currentUtterance else { return }
-        
+        guard let utterance = currentUtterance else {
+            return
+        }
         changeSpeechRateMultiplier(by: Constants.Rate.speechRateMultiplierStep)
         if remainingText.isEmpty { return }
         stop()
@@ -216,8 +220,9 @@ class SpeechViewController: UIViewController {
     }
     
     @IBAction func slowerButton(_ sender: Any) {
-        guard let utterance = currentUtterance else { return }
-
+        guard let utterance = currentUtterance else {
+            return
+        }
         changeSpeechRateMultiplier(by: -Constants.Rate.speechRateMultiplierStep)
         if remainingText.isEmpty { return }
         stop()
@@ -233,8 +238,9 @@ class SpeechViewController: UIViewController {
     }
     
     @IBAction func backButtonTapped(_ sender: Any) {
-        guard let utterance = currentUtterance else { return }
-        
+        guard let utterance = currentUtterance else {
+            return
+        }
         if scripturesToSpeak == nil {
             delegate?.updateScripturesToSpeech()
         }

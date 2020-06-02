@@ -63,7 +63,7 @@ extension UIViewController: PurchaseViewDelegate {
     func presentPuchaseViewController() {
         guard let viewController = storyboard?.instantiateViewController(
             withIdentifier: Constants.StoryBoardID.purchase) as? PurchaseViewController else {
-                return
+            return
         }
         viewController.modalPresentationStyle = .overFullScreen
         viewController.modalTransitionStyle = .crossDissolve

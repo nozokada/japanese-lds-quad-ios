@@ -65,7 +65,7 @@ class ContentViewController: UIViewController {
     fileprivate func addNoteViewController() {
         guard let viewController = storyboard?.instantiateViewController(
             withIdentifier: Constants.StoryBoardID.notes) as? NoteViewController else {
-                return
+            return
         }
         addChild(viewController)
         view.addSubview(viewController.view)
@@ -131,7 +131,9 @@ extension ContentViewController: WKNavigationDelegate {
     
     fileprivate func scroll() {
         webView.evaluateJavaScript("document.documentElement.scrollHeight;") { result, error in
-            guard let height = result as? CGFloat else { return }
+            guard let height = result as? CGFloat else {
+                return
+            }
             let visibleHeight = self.webView.scrollView.bounds.size.height
             self.webView.evaluateJavaScript(JavaScriptSnippets.getAnchorOffset()) { result, error in
                 var offset: CGFloat = 0
@@ -181,7 +183,7 @@ extension ContentViewController: WKNavigationDelegate {
         }
         guard let viewController = storyboard?.instantiateViewController(
             withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController else {
-                return
+            return
         }
         viewController.initData(targetScriptureData: targetScriptureData)
         if targetChapterId == viewController.targetChapterId {

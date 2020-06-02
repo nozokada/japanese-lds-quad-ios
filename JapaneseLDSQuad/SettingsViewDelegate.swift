@@ -34,7 +34,7 @@ extension UIViewController {
     @objc func presentSettingsViewController(sender: UIBarButtonItem) {
         guard let viewController = storyboard?.instantiateViewController(
             withIdentifier: Constants.StoryBoardID.settings) as? SettingsViewController else {
-                return
+            return
         }
         viewController.delegate = self as? SettingsViewDelegate
         viewController.modalPresentationStyle = .popover

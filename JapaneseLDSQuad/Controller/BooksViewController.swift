@@ -127,7 +127,7 @@ extension BooksViewController: UITableViewDelegate {
         if selectedBook.child_books.count > 0 {
             guard let viewController = storyboard?.instantiateViewController(
                 withIdentifier: Constants.StoryBoardID.books) as? BooksViewController else {
-                    return
+                return
             }
             viewController.initTargetBook(targetBook: selectedBook)
             navigationController?.pushViewController(viewController, animated: true)
@@ -135,7 +135,7 @@ extension BooksViewController: UITableViewDelegate {
         else if selectedBook.child_scriptures.sorted(byKeyPath: "id").last?.chapter == 1 {
             guard let viewController = storyboard?.instantiateViewController(
                 withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController else {
-                    return
+                return
             }
             viewController.initData(targetScriptureData: TargetScriptureData(book: selectedBook, chapter: 1))
             navigationController?.pushViewController(viewController, animated: true)
@@ -143,7 +143,7 @@ extension BooksViewController: UITableViewDelegate {
         else {
             guard let viewController = storyboard?.instantiateViewController(
                 withIdentifier: Constants.StoryBoardID.chapters) as? ChaptersViewController else {
-                    return
+                return
             }
             viewController.initTargetBook(targetBook: selectedBook)
             navigationController?.pushViewController(viewController, animated: true)

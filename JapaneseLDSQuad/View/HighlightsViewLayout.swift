@@ -24,7 +24,9 @@ class HighlightsViewLayout: UICollectionViewLayout {
 
     private var contentHeight: CGFloat = 0
     private var contentWidth: CGFloat {
-        guard let collectionView = collectionView else { return 0 }
+        guard let collectionView = collectionView else {
+            return 0
+        }
         let insets = collectionView.contentInset
         return collectionView.bounds.width - (insets.left + insets.right)
     }
@@ -34,7 +36,9 @@ class HighlightsViewLayout: UICollectionViewLayout {
     }
     
     override func prepare() {
-        guard cache.isEmpty, let collectionView = collectionView else { return }
+        guard cache.isEmpty, let collectionView = collectionView else {
+            return
+        }
         contentHeight = 0
         
         let columnWidth = contentWidth / CGFloat(numberOfColumns)

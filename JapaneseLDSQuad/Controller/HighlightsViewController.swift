@@ -105,7 +105,10 @@ extension HighlightsViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.ReuseID.highlightCell, for: indexPath) as? HighlightCell else { return HighlightCell() }
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: Constants.ReuseID.highlightCell, for: indexPath) as? HighlightCell else {
+            return HighlightCell()
+        }
         cell.update(highlight: results[indexPath.row])
         cell.layoutIfNeeded()
         return cell
@@ -115,7 +118,7 @@ extension HighlightsViewController: UICollectionViewDataSource, UICollectionView
         collectionView.deselectItem(at: indexPath, animated: true)
         guard let viewController = storyboard?.instantiateViewController(
             withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController else {
-                return
+            return
         }
         let highlight = results[indexPath.row]
         viewController.initData(scripture: highlight.highlighted_scripture.scripture)

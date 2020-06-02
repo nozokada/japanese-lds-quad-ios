@@ -59,7 +59,7 @@ class AccountViewController: UITableViewController {
     fileprivate func presentSignInViewController() {
         guard let viewController = storyboard?.instantiateViewController(
             withIdentifier: Constants.StoryBoardID.signIn) else {
-                return
+            return
         }
         navigationController?.setViewControllers([viewController], animated: false)
         navigationItem.title = "signInViewTitle".localized

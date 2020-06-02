@@ -46,7 +46,7 @@ class SignInViewController: UIViewController {
     fileprivate func presentAccountViewController() {
         guard let viewController = storyboard?.instantiateViewController(
             withIdentifier: Constants.StoryBoardID.account) else {
-                return
+            return
         }
         navigationController?.setViewControllers([viewController], animated: false)
     }
@@ -65,7 +65,7 @@ class SignInViewController: UIViewController {
     @IBAction func registerButtonTapped(_ sender: Any) {
         guard let viewController = storyboard?.instantiateViewController(
             withIdentifier: Constants.StoryBoardID.register) else {
-                return
+            return
         }
         navigationController?.pushViewController(viewController, animated: true)
     }
@@ -73,7 +73,7 @@ class SignInViewController: UIViewController {
     @IBAction func passwordResetButtonTapped(_ sender: Any) {
         guard let viewController = storyboard?.instantiateViewController(
             withIdentifier: Constants.StoryBoardID.password) else {
-                return
+            return
         }
         navigationController?.pushViewController(viewController, animated: true)
     }

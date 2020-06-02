@@ -48,9 +48,15 @@ class MainWebView: WKWebView {
                 return
             }
             self.evaluateJavaScript(JavaScriptSnippets.getScriptureLang()) { result, error in
-                guard let scriptureLang = result as? String else { return }
-                guard let realm = try? Realm() else { return }
-                guard let scripture = realm.objects(Scripture.self).filter("id = '\(scriptureId)'").first else { return }
+                guard let scriptureLang = result as? String else {
+                    return
+                }
+                guard let realm = try? Realm() else {
+                    return
+                }
+                guard let scripture = realm.objects(Scripture.self).filter("id = '\(scriptureId)'").first else {
+                    return
+                }
                 UIPasteboard.general.string = scriptureLang == Constants.Lang.primary
                     ? scripture.scripture_primary_raw
                     : scripture.scripture_secondary_raw

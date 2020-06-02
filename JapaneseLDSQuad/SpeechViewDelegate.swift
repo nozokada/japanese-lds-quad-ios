@@ -32,7 +32,7 @@ extension UIViewController {
     func addSpeechViewController() {
         guard let viewController = storyboard?.instantiateViewController(
             withIdentifier: Constants.StoryBoardID.speech) as? SpeechViewController else {
-                return
+            return
         }
         addChild(viewController)
         view.addSubview(viewController.view)
@@ -46,7 +46,9 @@ extension UIViewController {
     
     @objc func presentSpeechViewController(sender: UIBarButtonItem) {
         if PurchaseManager.shared.allFeaturesUnlocked {
-            guard let speechViewController = getSpeechViewController() else { return }
+            guard let speechViewController = getSpeechViewController() else {
+                return
+            }
             if speechViewController.isHidden {
                 speechViewController.show()
             } else {

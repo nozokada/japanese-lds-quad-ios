@@ -105,7 +105,7 @@ extension ChaptersViewController: UITableViewDelegate {
         
         guard let viewController = storyboard?.instantiateViewController(
             withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController else {
-                return
+            return
         }
         viewController.initData(targetScriptureData: TargetScriptureData(book: targetBook, chapter: indexPath.row + 1))
         navigationController?.pushViewController(viewController, animated: true)

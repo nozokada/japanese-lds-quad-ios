@@ -71,7 +71,7 @@ extension BookmarksViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let viewController = storyboard?.instantiateViewController(
             withIdentifier: Constants.StoryBoardID.pages) as? PagesViewController else {
-                return
+            return
         }
         let bookmark = bookmarks[indexPath.row]
         viewController.initData(scripture: bookmark.scripture)
