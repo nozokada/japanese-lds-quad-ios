@@ -209,21 +209,19 @@ class FirestoreManager {
         }
         let lastSyncedAt = Utilities.shared.lastSyncedDate
         syncBookmarks(userId: user.uid) {
-            if self.bookmarksBackupRequired {
-                self.backupBookmarks(userId: user.uid, lastSyncedAt: lastSyncedAt)
-            }
-            self.updateLastSyncedDate()
-            DispatchQueue.main.async {
-                self.delegate?.firestoreManagerDidSucceed()
+            self.backupBookmarks(userId: user.uid, lastSyncedAt: lastSyncedAt) {
+                self.updateLastSyncedDate()
+                DispatchQueue.main.async {
+                    self.delegate?.firestoreManagerDidSucceed()
+                }
             }
         }
         syncHighlights(userId: user.uid) {
-            if self.highlightsBackupRequired {
-                self.backupHighlights(userId: user.uid, lastSyncedAt: lastSyncedAt)
-            }
-            self.updateLastSyncedDate()
-            DispatchQueue.main.async {
-                self.delegate?.firestoreManagerDidSucceed()
+            self.backupHighlights(userId: user.uid, lastSyncedAt: lastSyncedAt) {
+                self.updateLastSyncedDate()
+                DispatchQueue.main.async {
+                    self.delegate?.firestoreManagerDidSucceed()
+                }
             }
         }
     }
@@ -265,7 +263,11 @@ class FirestoreManager {
         }
     }
     
-    fileprivate func backupBookmarks(userId: String, lastSyncedAt: Date) {
+    fileprivate func backupBookmarks(userId: String, lastSyncedAt: Date, completion: @escaping () -> ()) {
+        if !bookmarksBackupRequired {
+            completion()
+            return
+        }
         BookmarksManager.shared.getAll().forEach { bookmark in
             #if DEBUG
             print("Backing up bookmark \(bookmark.id)")
@@ -273,6 +275,7 @@ class FirestoreManager {
             addBookmark(bookmark)
         }
         bookmarksBackupRequired = false
+        completion()
     }
     
     fileprivate func syncHighlights(userId: String, completion: @escaping () -> ()) {
@@ -327,7 +330,11 @@ class FirestoreManager {
         }
     }
     
-    fileprivate func backupHighlights(userId: String, lastSyncedAt: Date) {
+    fileprivate func backupHighlights(userId: String, lastSyncedAt: Date, completion: @escaping () -> ()) {
+        if !highlightsBackupRequired {
+            completion()
+            return
+        }
         HighlightsManager.shared.getAll(sortBy: "date").forEach { highlight in
             #if DEBUG
             print("Backing up highlight \(highlight.id)")
@@ -337,6 +344,7 @@ class FirestoreManager {
             }
         }
         highlightsBackupRequired = false
+        completion()
     }
     
     fileprivate func serializeHighlights(highlights: [DocumentReference],
