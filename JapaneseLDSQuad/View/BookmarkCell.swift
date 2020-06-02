@@ -32,10 +32,13 @@ class BookmarkCell: UITableViewCell {
         primaryTitleTextLabel?.numberOfLines = 0
         
         if Utilities.shared.dualEnabled {
+            secondaryTitleTextLabel.isHidden = false
             secondaryTitleTextLabel?.text = bookmark.name_secondary
             secondaryTitleTextLabel?.font = Utilities.shared.getFont(multiplySizeBy: 0.6)
             secondaryTitleTextLabel?.textColor = .gray
             secondaryTitleTextLabel?.numberOfLines = 0
+        } else {
+            secondaryTitleTextLabel.isHidden = true
         }
         
         dateTextLabel.text = Utilities.shared.formatDate(date: bookmark.date as Date)
