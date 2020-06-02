@@ -67,7 +67,7 @@
 "usernamePlaceholder" = "ユーザー名（公開）";
 "signInButtonLabel" = "サインイン";
 "signOutButtonLabel" = "サインアウト";
-"lastSyncTitleLabel" = "最終同時日時";
+"lastSyncTitleLabel" = "最終同期日時";
 "neverSynced" = "同期していません";
 "syncButtonLabel" = "同期する";
 "syncWarningLabel" = "他の端末で同期した印とメモが同じ節にある場合、この端末に保存されている印とメモは消去されます。続行しますか？";
