@@ -95,46 +95,12 @@ extension BookmarksViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: Constants.ReuseID.bookmarkCell)
-        let cellColor = Utilities.shared.getCellColor()
-        
-        tableView.backgroundColor = cellColor
-        cell.backgroundColor = cellColor
-        
-        let bookmark = bookmarks[indexPath.row]
-        cell.textLabel?.text = bookmark.name_primary
-        cell.textLabel?.font = Utilities.shared.getFont()
-        cell.textLabel?.textColor = Utilities.shared.getTextColor()
-        cell.textLabel?.numberOfLines = 0
-        
-        if Utilities.shared.dualEnabled {
-            let cellDetailTextLabel = bookmarks[indexPath.row].name_secondary
-            cell.detailTextLabel?.text = cellDetailTextLabel
-            cell.detailTextLabel?.font = Utilities.shared.getFont(multiplySizeBy: 0.6)
-            cell.detailTextLabel?.textColor = .gray
-            cell.detailTextLabel?.numberOfLines = 0
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: Constants.ReuseID.bookmarkCell, for: indexPath) as? BookmarkCell else {
+            return BookmarkCell()
         }
+        cell.update(bookmark: bookmarks[indexPath.row])
         cell.layoutIfNeeded()
-        
-        var dateLabelHeight = CGFloat.zero
-        if let textLabelHeight = cell.textLabel?.frame.height {
-            dateLabelHeight += textLabelHeight
-        }
-        if let detailTextLabelHeight = cell.detailTextLabel?.frame.height {
-            dateLabelHeight += detailTextLabelHeight
-        }
-        
-//        let formatter = DateFormatter()
-//        formatter.setLocalizedDateFormatFromTemplate("yMMMdE jm")
-        
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: cell.frame.width / 3, height: dateLabelHeight))
-        label.text = Utilities.shared.formatDate(date: bookmark.date as Date)
-        label.font = Utilities.shared.getFont(multiplySizeBy: 0.6)
-        label.textColor = .gray
-        label.numberOfLines = 0
-        
-        cell.accessoryView = label
-        
         return cell
     }
 }

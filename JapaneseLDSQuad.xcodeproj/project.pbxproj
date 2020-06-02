@@ -26,6 +26,7 @@
 		D40EFDE72480C342001A0106 /* MainPasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40EFDE62480C342001A0106 /* MainPasswordTextField.swift */; };
 		D40EFDE92480D0A0001A0106 /* MainTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40EFDE82480D0A0001A0106 /* MainTextField.swift */; };
 		D40EFDEB2484A259001A0106 /* DialogueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40EFDEA2484A259001A0106 /* DialogueViewController.swift */; };
+		D40EFDED2485E4CB001A0106 /* BookmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40EFDEC2485E4CB001A0106 /* BookmarkCell.swift */; };
 		D41EC66A24011328001521D8 /* SpeechViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EC66924011328001521D8 /* SpeechViewDelegate.swift */; };
 		D41EC66E24034822001521D8 /* SpeechUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EC66D24034822001521D8 /* SpeechUtilities.swift */; };
 		D41EC6722404CF18001521D8 /* SpeechViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41EC6712404CF18001521D8 /* SpeechViewController.swift */; };
@@ -124,6 +125,7 @@
 		D40EFDE62480C342001A0106 /* MainPasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPasswordTextField.swift; sourceTree = "<group>"; };
 		D40EFDE82480D0A0001A0106 /* MainTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTextField.swift; sourceTree = "<group>"; };
 		D40EFDEA2484A259001A0106 /* DialogueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogueViewController.swift; sourceTree = "<group>"; };
+		D40EFDEC2485E4CB001A0106 /* BookmarkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCell.swift; sourceTree = "<group>"; };
 		D41EC66924011328001521D8 /* SpeechViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechViewDelegate.swift; sourceTree = "<group>"; };
 		D41EC66D24034822001521D8 /* SpeechUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechUtilities.swift; sourceTree = "<group>"; };
 		D41EC6712404CF18001521D8 /* SpeechViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechViewController.swift; sourceTree = "<group>"; };
@@ -373,6 +375,7 @@
 				D481DC3623F678C300F166B7 /* MainWebView.swift */,
 				D40EFDE82480D0A0001A0106 /* MainTextField.swift */,
 				D40EFDE62480C342001A0106 /* MainPasswordTextField.swift */,
+				D40EFDEC2485E4CB001A0106 /* BookmarkCell.swift */,
 				D4EBF00823FBA56B00275624 /* HighlightsViewLayout.swift */,
 				D4EBF00423FA562D00275624 /* HighlightCell.swift */,
 				D4EBF00623FA726200275624 /* HighlightRegularTextLabel.swift */,
@@ -644,6 +647,7 @@
 				D41EC66A24011328001521D8 /* SpeechViewDelegate.swift in Sources */,
 				D40B3E7223E8932900276662 /* Scripture.swift in Sources */,
 				D4EBF00123F906E200275624 /* SettingsViewDelegate.swift in Sources */,
+				D40EFDED2485E4CB001A0106 /* BookmarkCell.swift in Sources */,
 				D4EBF00923FBA56B00275624 /* HighlightsViewLayout.swift in Sources */,
 				D475CCE023E8F2F300678A85 /* ChaptersViewController.swift in Sources */,
 				D4EBF00723FA726200275624 /* HighlightRegularTextLabel.swift in Sources */,
