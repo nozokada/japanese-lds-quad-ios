@@ -141,16 +141,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mtA-pg-6ec">
-                                                    <rect key="frame" x="15" y="19" width="187" height="126"/>
+                                                    <rect key="frame" x="15" y="15" width="187" height="134"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="ニーファイ第一書 ３：7" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nnP-wp-CTw">
-                                                            <rect key="frame" x="0.0" y="0.0" width="187" height="97.666666666666671"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="187" height="105.66666666666667"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="First Nephi (1 Ne.)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="60q-lz-sSq">
-                                                            <rect key="frame" x="0.0" y="105.66666666666667" width="187" height="20.333333333333329"/>
+                                                            <rect key="frame" x="0.0" y="113.66666666666666" width="187" height="20.333333333333343"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -171,8 +171,8 @@
                                                 <constraint firstItem="R8B-I3-NFB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mtA-pg-6ec" secondAttribute="trailing" constant="20" id="2a3-Xa-64M"/>
                                                 <constraint firstItem="R8B-I3-NFB" firstAttribute="trailing" secondItem="fkf-Ab-tCN" secondAttribute="trailingMargin" id="7np-NU-qv9"/>
                                                 <constraint firstItem="R8B-I3-NFB" firstAttribute="centerY" secondItem="mtA-pg-6ec" secondAttribute="centerY" id="IBs-pa-Mnz"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="mtA-pg-6ec" secondAttribute="bottom" constant="8" id="Jve-wB-F8v"/>
-                                                <constraint firstItem="mtA-pg-6ec" firstAttribute="top" secondItem="fkf-Ab-tCN" secondAttribute="topMargin" constant="8" id="Q2h-JS-Sqw"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="mtA-pg-6ec" secondAttribute="bottom" constant="4" id="Jve-wB-F8v"/>
+                                                <constraint firstItem="mtA-pg-6ec" firstAttribute="top" secondItem="fkf-Ab-tCN" secondAttribute="topMargin" constant="4" id="Q2h-JS-Sqw"/>
                                                 <constraint firstItem="mtA-pg-6ec" firstAttribute="leading" secondItem="fkf-Ab-tCN" secondAttribute="leadingMargin" id="Quj-d7-LCv"/>
                                             </constraints>
                                         </tableViewCellContentView>
