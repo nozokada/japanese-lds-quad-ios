@@ -70,7 +70,7 @@
 "lastSyncTitleLabel" = "Last Sync";
 "neverSynced" = "Never";
 "syncButtonLabel" = "Sync";
-"syncWarningLabel" = "If synced highlights and notes already exist in the same verse, the ones stored in this device will be overwritten. Do you proceed?";
+"syncWarningLabel" = "If highlights synced with other devices already exist for the same verse, the ones stored in this device will be removed. Do you want to proceed?";
 "passwordResetLabel" = "Forgot password?";
 "registerButtonLabel" = "Register";
 "passwordResetDescriptionLabel" = "To reset your password, enter the email address you use to sign in";

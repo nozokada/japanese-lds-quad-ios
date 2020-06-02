@@ -419,16 +419,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8FV-6U-Lf7">
-                                <rect key="frame" x="29" y="316.66666666666669" width="317.33333333333331" height="178.66666666666669"/>
+                                <rect key="frame" x="29" y="312.66666666666669" width="317.33333333333331" height="186.66666666666669"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ユーザーへのメッセージをここに表示する" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Htm-45-lyz">
-                                        <rect key="frame" x="20" y="19.999999999999996" width="277.33333333333331" height="40.666666666666657"/>
+                                        <rect key="frame" x="20" y="27.999999999999996" width="277.33333333333331" height="40.666666666666657"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="p45-Yq-b6q">
-                                        <rect key="frame" x="20" y="80.666666666666629" width="277.33333333333331" height="78"/>
+                                        <rect key="frame" x="20" y="88.666666666666629" width="277.33333333333331" height="78"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iME-CS-oRI" customClass="MainButton" customModule="JapaneseLDSQuad" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="277.33333333333331" height="30"/>
@@ -464,7 +464,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="p45-Yq-b6q" secondAttribute="trailing" constant="20" id="3Gn-GF-ofe"/>
-                                    <constraint firstItem="Htm-45-lyz" firstAttribute="top" secondItem="8FV-6U-Lf7" secondAttribute="top" constant="20" id="FSJ-d2-5Bz"/>
+                                    <constraint firstItem="Htm-45-lyz" firstAttribute="top" secondItem="8FV-6U-Lf7" secondAttribute="top" constant="28" id="FSJ-d2-5Bz"/>
                                     <constraint firstItem="p45-Yq-b6q" firstAttribute="top" secondItem="Htm-45-lyz" secondAttribute="bottom" constant="20" id="FgP-13-bJB"/>
                                     <constraint firstItem="p45-Yq-b6q" firstAttribute="leading" secondItem="8FV-6U-Lf7" secondAttribute="leading" constant="20" id="OqW-8C-kBS"/>
                                     <constraint firstItem="Htm-45-lyz" firstAttribute="leading" secondItem="8FV-6U-Lf7" secondAttribute="leading" constant="20" id="ZwH-U3-ol1"/>
@@ -504,38 +504,38 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="heM-Hy-qRc">
-                                <rect key="frame" x="70" y="697" width="235" height="61"/>
+                                <rect key="frame" x="90.666666666666686" y="727.33333333333337" width="194" height="30.666666666666629"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oHI-ld-dSJ">
-                                        <rect key="frame" x="0.0" y="0.0" width="34.333333333333336" height="61"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="26" height="30.666666666666668"/>
                                         <state key="normal" image="Slower"/>
                                         <connections>
                                             <action selector="slowerButton:" destination="AUS-pu-oiz" eventType="touchUpInside" id="IHT-ko-U0D"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BUu-7l-7ju">
-                                        <rect key="frame" x="50.333333333333329" y="0.0" width="34" height="61"/>
+                                        <rect key="frame" x="41.999999999999986" y="0.0" width="26" height="30.666666666666668"/>
                                         <state key="normal" image="Back"/>
                                         <connections>
                                             <action selector="backButtonTapped:" destination="AUS-pu-oiz" eventType="touchUpInside" id="eNi-7h-KF6"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uey-GC-yPi">
-                                        <rect key="frame" x="100.33333333333334" y="0.0" width="34.333333333333343" height="61"/>
+                                        <rect key="frame" x="83.999999999999986" y="0.0" width="26" height="30.666666666666668"/>
                                         <state key="normal" image="Play"/>
                                         <connections>
                                             <action selector="playButtonTapped:" destination="AUS-pu-oiz" eventType="touchUpInside" id="ibJ-wk-jtZ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IBR-UL-7Gh">
-                                        <rect key="frame" x="150.66666666666666" y="0.0" width="34" height="61"/>
+                                        <rect key="frame" x="126" y="0.0" width="26" height="30.666666666666668"/>
                                         <state key="normal" image="Next"/>
                                         <connections>
                                             <action selector="nextButtonTapped:" destination="AUS-pu-oiz" eventType="touchUpInside" id="h5I-ii-aeO"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HQh-6m-qY8">
-                                        <rect key="frame" x="200.66666666666669" y="0.0" width="34.333333333333343" height="61"/>
+                                        <rect key="frame" x="168" y="0.0" width="26" height="30.666666666666668"/>
                                         <state key="normal" image="Faster"/>
                                         <connections>
                                             <action selector="fasterButtonTapped:" destination="AUS-pu-oiz" eventType="touchUpInside" id="jGW-Y4-fWL"/>
@@ -544,7 +544,7 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.0x" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJu-kZ-BDs">
-                                <rect key="frame" x="20" y="697" width="34" height="61"/>
+                                <rect key="frame" x="20" y="727.33333333333337" width="34" height="30.666666666666629"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="34" id="HaE-7F-iD2"/>
                                 </constraints>
