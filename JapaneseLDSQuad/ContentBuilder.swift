@@ -90,7 +90,9 @@ class ContentBuilder {
             html += """
             <hr class='secondary'>
             <div class='paragraph-container'>
+            \(summary.scripture_primary.isEmpty ? "" : """
               <div class='paragraph primary'><i>\(summary.scripture_primary)</i></div>
+            """)
               <div class='paragraph secondary'><i>\(summary.scripture_secondary)</i></div>
             </div>
             """
