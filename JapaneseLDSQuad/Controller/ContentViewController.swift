@@ -19,9 +19,9 @@ class ContentViewController: UIViewController {
     var pageIndex = 0
     var scrollRelativeOffset: CGFloat?
     var noteViewController: NoteViewController?
+    var spinner: MainIndicatorView?
     
     @IBOutlet weak var webView: MainWebView!
-    var spinner: MainIndicatorView?
     
     override func viewDidLoad() {
         super.viewDidLoad()

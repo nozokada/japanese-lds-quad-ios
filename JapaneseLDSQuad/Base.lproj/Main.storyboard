@@ -317,8 +317,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PyN-VX-vVo">
                                 <rect key="frame" x="20.333333333333343" y="265.66666666666669" width="334.66666666666663" height="281.00000000000006"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uoH-LR-4Gf">
-                                        <rect key="frame" x="103.33333333333334" y="231" width="128" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uoH-LR-4Gf" customClass="MainButton" customModule="JapaneseLDSQuad" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="231" width="294.66666666666669" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="t2C-pq-ID4"/>
                                         </constraints>
@@ -368,7 +368,7 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uoH-LR-4Gf" secondAttribute="trailing" constant="20" id="1yO-5e-wdc"/>
+                                    <constraint firstAttribute="trailing" secondItem="uoH-LR-4Gf" secondAttribute="trailing" constant="20" id="1yO-5e-wdc"/>
                                     <constraint firstAttribute="trailing" secondItem="vpF-2M-UPj" secondAttribute="trailing" constant="20" id="5UN-Q2-qHP"/>
                                     <constraint firstAttribute="trailing" secondItem="SLF-zR-a1m" secondAttribute="trailing" constant="20" id="7h3-ZC-dL8"/>
                                     <constraint firstAttribute="trailing" secondItem="xtj-kE-MS2" secondAttribute="trailing" constant="20" id="7qP-Av-afG"/>
@@ -376,7 +376,7 @@
                                     <constraint firstAttribute="trailing" secondItem="E20-Sn-vy3" secondAttribute="trailing" constant="20" id="HbT-ZL-plh"/>
                                     <constraint firstItem="SLF-zR-a1m" firstAttribute="top" secondItem="PyN-VX-vVo" secondAttribute="top" constant="20" id="I6q-bb-Akq"/>
                                     <constraint firstItem="E20-Sn-vy3" firstAttribute="top" secondItem="SLF-zR-a1m" secondAttribute="bottom" constant="12" id="JLJ-Jw-ECN"/>
-                                    <constraint firstItem="uoH-LR-4Gf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="PyN-VX-vVo" secondAttribute="leading" constant="20" id="O7V-CR-TSG"/>
+                                    <constraint firstItem="uoH-LR-4Gf" firstAttribute="leading" secondItem="PyN-VX-vVo" secondAttribute="leading" constant="20" id="O7V-CR-TSG"/>
                                     <constraint firstItem="xtj-kE-MS2" firstAttribute="leading" secondItem="PyN-VX-vVo" secondAttribute="leading" constant="20" id="aNe-Kp-HKY"/>
                                     <constraint firstAttribute="bottom" secondItem="uoH-LR-4Gf" secondAttribute="bottom" constant="20" id="dQG-iA-YoP"/>
                                     <constraint firstItem="xtj-kE-MS2" firstAttribute="top" secondItem="E20-Sn-vy3" secondAttribute="bottom" constant="20" id="drh-TI-uiM"/>

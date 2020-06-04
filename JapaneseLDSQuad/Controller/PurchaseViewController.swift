@@ -16,12 +16,13 @@ class PurchaseViewController: UIViewController {
     var allFeaturesPass: SKProduct?
     var allFeaturesPassName: String!
     var allFeaturesPassPrice: String!
+    var spinner: MainIndicatorView?
     
     @IBOutlet weak var modalView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var purchaseButton: MainButton!
-    @IBOutlet weak var restoreButton: UIButton!
+    @IBOutlet weak var restoreButton: MainButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,11 +70,13 @@ class PurchaseViewController: UIViewController {
     
     @IBAction func purchaseButtonTapped(_ sender: Any) {
         if let pass = allFeaturesPass {
+            purchaseButton.disable()
             StoreObserver.shared.buy(pass)
         }
     }
     
     @IBAction func restoreButtonTapped(_ sender: Any) {
+        restoreButton.disable()
         StoreObserver.shared.restore()
     }
     
@@ -97,14 +100,18 @@ extension PurchaseViewController: StoreManagerDelegate {
 extension PurchaseViewController: StoreObserverDelegate {
     
     func storeObserverPurchaseDidSucceed() {
+        purchaseButton.enable()
         alert(with: "productRequestStatus".localized, message: "purchaseComplete".localized, close: true)
     }
     
     func storeObserverRestoreDidSucceed() {
+        restoreButton.enable()
         alert(with: "productRequestStatus".localized, message: "restoreComplete".localized, close: true)
     }
     
     func storeObserverDidReceiveMessage(_ message: String) {
+        purchaseButton.enable()
+        restoreButton.enable()
         alert(with: "purchaseStatus".localized, message: message)
     }
 }

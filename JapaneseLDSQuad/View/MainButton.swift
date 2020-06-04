@@ -32,14 +32,16 @@ class MainButton: UIButton {
     func enable() {
         self.alpha = 1.0
         isEnabled = true
+        hideSpinner()
     }
     
     func disable() {
         self.alpha = 0.5
         isEnabled = false
+        showSpinner()
     }
     
-    func showSpinner() {
+    fileprivate func showSpinner() {
         originalText = titleLabel?.text
         setTitle("", for: .normal)
         if spinner == nil {
@@ -48,8 +50,10 @@ class MainButton: UIButton {
         spinner?.startAnimating()
     }
     
-    func hideSpinner() {
-        setTitle(originalText, for: .normal)
+    fileprivate func hideSpinner() {
+        if originalText != nil {
+            setTitle(originalText, for: .normal)
+        }
         spinner?.stopAnimating()
     }
 }

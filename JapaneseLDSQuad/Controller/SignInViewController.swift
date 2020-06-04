@@ -58,7 +58,6 @@ class SignInViewController: UIViewController {
                 return
         }
         signInButton.disable()
-        signInButton.showSpinner()
         AuthenticationManager.shared.signIn(email: email, password: password)
     }
     
@@ -82,13 +81,11 @@ class SignInViewController: UIViewController {
 extension SignInViewController: AuthenticationManagerDelegate {
     
     func authenticationManagerDidSucceed() {
-        signInButton.hideSpinner()
         signInButton.enable()
         presentAccountViewController()
     }
     
     func authenticationManagerDidReceiveMessage(_ message: String) {
-        signInButton.hideSpinner()
         signInButton.enable()
         alert(title: "signInError".localized, message: message)
     }

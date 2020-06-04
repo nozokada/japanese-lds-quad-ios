@@ -47,7 +47,6 @@ class RegisterViewController: UIViewController {
                 return
         }
         registerButton.disable()
-        registerButton.showSpinner()
         AuthenticationManager.shared.createUser(email: email, password: password, username: username)
     }
 }
@@ -55,7 +54,6 @@ class RegisterViewController: UIViewController {
 extension RegisterViewController: AuthenticationManagerDelegate {
     
     func authenticationManagerDidSucceed() {
-        registerButton.hideSpinner()
         registerButton.enable()
         if let viewController = navigationController?.viewControllers.first as? AuthenticationManagerDelegate {
             viewController.authenticationManagerDidSucceed()
@@ -63,7 +61,6 @@ extension RegisterViewController: AuthenticationManagerDelegate {
     }
     
     func authenticationManagerDidReceiveMessage(_ message: String) {
-        registerButton.hideSpinner()
         registerButton.enable()
         alert(title: "registrationError".localized, message: message)
     }
