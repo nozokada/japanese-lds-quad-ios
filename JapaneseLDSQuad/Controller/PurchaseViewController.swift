@@ -104,6 +104,10 @@ extension PurchaseViewController: StoreObserverDelegate {
         alert(with: "productRequestStatus".localized, message: "purchaseComplete".localized, close: true)
     }
     
+    func storeObserverPurchaseDidCancel() {
+        purchaseButton.enable()
+    }
+    
     func storeObserverRestoreDidSucceed() {
         restoreButton.enable()
         alert(with: "productRequestStatus".localized, message: "restoreComplete".localized, close: true)

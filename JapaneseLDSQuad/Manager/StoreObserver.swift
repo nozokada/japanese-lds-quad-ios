@@ -49,7 +49,11 @@ class StoreObserver: NSObject {
         if let error = transaction.error {
             message += "\n\(error.localizedDescription)"
         }
-        if (transaction.error as? SKError)?.code != .paymentCancelled {
+        if (transaction.error as? SKError)?.code == .paymentCancelled {
+            DispatchQueue.main.async {
+                self.delegate?.storeObserverPurchaseDidCancel()
+            }
+        } else {
             DispatchQueue.main.async {
                 self.delegate?.storeObserverDidReceiveMessage(message)
             }
