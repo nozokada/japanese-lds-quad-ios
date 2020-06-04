@@ -47,6 +47,7 @@ class PasswordResetViewController: UIViewController {
 extension PasswordResetViewController: AuthenticationManagerDelegate {
     
     func authenticationManagerDidSucceed() {
+        sendButton.hideSpinner()
         messageTextLabel.text = "passwordResetEmailSentDescriptionLabel".localized
         sendButton.setTitle("passwordResetEmailSentButtonLabel".localized, for: .normal)
     }

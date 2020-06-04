@@ -41,7 +41,7 @@ class MainButton: UIButton {
         showSpinner()
     }
     
-    fileprivate func showSpinner() {
+    func showSpinner() {
         originalText = titleLabel?.text
         setTitle("", for: .normal)
         if spinner == nil {
@@ -50,7 +50,7 @@ class MainButton: UIButton {
         spinner?.startAnimating()
     }
     
-    fileprivate func hideSpinner() {
+    func hideSpinner() {
         if originalText != nil {
             setTitle(originalText, for: .normal)
         }

@@ -58,6 +58,7 @@ class NoteViewController: UIViewController {
         highlightedTextId = id
         reload()
         saveButton.disable()
+        saveButton.hideSpinner()
     }
     
     func show(animated: Bool = true) {
@@ -170,6 +171,7 @@ class NoteViewController: UIViewController {
         }
         HighlightsManager.shared.update(textId: text.id, note: textToSave)
         saveButton.disable()
+        saveButton.hideSpinner()
         saveButton.setTitle("noteSavedButtonLabel".localized, for: .normal)
     }
     
