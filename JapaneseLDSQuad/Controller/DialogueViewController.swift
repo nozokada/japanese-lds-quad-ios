@@ -21,6 +21,7 @@ class DialogueViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        modalView.layer.cornerRadius = Constants.Size.viewCornerRadius
         messageLabel.text = messageText
         okButton.setTitle("okButtonLabel".localized, for: .normal)
         if showWithoutCancel {

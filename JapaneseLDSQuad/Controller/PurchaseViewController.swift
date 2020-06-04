@@ -38,7 +38,7 @@ class PurchaseViewController: UIViewController {
     }
     
     fileprivate func prepareBackgroundView() {
-        modalView.layer.cornerRadius = 5
+        modalView.layer.cornerRadius = Constants.Size.viewCornerRadius
         let blurEffect = UIBlurEffect(style: .dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = view.bounds

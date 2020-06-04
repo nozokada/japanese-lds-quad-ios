@@ -20,7 +20,7 @@ class HighlightCell: UICollectionViewCell {
     }
     
     func customizeViews() {
-        layer.cornerRadius = Constants.Size.highlightCellCornerRadius
+        layer.cornerRadius = Constants.Size.viewCornerRadius
         layer.borderWidth = Constants.Size.highlightCellBorderWidth
         layer.borderColor = UIColor.lightGray.cgColor
     }

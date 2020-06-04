@@ -24,7 +24,7 @@ class MainButton: UIButton {
     }
     
     func customizeView() {
-        layer.cornerRadius = 5
+        layer.cornerRadius = Constants.Size.viewCornerRadius
         backgroundColor = Constants.NavigationBarColor.day
         setTitleColor(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), for: .normal)
     }
