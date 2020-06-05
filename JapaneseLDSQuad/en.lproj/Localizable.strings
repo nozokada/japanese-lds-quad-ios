@@ -67,7 +67,7 @@
 "usernamePlaceholder" = "Username (public)";
 "signInButtonLabel" = "Sign In";
 "signOutButtonLabel" = "Sign Out";
-"lastSyncTitleLabel" = "Last Sync";
+"lastSyncTitleLabel" = "Last sync";
 "neverSynced" = "Never";
 "syncButtonLabel" = "Sync";
 "syncWarningLabel" = "If highlights synced with other devices already exist for the same verse, the ones stored in this device will be removed. Do you want to proceed?";
