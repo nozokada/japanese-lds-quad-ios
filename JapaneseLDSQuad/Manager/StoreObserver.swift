@@ -95,7 +95,11 @@ extension StoreObserver: SKPaymentTransactionObserver {
     }
     
     func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
-        if let error = error as? SKError, error.code != .paymentCancelled {
+        if (error as? SKError)?.code == .paymentCancelled {
+            DispatchQueue.main.async {
+                self.delegate?.storeObserverRestoreDidCancel()
+            }
+        } else {
             DispatchQueue.main.async {
                 self.delegate?.storeObserverDidReceiveMessage(error.localizedDescription)
             }

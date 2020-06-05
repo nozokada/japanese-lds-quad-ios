@@ -34,6 +34,8 @@ protocol StoreObserverDelegate {
     func storeObserverPurchaseDidCancel()
 
     func storeObserverRestoreDidSucceed()
+    
+    func storeObserverRestoreDidCancel()
 
     func storeObserverDidReceiveMessage(_ message: String)
 }
