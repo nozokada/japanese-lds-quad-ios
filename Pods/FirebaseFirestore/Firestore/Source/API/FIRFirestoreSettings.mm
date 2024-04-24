@@ -31,7 +31,7 @@ using api::Settings;
 using util::ThrowInvalidArgument;
 
 // Public constant
-ABSL_CONST_INIT extern "C" const int64_t kFIRFirestoreCacheSizeUnlimited =
+extern "C" const int64_t kFIRFirestoreCacheSizeUnlimited =
     api::Settings::CacheSizeUnlimited;
 
 @implementation FIRFirestoreSettings
