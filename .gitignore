@@ -1,5 +1,7 @@
 GoogleService-Info.plist
 *.realm
+*.realm.lock
+*.realm.management/
 
 # Xcode
 #
