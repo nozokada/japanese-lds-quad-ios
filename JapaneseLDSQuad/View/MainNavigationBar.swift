@@ -24,5 +24,14 @@ class MainNavigationBar: UINavigationBar {
         titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         tintColor = UIColor.white
         isTranslucent = false
+        
+        if #available(iOS 13.0, *) {
+            let navigationBarAppearance = UINavigationBarAppearance()
+            navigationBarAppearance.titleTextAttributes = titleTextAttributes!
+            navigationBarAppearance.backgroundColor = barTintColor
+            standardAppearance = navigationBarAppearance
+            scrollEdgeAppearance = navigationBarAppearance
+            compactAppearance = navigationBarAppearance
+        }
     }
 }

@@ -179,6 +179,7 @@ class ContentBuilder {
             .verse-container {
                 display: table;
                 width: 100%;
+                table-layout: fixed;
             }
             .verse {
                 padding: 0.5em;
@@ -186,6 +187,10 @@ class ContentBuilder {
             .verse.side {
                 display: table-cell;
                 width: 50%;
+            }
+            .verse table {
+                table-layout: fixed;
+                padding: 0;
             }
             """
         
@@ -217,6 +222,7 @@ class ContentBuilder {
             .paragraph-container {
                 display: table;
                 width: 100%;
+                table-layout: fixed;
             }
             .paragraph {
                 padding: 0.5em;
@@ -232,6 +238,7 @@ class ContentBuilder {
             .hymn-verse-container {
                 display: table;
                 width: 100%;
+                table-layout: fixed;
             }
             .hymn-verse {
                 padding: 0.5em;

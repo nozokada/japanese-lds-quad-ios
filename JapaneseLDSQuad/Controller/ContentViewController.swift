@@ -25,9 +25,13 @@ class ContentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let sourceCode = JavaScriptFunctions.load()
+        let userScript = WKUserScript(source: sourceCode, injectionTime: .atDocumentStart, forMainFrameOnly: true)
+        
         webView.delegate = self
         webView.navigationDelegate = self
-        webView.evaluateJavaScript(JavaScriptFunctions.load())
+        webView.configuration.userContentController.addUserScript(userScript)
         webView.loadHTMLString(htmlContent ?? "", baseURL: Bundle.main.bundleURL)
         showActivityIndicator()
     }

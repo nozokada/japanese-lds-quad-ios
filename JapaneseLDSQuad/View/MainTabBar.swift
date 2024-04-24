@@ -23,5 +23,15 @@ class MainTabBar: UITabBar {
         barTintColor = Constants.NavigationBarColor.day
         tintColor = UIColor.white
         isTranslucent = false
+        
+        if #available(iOS 13.0, *) {
+            let tabBarAppearance = UITabBarAppearance()
+            tabBarAppearance.backgroundColor = barTintColor
+            standardAppearance = tabBarAppearance
+            
+            if #available(iOS 15.0, *) {
+                scrollEdgeAppearance = tabBarAppearance
+            }
+        }
     }
 }
